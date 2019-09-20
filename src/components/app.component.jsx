@@ -1,14 +1,14 @@
 import React from 'react';
-import logo from '../logo.svg';
-import '../App.css';
+
+import Container from '@material-ui/core/Container';
+import Typography from '@material-ui/core/Typography';
 
 const App = () => (
-  <div className="App">
-    <header className="App-header">
-      <img src={logo} className="App-logo" alt="logo" />
-      <p>Series Rush</p>
-    </header>
-  </div>
+  <Container maxWidth={false}>
+    <Typography align="center">
+      Series Rush
+    </Typography>
+  </Container>
 );
 
 export default App;
