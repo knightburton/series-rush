@@ -4,13 +4,13 @@ import 'firebase/database';
 import 'firebase/auth';
 
 export const fConfig = {
-  apiKey: 'AIzaSyCiDARv2RM3fZorLnKXFhQftIMbe3yRUGE',
-  authDomain: 'seriesrush-ea1f9.firebaseapp.com',
-  databaseURL: 'https://seriesrush-ea1f9.firebaseio.com',
-  projectId: 'seriesrush-ea1f9',
-  storageBucket: '',
-  messagingSenderId: '388274194001',
-  appId: '1:388274194001:web:f94957e5159a8b57e4da70',
+  apiKey: 'AIzaSyDSiHSZ4_hwYgaJOdts2_fBd5nk-e_lNXM',
+  authDomain: 'series-rush.firebaseapp.com',
+  databaseURL: 'https://series-rush.firebaseio.com',
+  projectId: 'series-rush',
+  storageBucket: 'series-rush.appspot.com',
+  messagingSenderId: '682132416209',
+  appId: '1:682132416209:web:1d67e168993cb6f89947f0',
 };
 
 export const rfConfig = {
