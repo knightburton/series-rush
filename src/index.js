@@ -1,12 +1,31 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import { Provider } from 'react-redux';
+import { Router } from 'react-router-dom';
+import { MuiThemeProvider } from '@material-ui/core/styles';
+
+import history from './side-effects/history';
+import configureStore from './store/configure-store';
+import theme from './theme';
 import * as serviceWorker from './serviceWorker';
 
-ReactDOM.render(<App />, document.getElementById('root'));
+import MainRoutes from './routes/main-routes';
 
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: https://bit.ly/CRA-PWA
+import 'typeface-roboto';
+
+const store = configureStore();
+
+ReactDOM.render(
+  <Provider store={store}>
+    <MuiThemeProvider theme={theme}>
+      <CssBaseline />
+      <Router history={history}>
+        <MainRoutes />
+      </Router>
+    </MuiThemeProvider>
+  </Provider>,
+  document.getElementById('root')
+);
+
 serviceWorker.unregister();
