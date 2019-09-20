@@ -1,4 +1,5 @@
 import { useState, useCallback } from 'react';
+import { FORM_ERRORS } from '../constants';
 
 const validateValue = (validator, value) => {
   if (typeof validator === 'function') return validator(value);
@@ -18,7 +19,7 @@ const getIsStateValid = (stateSchema, validationSchema, state) => Object.keys(st
 });
 
 const getError = (value, { required, validator, error }) => {
-  if (required && !value) return 'This field is required.';
+  if (required && !value) return FORM_ERRORS.REQUIRED;
   if (validator) return !validateValue(validator, value) && error ? error : '';
   return '';
 };

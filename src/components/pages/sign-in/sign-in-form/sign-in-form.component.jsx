@@ -4,6 +4,7 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 
 import useForm from '../../../../hooks/useForm';
+import { FORM_VALIDATORS, FORM_ERRORS } from '../../../../constants';
 
 import useStyles from './sign-in-form.styles';
 
@@ -15,6 +16,8 @@ const stateSchema = {
 const validationSchema = {
   email: {
     required: true,
+    validator: FORM_VALIDATORS.EMAIL,
+    error: FORM_ERRORS.EMAIL,
   },
   password: {
     required: true,
