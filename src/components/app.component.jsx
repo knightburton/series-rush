@@ -1,14 +1,14 @@
 import React from 'react';
 
-import Container from '@material-ui/core/Container';
-import Typography from '@material-ui/core/Typography';
+import AppBar from './widgets/appbar/appbar.container';
+
+import AppRoutes from '../routes/app-routes';
 
 const App = () => (
-  <Container maxWidth={false}>
-    <Typography align="center">
-      Series Rush
-    </Typography>
-  </Container>
+  <>
+    <AppBar />
+    <AppRoutes />
+  </>
 );
 
 export default App;
