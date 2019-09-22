@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 import Avatar from '@material-ui/core/Avatar';
 import Box from '@material-ui/core/Box';
@@ -34,7 +35,13 @@ const SignIn = () => {
           </Button>
         </Grid>
         <Grid item>
-          <Button color="primary" size="small" className={classes.textButton}>
+          <Button
+            color="primary"
+            size="small"
+            className={classes.textButton}
+            component={Link}
+            to="/sign-up"
+          >
             Sign Up
           </Button>
         </Grid>
