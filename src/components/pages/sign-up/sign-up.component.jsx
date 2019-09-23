@@ -6,6 +6,8 @@ import Container from '@material-ui/core/Container';
 
 import UpIcon from '@material-ui/icons/ArrowUpwardOutlined';
 
+import SignUpForm from './sign-up-form/sign-up-form.container';
+
 import useStyles from './sign-up.styles';
 
 const SignUp = () => {
@@ -18,6 +20,8 @@ const SignUp = () => {
           <UpIcon />
         </Avatar>
       </Box>
+
+      <SignUpForm />
     </Container>
   );
 };
