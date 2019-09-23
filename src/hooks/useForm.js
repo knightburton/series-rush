@@ -5,9 +5,9 @@ import { FORM_VALIDATORS, FORM_ERRORS } from '../constants';
  * Return the invalid validator index from the validation schema.
  *
  * @param {(string|number)} value Actual value that should be validated.
- * @param {(object|RegExp)} validationSchema.validators The validators of the state item.
+ * @param {array} validationSchema.validators The validators of the state item.
  */
-const getInvalidValidatorIndex = (value, validators) => {
+const getInvalidValidatorIndex = (value = null, validators = []) => {
   const invalidIndex = validators.findIndex(validator => {
     if (typeof validator === 'function') return !validator(value);
     if (validator instanceof RegExp) return !validator.test(value);
@@ -26,11 +26,11 @@ const getInvalidValidatorIndex = (value, validators) => {
  * @param {boolean} validationSchema.required The required value of the state item.
  * @param {string} validationSchema.match The match key of the state item.
  * @param {string} validationSchema.matchError The match error message in case of mismatch.
- * @param {(object|RegExp)} validationSchema.validators The validators of the state item.
+ * @param {array} validationSchema.validators The validators of the state item.
  * @param {array} validationSchema.errors The error messages of the state item.
  * @param {object} state The actual state of the form.
  */
-const getIsValueValid = (value, { required, match, matchError, validators, errors }, state) => {
+const getIsValueValid = (value = null, { required, match, matchError, validators, errors } = {}, state = {}) => {
   if (required && !FORM_VALIDATORS.REQUIRED.test(value)) return FORM_ERRORS.REQUIRED;
   if (match && state[match] && state[match].value !== value) return matchError;
   if (validators) {
@@ -48,7 +48,7 @@ const getIsValueValid = (value, { required, match, matchError, validators, error
  * @param {object} validationSchema The schema that contains the validation props.
  * @param {object} state The actual updated state.
  */
-const getIsStateValid = (validationSchema, state) => Object.keys(state).every(key => {
+const getIsStateValid = (validationSchema = {}, state = {}) => Object.keys(state).every(key => {
   const { value } = state[key];
   return getIsValueValid(value, validationSchema[key], state) === '';
 });
@@ -60,7 +60,7 @@ const getIsStateValid = (validationSchema, state) => Object.keys(state).every(ke
  * @param {object} validationSchema The schema that contains the validation props.
  * @param {object} state The actual updated state.
  */
-const validateState = (stateSchema, validationSchema, state) => Object.keys(stateSchema).reduce((o, key) => ({
+const validateState = (stateSchema, validationSchema = {}, state = {}) => Object.keys(stateSchema).reduce((o, key) => ({
   ...o,
   [key]: {
     ...state[key],
