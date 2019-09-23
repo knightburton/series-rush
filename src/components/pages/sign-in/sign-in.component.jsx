@@ -33,7 +33,13 @@ const SignIn = () => {
 
       <Grid container>
         <Grid item xs>
-          <Button color="primary" size="small" className={classes.textButton}>
+          <Button
+            color="primary"
+            size="small"
+            className={classes.textButton}
+            component={Link}
+            to="/forgot-password"
+          >
             Forgot password?
           </Button>
         </Grid>

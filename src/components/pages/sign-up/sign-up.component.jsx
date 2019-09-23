@@ -34,7 +34,7 @@ const SignUp = () => {
           variant="text"
           color="primary"
           size="small"
-          className={classes.signInPutton}
+          className={classes.signInButton}
           component={Link}
           to="/sign-in"
         >
