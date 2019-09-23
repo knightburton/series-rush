@@ -26,4 +26,6 @@ export const FORM_ERRORS = {
   EMAIL: 'This field must be a valid email address',
   FILE_MAX_SIZE: size => `The selected file must be ${size / 1000000}MB maximum`,
   FILE_IMAGE_TYPE: 'The selected file must be a jpeg or a png image',
+  // Errors without validator constant
+  MATCH: (a, b) => `${a} and ${b} fields do not match`,
 };

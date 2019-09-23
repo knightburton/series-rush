@@ -1,32 +1,43 @@
 import { useState, useCallback } from 'react';
-import { FORM_ERRORS } from '../constants';
+import { FORM_VALIDATORS, FORM_ERRORS } from '../constants';
 
 /**
- * Returns true if the given value is valid or the validator is not correct,
- * false otherwise.
+ * Return the invalid validator index from the validation schema.
  *
- * @param {(function|RegExp)} validator Value validator function or regular expression.
- * @param {string|number} value The value that should be validated.
+ * @param {(string|number)} value Actual value that should be validated.
+ * @param {array} validationSchema.validators The validators of the state item.
  */
-const validateValue = (validator, value) => {
-  if (typeof validator === 'function') return validator(value);
-  if (validator instanceof RegExp) return validator.test(value);
-  return true;
+const getInvalidValidatorIndex = (value = null, validators = []) => {
+  const invalidIndex = validators.findIndex(validator => {
+    if (typeof validator === 'function') return !validator(value);
+    if (validator instanceof RegExp) return !validator.test(value);
+    return false;
+  });
+
+  return invalidIndex !== -1 ? invalidIndex : null;
 };
 
 /**
- * Return true if the given value is valid,
- * false if the value is required and empty, or otherwise.
+ * Return empty string if the given value is valid,
+ * error message if the value is required and empty, or otherwise.
  *
  * @param {(string|number)} value Actual value that should be validated.
  * @param {object} validationSchema The schema that contains the validation props.
  * @param {boolean} validationSchema.required The required value of the state item.
- * @param {boolean} validationSchema.validator The validator of the state item.
+ * @param {string} validationSchema.match The match key of the state item.
+ * @param {string} validationSchema.matchError The match error message in case of mismatch.
+ * @param {array} validationSchema.validators The validators of the state item.
+ * @param {array} validationSchema.errors The error messages of the state item.
+ * @param {object} state The actual state of the form.
  */
-const getIsValueValid = (value, { required, validator }) => {
-  if (required && !value) return false;
-  if (validator) return validateValue(validator, value);
-  return true;
+const getIsValueValid = (value = null, { required, match, matchError, validators, errors } = {}, state = {}) => {
+  if (required && !FORM_VALIDATORS.REQUIRED.test(value)) return FORM_ERRORS.REQUIRED;
+  if (match && state[match] && state[match].value !== value) return matchError;
+  if (validators) {
+    const invalidIndex = getInvalidValidatorIndex(value, validators, state);
+    return invalidIndex !== null ? errors[invalidIndex] : '';
+  }
+  return '';
 };
 
 /**
@@ -37,26 +48,10 @@ const getIsValueValid = (value, { required, validator }) => {
  * @param {object} validationSchema The schema that contains the validation props.
  * @param {object} state The actual updated state.
  */
-const getIsStateValid = (stateSchema, validationSchema, state) => Object.keys(stateSchema).every(key => {
+const getIsStateValid = (validationSchema = {}, state = {}) => Object.keys(state).every(key => {
   const { value } = state[key];
-  return getIsValueValid(value, validationSchema[key]);
+  return getIsValueValid(value, validationSchema[key], state) === '';
 });
-
-/**
- * Return the error message in case of invalid value,
- * empty string otherwise.
- *
- * @param {(string|number)} value Actual value that is the base of the error lookup.
- * @param {object} validationSchema The schema that contains the validation props.
- * @param {boolean} validationSchema.required The required value of the state item.
- * @param {boolean} validationSchema.validator The validator of the state item.
- * @param {boolean} validationSchema.error The error message in case of invalid value.
- */
-const getError = (value, { required, validator, error }) => {
-  if (required && !value) return FORM_ERRORS.REQUIRED;
-  if (validator) return !validateValue(validator, value) && error ? error : '';
-  return '';
-};
 
 /**
  * Return a new state object which is updated with the proper error messages.
@@ -65,11 +60,11 @@ const getError = (value, { required, validator, error }) => {
  * @param {object} validationSchema The schema that contains the validation props.
  * @param {object} state The actual updated state.
  */
-const validateState = (stateSchema, validationSchema, state) => Object.keys(stateSchema).reduce((o, key) => ({
+const validateState = (stateSchema, validationSchema = {}, state = {}) => Object.keys(stateSchema).reduce((o, key) => ({
   ...o,
   [key]: {
     ...state[key],
-    error: validationSchema[key] ? getError(state[key].value, validationSchema[key]) : '',
+    error: validationSchema[key] ? getIsValueValid(state[key].value, validationSchema[key], state) : '',
   },
 }), {});
 
@@ -98,7 +93,7 @@ const useForm = (stateSchema = {}, validationSchema = {}, callback = () => {}) =
   const handleSubmit = useCallback(event => {
     event.preventDefault();
 
-    const isStateValid = getIsStateValid(stateSchema, validationSchema, state);
+    const isStateValid = getIsStateValid(validationSchema, state);
 
     if (isStateValid) return callback(Object.keys(state).reduce((o, key) => ({ ...o, [key]: state[key].value }), {}));
     return setState(validateState(stateSchema, validationSchema, state));

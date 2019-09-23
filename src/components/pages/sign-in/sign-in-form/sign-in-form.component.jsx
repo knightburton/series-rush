@@ -16,8 +16,8 @@ const stateSchema = {
 const validationSchema = {
   email: {
     required: true,
-    validator: FORM_VALIDATORS.EMAIL,
-    error: FORM_ERRORS.EMAIL,
+    validators: [FORM_VALIDATORS.EMAIL],
+    errors: [FORM_ERRORS.EMAIL],
   },
   password: {
     required: true,
