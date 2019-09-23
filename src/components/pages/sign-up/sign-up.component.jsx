@@ -5,6 +5,7 @@ import Avatar from '@material-ui/core/Avatar';
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import Container from '@material-ui/core/Container';
+import Typography from '@material-ui/core/Typography';
 
 import UpIcon from '@material-ui/icons/ArrowUpwardOutlined';
 
@@ -17,10 +18,13 @@ const SignUp = () => {
 
   return (
     <Container maxWidth="xs">
-      <Box className={classes.avatarBox}>
+      <Box className={classes.headerBox}>
         <Avatar className={classes.avatar}>
           <UpIcon />
         </Avatar>
+        <Typography align="center" variant="h5">
+          Sign Up
+        </Typography>
       </Box>
 
       <SignUpForm />

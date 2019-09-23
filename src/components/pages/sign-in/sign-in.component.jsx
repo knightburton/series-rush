@@ -20,10 +20,13 @@ const SignIn = () => {
 
   return (
     <Container maxWidth="xs">
-      <Box className={classes.avatarBox}>
+      <Box className={classes.headerBox}>
         <Avatar className={classes.avatar}>
           <LockIcon />
         </Avatar>
+        <Typography align="center" variant="h5">
+          Sign In
+        </Typography>
       </Box>
 
       <SignInForm />
@@ -42,7 +45,7 @@ const SignIn = () => {
             component={Link}
             to="/sign-up"
           >
-            Sign Up
+            Don&apos;t have an account? Sign Up
           </Button>
         </Grid>
       </Grid>
