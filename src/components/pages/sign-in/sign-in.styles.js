@@ -13,6 +13,7 @@ export default makeStyles(theme => ({
   },
   textButton: {
     marginBottom: theme.spacing(2),
+    textTransform: 'none',
   },
   divider: {
     textTransform: 'uppercase',

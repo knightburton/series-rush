@@ -11,4 +11,11 @@ export default makeStyles(theme => ({
     margin: theme.spacing(1),
     backgroundColor: theme.palette.secondary.main,
   },
+  buttonContainer: {
+    display: 'flex',
+    justifyContent: 'flex-end',
+  },
+  signInPutton: {
+    textTransform: 'none',
+  },
 }));
