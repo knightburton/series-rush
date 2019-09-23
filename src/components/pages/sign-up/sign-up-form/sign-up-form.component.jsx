@@ -26,18 +26,18 @@ const validationSchema = {
   },
   email: {
     required: true,
-    validator: FORM_VALIDATORS.EMAIL,
-    error: FORM_ERRORS.EMAIL,
+    validators: [FORM_VALIDATORS.EMAIL],
+    errors: [FORM_ERRORS.EMAIL],
   },
   password: {
     required: true,
-    validator: FORM_VALIDATORS.TEXT_BETWEEN(6, 24),
-    error: FORM_ERRORS.TEXT_BETWEEN(6, 24),
+    validators: [FORM_VALIDATORS.TEXT_BETWEEN(6, 24)],
+    errors: [FORM_ERRORS.TEXT_BETWEEN(6, 24)],
   },
   confirmPassword: {
     required: true,
-    validator: FORM_VALIDATORS.TEXT_BETWEEN(6, 24),
-    error: FORM_ERRORS.TEXT_BETWEEN(6, 24),
+    match: 'password',
+    matchError: FORM_ERRORS.MATCH('Password', 'Confirm password'),
   },
 };
 
