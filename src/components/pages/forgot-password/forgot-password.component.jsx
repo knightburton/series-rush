@@ -11,25 +11,14 @@ import TextField from '@material-ui/core/TextField';
 import LockIcon from '@material-ui/icons/LockOutlined';
 
 import useForm from '../../../hooks/useForm';
-import { FORM_VALIDATORS, FORM_ERRORS } from '../../../constants';
 
 import useStyles from './forgot-password.styles';
-
-const stateSchema = {
-  email: { value: '', error: '' },
-};
-
-const validationSchema = {
-  email: {
-    required: true,
-    validator: FORM_VALIDATORS.EMAIL,
-    error: FORM_ERRORS.EMAIL,
-  },
-};
+import { STATE_SCHEMA, VALIDATION_SCHEMA } from './forgot-password.constants';
 
 const ForgotPassword = () => {
   const classes = useStyles();
-  const { state, handleChange, handleSubmit } = useForm(stateSchema, validationSchema);
+  const { state, handleChange, handleSubmit } = useForm(STATE_SCHEMA, VALIDATION_SCHEMA);
+  const { email } = state;
 
   return (
     <Container maxWidth="xs">
@@ -52,9 +41,9 @@ const ForgotPassword = () => {
           label="Email Address"
           name="email"
           autoComplete="email"
-          value={state.email.value}
-          helperText={state.email.error}
-          error={!!state.email.error}
+          value={email.value}
+          helperText={email.error}
+          error={!!email.error}
           onChange={handleChange}
         />
         <Button

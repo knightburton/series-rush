@@ -4,29 +4,14 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 
 import useForm from '../../../../hooks/useForm';
-import { FORM_VALIDATORS, FORM_ERRORS } from '../../../../constants';
 
 import useStyles from './sign-in-form.styles';
-
-const stateSchema = {
-  email: { value: '', error: '' },
-  password: { value: '', error: '' },
-};
-
-const validationSchema = {
-  email: {
-    required: true,
-    validators: [FORM_VALIDATORS.EMAIL],
-    errors: [FORM_ERRORS.EMAIL],
-  },
-  password: {
-    required: true,
-  },
-};
+import { STATE_SCHEMA, VALIDATION_SCHEMA } from './sign-in-form.constants';
 
 const SignInForm = () => {
   const classes = useStyles();
-  const { state, handleChange, handleSubmit } = useForm(stateSchema, validationSchema);
+  const { state, handleChange, handleSubmit } = useForm(STATE_SCHEMA, VALIDATION_SCHEMA);
+  const { email, password } = state;
 
   return (
     <form className={classes.form} noValidate onSubmit={handleSubmit}>
@@ -39,9 +24,9 @@ const SignInForm = () => {
         label="Email Address"
         name="email"
         autoComplete="email"
-        value={state.email.value}
-        helperText={state.email.error}
-        error={!!state.email.error}
+        value={email.value}
+        helperText={email.error}
+        error={!!email.error}
         onChange={handleChange}
       />
       <TextField
@@ -54,9 +39,9 @@ const SignInForm = () => {
         type="password"
         id="password"
         autoComplete="current-password"
-        value={state.password.value}
-        helperText={state.password.error}
-        error={!!state.password.error}
+        value={password.value}
+        helperText={password.error}
+        error={!!password.error}
         onChange={handleChange}
       />
       <Button
