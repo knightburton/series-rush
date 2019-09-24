@@ -1,15 +1,14 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import Avatar from '@material-ui/core/Avatar';
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import Container from '@material-ui/core/Container';
-import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
 
 import LockIcon from '@material-ui/icons/LockOutlined';
 
+import Header from '../../commons/header/header.component';
 import useForm from '../../../hooks/useForm';
 
 import useStyles from './forgot-password.styles';
@@ -22,14 +21,7 @@ const ForgotPassword = () => {
 
   return (
     <Container maxWidth="xs">
-      <Box className={classes.headerBox}>
-        <Avatar className={classes.avatar}>
-          <LockIcon />
-        </Avatar>
-        <Typography align="center" variant="h5">
-          Forgot Password
-        </Typography>
-      </Box>
+      <Header icon={LockIcon} title="Forgot Password" gutter />
 
       <form className={classes.form} noValidate onSubmit={handleSubmit}>
         <TextField
