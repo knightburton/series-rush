@@ -11,7 +11,7 @@ import Grid from '@material-ui/core/Grid';
 import LockIcon from '@material-ui/icons/LockOutlined';
 
 import SignInForm from './sign-in-form/sign-in-form.container';
-import SocialButtons from './social-buttons/social-buttons.container';
+// import SocialButtons from './social-buttons/social-buttons.container';
 
 import useStyles from './sign-in.styles';
 
@@ -62,7 +62,7 @@ const SignIn = () => {
         </Typography>
       </Typography>
 
-      <SocialButtons />
+      {/* <SocialButtons /> */}
     </Container>
   );
 };
