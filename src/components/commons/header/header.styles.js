@@ -2,6 +2,7 @@ import { makeStyles } from '@material-ui/core/styles';
 
 export default makeStyles(theme => ({
   box: {
+    position: 'relative',
     display: 'flex',
     flexDirection: 'column',
   },
@@ -18,7 +19,12 @@ export default makeStyles(theme => ({
     marginTop: theme.spacing(8),
   },
   avatar: {
-    margin: theme.spacing(1),
+    margin: theme.spacing(0.75),
     backgroundColor: theme.palette.secondary.main,
+  },
+  progressCircle: {
+    position: 'absolute',
+    color: theme.palette.primary.main,
+    zIndex: 1,
   },
 }));
