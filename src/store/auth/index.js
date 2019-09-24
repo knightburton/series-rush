@@ -1,4 +1,5 @@
 import { createAction, handleActions } from 'redux-actions';
+import { createSelector } from 'reselect';
 
 // Initial state
 export const initialState = {
@@ -16,6 +17,14 @@ export const setAuthInProgress = createAction(
 
 // Selectors
 export const getInProgress = state => state.auth.inProgress;
+
+export const getFirebaseProfile = state => state.firebase.profile;
+export const getFirebaseAuth = state => state.firebase.auth;
+export const getFirebaseAuthError = state => state.firebase.authError;
+export const getFirebaseAuthErrorMessage = createSelector(
+  getFirebaseAuthError,
+  authError => (authError && authError.message) || null
+);
 
 // Reducer
 export const reducer = handleActions(
@@ -41,7 +50,7 @@ export const createProfile = credentials => async (dispatch, getState, { getFire
       true // Also update the Profile document
     );
   } catch (error) {
-    // TODO: handle the error
+    // Handled by react-redux-firebase
   } finally {
     dispatch(setAuthInProgress(false));
   }
