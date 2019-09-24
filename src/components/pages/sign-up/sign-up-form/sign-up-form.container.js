@@ -1,9 +1,14 @@
 import { connect } from 'react-redux';
 
-import { createProfile } from '../../../../store/profile';
+import {
+  createProfile,
+  getInProgress,
+} from '../../../../store/auth';
 import SignUpForm from './sign-up-form.component';
 
-const mapStateToProps = () => ({});
+const mapStateToProps = state => ({
+  inProgress: getInProgress(state),
+});
 
 const mapDispatchToProps = {
   createProfile,

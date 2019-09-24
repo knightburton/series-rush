@@ -10,7 +10,7 @@ import useForm from '../../../../hooks/useForm';
 import useStyles from './sign-up-form.styles';
 import { STATE_SCHEMA, VALIDATION_SCHEMA } from './sign-up-form.constants';
 
-const SignUpForm = ({ createProfile }) => {
+const SignUpForm = ({ createProfile, inProgress }) => {
   const classes = useStyles();
   const { state, handleChange, handleSubmit } = useForm(STATE_SCHEMA, VALIDATION_SCHEMA, createProfile);
   const { firstName, lastName, email, password, confirmPassword } = state;
@@ -109,6 +109,7 @@ const SignUpForm = ({ createProfile }) => {
         variant="contained"
         color="primary"
         className={classes.submit}
+        disabled={inProgress}
       >
         Sign Up
       </Button>
@@ -118,6 +119,7 @@ const SignUpForm = ({ createProfile }) => {
 
 SignUpForm.propTypes = {
   createProfile: PropTypes.func.isRequired,
+  inProgress: PropTypes.bool.isRequired,
 };
 
 export default SignUpForm;
