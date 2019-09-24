@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
 import Box from '@material-ui/core/Box';
@@ -12,12 +13,17 @@ import SignUpForm from './sign-up-form/sign-up-form.container';
 
 import useStyles from './sign-up.styles';
 
-const SignUp = () => {
+const SignUp = ({ inProgress }) => {
   const classes = useStyles();
 
   return (
     <Container maxWidth="xs">
-      <Header icon={UpIcon} title="Sign Up" gutter />
+      <Header
+        icon={UpIcon}
+        title="Sign Up"
+        inProgress={inProgress}
+        gutter
+      />
 
       <SignUpForm />
 
@@ -35,6 +41,10 @@ const SignUp = () => {
       </Box>
     </Container>
   );
+};
+
+SignUp.propTypes = {
+  inProgress: PropTypes.bool.isRequired,
 };
 
 export default SignUp;

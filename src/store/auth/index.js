@@ -35,7 +35,7 @@ export const reducer = handleActions(
 );
 
 // Async actions
-export const createProfile = credentials => async (dispatch, getState, { getFirebase }) => {
+export const createProfile = credentials => async (dispatch, getState, { getFirebase, history }) => {
   dispatch(setAuthInProgress(true));
   try {
     const firebase = getFirebase();
@@ -49,6 +49,7 @@ export const createProfile = credentials => async (dispatch, getState, { getFire
       { displayName: `${firstName} ${lastName}` },
       true // Also update the Profile document
     );
+    history.push('/');
   } catch (error) {
     // Handled by react-redux-firebase
   } finally {
