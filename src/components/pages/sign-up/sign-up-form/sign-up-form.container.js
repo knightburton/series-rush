@@ -1,3 +1,12 @@
+import { connect } from 'react-redux';
+
+import { createProfile } from '../../../../store/profile';
 import SignUpForm from './sign-up-form.component';
 
-export default SignUpForm;
+const mapStateToProps = () => ({});
+
+const mapDispatchToProps = {
+  createProfile,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(SignUpForm);

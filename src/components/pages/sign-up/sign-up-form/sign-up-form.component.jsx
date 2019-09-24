@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
@@ -9,9 +10,9 @@ import useForm from '../../../../hooks/useForm';
 import useStyles from './sign-up-form.styles';
 import { STATE_SCHEMA, VALIDATION_SCHEMA } from './sign-up-form.constants';
 
-const SignUpForm = () => {
+const SignUpForm = ({ createProfile }) => {
   const classes = useStyles();
-  const { state, handleChange, handleSubmit } = useForm(STATE_SCHEMA, VALIDATION_SCHEMA);
+  const { state, handleChange, handleSubmit } = useForm(STATE_SCHEMA, VALIDATION_SCHEMA, createProfile);
   const { firstName, lastName, email, password, confirmPassword } = state;
 
   return (
@@ -113,6 +114,10 @@ const SignUpForm = () => {
       </Button>
     </form>
   );
+};
+
+SignUpForm.propTypes = {
+  createProfile: PropTypes.func.isRequired,
 };
 
 export default SignUpForm;
