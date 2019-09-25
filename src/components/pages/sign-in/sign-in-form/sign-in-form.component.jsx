@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
@@ -8,9 +9,9 @@ import useForm from '../../../../hooks/useForm';
 import useStyles from './sign-in-form.styles';
 import { STATE_SCHEMA, VALIDATION_SCHEMA } from './sign-in-form.constants';
 
-const SignInForm = () => {
+const SignInForm = ({ inProgress, signIn }) => {
   const classes = useStyles();
-  const { state, handleChange, handleSubmit } = useForm(STATE_SCHEMA, VALIDATION_SCHEMA);
+  const { state, handleChange, handleSubmit } = useForm(STATE_SCHEMA, VALIDATION_SCHEMA, signIn);
   const { email, password } = state;
 
   return (
@@ -50,11 +51,17 @@ const SignInForm = () => {
         variant="contained"
         color="primary"
         className={classes.submit}
+        disabled={inProgress}
       >
         Sign In
       </Button>
     </form>
   );
+};
+
+SignInForm.propTypes = {
+  inProgress: PropTypes.bool.isRequired,
+  signIn: PropTypes.func.isRequired,
 };
 
 export default SignInForm;

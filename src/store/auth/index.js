@@ -33,9 +33,9 @@ export const getFirebaseAuthIsEmpty = createSelector(
   getFirebaseAuth,
   auth => auth && auth.isEmpty
 );
-export const getIsProfileSignedIn = createSelector(
+export const getIsSignedIn = createSelector(
   [getFirebaseAuthIsLoaded, getFirebaseAuthIsEmpty, getFirebaseAuth],
-  (isLoaded, isEmpty, auth) => isLoaded && !isEmpty && auth && !!auth.id
+  (isLoaded, isEmpty, auth) => isLoaded && !isEmpty && auth && !!auth.uid
 );
 export const getProfile = createSelector(
   [getFirebaseAuth, getFirebaseProfile],
