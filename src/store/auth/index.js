@@ -1,5 +1,6 @@
 import { createAction, handleActions } from 'redux-actions';
 import { createSelector } from 'reselect';
+import { addAlert } from '../app';
 
 // Initial state
 export const initialState = {
@@ -79,7 +80,7 @@ export const createProfile = credentials => async (dispatch, getState, { getFire
     );
     history.push('/');
   } catch (error) {
-    // Handled by react-redux-firebase
+    dispatch(addAlert(error.message, 'error'));
   } finally {
     dispatch(setAuthInProgress(false));
   }
@@ -92,7 +93,7 @@ export const signIn = credentials => async (dispatch, getState, { getFirebase, h
     await firebase.login(credentials);
     history.push('/');
   } catch (error) {
-    // Handled by react-redux-firebase
+    dispatch(addAlert(error.message, 'error'));
   } finally {
     dispatch(setAuthInProgress(false));
   }
@@ -105,7 +106,7 @@ export const signOut = () => async (dispatch, getState, { getFirebase, history }
     await firebase.logout();
     history.push('/');
   } catch (error) {
-    // Handled by react-redux-firebase
+    dispatch(addAlert(error.message, 'error'));
   } finally {
     dispatch(setAuthInProgress(false));
   }
