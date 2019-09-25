@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 
@@ -8,10 +8,13 @@ import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 
+import ProfileContext from '../../contexts/profile';
+
 import useStyles from './appbar.styles';
 
-const AppBar = ({ isSignedIn, signOut }) => {
+const AppBar = ({ signOut }) => {
   const classes = useStyles();
+  const profile = useContext(ProfileContext);
   const title = 'Series Rush';
 
   return (
@@ -21,7 +24,7 @@ const AppBar = ({ isSignedIn, signOut }) => {
           {title}
         </Typography>
         <Box className={classes.grow} />
-        {isSignedIn && (
+        {profile.signedIn && (
           <Button variant="text" onClick={signOut}>
             Sign out
           </Button>
@@ -32,7 +35,6 @@ const AppBar = ({ isSignedIn, signOut }) => {
 };
 
 AppBar.propTypes = {
-  isSignedIn: PropTypes.bool.isRequired,
   signOut: PropTypes.func.isRequired,
 };
 

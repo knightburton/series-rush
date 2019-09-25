@@ -1,14 +1,9 @@
 import { connect } from 'react-redux';
 
-import {
-  getIsSignedIn,
-  signOut,
-} from '../../../store/auth';
+import { signOut } from '../../../store/auth';
 import AppBar from './appbar.component';
 
-const mapStateToProps = state => ({
-  isSignedIn: getIsSignedIn(state),
-});
+const mapStateToProps = () => ({});
 
 const mapDispatchToProps = {
   signOut,

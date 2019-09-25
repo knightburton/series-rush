@@ -38,8 +38,9 @@ export const getIsSignedIn = createSelector(
   (isLoaded, isEmpty, auth) => isLoaded && !isEmpty && auth && !!auth.uid
 );
 export const getProfile = createSelector(
-  [getFirebaseAuth, getFirebaseProfile],
-  (auth, profile) => auth && profile && {
+  [getIsSignedIn, getFirebaseAuth, getFirebaseProfile],
+  (isSignedIn, auth, profile) => ({
+    signedIn: isSignedIn,
     id: auth.uid || null,
     firstName: profile.firstName || '',
     lastName: profile.lastName || '',
@@ -50,7 +51,7 @@ export const getProfile = createSelector(
     photoName: profile.photoName || null,
     lastLoginAt: auth.lastLoginAt || null,
     createdAt: auth.createdAt || null,
-  }
+  })
 );
 
 // Reducer
