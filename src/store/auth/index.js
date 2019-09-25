@@ -83,3 +83,29 @@ export const createProfile = credentials => async (dispatch, getState, { getFire
     dispatch(setAuthInProgress(false));
   }
 };
+
+export const signIn = credentials => async (dispatch, getState, { getFirebase, history }) => {
+  dispatch(setAuthInProgress(true));
+  try {
+    const firebase = getFirebase();
+    await firebase.login(credentials);
+    history.push('/');
+  } catch (error) {
+    // Handled by react-redux-firebase
+  } finally {
+    dispatch(setAuthInProgress(false));
+  }
+};
+
+export const signOut = () => async (dispatch, getState, { getFirebase, history }) => {
+  dispatch(setAuthInProgress(true));
+  try {
+    const firebase = getFirebase();
+    await firebase.logout();
+    history.push('/');
+  } catch (error) {
+    // Handled by react-redux-firebase
+  } finally {
+    dispatch(setAuthInProgress(false));
+  }
+};
