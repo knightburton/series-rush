@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
 import Box from '@material-ui/core/Box';
@@ -14,14 +15,19 @@ import useForm from '../../../hooks/useForm';
 import useStyles from './forgot-password.styles';
 import { STATE_SCHEMA, VALIDATION_SCHEMA } from './forgot-password.constants';
 
-const ForgotPassword = () => {
+const ForgotPassword = ({ inProgress, sendPasswordResetEmail }) => {
   const classes = useStyles();
-  const { state, handleChange, handleSubmit } = useForm(STATE_SCHEMA, VALIDATION_SCHEMA);
+  const { state, handleChange, handleSubmit } = useForm(STATE_SCHEMA, VALIDATION_SCHEMA, ({ email }) => sendPasswordResetEmail(email));
   const { email } = state;
 
   return (
     <Container maxWidth="xs">
-      <Header icon={LockIcon} title="Forgot Password" gutter />
+      <Header
+        icon={LockIcon}
+        title="Forgot Password"
+        inProgress={inProgress}
+        gutter
+      />
 
       <form className={classes.form} noValidate onSubmit={handleSubmit}>
         <TextField
@@ -57,12 +63,18 @@ const ForgotPassword = () => {
           className={classes.signInButton}
           component={Link}
           to="/sign-in"
+          disabled={inProgress}
         >
           Already have an account? Sign In
         </Button>
       </Box>
     </Container>
   );
+};
+
+ForgotPassword.propTypes = {
+  inProgress: PropTypes.bool.isRequired,
+  sendPasswordResetEmail: PropTypes.func.isRequired,
 };
 
 export default ForgotPassword;

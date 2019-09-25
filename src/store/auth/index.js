@@ -111,3 +111,15 @@ export const signOut = () => async (dispatch, getState, { getFirebase, history }
     dispatch(setAuthInProgress(false));
   }
 };
+
+export const sendPasswordResetEmail = email => async (dispatch, getState, { getFirebase }) => {
+  dispatch(setAuthInProgress(true));
+  try {
+    const firebase = getFirebase();
+    await firebase.auth().sendPasswordResetEmail(email);
+  } catch (error) {
+    dispatch(addAlert(error.message, 'error'));
+  } finally {
+    dispatch(setAuthInProgress(false));
+  }
+};
