@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { getProfile } from '../../../store/auth';
+import { getProfile } from '../../store/auth';
 import ProfileProviderComponent from './profile.provider';
 import ProfileContext from './context';
 

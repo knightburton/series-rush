@@ -16,7 +16,7 @@ import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 
 import ProfilePhoto from '../../commons/profile-photo/profile-photo.component';
 
-import ProfileContext from '../../contexts/profile';
+import ProfileContext from '../../../contexts/profile';
 
 import useStyles from './appbar.styles';
 

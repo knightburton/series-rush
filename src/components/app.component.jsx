@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import AppBar from './widgets/appbar/appbar.container';
 import Waiting from './widgets/waiting/waiting.component';
 
-import { ProfileProvider } from './contexts/profile';
+import { ProfileProvider } from '../contexts/profile';
 
 import AppRoutes from '../routes/app-routes';
 

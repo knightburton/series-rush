@@ -6,7 +6,7 @@ import Avatar from '@material-ui/core/Avatar';
 
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 
-import ProfileContext from '../../contexts/profile';
+import ProfileContext from '../../../contexts/profile';
 
 import useStyles from './profile-photo.styles';
 

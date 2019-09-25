@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import { Route, Redirect } from 'react-router-dom';
 
-import ProfileContext from '../components/contexts/profile';
+import ProfileContext from '../contexts/profile';
 
 const ProtectedRoute = ({ component, path, exact }) => {
   const { signedIn } = useContext(ProfileContext);
