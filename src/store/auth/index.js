@@ -25,6 +25,33 @@ export const getFirebaseAuthErrorMessage = createSelector(
   getFirebaseAuthError,
   authError => (authError && authError.message) || null
 );
+export const getFirebaseAuthIsLoaded = createSelector(
+  getFirebaseAuth,
+  auth => auth && auth.isLoaded
+);
+export const getFirebaseAuthIsEmpty = createSelector(
+  getFirebaseAuth,
+  auth => auth && auth.isEmpty
+);
+export const getIsProfileSignedIn = createSelector(
+  [getFirebaseAuthIsLoaded, getFirebaseAuthIsEmpty, getFirebaseAuth],
+  (isLoaded, isEmpty, auth) => isLoaded && !isEmpty && auth && !!auth.id
+);
+export const getProfile = createSelector(
+  [getFirebaseAuth, getFirebaseProfile],
+  (auth, profile) => auth && profile && {
+    id: auth.uid || null,
+    firstName: profile.firstName || '',
+    lastName: profile.lastName || '',
+    displayName: profile.displayName || auth.displayName || null,
+    email: profile.email || auth.email || null,
+    emailVerified: auth.emailVerified || false,
+    photoURL: profile.photoURL || auth.photoURL,
+    photoName: profile.photoName || null,
+    lastLoginAt: auth.lastLoginAt || null,
+    createdAt: auth.createdAt || null,
+  }
+);
 
 // Reducer
 export const reducer = handleActions(
