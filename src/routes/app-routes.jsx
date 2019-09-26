@@ -7,13 +7,15 @@ import SignUp from '../components/pages/sign-up/sign-up.container';
 import ForgotPassword from '../components/pages/forgot-password/forgot-password.container';
 import Profile from '../components/pages/profile/profile.container';
 
+import ProtectedRoute from './protected-route';
+
 const AppRoutes = () => (
   <Switch>
     <Route exact path="/" component={Landing} />
-    <Route exact path="/sign-in" component={SignIn} />
-    <Route exact path="/sign-up" component={SignUp} />
-    <Route exact path="/forgot-password" component={ForgotPassword} />
-    <Route exact path="/profile" component={Profile} />
+    <ProtectedRoute exact reverse path="/sign-in" component={SignIn} />
+    <ProtectedRoute exact reverse path="/sign-up" component={SignUp} />
+    <ProtectedRoute exact reverse path="/forgot-password" component={ForgotPassword} />
+    <ProtectedRoute exact path="/profile" component={Profile} />
     <Redirect to="/" />
   </Switch>
 );

@@ -64,7 +64,7 @@ export const reducer = handleActions(
 );
 
 // Async actions
-export const createProfile = credentials => async (dispatch, getState, { getFirebase, history }) => {
+export const createProfile = credentials => async (dispatch, getState, { getFirebase }) => {
   dispatch(setAuthInProgress(true));
   try {
     const firebase = getFirebase();
@@ -78,7 +78,6 @@ export const createProfile = credentials => async (dispatch, getState, { getFire
       { displayName: `${firstName} ${lastName}` },
       true // Also update the Profile document
     );
-    history.push('/');
   } catch (error) {
     dispatch(addAlert(error.message, 'error'));
   } finally {
@@ -86,12 +85,11 @@ export const createProfile = credentials => async (dispatch, getState, { getFire
   }
 };
 
-export const signIn = credentials => async (dispatch, getState, { getFirebase, history }) => {
+export const signIn = credentials => async (dispatch, getState, { getFirebase }) => {
   dispatch(setAuthInProgress(true));
   try {
     const firebase = getFirebase();
     await firebase.login(credentials);
-    history.push('/');
   } catch (error) {
     dispatch(addAlert(error.message, 'error'));
   } finally {
@@ -99,12 +97,11 @@ export const signIn = credentials => async (dispatch, getState, { getFirebase, h
   }
 };
 
-export const signOut = () => async (dispatch, getState, { getFirebase, history }) => {
+export const signOut = () => async (dispatch, getState, { getFirebase }) => {
   dispatch(setAuthInProgress(true));
   try {
     const firebase = getFirebase();
     await firebase.logout();
-    history.push('/');
   } catch (error) {
     dispatch(addAlert(error.message, 'error'));
   } finally {
