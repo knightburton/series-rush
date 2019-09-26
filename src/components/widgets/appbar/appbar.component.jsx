@@ -12,6 +12,7 @@ import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 
+import PersonOutlineIcon from '@material-ui/icons/PersonOutline';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 
 import ProfilePhoto from '../../commons/profile-photo/profile-photo.component';
@@ -67,6 +68,12 @@ const AppBar = ({ signOut }) => {
               open={!!profileMenu}
               onClose={() => setProfileMenu(null)}
             >
+              <MenuItem component={Link} to="/profile" onClick={() => setProfileMenu(null)}>
+                <ListItemIcon>
+                  <PersonOutlineIcon />
+                </ListItemIcon>
+                <Typography variant="inherit">Profile</Typography>
+              </MenuItem>
               <MenuItem onClick={handleSignOut}>
                 <ListItemIcon>
                   <ExitToAppIcon />
