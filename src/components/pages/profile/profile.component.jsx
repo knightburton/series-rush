@@ -6,6 +6,7 @@ import IconButton from '@material-ui/core/IconButton';
 
 import DeleteIcon from '@material-ui/icons/DeleteOutline';
 
+import Section from '../../commons/section/section.component';
 import ProfilePhoto from '../../commons/profile-photo/profile-photo.component';
 import Edit from '../../commons/edit/edit.component';
 import Confirmation from '../../widgets/confirmation/confirmation.component';
@@ -17,48 +18,50 @@ const Profile = () => {
 
   return (
     <Container maxWidth="md">
-      <Grid container spacing={1}>
-        <Grid item>
-          <ProfilePhoto size="huge" withDisabledColor />
+      <Section title="Personal Information" subtitle="update your personal informaiton">
+        <Grid container spacing={1}>
+          <Grid item>
+            <ProfilePhoto size="huge" withDisabledColor />
+          </Grid>
+          <Grid item>
+            <Edit
+              id="displayName"
+              value={displayName}
+              valueVariant="h5"
+              validationSchema={{ required: true }}
+              onSubmit={() => {}}
+            />
+            <Edit
+              id="email"
+              value={email}
+              valueVariant="body1"
+              validationSchema={{ required: true }}
+              onSubmit={() => {}}
+            />
+            <Edit
+              type="file"
+              id="photo"
+              value={photoURL || ''}
+              valueVariant="body1"
+              validationSchema={{ required: true }}
+              secondaryButton={(
+                <Confirmation
+                  id="delete-profile-photo"
+                  title="Delete profile photo?"
+                  description="Your photo will be completely removed from everywhere and will be replaced with the default avatar."
+                  onAgree={() => {}}
+                  toggle={show => (
+                    <IconButton onClick={() => show()} disabled={!photoURL}>
+                      <DeleteIcon fontSize="small" color="error" />
+                    </IconButton>
+                  )}
+                />
+              )}
+              onSubmit={() => {}}
+            />
+          </Grid>
         </Grid>
-        <Grid item>
-          <Edit
-            id="displayName"
-            value={displayName}
-            valueVariant="h5"
-            validationSchema={{ required: true }}
-            onSubmit={() => {}}
-          />
-          <Edit
-            id="email"
-            value={email}
-            valueVariant="body1"
-            validationSchema={{ required: true }}
-            onSubmit={() => {}}
-          />
-          <Edit
-            type="file"
-            id="photo"
-            value={photoURL}
-            valueVariant="body1"
-            validationSchema={{ required: true }}
-            secondaryButton={(
-              <Confirmation
-                id="delete-profile-photo"
-                title="Delete profile photo?"
-                description="Your photo will be completely removed from everywhere and will be replaced with the default avatar."
-                onAgree={() => {}}
-                toggle={show => (
-                  <IconButton onClick={() => show()} disabled={!photoURL}>
-                    <DeleteIcon fontSize="small" color="error" />
-                  </IconButton>
-                )}
-              />
-            )}
-            onSubmit={() => {}}
-          />
-        </Grid>
-      </Grid>
+      </Section>
     </Container>
   );
 };

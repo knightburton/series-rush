@@ -110,7 +110,7 @@ const Edit = ({
 };
 
 Edit.propTypes = {
-  type: PropTypes.oneOfType(['text', 'number', 'file']),
+  type: PropTypes.oneOf(['text', 'number', 'file']),
   id: PropTypes.string.isRequired,
   value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
   valueVariant: PropTypes.string,
