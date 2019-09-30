@@ -16,7 +16,7 @@ export default makeStyles(theme => ({
   },
   center: {
     justifyContent: 'center',
-    marginLeft: theme.spacing(5.5),
+    marginLeft: theme.spacing(6.5),
   },
   right: {
     justifyContent: 'flex-end',
