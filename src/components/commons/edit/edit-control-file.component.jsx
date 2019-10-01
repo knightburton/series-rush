@@ -3,10 +3,10 @@ import PropTypes from 'prop-types';
 
 import Input from '@material-ui/core/Input';
 import IconButton from '@material-ui/core/IconButton';
-import Tooltip from '@material-ui/core/Tooltip';
 
 import AddPhotoIcon from '@material-ui/icons/AddPhotoAlternateOutlined';
 
+import Tooltip from '../tooltip/tooltip.component';
 import EditControlWrapper from './edit-control-wrapper.component';
 
 import useStlyes from './edit.styles';
@@ -20,7 +20,7 @@ const EditControlFile = ({ id, type, state: { value, error }, label, helperText,
 
   return (
     <>
-      <Tooltip title="Browse files" aria-label="browse" enterDelay={500}>
+      <Tooltip title="Browse files">
         <IconButton color="primary" onClick={handleAddClick} className={classes.addFileButton}>
           <AddPhotoIcon />
         </IconButton>

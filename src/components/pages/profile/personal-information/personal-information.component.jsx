@@ -4,13 +4,13 @@ import PropTypes from 'prop-types';
 import Grid from '@material-ui/core/Grid';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
-import Tooltip from '@material-ui/core/Tooltip';
 
 import DeleteIcon from '@material-ui/icons/DeleteOutline';
 
 import Section from '../../../commons/section/section.component';
 import ProfilePhoto from '../../../commons/profile-photo/profile-photo.component';
 import Edit from '../../../commons/edit/edit.component';
+import Tooltip from '../../../commons/tooltip/tooltip.component';
 import Confirmation from '../../../widgets/confirmation/confirmation.component';
 
 import ProfileContext from '../../../../contexts/profile';
@@ -70,7 +70,7 @@ const PersonalInformation = ({ updateInProgress, updateName, updateEmail, upload
                 description="Your photo will be completely removed from everywhere and will be replaced with the default avatar."
                 onAgree={deleteProfilePhoto}
                 toggle={show => (
-                  <Tooltip title="Delete photo" aria-label="delete" enterDelay={500}>
+                  <Tooltip title="Delete photo">
                     <IconButton onClick={() => show()} disabled={!photoURL}>
                       <DeleteIcon fontSize="small" color="error" />
                     </IconButton>
