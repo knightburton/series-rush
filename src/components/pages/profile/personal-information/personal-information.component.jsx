@@ -14,11 +14,15 @@ import Confirmation from '../../../widgets/confirmation/confirmation.component';
 
 import ProfileContext from '../../../../contexts/profile';
 
-const PersonalInformation = ({ updateName, updateEmail, uploadProfilePhoto, deleteProfilePhoto }) => {
+const PersonalInformation = ({ updateInProgress, updateName, updateEmail, uploadProfilePhoto, deleteProfilePhoto }) => {
   const { displayName, firstName, lastName, email, emailVerified, photoURL } = useContext(ProfileContext);
 
   return (
-    <Section title="Personal Information" subtitle="update your personal informaiton">
+    <Section
+      title="Personal Information"
+      subtitle="update your personal informaiton"
+      inProgress={updateInProgress}
+    >
       <Grid container spacing={1}>
         <Grid item container xs={12} sm={4} justify="flex-start" alignItems="center" direction="column">
           <ProfilePhoto size="huge" withDisabledColor />
@@ -79,6 +83,7 @@ const PersonalInformation = ({ updateName, updateEmail, uploadProfilePhoto, dele
 };
 
 PersonalInformation.propTypes = {
+  updateInProgress: PropTypes.bool.isRequired,
   updateName: PropTypes.func.isRequired,
   updateEmail: PropTypes.func.isRequired,
   uploadProfilePhoto: PropTypes.func.isRequired,

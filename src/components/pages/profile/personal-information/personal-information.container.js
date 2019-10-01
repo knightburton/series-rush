@@ -1,6 +1,7 @@
 import { connect } from 'react-redux';
 
 import {
+  getUpdateInProgress,
   updateName,
   updateEmail,
   uploadProfilePhoto,
@@ -8,7 +9,9 @@ import {
 } from '../../../../store/auth';
 import PersonalInformation from './personal-information.component';
 
-const mapStateToProps = () => ({});
+const mapStateToProps = state => ({
+  updateInProgress: getUpdateInProgress(state),
+});
 
 const mapDispatchToProps = {
   updateName,
