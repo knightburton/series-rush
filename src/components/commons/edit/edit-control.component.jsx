@@ -3,14 +3,16 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import EditControlText from './edit-control-text.component';
+import EditControlFile from './edit-control-file.component';
 
 const EditControl = ({ type, ...props }) => {
   if (type === 'text') return <EditControlText type={type} {...props} />;
+  if (type === 'file') return <EditControlFile type={type} {...props} />;
   return null;
 };
 
 EditControl.propTypes = {
-  type: PropTypes.oneOf(['text']).isRequired,
+  type: PropTypes.oneOf(['text', 'file']).isRequired,
   id: PropTypes.string.isRequired,
   label: PropTypes.string.isRequired,
   helperText: PropTypes.string.isRequired,

@@ -78,8 +78,8 @@ const Edit = ({ type, id, value, label, helperText, disabled, required, validato
 Edit.propTypes = {
   type: PropTypes.oneOf(['text', 'number', 'file']),
   id: PropTypes.string.isRequired,
-  value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
-  label: PropTypes.string,
+  value: PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.array]).isRequired,
+  label: PropTypes.string.isRequired,
   helperText: PropTypes.string,
   disabled: PropTypes.bool,
   required: PropTypes.bool,
@@ -91,7 +91,6 @@ Edit.propTypes = {
 
 Edit.defaultProps = {
   type: 'text',
-  label: '',
   helperText: '',
   disabled: false,
   required: false,

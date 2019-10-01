@@ -1,0 +1,67 @@
+import React, { useRef } from 'react';
+import PropTypes from 'prop-types';
+
+import Input from '@material-ui/core/Input';
+import IconButton from '@material-ui/core/IconButton';
+
+import AddPhotoIcon from '@material-ui/icons/AddPhotoAlternateOutlined';
+
+import EditControlWrapper from './edit-control-wrapper.component';
+
+const EditControlFile = ({ id, type, state: { value, error }, label, helperText, disabled, required, onChange }) => {
+  const fileInput = useRef(null);
+  const fileName = (value && value.length && value[0].name) || 'No file selected';
+
+  const handleAddClick = () => fileInput.current.children[0].click();
+
+  return (
+    <>
+      <IconButton color="primary" onClick={handleAddClick}>
+        <AddPhotoIcon />
+      </IconButton>
+      <EditControlWrapper
+        id={id}
+        label={label}
+        error={error}
+        helperText={helperText}
+        disabled={disabled}
+        required={required}
+      >
+        <Input
+          id={`${id}-text`}
+          type="text"
+          value={fileName}
+          onChange={() => {}}
+          aria-describedby={`${id}-helper-text`}
+          disabled
+        />
+      </EditControlWrapper>
+      <Input
+        ref={fileInput}
+        id={id}
+        type={type}
+        name={id}
+        onChange={e => onChange({ target: { name: id, value: e.target.files } })}
+        autoFocus={false}
+        aria-describedby={`${id}-helper-text`}
+        style={{ display: 'none' }}
+      />
+    </>
+  );
+};
+
+EditControlFile.propTypes = {
+  id: PropTypes.string.isRequired,
+  type: PropTypes.string.isRequired,
+  state: PropTypes.shape({
+    value: PropTypes.array,
+    error: PropTypes.string,
+  }).isRequired,
+  label: PropTypes.string.isRequired,
+  helperText: PropTypes.string.isRequired,
+  disabled: PropTypes.bool.isRequired,
+  required: PropTypes.bool.isRequired,
+  onChange: PropTypes.func.isRequired,
+};
+
+export default EditControlFile;

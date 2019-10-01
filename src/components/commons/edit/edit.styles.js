@@ -13,10 +13,11 @@ export default makeStyles(theme => ({
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'flex-start',
-    marginTop: theme.spacing(0.5),
+    marginTop: theme.spacing(1),
   },
   displayBox: {
     marginBottom: theme.spacing(4),
+    marginRight: theme.spacing(1),
   },
   displayLabel: {
     marginBottom: theme.spacing(0.5),
