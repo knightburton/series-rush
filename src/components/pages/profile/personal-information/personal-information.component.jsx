@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 
 import Grid from '@material-ui/core/Grid';
+import Box from '@material-ui/core/Box';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 
@@ -71,9 +72,11 @@ const PersonalInformation = ({ updateInProgress, updateName, updateEmail, upload
                 onAgree={deleteProfilePhoto}
                 toggle={show => (
                   <Tooltip title="Delete photo">
-                    <IconButton onClick={() => show()} disabled={!photoName}>
-                      <DeleteIcon fontSize="small" color="error" />
-                    </IconButton>
+                    <Box>
+                      <IconButton onClick={() => show()} disabled={!photoName}>
+                        <DeleteIcon fontSize="small" color="error" />
+                      </IconButton>
+                    </Box>
                   </Tooltip>
                 )}
               />
