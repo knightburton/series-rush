@@ -10,7 +10,7 @@ import { ProfileProvider } from '../contexts/profile';
 
 import AppRoutes from '../routes/app-routes';
 
-const App = ({ authIsLoaded }) => (authIsLoaded ? (
+const App = ({ authIsLoaded, isAppWaiting }) => (authIsLoaded ? (
   <>
     <ProfileProvider>
       <AppBar />
@@ -19,13 +19,17 @@ const App = ({ authIsLoaded }) => (authIsLoaded ? (
       </ContentWrapper>
       <Alert />
     </ProfileProvider>
+    {isAppWaiting && (
+      <Waiting type="app" />
+    )}
   </>
 ) : (
-  <Waiting />
+  <Waiting type="screen" />
 ));
 
 App.propTypes = {
   authIsLoaded: PropTypes.bool.isRequired,
+  isAppWaiting: PropTypes.bool.isRequired,
 };
 
 export default App;
