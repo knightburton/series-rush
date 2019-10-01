@@ -3,6 +3,7 @@ import React, { useContext } from 'react';
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
 import IconButton from '@material-ui/core/IconButton';
+import Typography from '@material-ui/core/Typography';
 
 import DeleteIcon from '@material-ui/icons/DeleteOutline';
 
@@ -14,16 +15,19 @@ import Confirmation from '../../widgets/confirmation/confirmation.component';
 import ProfileContext from '../../../contexts/profile';
 
 const Profile = () => {
-  const { firstName, lastName, email, photoURL } = useContext(ProfileContext);
+  const { displayName, firstName, lastName, email, photoURL } = useContext(ProfileContext);
 
   return (
     <Container maxWidth="md">
       <Section title="Personal Information" subtitle="update your personal informaiton">
         <Grid container spacing={1}>
-          <Grid item>
+          <Grid item container xs={12} sm={4} justify="flex-start" alignItems="center" direction="column">
             <ProfilePhoto size="huge" withDisabledColor />
+            <Typography variant="h5" align="center">
+              {displayName}
+            </Typography>
           </Grid>
-          <Grid item>
+          <Grid item xs={12} sm={8}>
             <Edit
               type="text"
               id="firstName"
