@@ -1,49 +1,19 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 
 import useForm from '../../../../hooks/useForm';
-import { FORM_VALIDATORS, FORM_ERRORS } from '../../../../constants';
 
 import useStyles from './sign-up-form.styles';
+import { STATE_SCHEMA, VALIDATION_SCHEMA } from './sign-up-form.constants';
 
-const stateSchema = {
-  firstName: { value: '', error: '' },
-  lastName: { value: '', error: '' },
-  email: { value: '', error: '' },
-  password: { value: '', error: '' },
-  confirmPassword: { value: '', error: '' },
-};
-
-const validationSchema = {
-  firstName: {
-    required: true,
-  },
-  lastName: {
-    required: true,
-  },
-  email: {
-    required: true,
-    validators: [FORM_VALIDATORS.EMAIL],
-    errors: [FORM_ERRORS.EMAIL],
-  },
-  password: {
-    required: true,
-    validators: [FORM_VALIDATORS.TEXT_BETWEEN(6, 24)],
-    errors: [FORM_ERRORS.TEXT_BETWEEN(6, 24)],
-  },
-  confirmPassword: {
-    required: true,
-    match: 'password',
-    matchError: FORM_ERRORS.MATCH('Password', 'Confirm password'),
-  },
-};
-
-const SignUpForm = () => {
+const SignUpForm = ({ createProfile, inProgress }) => {
   const classes = useStyles();
-  const { state, handleChange, handleSubmit } = useForm(stateSchema, validationSchema);
+  const { state, handleChange, handleSubmit } = useForm(STATE_SCHEMA, VALIDATION_SCHEMA, createProfile);
+  const { firstName, lastName, email, password, confirmPassword } = state;
 
   return (
     <form className={classes.form} noValidate onSubmit={handleSubmit}>
@@ -58,9 +28,9 @@ const SignUpForm = () => {
             label="First Name"
             name="firstName"
             autoComplete="firstName"
-            value={state.firstName.value}
-            helperText={state.firstName.error}
-            error={!!state.firstName.error}
+            value={firstName.value}
+            helperText={firstName.error}
+            error={!!firstName.error}
             onChange={handleChange}
           />
         </Grid>
@@ -75,9 +45,9 @@ const SignUpForm = () => {
             type="lastName"
             id="lastName"
             autoComplete="lastName"
-            value={state.lastName.value}
-            helperText={state.lastName.error}
-            error={!!state.lastName.error}
+            value={lastName.value}
+            helperText={lastName.error}
+            error={!!lastName.error}
             onChange={handleChange}
           />
         </Grid>
@@ -92,9 +62,9 @@ const SignUpForm = () => {
             type="email"
             id="email"
             autoComplete="email"
-            value={state.email.value}
-            helperText={state.email.error}
-            error={!!state.email.error}
+            value={email.value}
+            helperText={email.error}
+            error={!!email.error}
             onChange={handleChange}
           />
         </Grid>
@@ -109,9 +79,9 @@ const SignUpForm = () => {
             type="password"
             id="password"
             autoComplete="current-password"
-            value={state.password.value}
-            helperText={state.password.error}
-            error={!!state.password.error}
+            value={password.value}
+            helperText={password.error}
+            error={!!password.error}
             onChange={handleChange}
           />
         </Grid>
@@ -126,9 +96,9 @@ const SignUpForm = () => {
             type="password"
             id="confirmPassword"
             autoComplete="off"
-            value={state.confirmPassword.value}
-            helperText={state.confirmPassword.error}
-            error={!!state.confirmPassword.error}
+            value={confirmPassword.value}
+            helperText={confirmPassword.error}
+            error={!!confirmPassword.error}
             onChange={handleChange}
           />
         </Grid>
@@ -139,11 +109,17 @@ const SignUpForm = () => {
         variant="contained"
         color="primary"
         className={classes.submit}
+        disabled={inProgress}
       >
         Sign Up
       </Button>
     </form>
   );
+};
+
+SignUpForm.propTypes = {
+  createProfile: PropTypes.func.isRequired,
+  inProgress: PropTypes.bool.isRequired,
 };
 
 export default SignUpForm;

@@ -1,31 +1,29 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
-import Avatar from '@material-ui/core/Avatar';
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import Container from '@material-ui/core/Container';
-import Typography from '@material-ui/core/Typography';
 
 import UpIcon from '@material-ui/icons/ArrowUpwardOutlined';
 
+import Header from '../../commons/header/header.component';
 import SignUpForm from './sign-up-form/sign-up-form.container';
 
 import useStyles from './sign-up.styles';
 
-const SignUp = () => {
+const SignUp = ({ inProgress }) => {
   const classes = useStyles();
 
   return (
     <Container maxWidth="xs">
-      <Box className={classes.headerBox}>
-        <Avatar className={classes.avatar}>
-          <UpIcon />
-        </Avatar>
-        <Typography align="center" variant="h5">
-          Sign Up
-        </Typography>
-      </Box>
+      <Header
+        icon={UpIcon}
+        title="Sign Up"
+        inProgress={inProgress}
+        gutter
+      />
 
       <SignUpForm />
 
@@ -43,6 +41,10 @@ const SignUp = () => {
       </Box>
     </Container>
   );
+};
+
+SignUp.propTypes = {
+  inProgress: PropTypes.bool.isRequired,
 };
 
 export default SignUp;

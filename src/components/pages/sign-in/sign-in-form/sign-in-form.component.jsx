@@ -1,32 +1,18 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 
 import useForm from '../../../../hooks/useForm';
-import { FORM_VALIDATORS, FORM_ERRORS } from '../../../../constants';
 
 import useStyles from './sign-in-form.styles';
+import { STATE_SCHEMA, VALIDATION_SCHEMA } from './sign-in-form.constants';
 
-const stateSchema = {
-  email: { value: '', error: '' },
-  password: { value: '', error: '' },
-};
-
-const validationSchema = {
-  email: {
-    required: true,
-    validators: [FORM_VALIDATORS.EMAIL],
-    errors: [FORM_ERRORS.EMAIL],
-  },
-  password: {
-    required: true,
-  },
-};
-
-const SignInForm = () => {
+const SignInForm = ({ inProgress, signIn }) => {
   const classes = useStyles();
-  const { state, handleChange, handleSubmit } = useForm(stateSchema, validationSchema);
+  const { state, handleChange, handleSubmit } = useForm(STATE_SCHEMA, VALIDATION_SCHEMA, signIn);
+  const { email, password } = state;
 
   return (
     <form className={classes.form} noValidate onSubmit={handleSubmit}>
@@ -39,9 +25,9 @@ const SignInForm = () => {
         label="Email Address"
         name="email"
         autoComplete="email"
-        value={state.email.value}
-        helperText={state.email.error}
-        error={!!state.email.error}
+        value={email.value}
+        helperText={email.error}
+        error={!!email.error}
         onChange={handleChange}
       />
       <TextField
@@ -54,9 +40,9 @@ const SignInForm = () => {
         type="password"
         id="password"
         autoComplete="current-password"
-        value={state.password.value}
-        helperText={state.password.error}
-        error={!!state.password.error}
+        value={password.value}
+        helperText={password.error}
+        error={!!password.error}
         onChange={handleChange}
       />
       <Button
@@ -65,11 +51,17 @@ const SignInForm = () => {
         variant="contained"
         color="primary"
         className={classes.submit}
+        disabled={inProgress}
       >
         Sign In
       </Button>
     </form>
   );
+};
+
+SignInForm.propTypes = {
+  inProgress: PropTypes.bool.isRequired,
+  signIn: PropTypes.func.isRequired,
 };
 
 export default SignInForm;
