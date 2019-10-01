@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 
 import Input from '@material-ui/core/Input';
 import IconButton from '@material-ui/core/IconButton';
+import Tooltip from '@material-ui/core/Tooltip';
 
 import AddPhotoIcon from '@material-ui/icons/AddPhotoAlternateOutlined';
 
@@ -19,9 +20,11 @@ const EditControlFile = ({ id, type, state: { value, error }, label, helperText,
 
   return (
     <>
-      <IconButton color="primary" onClick={handleAddClick} className={classes.addFileButton}>
-        <AddPhotoIcon />
-      </IconButton>
+      <Tooltip title="Browse files" aria-label="browse" enterDelay={500}>
+        <IconButton color="primary" onClick={handleAddClick} className={classes.addFileButton}>
+          <AddPhotoIcon />
+        </IconButton>
+      </Tooltip>
       <EditControlWrapper
         id={id}
         label={label}
@@ -57,7 +60,7 @@ EditControlFile.propTypes = {
   id: PropTypes.string.isRequired,
   type: PropTypes.string.isRequired,
   state: PropTypes.shape({
-    value: PropTypes.object,
+    value: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
     error: PropTypes.string,
   }).isRequired,
   label: PropTypes.string.isRequired,

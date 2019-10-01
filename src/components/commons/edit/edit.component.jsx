@@ -5,6 +5,7 @@ import Box from '@material-ui/core/Box';
 import IconButton from '@material-ui/core/IconButton';
 import InputLabel from '@material-ui/core/InputLabel';
 import Typography from '@material-ui/core/Typography';
+import Tooltip from '@material-ui/core/Tooltip';
 
 import EditIcon from '@material-ui/icons/Edit';
 import CheckIcon from '@material-ui/icons/Check';
@@ -47,12 +48,16 @@ const Edit = ({ type, id, value, label, helperText, disabled, required, validato
         onChange={handleChange}
       />
       <Box className={classes.buttons}>
-        <IconButton onClick={() => setEdit(false)}>
-          <CloseIcon fontSize="small" />
-        </IconButton>
-        <IconButton type="submit" color="primary">
-          <CheckIcon fontSize="small" />
-        </IconButton>
+        <Tooltip title="Cancel" aria-label="cancel" enterDelay={500}>
+          <IconButton onClick={() => setEdit(false)}>
+            <CloseIcon fontSize="small" />
+          </IconButton>
+        </Tooltip>
+        <Tooltip title="Submit" aria-label="submit" enterDelay={500}>
+          <IconButton type="submit" color="primary">
+            <CheckIcon fontSize="small" />
+          </IconButton>
+        </Tooltip>
       </Box>
     </form>
   ) : (
@@ -66,9 +71,11 @@ const Edit = ({ type, id, value, label, helperText, disabled, required, validato
         </Typography>
       </Box>
       <Box className={classes.buttons}>
-        <IconButton onClick={handleEdit}>
-          <EditIcon fontSize="small" />
-        </IconButton>
+        <Tooltip title="Edit" aria-label="edit" enterDelay={500}>
+          <IconButton onClick={handleEdit}>
+            <EditIcon fontSize="small" />
+          </IconButton>
+        </Tooltip>
         {secondaryButton}
       </Box>
     </Box>
