@@ -187,7 +187,7 @@ export const uploadProfilePhoto = file => async (dispatch, getState, { getFireba
       dispatch(setAuthUpdateInProgress(false));
     }
   } else {
-    dispatch(addAlert('There is no photo that could be uploaded', 'error'));
+    dispatch(addAlert('There is no photo that could be uploaded.', 'error'));
   }
 };
 
@@ -206,11 +206,31 @@ export const deleteProfilePhoto = () => async (dispatch, getState, { getFirebase
         true
       );
     } else {
-      dispatch(addAlert('There is no available profile photo', 'error'));
+      dispatch(addAlert('There is no available profile photo.', 'error'));
     }
   } catch (error) {
     dispatch(addAlert(error.message, 'error'));
   } finally {
     dispatch(setAuthUpdateInProgress(false));
+  }
+};
+
+export const requestEmailVerification = () => async (dispatch, getState, { getFirebase }) => {
+  try {
+    const firebase = getFirebase();
+    await firebase.auth().currentUser.sendEmailVerification();
+    dispatch(addAlert('Instructions on how to activate your account have been emailed to you. Please check your email.', 'success'));
+  } catch (error) {
+    dispatch(addAlert(error.message, 'error'));
+  }
+};
+
+export const deleteProfile = () => async (dispatch, getState, { getFirebase, history }) => {
+  try {
+    const firebase = getFirebase();
+    await firebase.auth().currentUser.delete();
+    history.push('/');
+  } catch (error) {
+    dispatch(addAlert(error.message, 'error'));
   }
 };
