@@ -14,7 +14,7 @@ import Confirmation from '../../../widgets/confirmation/confirmation.component';
 
 import ProfileContext from '../../../../contexts/profile';
 
-const PersonalInformation = ({ updateEmail }) => {
+const PersonalInformation = ({ updateName, updateEmail }) => {
   const { displayName, firstName, lastName, email, emailVerified, photoURL } = useContext(ProfileContext);
 
   return (
@@ -32,7 +32,7 @@ const PersonalInformation = ({ updateEmail }) => {
             id="firstName"
             label="First Name"
             value={firstName}
-            onSubmit={() => {}}
+            onSubmit={value => updateName('firstName', value)}
             required
           />
           <Edit
@@ -40,7 +40,7 @@ const PersonalInformation = ({ updateEmail }) => {
             id="lastName"
             label="Last Name"
             value={lastName}
-            onSubmit={() => {}}
+            onSubmit={value => updateName('lastName', value)}
             required
           />
           <Edit
@@ -79,6 +79,7 @@ const PersonalInformation = ({ updateEmail }) => {
 };
 
 PersonalInformation.propTypes = {
+  updateName: PropTypes.func.isRequired,
   updateEmail: PropTypes.func.isRequired,
 };
 

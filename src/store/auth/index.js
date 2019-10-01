@@ -121,10 +121,32 @@ export const sendPasswordResetEmail = email => async (dispatch, getState, { getF
   }
 };
 
+export const updateName = (key, value) => async (dispatch, getState, { getFirebase }) => {
+  try {
+    const firebase = getFirebase();
+    const { firstName, lastName } = getProfile(getState());
+    const displayName = key === 'firstName'
+      ? `${value} ${lastName}`
+      : `${firstName} ${value}`;
+    await firebase.updateAuth(
+      {
+        displayName,
+        [key]: value,
+      },
+      true // Also update the Profile document
+    );
+  } catch (error) {
+    dispatch(addAlert(error.message, 'error'));
+  }
+};
+
 export const updateEmail = email => async (dispatch, getState, { getFirebase }) => {
   try {
     const firebase = getFirebase();
-    await firebase.updateEmail(email, true);
+    await firebase.updateEmail(
+      email,
+      true // Also update the Profile document
+    );
   } catch (error) {
     dispatch(addAlert(error.message, 'error'));
   }
