@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 
 import Grid from '@material-ui/core/Grid';
+import Box from '@material-ui/core/Box';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 
@@ -16,7 +17,7 @@ import Confirmation from '../../../widgets/confirmation/confirmation.component';
 import ProfileContext from '../../../../contexts/profile';
 
 const PersonalInformation = ({ updateInProgress, updateName, updateEmail, uploadProfilePhoto, deleteProfilePhoto }) => {
-  const { displayName, firstName, lastName, email, emailVerified, photoURL } = useContext(ProfileContext);
+  const { displayName, firstName, lastName, email, emailVerified, photoName } = useContext(ProfileContext);
 
   return (
     <Section
@@ -60,7 +61,7 @@ const PersonalInformation = ({ updateInProgress, updateName, updateEmail, upload
             type="file"
             id="photoURL"
             label="Profile Photo"
-            value={photoURL}
+            value={photoName}
             onSubmit={photo => uploadProfilePhoto(photo[0])}
             required
             secondaryButton={(
@@ -71,9 +72,11 @@ const PersonalInformation = ({ updateInProgress, updateName, updateEmail, upload
                 onAgree={deleteProfilePhoto}
                 toggle={show => (
                   <Tooltip title="Delete photo">
-                    <IconButton onClick={() => show()} disabled={!photoURL}>
-                      <DeleteIcon fontSize="small" color="error" />
-                    </IconButton>
+                    <Box>
+                      <IconButton onClick={() => show()} disabled={!photoName}>
+                        <DeleteIcon fontSize="small" color="error" />
+                      </IconButton>
+                    </Box>
                   </Tooltip>
                 )}
               />
