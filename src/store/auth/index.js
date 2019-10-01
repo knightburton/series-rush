@@ -18,7 +18,7 @@ export const setAuthInProgress = createAction(
   inProgress => inProgress
 );
 export const setAuthUpdateInProgress = createAction(
-  SET_AUTH_IN_PROGRESS,
+  SET_AUTH_UPDATE_IN_PROGRESS,
   updateInProgress => updateInProgress
 );
 
