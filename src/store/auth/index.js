@@ -105,11 +105,12 @@ export const signIn = credentials => async (dispatch, getState, { getFirebase })
   }
 };
 
-export const signOut = () => async (dispatch, getState, { getFirebase }) => {
+export const signOut = () => async (dispatch, getState, { getFirebase, history }) => {
   dispatch(setAuthInProgress(true));
   try {
     const firebase = getFirebase();
     await firebase.logout();
+    history.push('/');
   } catch (error) {
     dispatch(addAlert(error.message, 'error'));
   } finally {
