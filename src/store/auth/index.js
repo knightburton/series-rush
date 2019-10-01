@@ -120,3 +120,12 @@ export const sendPasswordResetEmail = email => async (dispatch, getState, { getF
     dispatch(setAuthInProgress(false));
   }
 };
+
+export const updateEmail = email => async (dispatch, getState, { getFirebase }) => {
+  try {
+    const firebase = getFirebase();
+    await firebase.updateEmail(email, true);
+  } catch (error) {
+    dispatch(addAlert(error.message, 'error'));
+  }
+};
