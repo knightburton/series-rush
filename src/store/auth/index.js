@@ -1,6 +1,6 @@
 import { createAction, handleActions } from 'redux-actions';
 import { createSelector } from 'reselect';
-import { addAlert } from '../app';
+import { addAlert, setAppWaiting } from '../app';
 
 // Initial state
 export const initialState = {
@@ -216,21 +216,27 @@ export const deleteProfilePhoto = () => async (dispatch, getState, { getFirebase
 };
 
 export const requestEmailVerification = () => async (dispatch, getState, { getFirebase }) => {
+  dispatch(setAppWaiting(true));
   try {
     const firebase = getFirebase();
     await firebase.auth().currentUser.sendEmailVerification();
     dispatch(addAlert('Instructions on how to activate your account have been emailed to you. Please check your email.', 'success'));
   } catch (error) {
     dispatch(addAlert(error.message, 'error'));
+  } finally {
+    dispatch(setAppWaiting(false));
   }
 };
 
 export const deleteProfile = () => async (dispatch, getState, { getFirebase, history }) => {
+  dispatch(setAppWaiting(true));
   try {
     const firebase = getFirebase();
     await firebase.auth().currentUser.delete();
     history.push('/');
   } catch (error) {
     dispatch(addAlert(error.message, 'error'));
+  } finally {
+    dispatch(setAppWaiting(false));
   }
 };
