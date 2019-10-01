@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 
 import Paper from '@material-ui/core/Paper';
 import Box from '@material-ui/core/Box';
+import Grid from '@material-ui/core/Grid';
 import Divider from '@material-ui/core/Divider';
 import Typography from '@material-ui/core/Typography';
 
@@ -16,14 +17,20 @@ const Section = ({ children, title, subtitle }) => {
       {title && (
         <>
           <Box className={classes.header}>
-            <Typography variant="h6" display="inline" className={classes.title}>
-              {title}
-            </Typography>
-            {subtitle && (
-              <Typography variant="caption" display="inline">
-                {subtitle}
-              </Typography>
-            )}
+            <Grid container alignItems="baseline">
+              <Grid item xs={12} sm="auto">
+                <Typography variant="h6" display="inline" className={classes.title}>
+                  {title}
+                </Typography>
+              </Grid>
+              {subtitle && (
+                <Grid item xs={12} sm="auto">
+                  <Typography variant="caption" component="small">
+                    {subtitle}
+                  </Typography>
+                </Grid>
+              )}
+            </Grid>
           </Box>
           <Divider />
         </>
