@@ -16,7 +16,7 @@ import Confirmation from '../../../widgets/confirmation/confirmation.component';
 import ProfileContext from '../../../../contexts/profile';
 
 const PersonalInformation = ({ updateInProgress, updateName, updateEmail, uploadProfilePhoto, deleteProfilePhoto }) => {
-  const { displayName, firstName, lastName, email, emailVerified, photoURL } = useContext(ProfileContext);
+  const { displayName, firstName, lastName, email, emailVerified, photoName } = useContext(ProfileContext);
 
   return (
     <Section
@@ -60,7 +60,7 @@ const PersonalInformation = ({ updateInProgress, updateName, updateEmail, upload
             type="file"
             id="photoURL"
             label="Profile Photo"
-            value={photoURL}
+            value={photoName}
             onSubmit={photo => uploadProfilePhoto(photo[0])}
             required
             secondaryButton={(
@@ -71,7 +71,7 @@ const PersonalInformation = ({ updateInProgress, updateName, updateEmail, upload
                 onAgree={deleteProfilePhoto}
                 toggle={show => (
                   <Tooltip title="Delete photo">
-                    <IconButton onClick={() => show()} disabled={!photoURL}>
+                    <IconButton onClick={() => show()} disabled={!photoName}>
                       <DeleteIcon fontSize="small" color="error" />
                     </IconButton>
                   </Tooltip>
