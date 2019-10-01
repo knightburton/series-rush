@@ -6,10 +6,11 @@ import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
 import Divider from '@material-ui/core/Divider';
 import Typography from '@material-ui/core/Typography';
+import LinearProgress from '@material-ui/core/LinearProgress';
 
 import useStyles from './section.styles';
 
-const Section = ({ children, title, subtitle }) => {
+const Section = ({ children, title, subtitle, inProgress }) => {
   const classes = useStyles();
 
   return (
@@ -31,12 +32,20 @@ const Section = ({ children, title, subtitle }) => {
                 </Grid>
               )}
             </Grid>
+            {inProgress && (
+              <Box className={classes.progressBox} />
+            )}
           </Box>
           <Divider />
         </>
       )}
       <Box className={classes.content}>
         {children}
+        {inProgress && (
+          <Box className={classes.progressBox}>
+            <LinearProgress />
+          </Box>
+        )}
       </Box>
     </Paper>
   );
@@ -46,11 +55,13 @@ Section.propTypes = {
   children: PropTypes.node.isRequired,
   title: PropTypes.string,
   subtitle: PropTypes.string,
+  inProgress: PropTypes.bool,
 };
 
 Section.defaultProps = {
   title: '',
   subtitle: '',
+  inProgress: false,
 };
 
 export default Section;

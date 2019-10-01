@@ -5,19 +5,26 @@ import { addAlert } from '../app';
 // Initial state
 export const initialState = {
   inProgress: false,
+  updateInProgress: false,
 };
 
 // Action types
 export const SET_AUTH_IN_PROGRESS = 'SET_AUTH_IN_PROGRESS';
+export const SET_AUTH_UPDATE_IN_PROGRESS = 'SET_AUTH_UPDATE_IN_PROGRESS';
 
 // Action creators
 export const setAuthInProgress = createAction(
   SET_AUTH_IN_PROGRESS,
   inProgress => inProgress
 );
+export const setAuthUpdateInProgress = createAction(
+  SET_AUTH_IN_PROGRESS,
+  updateInProgress => updateInProgress
+);
 
 // Selectors
 export const getInProgress = state => state.auth.inProgress;
+export const getUpdateInProgress = state => state.auth.updateInProgress;
 
 export const getFirebaseProfile = state => state.firebase.profile;
 export const getFirebaseAuth = state => state.firebase.auth;
@@ -59,6 +66,7 @@ export const getProfile = createSelector(
 export const reducer = handleActions(
   {
     [setAuthInProgress]: (state, { payload: inProgress }) => ({ ...state, inProgress }),
+    [setAuthUpdateInProgress]: (state, { payload: updateInProgress }) => ({ ...state, updateInProgress }),
   },
   initialState
 );
@@ -121,11 +129,88 @@ export const sendPasswordResetEmail = email => async (dispatch, getState, { getF
   }
 };
 
-export const updateEmail = email => async (dispatch, getState, { getFirebase }) => {
+export const updateName = (key, value) => async (dispatch, getState, { getFirebase }) => {
+  dispatch(setAuthUpdateInProgress(true));
   try {
     const firebase = getFirebase();
-    await firebase.updateEmail(email, true);
+    const { firstName, lastName } = getProfile(getState());
+    const displayName = key === 'firstName'
+      ? `${value} ${lastName}`
+      : `${firstName} ${value}`;
+    await firebase.updateAuth(
+      {
+        displayName,
+        [key]: value,
+      },
+      true
+    );
   } catch (error) {
     dispatch(addAlert(error.message, 'error'));
+  } finally {
+    dispatch(setAuthUpdateInProgress(false));
+  }
+};
+
+export const updateEmail = email => async (dispatch, getState, { getFirebase }) => {
+  dispatch(setAuthUpdateInProgress(true));
+  try {
+    const firebase = getFirebase();
+    await firebase.updateEmail(
+      email,
+      true
+    );
+  } catch (error) {
+    dispatch(addAlert(error.message, 'error'));
+  } finally {
+    dispatch(setAuthUpdateInProgress(false));
+  }
+};
+
+export const uploadProfilePhoto = file => async (dispatch, getState, { getFirebase }) => {
+  if (file) {
+    dispatch(setAuthUpdateInProgress(true));
+    try {
+      const firebase = getFirebase();
+      const { id } = getProfile(getState());
+      const { uploadTaskSnapshot: { metadata } } = await firebase.uploadFile(`profiles/${id}`, file);
+      const downloadUrl = await firebase.storage().ref().child(metadata.fullPath).getDownloadURL();
+      await firebase.updateAuth(
+        {
+          photoURL: downloadUrl,
+          photoName: metadata.name,
+        },
+        true
+      );
+    } catch (error) {
+      dispatch(addAlert(error.message, 'error'));
+    } finally {
+      dispatch(setAuthUpdateInProgress(false));
+    }
+  } else {
+    dispatch(addAlert('There is no photo that could be uploaded', 'error'));
+  }
+};
+
+export const deleteProfilePhoto = () => async (dispatch, getState, { getFirebase }) => {
+  dispatch(setAuthUpdateInProgress(true));
+  try {
+    const firebase = getFirebase();
+    const { id, photoName } = getProfile(getState());
+    if (id && photoName) {
+      await firebase.deleteFile(`profiles/${id}/${photoName}`);
+      await firebase.updateAuth(
+        {
+          photoURL: null,
+          photoName: null,
+        },
+        true
+      );
+    } else {
+      dispatch(addAlert('There is no available profile photo', 'error'));
+    }
+  } catch (error) {
+    dispatch(addAlert(error.message, 'error'));
+  } finally {
+    dispatch(setAuthUpdateInProgress(false));
   }
 };

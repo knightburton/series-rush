@@ -6,6 +6,7 @@ import IconButton from '@material-ui/core/IconButton';
 
 import AddPhotoIcon from '@material-ui/icons/AddPhotoAlternateOutlined';
 
+import Tooltip from '../tooltip/tooltip.component';
 import EditControlWrapper from './edit-control-wrapper.component';
 
 import useStlyes from './edit.styles';
@@ -19,9 +20,11 @@ const EditControlFile = ({ id, type, state: { value, error }, label, helperText,
 
   return (
     <>
-      <IconButton color="primary" onClick={handleAddClick} className={classes.addFileButton}>
-        <AddPhotoIcon />
-      </IconButton>
+      <Tooltip title="Browse files">
+        <IconButton color="primary" onClick={handleAddClick} className={classes.addFileButton}>
+          <AddPhotoIcon />
+        </IconButton>
+      </Tooltip>
       <EditControlWrapper
         id={id}
         label={label}
@@ -57,7 +60,7 @@ EditControlFile.propTypes = {
   id: PropTypes.string.isRequired,
   type: PropTypes.string.isRequired,
   state: PropTypes.shape({
-    value: PropTypes.array,
+    value: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
     error: PropTypes.string,
   }).isRequired,
   label: PropTypes.string.isRequired,

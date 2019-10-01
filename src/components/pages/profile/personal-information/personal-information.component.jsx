@@ -10,15 +10,20 @@ import DeleteIcon from '@material-ui/icons/DeleteOutline';
 import Section from '../../../commons/section/section.component';
 import ProfilePhoto from '../../../commons/profile-photo/profile-photo.component';
 import Edit from '../../../commons/edit/edit.component';
+import Tooltip from '../../../commons/tooltip/tooltip.component';
 import Confirmation from '../../../widgets/confirmation/confirmation.component';
 
 import ProfileContext from '../../../../contexts/profile';
 
-const PersonalInformation = ({ updateEmail }) => {
+const PersonalInformation = ({ updateInProgress, updateName, updateEmail, uploadProfilePhoto, deleteProfilePhoto }) => {
   const { displayName, firstName, lastName, email, emailVerified, photoURL } = useContext(ProfileContext);
 
   return (
-    <Section title="Personal Information" subtitle="update your personal informaiton">
+    <Section
+      title="Personal Information"
+      subtitle="update your personal informaiton"
+      inProgress={updateInProgress}
+    >
       <Grid container spacing={1}>
         <Grid item container xs={12} sm={4} justify="flex-start" alignItems="center" direction="column">
           <ProfilePhoto size="huge" withDisabledColor />
@@ -32,7 +37,7 @@ const PersonalInformation = ({ updateEmail }) => {
             id="firstName"
             label="First Name"
             value={firstName}
-            onSubmit={() => {}}
+            onSubmit={value => updateName('firstName', value)}
             required
           />
           <Edit
@@ -40,7 +45,7 @@ const PersonalInformation = ({ updateEmail }) => {
             id="lastName"
             label="Last Name"
             value={lastName}
-            onSubmit={() => {}}
+            onSubmit={value => updateName('lastName', value)}
             required
           />
           <Edit
@@ -56,18 +61,20 @@ const PersonalInformation = ({ updateEmail }) => {
             id="photoURL"
             label="Profile Photo"
             value={photoURL}
-            onSubmit={() => {}}
+            onSubmit={photo => uploadProfilePhoto(photo[0])}
             required
             secondaryButton={(
               <Confirmation
                 id="delete-profile-photo"
                 title="Delete profile photo?"
                 description="Your photo will be completely removed from everywhere and will be replaced with the default avatar."
-                onAgree={() => {}}
+                onAgree={deleteProfilePhoto}
                 toggle={show => (
-                  <IconButton onClick={() => show()} disabled={!photoURL}>
-                    <DeleteIcon fontSize="small" color="error" />
-                  </IconButton>
+                  <Tooltip title="Delete photo">
+                    <IconButton onClick={() => show()} disabled={!photoURL}>
+                      <DeleteIcon fontSize="small" color="error" />
+                    </IconButton>
+                  </Tooltip>
                 )}
               />
             )}
@@ -79,7 +86,11 @@ const PersonalInformation = ({ updateEmail }) => {
 };
 
 PersonalInformation.propTypes = {
+  updateInProgress: PropTypes.bool.isRequired,
+  updateName: PropTypes.func.isRequired,
   updateEmail: PropTypes.func.isRequired,
+  uploadProfilePhoto: PropTypes.func.isRequired,
+  deleteProfilePhoto: PropTypes.func.isRequired,
 };
 
 export default PersonalInformation;

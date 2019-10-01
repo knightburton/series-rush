@@ -10,6 +10,7 @@ import EditIcon from '@material-ui/icons/Edit';
 import CheckIcon from '@material-ui/icons/Check';
 import CloseIcon from '@material-ui/icons/Close';
 
+import Tooltip from '../tooltip/tooltip.component';
 import EditControl from './edit-control.component';
 
 import useForm from '../../../hooks/useForm';
@@ -47,12 +48,16 @@ const Edit = ({ type, id, value, label, helperText, disabled, required, validato
         onChange={handleChange}
       />
       <Box className={classes.buttons}>
-        <IconButton onClick={() => setEdit(false)}>
-          <CloseIcon fontSize="small" />
-        </IconButton>
-        <IconButton type="submit" color="primary">
-          <CheckIcon fontSize="small" />
-        </IconButton>
+        <Tooltip title="Cancel">
+          <IconButton onClick={() => setEdit(false)}>
+            <CloseIcon fontSize="small" />
+          </IconButton>
+        </Tooltip>
+        <Tooltip title="Submit">
+          <IconButton type="submit" color="primary">
+            <CheckIcon fontSize="small" />
+          </IconButton>
+        </Tooltip>
       </Box>
     </form>
   ) : (
@@ -66,9 +71,11 @@ const Edit = ({ type, id, value, label, helperText, disabled, required, validato
         </Typography>
       </Box>
       <Box className={classes.buttons}>
-        <IconButton onClick={handleEdit}>
-          <EditIcon fontSize="small" />
-        </IconButton>
+        <Tooltip title="Edit">
+          <IconButton onClick={handleEdit}>
+            <EditIcon fontSize="small" />
+          </IconButton>
+        </Tooltip>
         {secondaryButton}
       </Box>
     </Box>
