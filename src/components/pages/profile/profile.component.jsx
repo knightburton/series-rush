@@ -15,7 +15,7 @@ import Confirmation from '../../widgets/confirmation/confirmation.component';
 import ProfileContext from '../../../contexts/profile';
 
 const Profile = () => {
-  const { displayName, firstName, lastName, email, photoURL } = useContext(ProfileContext);
+  const { displayName, firstName, lastName, email, emailVerified, photoURL } = useContext(ProfileContext);
 
   return (
     <Container maxWidth="md">
@@ -47,7 +47,7 @@ const Profile = () => {
             <Edit
               type="text"
               id="email"
-              label="Email"
+              label={`Email (${emailVerified ? 'Verified' : 'Not Verified'})`}
               value={email}
               onSubmit={() => {}}
               required

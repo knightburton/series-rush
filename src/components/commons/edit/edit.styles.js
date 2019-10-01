@@ -15,6 +15,9 @@ export default makeStyles(theme => ({
     alignItems: 'flex-start',
     marginTop: theme.spacing(1),
   },
+  addFileButton: {
+    marginRight: theme.spacing(1),
+  },
   displayBox: {
     marginBottom: theme.spacing(4),
     marginRight: theme.spacing(1),

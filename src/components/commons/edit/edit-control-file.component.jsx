@@ -8,7 +8,10 @@ import AddPhotoIcon from '@material-ui/icons/AddPhotoAlternateOutlined';
 
 import EditControlWrapper from './edit-control-wrapper.component';
 
+import useStlyes from './edit.styles';
+
 const EditControlFile = ({ id, type, state: { value, error }, label, helperText, disabled, required, onChange }) => {
+  const classes = useStlyes();
   const fileInput = useRef(null);
   const fileName = (value && value.length && value[0].name) || 'No file selected';
 
@@ -16,7 +19,7 @@ const EditControlFile = ({ id, type, state: { value, error }, label, helperText,
 
   return (
     <>
-      <IconButton color="primary" onClick={handleAddClick}>
+      <IconButton color="primary" onClick={handleAddClick} className={classes.addFileButton}>
         <AddPhotoIcon />
       </IconButton>
       <EditControlWrapper
