@@ -1,9 +1,10 @@
 import { createStore, applyMiddleware, compose } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import { getFirebase } from 'react-redux-firebase';
-import { getFirestore } from 'redux-firestore';
+import { getFirestore, reduxFirestore } from 'redux-firestore';
 import thunk from 'redux-thunk';
 import history from '../side-effects/history';
+import firebase from '../side-effects/firebase';
 import rootReducer from './root-reducer';
 
 const isDevelopment = process.env.NODE_ENV === 'development';
@@ -18,6 +19,7 @@ const middlewares = applyMiddleware(
 
 const enhancers = [
   middlewares,
+  reduxFirestore(firebase),
 ];
 
 const composer = isDevelopment ? composeWithDevTools : compose;
