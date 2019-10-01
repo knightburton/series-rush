@@ -4,25 +4,24 @@ export default makeStyles(theme => ({
   form: {
     display: 'flex',
     flexDirection: 'row',
-    alignItems: 'center',
+    alignItems: 'flex-start',
   },
-  box: {
+  formControl: {
+    marginBottom: theme.spacing(1),
+  },
+  buttons: {
     display: 'flex',
     flexDirection: 'row',
-    alignItems: 'center',
+    alignItems: 'flex-start',
+    marginTop: theme.spacing(0.5),
   },
-  left: {
-    justifyContent: 'flex-start',
+  displayBox: {
+    marginBottom: theme.spacing(4),
   },
-  center: {
-    justifyContent: 'center',
-    marginLeft: theme.spacing(6.5),
+  displayLabel: {
+    marginBottom: theme.spacing(0.5),
   },
-  right: {
-    justifyContent: 'flex-end',
-  },
-  value: {
+  displayValue: {
     wordBreak: 'break-word',
-    marginRight: theme.spacing(1),
   },
 }));
