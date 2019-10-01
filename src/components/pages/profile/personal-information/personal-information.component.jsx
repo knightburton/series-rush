@@ -14,7 +14,7 @@ import Confirmation from '../../../widgets/confirmation/confirmation.component';
 
 import ProfileContext from '../../../../contexts/profile';
 
-const PersonalInformation = ({ updateName, updateEmail }) => {
+const PersonalInformation = ({ updateName, updateEmail, uploadProfilePhoto, deleteProfilePhoto }) => {
   const { displayName, firstName, lastName, email, emailVerified, photoURL } = useContext(ProfileContext);
 
   return (
@@ -56,14 +56,14 @@ const PersonalInformation = ({ updateName, updateEmail }) => {
             id="photoURL"
             label="Profile Photo"
             value={photoURL}
-            onSubmit={() => {}}
+            onSubmit={photo => uploadProfilePhoto(photo[0])}
             required
             secondaryButton={(
               <Confirmation
                 id="delete-profile-photo"
                 title="Delete profile photo?"
                 description="Your photo will be completely removed from everywhere and will be replaced with the default avatar."
-                onAgree={() => {}}
+                onAgree={deleteProfilePhoto}
                 toggle={show => (
                   <IconButton onClick={() => show()} disabled={!photoURL}>
                     <DeleteIcon fontSize="small" color="error" />
@@ -81,6 +81,8 @@ const PersonalInformation = ({ updateName, updateEmail }) => {
 PersonalInformation.propTypes = {
   updateName: PropTypes.func.isRequired,
   updateEmail: PropTypes.func.isRequired,
+  uploadProfilePhoto: PropTypes.func.isRequired,
+  deleteProfilePhoto: PropTypes.func.isRequired,
 };
 
 export default PersonalInformation;

@@ -133,7 +133,7 @@ export const updateName = (key, value) => async (dispatch, getState, { getFireba
         displayName,
         [key]: value,
       },
-      true // Also update the Profile document
+      true
     );
   } catch (error) {
     dispatch(addAlert(error.message, 'error'));
@@ -145,8 +145,48 @@ export const updateEmail = email => async (dispatch, getState, { getFirebase }) 
     const firebase = getFirebase();
     await firebase.updateEmail(
       email,
-      true // Also update the Profile document
+      true
     );
+  } catch (error) {
+    dispatch(addAlert(error.message, 'error'));
+  }
+};
+
+export const uploadProfilePhoto = file => async (dispatch, getState, { getFirebase }) => {
+  if (!file) return dispatch(addAlert('There is no photo that could be uploaded', 'error'));
+  try {
+    const firebase = getFirebase();
+    const { id } = getProfile(getState());
+    const { uploadTaskSnapshot: { metadata } } = await firebase.uploadFile(`profiles/${id}`, file);
+    const downloadUrl = await firebase.storage().ref().child(metadata.fullPath).getDownloadURL();
+    return await firebase.updateAuth(
+      {
+        photoURL: downloadUrl,
+        photoName: metadata.name,
+      },
+      true
+    );
+  } catch (error) {
+    return dispatch(addAlert(error.message, 'error'));
+  }
+};
+
+export const deleteProfilePhoto = () => async (dispatch, getState, { getFirebase }) => {
+  try {
+    const firebase = getFirebase();
+    const { id, photoName } = getProfile(getState());
+    if (id && photoName) {
+      await firebase.deleteFile(`profiles/${id}/${photoName}`);
+      await firebase.updateAuth(
+        {
+          photoURL: null,
+          photoName: null,
+        },
+        true
+      );
+    } else {
+      dispatch(addAlert('There is no available profile photo', 'error'));
+    }
   } catch (error) {
     dispatch(addAlert(error.message, 'error'));
   }

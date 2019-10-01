@@ -57,7 +57,7 @@ EditControlFile.propTypes = {
   id: PropTypes.string.isRequired,
   type: PropTypes.string.isRequired,
   state: PropTypes.shape({
-    value: PropTypes.array,
+    value: PropTypes.object,
     error: PropTypes.string,
   }).isRequired,
   label: PropTypes.string.isRequired,
