@@ -1,10 +1,17 @@
 import { connect } from 'react-redux';
 
-import {} from '../../../../store/auth';
+import {
+  getPasswordInProgress,
+  sendPasswordResetEmail,
+} from '../../../../store/auth';
 import ChangePassword from './change-password.component';
 
-const mapStateToProps = () => ({});
+const mapStateToProps = state => ({
+  inProgress: getPasswordInProgress(state),
+});
 
-const mapDispatchToProps = {};
+const mapDispatchToProps = {
+  sendPasswordResetEmail,
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(ChangePassword);

@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import Container from '@material-ui/core/Container';
 import TextField from '@material-ui/core/TextField';
@@ -12,7 +13,7 @@ import useForm from '../../../../hooks/useForm';
 import useStyles from './change-password.styles';
 import { STATE_SCHEMA, VALIDATION_SCHEMA } from './change-password.constants';
 
-const ChangePassword = () => {
+const ChangePassword = ({ inProgress, sendPasswordResetEmail }) => {
   const classes = useStyles();
   const { state, handleChange, handleSubmit } = useForm(STATE_SCHEMA, VALIDATION_SCHEMA, () => {});
   const { currentPassword, newPassword, confirmPassword } = state;
@@ -21,6 +22,7 @@ const ChangePassword = () => {
     <Section
       title="Change Password"
       subtitle="change or reset your account password"
+      inProgress={inProgress}
     >
       <Container maxWidth="xs">
         <form className={classes.form} noValidate onSubmit={handleSubmit}>
@@ -43,7 +45,7 @@ const ChangePassword = () => {
             id="profile-forgot-password"
             title="Request Password reset?"
             description="You will receive an email that contains every information that you need to do in order to create a new password."
-            onAgree={() => {}}
+            onAgree={() => sendPasswordResetEmail(null, true)}
             toggle={show => (
               <Button
                 color="primary"
@@ -98,6 +100,11 @@ const ChangePassword = () => {
       </Container>
     </Section>
   );
+};
+
+ChangePassword.propTypes = {
+  inProgress: PropTypes.bool.isRequired,
+  sendPasswordResetEmail: PropTypes.func.isRequired,
 };
 
 export default ChangePassword;
