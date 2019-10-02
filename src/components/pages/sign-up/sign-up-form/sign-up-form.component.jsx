@@ -8,11 +8,15 @@ import Grid from '@material-ui/core/Grid';
 import useForm from '../../../../hooks/useForm';
 
 import useStyles from './sign-up-form.styles';
-import { STATE_SCHEMA, VALIDATION_SCHEMA } from './sign-up-form.constants';
+import { stateSchema, validationSchema } from './sign-up-form.constants';
 
 const SignUpForm = ({ createProfile, inProgress }) => {
   const classes = useStyles();
-  const { state, handleChange, handleSubmit } = useForm(STATE_SCHEMA, VALIDATION_SCHEMA, createProfile);
+  const { state, handleChange, handleSubmit } = useForm({
+    stateSchema,
+    validationSchema,
+    callback: createProfile,
+  });
   const { firstName, lastName, email, password, confirmPassword } = state;
 
   return (
@@ -21,7 +25,7 @@ const SignUpForm = ({ createProfile, inProgress }) => {
         <Grid item xs={6}>
           <TextField
             variant="outlined"
-            margin="normal"
+            margin="dense"
             required
             fullWidth
             id="firstName"
@@ -37,7 +41,7 @@ const SignUpForm = ({ createProfile, inProgress }) => {
         <Grid item xs={6}>
           <TextField
             variant="outlined"
-            margin="normal"
+            margin="dense"
             required
             fullWidth
             name="lastName"
@@ -54,7 +58,7 @@ const SignUpForm = ({ createProfile, inProgress }) => {
         <Grid item xs={12}>
           <TextField
             variant="outlined"
-            margin="normal"
+            margin="dense"
             required
             fullWidth
             name="email"
@@ -71,7 +75,7 @@ const SignUpForm = ({ createProfile, inProgress }) => {
         <Grid item xs={12}>
           <TextField
             variant="outlined"
-            margin="normal"
+            margin="dense"
             required
             fullWidth
             name="password"
@@ -88,7 +92,7 @@ const SignUpForm = ({ createProfile, inProgress }) => {
         <Grid item xs={12}>
           <TextField
             variant="outlined"
-            margin="normal"
+            margin="dense"
             required
             fullWidth
             name="confirmPassword"

@@ -1,13 +1,13 @@
-import { FORM_VALIDATORS, FORM_ERRORS } from '../../../constants';
+import { VALIDATORS, ERRORS } from '../../../constants/form';
 
-export const STATE_SCHEMA = {
+export const stateSchema = {
   email: { value: '', error: '' },
 };
 
-export const VALIDATION_SCHEMA = {
+export const validationSchema = {
   email: {
     required: true,
-    validators: [FORM_VALIDATORS.EMAIL],
-    errors: [FORM_ERRORS.EMAIL],
+    validators: [VALIDATORS.EMAIL],
+    errors: [ERRORS.EMAIL],
   },
 };

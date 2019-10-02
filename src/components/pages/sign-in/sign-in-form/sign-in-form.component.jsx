@@ -7,18 +7,22 @@ import Button from '@material-ui/core/Button';
 import useForm from '../../../../hooks/useForm';
 
 import useStyles from './sign-in-form.styles';
-import { STATE_SCHEMA, VALIDATION_SCHEMA } from './sign-in-form.constants';
+import { stateSchema, validationSchema } from './sign-in-form.constants';
 
 const SignInForm = ({ inProgress, signIn }) => {
   const classes = useStyles();
-  const { state, handleChange, handleSubmit } = useForm(STATE_SCHEMA, VALIDATION_SCHEMA, signIn);
+  const { state, handleChange, handleSubmit } = useForm({
+    stateSchema,
+    validationSchema,
+    callback: signIn,
+  });
   const { email, password } = state;
 
   return (
     <form className={classes.form} noValidate onSubmit={handleSubmit}>
       <TextField
         variant="outlined"
-        margin="normal"
+        margin="dense"
         required
         fullWidth
         id="email"
@@ -32,7 +36,7 @@ const SignInForm = ({ inProgress, signIn }) => {
       />
       <TextField
         variant="outlined"
-        margin="normal"
+        margin="dense"
         required
         fullWidth
         name="password"

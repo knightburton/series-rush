@@ -3,6 +3,7 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import { getFirebase } from 'react-redux-firebase';
 import { getFirestore, reduxFirestore } from 'redux-firestore';
 import thunk from 'redux-thunk';
+import mazeApi from '../api/tv-maze-api';
 import history from '../side-effects/history';
 import firebase from '../side-effects/firebase';
 import rootReducer from './root-reducer';
@@ -14,6 +15,7 @@ const middlewares = applyMiddleware(
     history,
     getFirebase,
     getFirestore,
+    mazeApi,
   }),
 );
 

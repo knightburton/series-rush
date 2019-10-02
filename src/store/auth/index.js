@@ -6,11 +6,13 @@ import { addAlert, setAppWaiting } from '../app';
 export const initialState = {
   inProgress: false,
   updateInProgress: false,
+  passwordInProgress: false,
 };
 
 // Action types
 export const SET_AUTH_IN_PROGRESS = 'SET_AUTH_IN_PROGRESS';
 export const SET_AUTH_UPDATE_IN_PROGRESS = 'SET_AUTH_UPDATE_IN_PROGRESS';
+export const SET_AUTH_PASSWORD_IN_PROGRESS = 'SET_AUTH_PASSWORD_IN_PROGRESS';
 
 // Action creators
 export const setAuthInProgress = createAction(
@@ -21,10 +23,15 @@ export const setAuthUpdateInProgress = createAction(
   SET_AUTH_UPDATE_IN_PROGRESS,
   updateInProgress => updateInProgress
 );
+export const setAuthPasswordInProgress = createAction(
+  SET_AUTH_PASSWORD_IN_PROGRESS,
+  passwordInProgress => passwordInProgress
+);
 
 // Selectors
 export const getInProgress = state => state.auth.inProgress;
 export const getUpdateInProgress = state => state.auth.updateInProgress;
+export const getPasswordInProgress = state => state.auth.passwordInProgress;
 
 export const getFirebaseProfile = state => state.firebase.profile;
 export const getFirebaseAuth = state => state.firebase.auth;
@@ -67,6 +74,7 @@ export const reducer = handleActions(
   {
     [setAuthInProgress]: (state, { payload: inProgress }) => ({ ...state, inProgress }),
     [setAuthUpdateInProgress]: (state, { payload: updateInProgress }) => ({ ...state, updateInProgress }),
+    [setAuthPasswordInProgress]: (state, { payload: passwordInProgress }) => ({ ...state, passwordInProgress }),
   },
   initialState
 );
@@ -105,11 +113,12 @@ export const signIn = credentials => async (dispatch, getState, { getFirebase })
   }
 };
 
-export const signOut = () => async (dispatch, getState, { getFirebase }) => {
+export const signOut = () => async (dispatch, getState, { getFirebase, history }) => {
   dispatch(setAuthInProgress(true));
   try {
     const firebase = getFirebase();
     await firebase.logout();
+    history.push('/');
   } catch (error) {
     dispatch(addAlert(error.message, 'error'));
   } finally {
@@ -117,15 +126,24 @@ export const signOut = () => async (dispatch, getState, { getFirebase }) => {
   }
 };
 
-export const sendPasswordResetEmail = email => async (dispatch, getState, { getFirebase }) => {
-  dispatch(setAuthInProgress(true));
+export const sendPasswordResetEmail = (email, fromProfile = false) => async (dispatch, getState, { getFirebase }) => {
+  if (fromProfile) dispatch(setAuthPasswordInProgress(true));
+  else dispatch(setAuthInProgress(true));
+
   try {
     const firebase = getFirebase();
-    await firebase.auth().sendPasswordResetEmail(email);
+    const { id, email: profileEmail } = getProfile(getState());
+    const address = fromProfile && !email && !!id ? profileEmail : email;
+    await firebase.auth().sendPasswordResetEmail(address);
+    dispatch(addAlert(
+      'Your password reset email has been sent, check your inbox (make sure to check your spam folder as well).',
+      'success'
+    ));
   } catch (error) {
     dispatch(addAlert(error.message, 'error'));
   } finally {
-    dispatch(setAuthInProgress(false));
+    if (fromProfile) dispatch(setAuthPasswordInProgress(false));
+    else dispatch(setAuthInProgress(false));
   }
 };
 
@@ -212,6 +230,28 @@ export const deleteProfilePhoto = () => async (dispatch, getState, { getFirebase
     dispatch(addAlert(error.message, 'error'));
   } finally {
     dispatch(setAuthUpdateInProgress(false));
+  }
+};
+
+export const changePassword = passwords => async (dispatch, getState, { getFirebase }) => {
+  dispatch(setAuthPasswordInProgress(true));
+  try {
+    const firebase = getFirebase();
+    const { currentPassword, newPassword, confirmPassword } = passwords;
+    if (!currentPassword) throw new Error('The current password is required.');
+    if (newPassword !== confirmPassword) throw new Error('The new password and confirm password must match.');
+
+    const { email } = getProfile(getState());
+    // Before update user's password we should reautheticate the user.
+    // Just simply login with the normal credentials insted of reloadAuth or reauthenticateWithCredential.
+    // With this scenario the user has to remember their password.
+    await firebase.login({ email, password: currentPassword });
+    await firebase.auth().currentUser.updatePassword(newPassword);
+    dispatch(addAlert('Your password has been changed. You can sign in with your new password now.', 'success'));
+  } catch (error) {
+    dispatch(addAlert(error.message, 'error'));
+  } finally {
+    dispatch(setAuthPasswordInProgress(false));
   }
 };
 

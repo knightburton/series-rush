@@ -1,5 +1,5 @@
 import { useState, useCallback } from 'react';
-import { FORM_VALIDATORS, FORM_ERRORS } from '../constants';
+import { VALIDATORS, ERRORS } from '../constants/form';
 
 /**
  * Return the invalid validator index from the validation schema.
@@ -31,7 +31,7 @@ const getInvalidValidatorIndex = (value = null, validators = []) => {
  * @param {object} state The actual state of the form.
  */
 const getIsValueValid = (value = null, { required, match, matchError, validators, errors } = {}, state = {}) => {
-  if (required && !FORM_VALIDATORS.REQUIRED.test(value)) return FORM_ERRORS.REQUIRED;
+  if (required && !VALIDATORS.REQUIRED.test(value)) return ERRORS.REQUIRED;
   if (match && state[match] && state[match].value !== value) return matchError;
   if (validators) {
     const invalidIndex = getInvalidValidatorIndex(value, validators, state);
@@ -74,8 +74,9 @@ const validateState = (stateSchema, validationSchema = {}, state = {}) => Object
  * @param {object} stateSchema Model your initial state.
  * @param {object} validationSchema Model your state validation.
  * @param {function} callback Function to be execute during form submission.
+ * @param {boolean} resetState Should reset the actual state after a successfull submit or not.
  */
-const useForm = (stateSchema = {}, validationSchema = {}, callback = () => {}) => {
+const useForm = ({ stateSchema, validationSchema, callback, resetState = false }) => {
   const [state, setState] = useState(stateSchema);
 
   const handleChange = event => {
@@ -95,14 +96,19 @@ const useForm = (stateSchema = {}, validationSchema = {}, callback = () => {}) =
 
     const isStateValid = getIsStateValid(validationSchema, state);
 
-    if (isStateValid) return callback(Object.keys(state).reduce((o, key) => ({ ...o, [key]: state[key].value }), {}));
-    return setState(validateState(stateSchema, validationSchema, state));
-  }, [state, stateSchema, validationSchema, callback]);
+    if (isStateValid) {
+      if (callback) callback(Object.keys(state).reduce((o, key) => ({ ...o, [key]: state[key].value }), {}));
+      if (resetState) setState(stateSchema);
+      return;
+    }
+    setState(validateState(stateSchema, validationSchema, state));
+  }, [state, stateSchema, validationSchema, callback, resetState]);
 
   return {
     state,
     handleChange,
     handleSubmit,
+    resetState,
   };
 };
 

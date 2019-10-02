@@ -13,11 +13,15 @@ import Header from '../../commons/header/header.component';
 import useForm from '../../../hooks/useForm';
 
 import useStyles from './forgot-password.styles';
-import { STATE_SCHEMA, VALIDATION_SCHEMA } from './forgot-password.constants';
+import { stateSchema, validationSchema } from './forgot-password.constants';
 
 const ForgotPassword = ({ inProgress, sendPasswordResetEmail }) => {
   const classes = useStyles();
-  const { state, handleChange, handleSubmit } = useForm(STATE_SCHEMA, VALIDATION_SCHEMA, ({ email }) => sendPasswordResetEmail(email));
+  const { state, handleChange, handleSubmit } = useForm({
+    stateSchema,
+    validationSchema,
+    callback: ({ email }) => sendPasswordResetEmail(email),
+  });
   const { email } = state;
 
   return (
@@ -32,7 +36,7 @@ const ForgotPassword = ({ inProgress, sendPasswordResetEmail }) => {
       <form className={classes.form} noValidate onSubmit={handleSubmit}>
         <TextField
           variant="outlined"
-          margin="normal"
+          margin="dense"
           required
           fullWidth
           id="email"
