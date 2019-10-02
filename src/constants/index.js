@@ -1,3 +1,5 @@
+export const TV_MAZE_API_URL = 'http://api.tvmaze.com';
+
 export const FORM_VALIDATORS = {
   REQUIRED: /\S/,
   ONLY_NUMBER: /^\d+$/,
