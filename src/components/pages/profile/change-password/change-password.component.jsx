@@ -11,11 +11,16 @@ import Confirmation from '../../../widgets/confirmation/confirmation.component';
 import useForm from '../../../../hooks/useForm';
 
 import useStyles from './change-password.styles';
-import { STATE_SCHEMA, VALIDATION_SCHEMA } from './change-password.constants';
+import { stateSchema, validationSchema } from './change-password.constants';
 
 const ChangePassword = ({ inProgress, sendPasswordResetEmail, changePassword }) => {
   const classes = useStyles();
-  const { state, handleChange, handleSubmit } = useForm(STATE_SCHEMA, VALIDATION_SCHEMA, changePassword, true);
+  const { state, handleChange, handleSubmit } = useForm({
+    stateSchema,
+    validationSchema,
+    callback: changePassword,
+    resetState: true,
+  });
   const { currentPassword, newPassword, confirmPassword } = state;
 
   return (

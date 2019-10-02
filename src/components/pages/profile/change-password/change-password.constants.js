@@ -1,12 +1,12 @@
 import { VALIDATORS, ERRORS } from '../../../../constants/form';
 
-export const STATE_SCHEMA = {
+export const stateSchema = {
   currentPassword: { value: '', error: '' },
   newPassword: { value: '', error: '' },
   confirmPassword: { value: '', error: '' },
 };
 
-export const VALIDATION_SCHEMA = {
+export const validationSchema = {
   currentPassword: {
     required: true,
   },

@@ -8,11 +8,15 @@ import Grid from '@material-ui/core/Grid';
 import useForm from '../../../../hooks/useForm';
 
 import useStyles from './sign-up-form.styles';
-import { STATE_SCHEMA, VALIDATION_SCHEMA } from './sign-up-form.constants';
+import { stateSchema, validationSchema } from './sign-up-form.constants';
 
 const SignUpForm = ({ createProfile, inProgress }) => {
   const classes = useStyles();
-  const { state, handleChange, handleSubmit } = useForm(STATE_SCHEMA, VALIDATION_SCHEMA, createProfile);
+  const { state, handleChange, handleSubmit } = useForm({
+    stateSchema,
+    validationSchema,
+    callback: createProfile,
+  });
   const { firstName, lastName, email, password, confirmPassword } = state;
 
   return (

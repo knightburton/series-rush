@@ -20,14 +20,14 @@ import useStyles from './edit.styles';
 const Edit = ({ type, id, value, label, helperText, disabled, required, validators, errors, onSubmit, secondaryButton }) => {
   const classes = useStyles();
   const [edit, setEdit] = useState(false);
-  const { state: { [id]: state }, handleChange, handleSubmit } = useForm(
-    { [id]: { value, error: '' } },
-    { [id]: { required, validators, errors } },
-    ({ [id]: submitValue }) => {
+  const { state: { [id]: state }, handleChange, handleSubmit } = useForm({
+    stateSchema: { [id]: { value, error: '' } },
+    validationSchema: { [id]: { required, validators, errors } },
+    callback: ({ [id]: submitValue }) => {
       onSubmit(submitValue);
       setEdit(false);
-    }
-  );
+    },
+  });
   const handleEdit = () => {
     handleChange({ target: { name: id, value } });
     setEdit(true);
