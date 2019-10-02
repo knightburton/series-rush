@@ -233,6 +233,28 @@ export const deleteProfilePhoto = () => async (dispatch, getState, { getFirebase
   }
 };
 
+export const changePassword = passwords => async (dispatch, getState, { getFirebase }) => {
+  dispatch(setAuthPasswordInProgress(true));
+  try {
+    const firebase = getFirebase();
+    const { currentPassword, newPassword, confirmPassword } = passwords;
+    if (!currentPassword) throw new Error('The current password is required.');
+    if (newPassword !== confirmPassword) throw new Error('The new password and confirm password must match.');
+
+    const { email } = getProfile(getState());
+    // Before update user's password we should reautheticate the user.
+    // Just simply login with the normal credentials insted of reloadAuth or reauthenticateWithCredential.
+    // With this scenario the user has to remember their password.
+    await firebase.login({ email, password: currentPassword });
+    await firebase.auth().currentUser.updatePassword(newPassword);
+    dispatch(addAlert('Your password has been changed. You can sign in with your new password now.', 'success'));
+  } catch (error) {
+    dispatch(addAlert(error.message, 'error'));
+  } finally {
+    dispatch(setAuthPasswordInProgress(false));
+  }
+};
+
 export const requestEmailVerification = () => async (dispatch, getState, { getFirebase }) => {
   dispatch(setAppWaiting(true));
   try {

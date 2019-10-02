@@ -74,8 +74,9 @@ const validateState = (stateSchema, validationSchema = {}, state = {}) => Object
  * @param {object} stateSchema Model your initial state.
  * @param {object} validationSchema Model your state validation.
  * @param {function} callback Function to be execute during form submission.
+ * @param {boolean} resetState Should reset the actual state after a successfull submit or not.
  */
-const useForm = (stateSchema = {}, validationSchema = {}, callback = () => {}) => {
+const useForm = (stateSchema = {}, validationSchema = {}, callback = () => {}, resetState = false) => {
   const [state, setState] = useState(stateSchema);
 
   const handleChange = event => {
@@ -95,14 +96,19 @@ const useForm = (stateSchema = {}, validationSchema = {}, callback = () => {}) =
 
     const isStateValid = getIsStateValid(validationSchema, state);
 
-    if (isStateValid) return callback(Object.keys(state).reduce((o, key) => ({ ...o, [key]: state[key].value }), {}));
-    return setState(validateState(stateSchema, validationSchema, state));
-  }, [state, stateSchema, validationSchema, callback]);
+    if (isStateValid) {
+      callback(Object.keys(state).reduce((o, key) => ({ ...o, [key]: state[key].value }), {}));
+      if (resetState) setState(stateSchema);
+      return;
+    }
+    setState(validateState(stateSchema, validationSchema, state));
+  }, [state, stateSchema, validationSchema, callback, resetState]);
 
   return {
     state,
     handleChange,
     handleSubmit,
+    resetState,
   };
 };
 

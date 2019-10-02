@@ -13,9 +13,9 @@ import useForm from '../../../../hooks/useForm';
 import useStyles from './change-password.styles';
 import { STATE_SCHEMA, VALIDATION_SCHEMA } from './change-password.constants';
 
-const ChangePassword = ({ inProgress, sendPasswordResetEmail }) => {
+const ChangePassword = ({ inProgress, sendPasswordResetEmail, changePassword }) => {
   const classes = useStyles();
-  const { state, handleChange, handleSubmit } = useForm(STATE_SCHEMA, VALIDATION_SCHEMA, () => {});
+  const { state, handleChange, handleSubmit } = useForm(STATE_SCHEMA, VALIDATION_SCHEMA, changePassword, true);
   const { currentPassword, newPassword, confirmPassword } = state;
 
   return (
@@ -105,6 +105,7 @@ const ChangePassword = ({ inProgress, sendPasswordResetEmail }) => {
 ChangePassword.propTypes = {
   inProgress: PropTypes.bool.isRequired,
   sendPasswordResetEmail: PropTypes.func.isRequired,
+  changePassword: PropTypes.func.isRequired,
 };
 
 export default ChangePassword;
