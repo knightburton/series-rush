@@ -5,6 +5,7 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 
 import Section from '../../../commons/section/section.component';
+import Confirmation from '../../../widgets/confirmation/confirmation.component';
 
 import useForm from '../../../../hooks/useForm';
 
@@ -19,7 +20,7 @@ const ChangePassword = () => {
   return (
     <Section
       title="Change Password"
-      subtitle="change your account password"
+      subtitle="change or reset your account password"
     >
       <Container maxWidth="xs">
         <form className={classes.form} noValidate onSubmit={handleSubmit}>
@@ -37,6 +38,22 @@ const ChangePassword = () => {
             helperText={currentPassword.error}
             error={!!currentPassword.error}
             onChange={handleChange}
+          />
+          <Confirmation
+            id="profile-forgot-password"
+            title="Request Password reset?"
+            description="You will receive an email that contains every information that you need to do in order to create a new password."
+            onAgree={() => {}}
+            toggle={show => (
+              <Button
+                color="primary"
+                size="small"
+                className={classes.forgot}
+                onClick={show}
+              >
+                Forgot password?
+              </Button>
+            )}
           />
           <TextField
             variant="outlined"

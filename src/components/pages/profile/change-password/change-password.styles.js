@@ -5,6 +5,9 @@ export default makeStyles(theme => ({
     width: '100%',
     marginTop: theme.spacing(1),
   },
+  forgot: {
+    marginBottom: theme.spacing(2),
+  },
   submit: {
     margin: theme.spacing(3, 0, 2),
   },
