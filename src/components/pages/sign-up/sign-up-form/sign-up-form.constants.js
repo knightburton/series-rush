@@ -1,4 +1,4 @@
-import { FORM_VALIDATORS, FORM_ERRORS } from '../../../../constants';
+import { VALIDATORS, ERRORS } from '../../../../constants/form';
 
 export const STATE_SCHEMA = {
   firstName: { value: '', error: '' },
@@ -17,17 +17,17 @@ export const VALIDATION_SCHEMA = {
   },
   email: {
     required: true,
-    validators: [FORM_VALIDATORS.EMAIL],
-    errors: [FORM_ERRORS.EMAIL],
+    validators: [VALIDATORS.EMAIL],
+    errors: [ERRORS.EMAIL],
   },
   password: {
     required: true,
-    validators: [FORM_VALIDATORS.TEXT_BETWEEN(6, 24)],
-    errors: [FORM_ERRORS.TEXT_BETWEEN(6, 24)],
+    validators: [VALIDATORS.TEXT_BETWEEN(6, 24)],
+    errors: [ERRORS.TEXT_BETWEEN(6, 24)],
   },
   confirmPassword: {
     required: true,
     match: 'password',
-    matchError: FORM_ERRORS.MATCH('Password', 'Confirm password'),
+    matchError: ERRORS.MATCH('Password', 'Confirm password'),
   },
 };

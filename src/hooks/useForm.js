@@ -1,5 +1,5 @@
 import { useState, useCallback } from 'react';
-import { FORM_VALIDATORS, FORM_ERRORS } from '../constants';
+import { VALIDATORS, ERRORS } from '../constants/form';
 
 /**
  * Return the invalid validator index from the validation schema.
@@ -31,7 +31,7 @@ const getInvalidValidatorIndex = (value = null, validators = []) => {
  * @param {object} state The actual state of the form.
  */
 const getIsValueValid = (value = null, { required, match, matchError, validators, errors } = {}, state = {}) => {
-  if (required && !FORM_VALIDATORS.REQUIRED.test(value)) return FORM_ERRORS.REQUIRED;
+  if (required && !VALIDATORS.REQUIRED.test(value)) return ERRORS.REQUIRED;
   if (match && state[match] && state[match].value !== value) return matchError;
   if (validators) {
     const invalidIndex = getInvalidValidatorIndex(value, validators, state);
