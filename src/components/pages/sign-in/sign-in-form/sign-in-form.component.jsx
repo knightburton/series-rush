@@ -22,7 +22,7 @@ const SignInForm = ({ inProgress, signIn }) => {
     <form className={classes.form} noValidate onSubmit={handleSubmit}>
       <TextField
         variant="outlined"
-        margin="normal"
+        margin="dense"
         required
         fullWidth
         id="email"
@@ -36,7 +36,7 @@ const SignInForm = ({ inProgress, signIn }) => {
       />
       <TextField
         variant="outlined"
-        margin="normal"
+        margin="dense"
         required
         fullWidth
         name="password"

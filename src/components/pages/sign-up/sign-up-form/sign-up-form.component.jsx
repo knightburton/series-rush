@@ -25,7 +25,7 @@ const SignUpForm = ({ createProfile, inProgress }) => {
         <Grid item xs={6}>
           <TextField
             variant="outlined"
-            margin="normal"
+            margin="dense"
             required
             fullWidth
             id="firstName"
@@ -41,7 +41,7 @@ const SignUpForm = ({ createProfile, inProgress }) => {
         <Grid item xs={6}>
           <TextField
             variant="outlined"
-            margin="normal"
+            margin="dense"
             required
             fullWidth
             name="lastName"
@@ -58,7 +58,7 @@ const SignUpForm = ({ createProfile, inProgress }) => {
         <Grid item xs={12}>
           <TextField
             variant="outlined"
-            margin="normal"
+            margin="dense"
             required
             fullWidth
             name="email"
@@ -75,7 +75,7 @@ const SignUpForm = ({ createProfile, inProgress }) => {
         <Grid item xs={12}>
           <TextField
             variant="outlined"
-            margin="normal"
+            margin="dense"
             required
             fullWidth
             name="password"
@@ -92,7 +92,7 @@ const SignUpForm = ({ createProfile, inProgress }) => {
         <Grid item xs={12}>
           <TextField
             variant="outlined"
-            margin="normal"
+            margin="dense"
             required
             fullWidth
             name="confirmPassword"
