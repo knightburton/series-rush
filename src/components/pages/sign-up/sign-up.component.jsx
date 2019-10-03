@@ -38,7 +38,7 @@ const SignUp = ({ inProgress }) => {
           component={Link}
           to="/sign-in"
         >
-          {t('button:alreadyHaveAccount')}
+          {t('common:alreadyHaveAccount')}
         </Button>
       </Box>
     </Container>

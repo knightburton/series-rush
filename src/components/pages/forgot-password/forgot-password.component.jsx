@@ -57,7 +57,7 @@ const ForgotPassword = ({ inProgress, sendPasswordResetEmail }) => {
           color="primary"
           className={classes.submit}
         >
-          {t('button:sendResetEmail')}
+          {t('common:sendResetEmail')}
         </Button>
       </form>
 
@@ -71,7 +71,7 @@ const ForgotPassword = ({ inProgress, sendPasswordResetEmail }) => {
           to="/sign-in"
           disabled={inProgress}
         >
-          {t('button:alreadyHaveAccount')}
+          {t('common:alreadyHaveAccount')}
         </Button>
       </Box>
     </Container>

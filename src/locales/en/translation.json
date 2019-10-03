@@ -25,12 +25,14 @@
       "dangerZone": {
         "title": "Danger Zone",
         "subtitle": "manage your account existence",
+        "verificationRequest": "Request Email verification",
         "verificationDescription": [
           "Request a new verification to be able to use the site properly,",
           "if you have changed your email address recently or missed your previous verification email."
         ],
-        "confirmationTitle": "Delete profile?",
-        "confirmationDescription": "Your profile and all of your data will be removed. After this you cannot login into the application.",
+        "deleteConfirmationTitle": "Delete profile?",
+        "deleteConfirmationDescription": "Your profile and all of your data will be removed. After this you cannot login into the application.",
+        "deleteProfile": "Delete Profile",
         "deleteDescription": [
           "Remove every data that is stored about you or your activity on this site,",
           "and permanently delete your sign in credentials as well."

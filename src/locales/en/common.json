@@ -15,5 +15,11 @@
   "newPassword": "New Password",
   "verified": "Verified",
   "notVerified": "Not Verified",
-  "delete": "Delete"
+  "delete": "Delete",
+  "sendResetEmail": "Send password reset email",
+  "alreadyHaveAccount": "Already have an account? Sign In",
+  "dontHaveAccount": "Don't have an account? Sign Up",
+  "forgotPassword": "Forgot Password?",
+  "signIn": "Sign In",
+  "signUp": "Sign Up"
 }

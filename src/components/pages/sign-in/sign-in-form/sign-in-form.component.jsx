@@ -59,7 +59,7 @@ const SignInForm = ({ inProgress, signIn }) => {
         className={classes.submit}
         disabled={inProgress}
       >
-        {t('button:signIn')}
+        {t('common:signIn')}
       </Button>
     </form>
   );

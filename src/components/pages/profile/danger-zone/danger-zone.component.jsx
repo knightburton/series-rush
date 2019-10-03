@@ -28,7 +28,7 @@ const DangerZone = ({ requestEmailVerification, deleteProfile }) => {
             disabled={emailVerified}
             onClick={requestEmailVerification}
           >
-            {t('button:requestEmailVerification')}
+            {t('page.profile.dangerZone.verificationRequest')}
           </Button>
         </Grid>
         <Grid item xs={12} sm={8}>
@@ -40,12 +40,12 @@ const DangerZone = ({ requestEmailVerification, deleteProfile }) => {
         <Grid item xs={12} sm={4}>
           <Confirmation
             id="delete-profile"
-            title={t('page.profile.dangerZone.confirmationTitle')}
-            description={t('page.profile.dangerZone.confirmationDescription')}
+            title={t('page.profile.dangerZone.deleteConfirmationTitle')}
+            description={t('page.profile.dangerZone.deleteConfirmationDescription')}
             onAgree={deleteProfile}
             toggle={show => (
               <Button color="secondary" onClick={show}>
-                {t('button:deleteProfile')}
+                {t('page.profile.dangerZone.deleteProfile')}
               </Button>
             )}
           />

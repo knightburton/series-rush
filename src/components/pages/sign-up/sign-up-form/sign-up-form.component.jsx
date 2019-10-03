@@ -117,7 +117,7 @@ const SignUpForm = ({ createProfile, inProgress }) => {
         className={classes.submit}
         disabled={inProgress}
       >
-        {t('button:signUp')}
+        {t('common:signUp')}
       </Button>
     </form>
   );

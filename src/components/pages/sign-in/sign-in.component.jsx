@@ -38,7 +38,7 @@ const SignIn = ({ inProgress }) => {
             component={Link}
             to="/forgot-password"
           >
-            {t('button:forgotPassword')}
+            {t('common:forgotPassword')}
           </Button>
         </Grid>
         <Grid item>
@@ -49,7 +49,7 @@ const SignIn = ({ inProgress }) => {
             component={Link}
             to="/sign-up"
           >
-            {t('button:dontHaveAccount')}
+            {t('common:dontHaveAccount')}
           </Button>
         </Grid>
       </Grid>

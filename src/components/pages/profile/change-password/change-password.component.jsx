@@ -60,7 +60,7 @@ const ChangePassword = ({ inProgress, sendPasswordResetEmail, changePassword }) 
                 className={classes.forgot}
                 onClick={show}
               >
-                {t('button:forgotPassword')}
+                {t('page.profile.changePassword.title')}
               </Button>
             )}
           />
@@ -101,7 +101,7 @@ const ChangePassword = ({ inProgress, sendPasswordResetEmail, changePassword }) 
             color="primary"
             className={classes.submit}
           >
-            {t('button:changePassword')}
+            {t('page.profile.changePassword.title')}
           </Button>
         </form>
       </Container>
