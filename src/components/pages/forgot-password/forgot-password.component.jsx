@@ -46,7 +46,7 @@ const ForgotPassword = ({ inProgress, sendPasswordResetEmail }) => {
           name="email"
           autoComplete="email"
           value={email.value}
-          helperText={email.error}
+          helperText={t(...email.error)}
           error={!!email.error}
           onChange={handleChange}
         />

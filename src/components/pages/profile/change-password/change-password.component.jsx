@@ -44,7 +44,7 @@ const ChangePassword = ({ inProgress, sendPasswordResetEmail, changePassword }) 
             type="password"
             autoComplete="currentPassword"
             value={currentPassword.value}
-            helperText={currentPassword.error}
+            helperText={t(...currentPassword.error)}
             error={!!currentPassword.error}
             onChange={handleChange}
           />
@@ -75,7 +75,7 @@ const ChangePassword = ({ inProgress, sendPasswordResetEmail, changePassword }) 
             type="password"
             autoComplete="newPassword"
             value={newPassword.value}
-            helperText={newPassword.error}
+            helperText={t(...newPassword.error)}
             error={!!newPassword.error}
             onChange={handleChange}
           />
@@ -90,7 +90,7 @@ const ChangePassword = ({ inProgress, sendPasswordResetEmail, changePassword }) 
             id="confirmPassword"
             autoComplete="confirmPassword"
             value={confirmPassword.value}
-            helperText={confirmPassword.error}
+            helperText={t(...confirmPassword.error)}
             error={!!confirmPassword.error}
             onChange={handleChange}
           />

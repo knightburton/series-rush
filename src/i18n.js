@@ -28,6 +28,7 @@ i18n
     joinArrays: ' ',
     returnObjects: true,
     debug,
+    returnEmptyString: true,
   });
 
 export default i18n;

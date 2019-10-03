@@ -32,7 +32,7 @@ const SignInForm = ({ inProgress, signIn }) => {
         name="email"
         autoComplete="email"
         value={email.value}
-        helperText={email.error}
+        helperText={t(...email.error)}
         error={!!email.error}
         onChange={handleChange}
       />
@@ -47,7 +47,7 @@ const SignInForm = ({ inProgress, signIn }) => {
         id="password"
         autoComplete="current-password"
         value={password.value}
-        helperText={password.error}
+        helperText={t(...password.error)}
         error={!!password.error}
         onChange={handleChange}
       />

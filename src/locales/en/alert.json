@@ -1,3 +1,16 @@
 {
-  "form/noFileSelected": "No file selected"
+  "form/noFileSelected": "No file selected",
+  "form/required": "This field is required",
+  "form/onlyNumber": "This field can only contain numbers",
+  "form/onlyAlphanumeric": "This field can only contain alphanumeric characters",
+  "form/textMin": "This field must be {{min}} characters long at least",
+  "form/textMax": "This field must be {{max}} characters long maximum",
+  "form/textBetween": "This field must be between {{min}} and {{max}} characters long",
+  "form/numberMin": "This field must be greater or qeual than {{min}}",
+  "form/numberMax": "This field must be smaller or qeual than {{max}}",
+  "form/numberBetween": "This field must be between {{min}} and {{max}}",
+  "form/email": "This field must be a valid email address",
+  "form/fileMaxSize": "The selected file must be {{size}}MB maximum",
+  "form/fileImageType": "The selected file must be a jpeg or a png image",
+  "form/match": "{{a}} and {{b}} fields do not match"
 }

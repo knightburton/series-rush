@@ -2,6 +2,23 @@ import { useState, useCallback } from 'react';
 import { VALIDATORS, ERRORS } from '../constants/form';
 
 /**
+ * Return an array that contains the error key for the i18n and the possible interpolation values.
+ *
+ * @param {object} error The error object that contains the error message and the interpolation props
+ * @param {string} error.message The error message itself
+ * @param {object} error.props The error props for the i18n interpolation
+ */
+export const getErrorArguments = error => {
+  const message = (error && error.message) || null;
+  const props = (error && error.props) || {};
+
+  return [
+    message,
+    props,
+  ];
+};
+
+/**
  * Return the invalid validator index from the validation schema.
  *
  * @param {(string|number)} value Actual value that should be validated.
@@ -30,12 +47,12 @@ const getInvalidValidatorIndex = (value = null, validators = []) => {
  * @param {array} validationSchema.errors The error messages of the state item.
  * @param {object} state The actual state of the form.
  */
-const getIsValueValid = (value = null, { required, match, matchError, validators, errors } = {}, state = {}) => {
-  if (required && !VALIDATORS.REQUIRED.test(value)) return ERRORS.REQUIRED;
-  if (match && state[match] && state[match].value !== value) return matchError;
+const getValidationError = (value = null, { required, match, matchError, validators, errors } = {}, state = {}) => {
+  if (required && !VALIDATORS.REQUIRED.test(value)) return [ERRORS.REQUIRED.message];
+  if (match && state[match] && state[match].value !== value) return [matchError.message];
   if (validators) {
     const invalidIndex = getInvalidValidatorIndex(value, validators, state);
-    return invalidIndex !== null ? errors[invalidIndex] : '';
+    return invalidIndex !== null ? getErrorArguments(errors[invalidIndex]) : '';
   }
   return '';
 };
@@ -50,7 +67,7 @@ const getIsValueValid = (value = null, { required, match, matchError, validators
  */
 const getIsStateValid = (validationSchema = {}, state = {}) => Object.keys(state).every(key => {
   const { value } = state[key];
-  return getIsValueValid(value, validationSchema[key], state) === '';
+  return getValidationError(value, validationSchema[key], state) === '';
 });
 
 /**
@@ -64,7 +81,7 @@ const validateState = (stateSchema, validationSchema = {}, state = {}) => Object
   ...o,
   [key]: {
     ...state[key],
-    error: validationSchema[key] ? getIsValueValid(state[key].value, validationSchema[key], state) : '',
+    error: validationSchema[key] ? getValidationError(state[key].value, validationSchema[key], state) : '',
   },
 }), {});
 

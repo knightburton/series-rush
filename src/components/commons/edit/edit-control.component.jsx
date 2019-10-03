@@ -18,7 +18,7 @@ EditControl.propTypes = {
   helperText: PropTypes.string.isRequired,
   state: PropTypes.shape({
     value: PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.object]),
-    error: PropTypes.string,
+    error: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
   }).isRequired,
   disabled: PropTypes.bool.isRequired,
   required: PropTypes.bool.isRequired,

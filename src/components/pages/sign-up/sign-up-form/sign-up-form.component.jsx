@@ -35,7 +35,7 @@ const SignUpForm = ({ createProfile, inProgress }) => {
             name="firstName"
             autoComplete="firstName"
             value={firstName.value}
-            helperText={firstName.error}
+            helperText={t(...firstName.error)}
             error={!!firstName.error}
             onChange={handleChange}
           />
@@ -52,7 +52,7 @@ const SignUpForm = ({ createProfile, inProgress }) => {
             id="lastName"
             autoComplete="lastName"
             value={lastName.value}
-            helperText={lastName.error}
+            helperText={t(...lastName.error)}
             error={!!lastName.error}
             onChange={handleChange}
           />
@@ -69,7 +69,7 @@ const SignUpForm = ({ createProfile, inProgress }) => {
             id="email"
             autoComplete="email"
             value={email.value}
-            helperText={email.error}
+            helperText={t(...email.error)}
             error={!!email.error}
             onChange={handleChange}
           />
@@ -86,7 +86,7 @@ const SignUpForm = ({ createProfile, inProgress }) => {
             id="password"
             autoComplete="current-password"
             value={password.value}
-            helperText={password.error}
+            helperText={t(...password.error)}
             error={!!password.error}
             onChange={handleChange}
           />
@@ -103,7 +103,7 @@ const SignUpForm = ({ createProfile, inProgress }) => {
             id="confirmPassword"
             autoComplete="off"
             value={confirmPassword.value}
-            helperText={confirmPassword.error}
+            helperText={t(...confirmPassword.error)}
             error={!!confirmPassword.error}
             onChange={handleChange}
           />
