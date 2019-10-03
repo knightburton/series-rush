@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
+import { useTranslation } from 'react-i18next';
 
 import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
@@ -17,12 +18,13 @@ import Confirmation from '../../../widgets/confirmation/confirmation.component';
 import ProfileContext from '../../../../contexts/profile';
 
 const PersonalInformation = ({ updateInProgress, updateName, updateEmail, uploadProfilePhoto, deleteProfilePhoto }) => {
+  const { t } = useTranslation();
   const { displayName, firstName, lastName, email, emailVerified, photoName } = useContext(ProfileContext);
 
   return (
     <Section
-      title="Personal Information"
-      subtitle="update your personal informaiton"
+      title={t('page.profile.personalInformation.title')}
+      subtitle={t('page.profile.personalInformation.subtitle')}
       inProgress={updateInProgress}
     >
       <Grid container spacing={1}>
@@ -36,7 +38,7 @@ const PersonalInformation = ({ updateInProgress, updateName, updateEmail, upload
           <Edit
             type="text"
             id="firstName"
-            label="First Name"
+            label={t('common:firstName')}
             value={firstName}
             onSubmit={value => updateName('firstName', value)}
             required
@@ -44,7 +46,7 @@ const PersonalInformation = ({ updateInProgress, updateName, updateEmail, upload
           <Edit
             type="text"
             id="lastName"
-            label="Last Name"
+            label={t('common:lastName')}
             value={lastName}
             onSubmit={value => updateName('lastName', value)}
             required
@@ -52,7 +54,7 @@ const PersonalInformation = ({ updateInProgress, updateName, updateEmail, upload
           <Edit
             type="text"
             id="email"
-            label={`Email (${emailVerified ? 'Verified' : 'Not Verified'})`}
+            label={`${t('common:email')} (${emailVerified ? t('common:verified') : t('common:notVerified')})`}
             value={email}
             onSubmit={updateEmail}
             required
@@ -60,18 +62,18 @@ const PersonalInformation = ({ updateInProgress, updateName, updateEmail, upload
           <Edit
             type="file"
             id="photoURL"
-            label="Profile Photo"
+            label={t('common:profilePhoto')}
             value={photoName}
             onSubmit={photo => uploadProfilePhoto(photo[0])}
             required
             secondaryButton={(
               <Confirmation
                 id="delete-profile-photo"
-                title="Delete profile photo?"
-                description="Your photo will be completely removed from everywhere and will be replaced with the default avatar."
+                title={t('page.profile.personalInformation.deletePhoto')}
+                description={t('page.profile.personalInformation.deleteDescription')}
                 onAgree={deleteProfilePhoto}
                 toggle={show => (
-                  <Tooltip title="Delete photo">
+                  <Tooltip title={t('common:delete')}>
                     <Box>
                       <IconButton onClick={() => show()} disabled={!photoName}>
                         <DeleteIcon fontSize="small" color="error" />

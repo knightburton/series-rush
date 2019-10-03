@@ -25,7 +25,8 @@ i18n
       escapeValue: false,
     },
     cleanCode: true,
-    joinArrays: true,
+    joinArrays: ' ',
+    returnObjects: true,
     debug,
   });
 

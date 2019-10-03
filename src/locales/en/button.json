@@ -4,5 +4,8 @@
   "dontHaveAccount": "Don't have an account? Sign Up",
   "forgotPassword": "Forgot Password?",
   "signIn": "Sign In",
-  "signUp": "Sign Up"
+  "signUp": "Sign Up",
+  "changePassword": "Change Password",
+  "requestEmailVerification": "Request Email verification",
+  "deleteProfile": "Delete Profile"
 }

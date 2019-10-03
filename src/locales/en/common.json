@@ -10,6 +10,10 @@
   "lastName": "Last Name",
   "email": "Email Address",
   "password": "Password",
-  "confirmPassword": "Confirm Password"
-
+  "confirmPassword": "Confirm Password",
+  "currentPassword": "Current Password",
+  "newPassword": "New Password",
+  "verified": "Verified",
+  "notVerified": "Not Verified",
+  "delete": "Delete"
 }
