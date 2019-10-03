@@ -1,5 +1,6 @@
 import React, { useRef } from 'react';
 import PropTypes from 'prop-types';
+import { useTranslation } from 'react-i18next';
 
 import Input from '@material-ui/core/Input';
 import IconButton from '@material-ui/core/IconButton';
@@ -13,14 +14,15 @@ import useStlyes from './edit.styles';
 
 const EditControlFile = ({ id, type, state: { value, error }, label, helperText, disabled, required, onChange }) => {
   const classes = useStlyes();
+  const { t } = useTranslation();
   const fileInput = useRef(null);
-  const fileName = (value && value.length && value[0].name) || 'No file selected';
+  const fileName = (value && value.length && value[0].name) || t('alert:form/noFileSelected');
 
   const handleAddClick = () => fileInput.current.children[0].click();
 
   return (
     <>
-      <Tooltip title="Browse files">
+      <Tooltip title={t('common:browse')}>
         <IconButton color="primary" onClick={handleAddClick} className={classes.addFileButton}>
           <AddPhotoIcon />
         </IconButton>

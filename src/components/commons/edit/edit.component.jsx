@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import { useTranslation } from 'react-i18next';
 
 import Box from '@material-ui/core/Box';
 import IconButton from '@material-ui/core/IconButton';
@@ -19,6 +20,7 @@ import useStyles from './edit.styles';
 
 const Edit = ({ type, id, value, label, helperText, disabled, required, validators, errors, onSubmit, secondaryButton }) => {
   const classes = useStyles();
+  const { t } = useTranslation();
   const [edit, setEdit] = useState(false);
   const { state: { [id]: state }, handleChange, handleSubmit } = useForm({
     stateSchema: { [id]: { value, error: '' } },
@@ -48,12 +50,12 @@ const Edit = ({ type, id, value, label, helperText, disabled, required, validato
         onChange={handleChange}
       />
       <Box className={classes.buttons}>
-        <Tooltip title="Cancel">
+        <Tooltip title={t('common:cancel')}>
           <IconButton onClick={() => setEdit(false)}>
             <CloseIcon fontSize="small" />
           </IconButton>
         </Tooltip>
-        <Tooltip title="Submit">
+        <Tooltip title={t('common:submit')}>
           <IconButton type="submit" color="primary">
             <CheckIcon fontSize="small" />
           </IconButton>
@@ -71,7 +73,7 @@ const Edit = ({ type, id, value, label, helperText, disabled, required, validato
         </Typography>
       </Box>
       <Box className={classes.buttons}>
-        <Tooltip title="Edit">
+        <Tooltip title={t('common:edit')}>
           <IconButton onClick={handleEdit}>
             <EditIcon fontSize="small" />
           </IconButton>

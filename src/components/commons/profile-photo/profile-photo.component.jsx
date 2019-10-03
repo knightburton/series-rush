@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
+import { useTranslation } from 'react-i18next';
 
 import Avatar from '@material-ui/core/Avatar';
 
@@ -12,11 +13,12 @@ import useStyles from './profile-photo.styles';
 
 const ProfilePhoto = ({ alt, size, withGutter, withDisabledColor }) => {
   const classes = useStyles();
+  const { t } = useTranslation();
   const { photoURL } = useContext(ProfileContext);
 
   return (photoURL ? (
     <Avatar
-      alt={alt}
+      alt={alt || t('profile.photo')}
       src={photoURL}
       imgProps={{ draggable: false }}
       className={clsx(
@@ -43,7 +45,7 @@ ProfilePhoto.propTypes = {
 };
 
 ProfilePhoto.defaultProps = {
-  alt: 'Profile avatar',
+  alt: '',
   size: 'medium',
   withGutter: false,
   withDisabledColor: false,
