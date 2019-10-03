@@ -93,7 +93,7 @@ const AppBar = ({ signOut }) => {
             component={Link}
             to="/sign-in"
           >
-            {t('appbar.signIn')}
+            {t('button:signIn')}
           </Button>
         )}
       </Toolbar>

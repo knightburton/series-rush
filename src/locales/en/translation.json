@@ -1,12 +1,19 @@
 {
   "appbar": {
-    "signIn": "Sign In",
     "menu": {
       "profile": "Profile",
       "signOut": "Sign Out"
     }
   },
-  "profile": {
-    "photo": "Profile photo"
+  "page": {
+    "forgotPassword": {
+      "title": "Forgot Password"
+    },
+    "signUp": {
+      "title": "Sign Up"
+    },
+    "signIn": {
+      "title": "Sign In"
+    }
   }
 }

@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
@@ -15,12 +16,13 @@ import useStyles from './sign-up.styles';
 
 const SignUp = ({ inProgress }) => {
   const classes = useStyles();
+  const { t } = useTranslation();
 
   return (
     <Container maxWidth="xs">
       <Header
         icon={UpIcon}
-        title="Sign Up"
+        title={t('page.signUp.title')}
         inProgress={inProgress}
         gutter
       />
@@ -36,7 +38,7 @@ const SignUp = ({ inProgress }) => {
           component={Link}
           to="/sign-in"
         >
-          Already have an account? Sign In
+          {t('button:alreadyHaveAccount')}
         </Button>
       </Box>
     </Container>

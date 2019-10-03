@@ -1,8 +1,15 @@
 {
+  "profilePhoto": "Profile Photo",
   "submit": "Submit",
   "cancel": "Cancel",
   "edit": "Edit",
   "browse": "Browse",
   "agree": "Agree",
-  "disagree": "Disagree"
+  "disagree": "Disagree",
+  "firstName": "First Name",
+  "lastName": "Last Name",
+  "email": "Email Address",
+  "password": "Password",
+  "confirmPassword": "Confirm Password"
+
 }

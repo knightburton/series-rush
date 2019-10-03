@@ -2,6 +2,7 @@ import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
 
 import enAlert from './locales/en/alert.json';
+import enButton from './locales/en/button.json';
 import enCommon from './locales/en/common.json';
 import enTranslation from './locales/en/translation.json';
 
@@ -13,6 +14,7 @@ i18n
     resources: {
       en: {
         alert: enAlert,
+        button: enButton,
         common: enCommon,
         translation: enTranslation,
       },

@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { useTranslation } from 'react-i18next';
 
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
@@ -12,6 +13,7 @@ import { stateSchema, validationSchema } from './sign-up-form.constants';
 
 const SignUpForm = ({ createProfile, inProgress }) => {
   const classes = useStyles();
+  const { t } = useTranslation();
   const { state, handleChange, handleSubmit } = useForm({
     stateSchema,
     validationSchema,
@@ -29,7 +31,7 @@ const SignUpForm = ({ createProfile, inProgress }) => {
             required
             fullWidth
             id="firstName"
-            label="First Name"
+            label={t('common:firstName')}
             name="firstName"
             autoComplete="firstName"
             value={firstName.value}
@@ -45,7 +47,7 @@ const SignUpForm = ({ createProfile, inProgress }) => {
             required
             fullWidth
             name="lastName"
-            label="Last Name"
+            label={t('common:lastName')}
             type="lastName"
             id="lastName"
             autoComplete="lastName"
@@ -62,7 +64,7 @@ const SignUpForm = ({ createProfile, inProgress }) => {
             required
             fullWidth
             name="email"
-            label="Email"
+            label={t('common:email')}
             type="email"
             id="email"
             autoComplete="email"
@@ -79,7 +81,7 @@ const SignUpForm = ({ createProfile, inProgress }) => {
             required
             fullWidth
             name="password"
-            label="Password"
+            label={t('common:password')}
             type="password"
             id="password"
             autoComplete="current-password"
@@ -96,7 +98,7 @@ const SignUpForm = ({ createProfile, inProgress }) => {
             required
             fullWidth
             name="confirmPassword"
-            label="Confirm Password"
+            label={t('common:confirmPassword')}
             type="password"
             id="confirmPassword"
             autoComplete="off"
@@ -115,7 +117,7 @@ const SignUpForm = ({ createProfile, inProgress }) => {
         className={classes.submit}
         disabled={inProgress}
       >
-        Sign Up
+        {t('button:signUp')}
       </Button>
     </form>
   );
