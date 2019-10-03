@@ -2,5 +2,7 @@
   "submit": "Submit",
   "cancel": "Cancel",
   "edit": "Edit",
-  "browse": "Browse"
+  "browse": "Browse",
+  "agree": "Agree",
+  "disagree": "Disagree"
 }

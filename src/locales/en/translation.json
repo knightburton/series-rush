@@ -1,4 +1,11 @@
 {
+  "appbar": {
+    "signIn": "Sign In",
+    "menu": {
+      "profile": "Profile",
+      "signOut": "Sign Out"
+    }
+  },
   "profile": {
     "photo": "Profile photo"
   }

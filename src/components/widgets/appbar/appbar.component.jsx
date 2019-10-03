@@ -1,6 +1,7 @@
 import React, { useContext, useState } from 'react';
 import PropTypes from 'prop-types';
 import { withRouter, Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 import MuiAppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -23,9 +24,9 @@ import useStyles from './appbar.styles';
 
 const AppBar = ({ signOut }) => {
   const classes = useStyles();
+  const { t } = useTranslation();
   const { signedIn, displayName } = useContext(ProfileContext);
   const [profileMenu, setProfileMenu] = useState(null);
-  const title = 'Series Rush';
 
   const handleSignOut = () => {
     signOut();
@@ -36,7 +37,7 @@ const AppBar = ({ signOut }) => {
     <MuiAppBar position="sticky">
       <Toolbar>
         <Typography variant="h5">
-          {title}
+          Series Rush
         </Typography>
         <Box className={classes.grow} />
         {signedIn ? (
@@ -72,13 +73,17 @@ const AppBar = ({ signOut }) => {
                 <ListItemIcon>
                   <PersonOutlineIcon />
                 </ListItemIcon>
-                <Typography variant="inherit">Profile</Typography>
+                <Typography variant="inherit">
+                  {t('appbar.menu.profile')}
+                </Typography>
               </MenuItem>
               <MenuItem onClick={handleSignOut}>
                 <ListItemIcon>
                   <ExitToAppIcon />
                 </ListItemIcon>
-                <Typography variant="inherit">Sign Out</Typography>
+                <Typography variant="inherit">
+                  {t('appbar.menu.signOut')}
+                </Typography>
               </MenuItem>
             </Menu>
           </>
@@ -88,7 +93,7 @@ const AppBar = ({ signOut }) => {
             component={Link}
             to="/sign-in"
           >
-            Sign In
+            {t('appbar.signIn')}
           </Button>
         )}
       </Toolbar>
