@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
@@ -17,6 +18,7 @@ import { stateSchema, validationSchema } from './forgot-password.constants';
 
 const ForgotPassword = ({ inProgress, sendPasswordResetEmail }) => {
   const classes = useStyles();
+  const { t } = useTranslation();
   const { state, handleChange, handleSubmit } = useForm({
     stateSchema,
     validationSchema,
@@ -28,7 +30,7 @@ const ForgotPassword = ({ inProgress, sendPasswordResetEmail }) => {
     <Container maxWidth="xs">
       <Header
         icon={LockIcon}
-        title="Forgot Password"
+        title={t('page.forgotPassword.title')}
         inProgress={inProgress}
         gutter
       />
@@ -40,11 +42,11 @@ const ForgotPassword = ({ inProgress, sendPasswordResetEmail }) => {
           required
           fullWidth
           id="email"
-          label="Email Address"
+          label={t('common:email')}
           name="email"
           autoComplete="email"
           value={email.value}
-          helperText={email.error}
+          helperText={t(...email.error)}
           error={!!email.error}
           onChange={handleChange}
         />
@@ -55,7 +57,7 @@ const ForgotPassword = ({ inProgress, sendPasswordResetEmail }) => {
           color="primary"
           className={classes.submit}
         >
-          Send password reset email
+          {t('common:sendResetEmail')}
         </Button>
       </form>
 
@@ -69,7 +71,7 @@ const ForgotPassword = ({ inProgress, sendPasswordResetEmail }) => {
           to="/sign-in"
           disabled={inProgress}
         >
-          Already have an account? Sign In
+          {t('common:alreadyHaveAccount')}
         </Button>
       </Box>
     </Container>

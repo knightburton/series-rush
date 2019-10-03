@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { useTranslation } from 'react-i18next';
 
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
@@ -11,6 +12,7 @@ import { stateSchema, validationSchema } from './sign-in-form.constants';
 
 const SignInForm = ({ inProgress, signIn }) => {
   const classes = useStyles();
+  const { t } = useTranslation();
   const { state, handleChange, handleSubmit } = useForm({
     stateSchema,
     validationSchema,
@@ -26,11 +28,11 @@ const SignInForm = ({ inProgress, signIn }) => {
         required
         fullWidth
         id="email"
-        label="Email Address"
+        label={t('common:email')}
         name="email"
         autoComplete="email"
         value={email.value}
-        helperText={email.error}
+        helperText={t(...email.error)}
         error={!!email.error}
         onChange={handleChange}
       />
@@ -40,12 +42,12 @@ const SignInForm = ({ inProgress, signIn }) => {
         required
         fullWidth
         name="password"
-        label="Password"
+        label={t('common:password')}
         type="password"
         id="password"
         autoComplete="current-password"
         value={password.value}
-        helperText={password.error}
+        helperText={t(...password.error)}
         error={!!password.error}
         onChange={handleChange}
       />
@@ -57,7 +59,7 @@ const SignInForm = ({ inProgress, signIn }) => {
         className={classes.submit}
         disabled={inProgress}
       >
-        Sign In
+        {t('common:signIn')}
       </Button>
     </form>
   );

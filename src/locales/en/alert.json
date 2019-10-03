@@ -1,0 +1,30 @@
+{
+  "form/noFileSelected": "No file selected",
+  "form/required": "This field is required",
+  "form/onlyNumber": "This field can only contain numbers",
+  "form/onlyAlphanumeric": "This field can only contain alphanumeric characters",
+  "form/textMin": "This field must be {{min}} characters long at least",
+  "form/textMax": "This field must be {{max}} characters long maximum",
+  "form/textBetween": "This field must be between {{min}} and {{max}} characters long",
+  "form/numberMin": "This field must be greater or qeual than {{min}}",
+  "form/numberMax": "This field must be smaller or qeual than {{max}}",
+  "form/numberBetween": "This field must be between {{min}} and {{max}}",
+  "form/email": "This field must be a valid email address",
+  "form/fileMaxSize": "The selected file must be {{size}}MB maximum",
+  "form/fileImageType": "The selected file must be a jpeg or a png image",
+  "form/match": "{{a}} and {{b}} fields do not match",
+
+  "auth/invalid-email": "The given email address is not valid.",
+  "auth/user-disabled": "The user corresponding to the given email has been disabled.",
+  "auth/user-not-found": "There is no user record corresponding to the given email. The user may have been deleted.",
+  "auth/wrong-password": "The password is invalid for the given email, or the account corresponding to the email does not have a password set.",
+  "auth/email-already-in-use": "Already exists an account with the given email address.",
+  "auth/weak-password": "The given password is not strong enough.",
+
+  "auth/password-reset-email-success": "Your password reset email has been sent, check your inbox (make sure to check your spam folder as well).",
+  "auth/no-photo-selected": "There is no selected photo that could be processed.",
+  "auth/password-required": "The Current Password is required.",
+  "auth/password-match": "The New Password and Confirm Password must match.",
+  "auth/password-change-success": "Your password has been changed. You can sign in with your new password now.",
+  "auth/email-verification-success": "Instructions on how to activate your account have been emailed to you. Please check your email."
+}

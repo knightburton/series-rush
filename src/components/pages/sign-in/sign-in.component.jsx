@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 import Button from '@material-ui/core/Button';
 import Container from '@material-ui/core/Container';
@@ -15,12 +16,13 @@ import useStyles from './sign-in.styles';
 
 const SignIn = ({ inProgress }) => {
   const classes = useStyles();
+  const { t } = useTranslation();
 
   return (
     <Container maxWidth="xs">
       <Header
         icon={LockIcon}
-        title="Sign In"
+        title={t('page.signIn.title')}
         inProgress={inProgress}
         gutter
       />
@@ -36,7 +38,7 @@ const SignIn = ({ inProgress }) => {
             component={Link}
             to="/forgot-password"
           >
-            Forgot password?
+            {t('common:forgotPassword')}
           </Button>
         </Grid>
         <Grid item>
@@ -47,7 +49,7 @@ const SignIn = ({ inProgress }) => {
             component={Link}
             to="/sign-up"
           >
-            Don&apos;t have an account? Sign Up
+            {t('common:dontHaveAccount')}
           </Button>
         </Grid>
       </Grid>

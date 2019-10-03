@@ -80,6 +80,14 @@ export const reducer = handleActions(
 );
 
 // Async actions
+export const handleAuthError = error => dispatch => {
+  const message = error && error.code && error.code.startsWith('auth/')
+    ? `alert:${error.code}`
+    : error.message;
+
+  dispatch(addAlert(message, 'error'));
+};
+
 export const createProfile = credentials => async (dispatch, getState, { getFirebase }) => {
   dispatch(setAuthInProgress(true));
   try {
@@ -95,7 +103,7 @@ export const createProfile = credentials => async (dispatch, getState, { getFire
       true // Also update the Profile document
     );
   } catch (error) {
-    dispatch(addAlert(error.message, 'error'));
+    dispatch(handleAuthError(error));
   } finally {
     dispatch(setAuthInProgress(false));
   }
@@ -107,7 +115,7 @@ export const signIn = credentials => async (dispatch, getState, { getFirebase })
     const firebase = getFirebase();
     await firebase.login(credentials);
   } catch (error) {
-    dispatch(addAlert(error.message, 'error'));
+    dispatch(handleAuthError(error));
   } finally {
     dispatch(setAuthInProgress(false));
   }
@@ -120,7 +128,7 @@ export const signOut = () => async (dispatch, getState, { getFirebase, history }
     await firebase.logout();
     history.push('/');
   } catch (error) {
-    dispatch(addAlert(error.message, 'error'));
+    dispatch(handleAuthError(error));
   } finally {
     dispatch(setAuthInProgress(false));
   }
@@ -135,12 +143,9 @@ export const sendPasswordResetEmail = (email, fromProfile = false) => async (dis
     const { id, email: profileEmail } = getProfile(getState());
     const address = fromProfile && !email && !!id ? profileEmail : email;
     await firebase.auth().sendPasswordResetEmail(address);
-    dispatch(addAlert(
-      'Your password reset email has been sent, check your inbox (make sure to check your spam folder as well).',
-      'success'
-    ));
+    dispatch(addAlert('alert:auth/password-reset-email-success', 'success'));
   } catch (error) {
-    dispatch(addAlert(error.message, 'error'));
+    dispatch(handleAuthError(error));
   } finally {
     if (fromProfile) dispatch(setAuthPasswordInProgress(false));
     else dispatch(setAuthInProgress(false));
@@ -163,7 +168,7 @@ export const updateName = (key, value) => async (dispatch, getState, { getFireba
       true
     );
   } catch (error) {
-    dispatch(addAlert(error.message, 'error'));
+    dispatch(handleAuthError(error));
   } finally {
     dispatch(setAuthUpdateInProgress(false));
   }
@@ -178,7 +183,7 @@ export const updateEmail = email => async (dispatch, getState, { getFirebase }) 
       true
     );
   } catch (error) {
-    dispatch(addAlert(error.message, 'error'));
+    dispatch(handleAuthError(error));
   } finally {
     dispatch(setAuthUpdateInProgress(false));
   }
@@ -200,12 +205,12 @@ export const uploadProfilePhoto = file => async (dispatch, getState, { getFireba
         true
       );
     } catch (error) {
-      dispatch(addAlert(error.message, 'error'));
+      dispatch(handleAuthError(error));
     } finally {
       dispatch(setAuthUpdateInProgress(false));
     }
   } else {
-    dispatch(addAlert('There is no photo that could be uploaded.', 'error'));
+    dispatch(addAlert('alert:auth/no-photo-selected', 'error'));
   }
 };
 
@@ -224,10 +229,10 @@ export const deleteProfilePhoto = () => async (dispatch, getState, { getFirebase
         true
       );
     } else {
-      dispatch(addAlert('There is no available profile photo.', 'error'));
+      dispatch(addAlert('alert:auth/no-photo-selected', 'error'));
     }
   } catch (error) {
-    dispatch(addAlert(error.message, 'error'));
+    dispatch(handleAuthError(error));
   } finally {
     dispatch(setAuthUpdateInProgress(false));
   }
@@ -238,8 +243,8 @@ export const changePassword = passwords => async (dispatch, getState, { getFireb
   try {
     const firebase = getFirebase();
     const { currentPassword, newPassword, confirmPassword } = passwords;
-    if (!currentPassword) throw new Error('The current password is required.');
-    if (newPassword !== confirmPassword) throw new Error('The new password and confirm password must match.');
+    if (!currentPassword) throw new Error('alert:auth/password-required');
+    if (newPassword !== confirmPassword) throw new Error('alert:auth/password-match');
 
     const { email } = getProfile(getState());
     // Before update user's password we should reautheticate the user.
@@ -247,9 +252,9 @@ export const changePassword = passwords => async (dispatch, getState, { getFireb
     // With this scenario the user has to remember their password.
     await firebase.login({ email, password: currentPassword });
     await firebase.auth().currentUser.updatePassword(newPassword);
-    dispatch(addAlert('Your password has been changed. You can sign in with your new password now.', 'success'));
+    dispatch(addAlert('alert:auth/password-change-success', 'success'));
   } catch (error) {
-    dispatch(addAlert(error.message, 'error'));
+    dispatch(handleAuthError(error));
   } finally {
     dispatch(setAuthPasswordInProgress(false));
   }
@@ -260,9 +265,9 @@ export const requestEmailVerification = () => async (dispatch, getState, { getFi
   try {
     const firebase = getFirebase();
     await firebase.auth().currentUser.sendEmailVerification();
-    dispatch(addAlert('Instructions on how to activate your account have been emailed to you. Please check your email.', 'success'));
+    dispatch(addAlert('alert:auth/email-verification-success', 'success'));
   } catch (error) {
-    dispatch(addAlert(error.message, 'error'));
+    dispatch(handleAuthError(error));
   } finally {
     dispatch(setAppWaiting(false));
   }
@@ -280,7 +285,7 @@ export const deleteProfile = () => async (dispatch, getState, { getFirebase, get
     await firebase.logout();
     history.push('/');
   } catch (error) {
-    dispatch(addAlert(error.message, 'error'));
+    dispatch(handleAuthError(error));
   } finally {
     dispatch(setAppWaiting(false));
   }

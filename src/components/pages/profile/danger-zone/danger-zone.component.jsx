@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
+import { useTranslation } from 'react-i18next';
 
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
@@ -11,12 +12,13 @@ import Confirmation from '../../../widgets/confirmation/confirmation.component';
 import ProfileContext from '../../../../contexts/profile';
 
 const DangerZone = ({ requestEmailVerification, deleteProfile }) => {
+  const { t } = useTranslation();
   const { emailVerified } = useContext(ProfileContext);
 
   return (
     <Section
-      title="Danger Zone"
-      subtitle="manage your account existence"
+      title={t('page.profile.dangerZone.title')}
+      subtitle={t('page.profile.dangerZone.subtitle')}
     >
       <Grid container spacing={2}>
 
@@ -26,34 +28,31 @@ const DangerZone = ({ requestEmailVerification, deleteProfile }) => {
             disabled={emailVerified}
             onClick={requestEmailVerification}
           >
-            Request Email verification
+            {t('page.profile.dangerZone.verificationRequest')}
           </Button>
         </Grid>
         <Grid item xs={12} sm={8}>
           <Typography>
-            Request a new verification to be able to use the site properly,
-            if you have changed your email address recently
-            or missed your previous verification email.
+            {t('page.profile.dangerZone.verificationDescription')}
           </Typography>
         </Grid>
 
         <Grid item xs={12} sm={4}>
           <Confirmation
             id="delete-profile"
-            title="Delete profile?"
-            description="Your profile and all of your data will be removed. After this you cannot login into the application."
+            title={t('page.profile.dangerZone.deleteConfirmationTitle')}
+            description={t('page.profile.dangerZone.deleteConfirmationDescription')}
             onAgree={deleteProfile}
             toggle={show => (
               <Button color="secondary" onClick={show}>
-                Delete Profile
+                {t('page.profile.dangerZone.deleteProfile')}
               </Button>
             )}
           />
         </Grid>
         <Grid item xs={12} sm={8}>
           <Typography>
-            Remove every data that is stored about you or your activity on this site,
-            and permanently delete your sign in credentials as well.
+            {t('page.profile.dangerZone.deleteDescription')}
           </Typography>
         </Grid>
 

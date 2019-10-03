@@ -14,20 +14,20 @@ export const VALIDATORS = {
 };
 
 export const ERRORS = {
-  REQUIRED: 'This field is required',
-  ONLY_NUMBER: 'This field can only contain numbers',
-  ONLY_ALPHANUMERIC: 'This field can only contain alphanumeric characters',
-  TEXT_MIN: min => `This field must be ${min} characters long at least`,
-  TEXT_MAX: max => `This field must be ${max} characters long maximum`,
-  TEXT_BETWEEN: (min, max) => `This field must be between ${min} and ${max} characters long`,
-  NUMBER_MIN: min => `This field must be greater or qeual than ${min}`,
-  NUMBER_MAX: max => `This field must be smaller or qeual than ${max}`,
-  NUMBER_BETWEEN: (min, max) => `This field must be between ${min} and ${max}`,
-  EMAIL: 'This field must be a valid email address',
-  FILE_MAX_SIZE: size => `The selected file must be ${size / 1000000}MB maximum`,
-  FILE_IMAGE_TYPE: 'The selected file must be a jpeg or a png image',
+  REQUIRED: { message: 'alert:form/required' },
+  ONLY_NUMBER: { message: 'alert:form/onlyNumber' },
+  ONLY_ALPHANUMERIC: { message: 'alert:form/onlyAlphanumeric' },
+  TEXT_MIN: min => ({ message: 'alert:form/textMin', props: { min } }),
+  TEXT_MAX: max => ({ message: 'alert:form/textMax', props: { max } }),
+  TEXT_BETWEEN: (min, max) => ({ message: 'alert:form/textBetween', props: { min, max } }),
+  NUMBER_MIN: min => ({ message: 'alert:form/numberMin', props: { min } }),
+  NUMBER_MAX: max => ({ message: 'alert:form/numberMax', props: { max } }),
+  NUMBER_BETWEEN: (min, max) => ({ message: 'alert:form/numberBetween', props: { min, max } }),
+  EMAIL: { message: 'alert:form/email' },
+  FILE_MAX_SIZE: size => ({ message: 'alert:form/fileMaxSize', props: { size: size / 1000000 } }),
+  FILE_IMAGE_TYPE: { message: 'alert:form/fileImageType' },
   // Errors without validator constant
-  MATCH: (a, b) => `${a} and ${b} fields do not match`,
+  MATCH: (a, b) => ({ message: 'alert:form/match', props: { a, b } }),
 };
 
 export default {

@@ -1,0 +1,49 @@
+{
+  "appbar": {
+    "menu": {
+      "profile": "Profile",
+      "signOut": "Sign Out"
+    }
+  },
+  "page": {
+    "forgotPassword": {
+      "title": "Forgot Password"
+    },
+    "signUp": {
+      "title": "Sign Up"
+    },
+    "signIn": {
+      "title": "Sign In"
+    },
+    "profile": {
+      "changePassword": {
+        "title": "Change Password",
+        "subtitle": "change or reset your account password",
+        "resetRequest": "Request Password reset?",
+        "resetDescription": "You will receive an email that contains every information that you need to do in order to create a new password."
+      },
+      "dangerZone": {
+        "title": "Danger Zone",
+        "subtitle": "manage your account existence",
+        "verificationRequest": "Request Email verification",
+        "verificationDescription": [
+          "Request a new verification to be able to use the site properly,",
+          "if you have changed your email address recently or missed your previous verification email."
+        ],
+        "deleteConfirmationTitle": "Delete profile?",
+        "deleteConfirmationDescription": "Your profile and all of your data will be removed. After this you cannot login into the application.",
+        "deleteProfile": "Delete Profile",
+        "deleteDescription": [
+          "Remove every data that is stored about you or your activity on this site,",
+          "and permanently delete your sign in credentials as well."
+        ]
+      },
+      "personalInformation": {
+        "title": "Personal Information",
+        "subtitle": "update your personal informaiton",
+        "deletePhoto": "Delete profile photo?",
+        "deleteDescription": "Your photo will be completely removed from everywhere and will be replaced with the default avatar."
+      }
+    }
+  }
+}

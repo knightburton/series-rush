@@ -1,6 +1,6 @@
-
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import { useTranslation } from 'react-i18next';
 
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
@@ -10,6 +10,7 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 
 const Confirmation = ({ id, title, description, onAgree, toggle }) => {
+  const { t } = useTranslation();
   const [isShown, setIsShown] = useState(false);
   const hide = () => setIsShown(false);
   const show = () => setIsShown(true);
@@ -35,10 +36,10 @@ const Confirmation = ({ id, title, description, onAgree, toggle }) => {
         </DialogContent>
         <DialogActions>
           <Button onClick={hide} color="secondary">
-            Disagree
+            {t('common:disagree')}
           </Button>
           <Button onClick={handleAgree} color="primary" autoFocus>
-            Agree
+            {t('common:agree')}
           </Button>
         </DialogActions>
       </Dialog>

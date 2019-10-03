@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
+import { useTranslation } from 'react-i18next';
 
 import IconButton from '@material-ui/core/IconButton';
 import Snackbar from '@material-ui/core/Snackbar';
@@ -23,6 +24,7 @@ const variantIcon = {
 
 const Alert = ({ alert, removeAlert }) => {
   const classes = useStyles();
+  const { t } = useTranslation();
   const { key, variant, message } = alert;
 
   const handleClose = reason => {
@@ -52,7 +54,7 @@ const Alert = ({ alert, removeAlert }) => {
         message={(
           <span id="sr-single-snackbar" className={classes.message}>
             <Icon className={clsx(classes.icon, classes.iconVariant)} />
-            {message}
+            {t(message)}
           </span>
         )}
         action={(

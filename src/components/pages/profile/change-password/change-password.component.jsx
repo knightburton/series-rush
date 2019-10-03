@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { useTranslation } from 'react-i18next';
 
 import Container from '@material-ui/core/Container';
 import TextField from '@material-ui/core/TextField';
@@ -15,6 +16,7 @@ import { stateSchema, validationSchema } from './change-password.constants';
 
 const ChangePassword = ({ inProgress, sendPasswordResetEmail, changePassword }) => {
   const classes = useStyles();
+  const { t } = useTranslation();
   const { state, handleChange, handleSubmit } = useForm({
     stateSchema,
     validationSchema,
@@ -25,8 +27,8 @@ const ChangePassword = ({ inProgress, sendPasswordResetEmail, changePassword }) 
 
   return (
     <Section
-      title="Change Password"
-      subtitle="change or reset your account password"
+      title={t('page.profile.changePassword.title')}
+      subtitle={t('page.profile.changePassword.subtitle')}
       inProgress={inProgress}
     >
       <Container maxWidth="xs">
@@ -37,19 +39,19 @@ const ChangePassword = ({ inProgress, sendPasswordResetEmail, changePassword }) 
             required
             fullWidth
             id="currentPassword"
-            label="Current Password"
+            label={t('common:currentPassword')}
             name="currentPassword"
             type="password"
             autoComplete="currentPassword"
             value={currentPassword.value}
-            helperText={currentPassword.error}
+            helperText={t(...currentPassword.error)}
             error={!!currentPassword.error}
             onChange={handleChange}
           />
           <Confirmation
             id="profile-forgot-password"
-            title="Request Password reset?"
-            description="You will receive an email that contains every information that you need to do in order to create a new password."
+            title={t('page.profile.changePassword.resetRequest')}
+            description={t('page.profile.changePassword.resetDescription')}
             onAgree={() => sendPasswordResetEmail(null, true)}
             toggle={show => (
               <Button
@@ -58,7 +60,7 @@ const ChangePassword = ({ inProgress, sendPasswordResetEmail, changePassword }) 
                 className={classes.forgot}
                 onClick={show}
               >
-                Forgot password?
+                {t('page.profile.changePassword.title')}
               </Button>
             )}
           />
@@ -68,12 +70,12 @@ const ChangePassword = ({ inProgress, sendPasswordResetEmail, changePassword }) 
             required
             fullWidth
             name="newPassword"
-            label="New Password"
+            label={t('common:newPassword')}
             id="newPassword"
             type="password"
             autoComplete="newPassword"
             value={newPassword.value}
-            helperText={newPassword.error}
+            helperText={t(...newPassword.error)}
             error={!!newPassword.error}
             onChange={handleChange}
           />
@@ -83,12 +85,12 @@ const ChangePassword = ({ inProgress, sendPasswordResetEmail, changePassword }) 
             required
             fullWidth
             name="confirmPassword"
-            label="Confirm Password"
+            label={t('common:confirmPassword')}
             type="password"
             id="confirmPassword"
             autoComplete="confirmPassword"
             value={confirmPassword.value}
-            helperText={confirmPassword.error}
+            helperText={t(...confirmPassword.error)}
             error={!!confirmPassword.error}
             onChange={handleChange}
           />
@@ -99,7 +101,7 @@ const ChangePassword = ({ inProgress, sendPasswordResetEmail, changePassword }) 
             color="primary"
             className={classes.submit}
           >
-            Change Password
+            {t('page.profile.changePassword.title')}
           </Button>
         </form>
       </Container>
