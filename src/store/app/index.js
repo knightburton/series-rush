@@ -6,12 +6,16 @@ import { getTimestamp } from '../../utils';
 export const initialState = {
   alerts: [],
   waiting: 0,
+  isDrawerOpened: false,
+  isMobileDrawerOpened: false,
 };
 
 // Action types
 export const ADD_ALERT = 'ADD_ALERT';
 export const REMOVE_ALERT = 'REMOVE_ALERT';
 export const SET_APP_WAITING = 'SET_APP_WAITING';
+export const TOGGLE_DRAWER = 'TOGGLE_DRAWER';
+export const TOGGLE_MOBILE_DRAWER = 'TOGGLE_MOBILE_DRAWER';
 
 // Action creators
 export const addAlert = createAction(
@@ -26,6 +30,12 @@ export const setAppWaiting = createAction(
   SET_APP_WAITING,
   isWaiting => isWaiting
 );
+export const toggleDrawer = createAction(
+  TOGGLE_DRAWER
+);
+export const toggleMobileDrawer = createAction(
+  TOGGLE_MOBILE_DRAWER
+);
 
 // Selectors
 export const getAlerts = state => state.app.alerts;
@@ -38,6 +48,8 @@ export const getIsAppWaiting = createSelector(
   getWaiting,
   waiting => waiting > 0
 );
+export const getIsDrawerOpened = state => state.app.isDrawerOpened;
+export const getIsMobileDrawerOpened = state => state.app.isMobileDrawerOpened;
 
 // Reducer
 export const reducer = handleActions(
@@ -57,6 +69,8 @@ export const reducer = handleActions(
       ...state,
       waiting: isWaiting ? state.waiting + 1 : state.waiting - 1,
     }),
+    [toggleDrawer]: state => ({ ...state, isDrawerOpened: !state.isDrawerOpened }),
+    [toggleMobileDrawer]: state => ({ ...state, isMobileDrawerOpened: !state.isMobileDrawerOpened }),
   },
   initialState
 );
