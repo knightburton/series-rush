@@ -8,6 +8,7 @@ import IconButton from '@material-ui/core/IconButton';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
+import Hidden from '@material-ui/core/Hidden';
 
 import PersonOutlineIcon from '@material-ui/icons/PersonOutline';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
@@ -30,9 +31,11 @@ const AppBarProfileMenu = ({ signOut, anchor, setAnchor }) => {
 
   return (
     <>
-      <Typography variant="body2" className={classes.displayName}>
-        {displayName}
-      </Typography>
+      <Hidden xsDown>
+        <Typography variant="body2" display="block" className={classes.displayName}>
+          {displayName}
+        </Typography>
+      </Hidden>
       <IconButton
         edge="end"
         aria-owns={anchor ? 'material-appbar' : undefined}

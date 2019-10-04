@@ -11,6 +11,7 @@ import Button from '@material-ui/core/Button';
 
 import AppBarDrawerButton from './appbar-drawer-button/appbar-drawer-button.container';
 import AppBarProfileMenu from './appbar-profile-menu/appbar-profile-menu.container';
+import QuickSearch from '../quick-search/quick-search.component';
 import ProjectTitle from '../../commons/project-title/project-title.component';
 
 import ProfileContext from '../../../contexts/profile';
@@ -36,6 +37,9 @@ const AppBar = ({ isDrawerOpened }) => {
         )}
         {!signedIn && (
           <ProjectTitle withLogo />
+        )}
+        {signedIn && (
+          <QuickSearch />
         )}
         <Box className={classes.grow} />
         {signedIn ? (
