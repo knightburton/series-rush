@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 
 import InputBase from '@material-ui/core/InputBase';
 
@@ -8,6 +9,7 @@ import useStyles from './quick-search.styles';
 
 const QuickSearch = () => {
   const classes = useStyles();
+  const { t } = useTranslation();
 
   return (
     <div className={classes.search}>
@@ -15,12 +17,12 @@ const QuickSearch = () => {
         <SearchIcon />
       </div>
       <InputBase
-        placeholder="Search…"
+        placeholder={`${t('common:search')}...`}
         classes={{
           root: classes.inputRoot,
           input: classes.inputInput,
         }}
-        inputProps={{ 'aria-label': 'search' }}
+        inputProps={{ 'aria-label': t('common:search') }}
       />
     </div>
   );
