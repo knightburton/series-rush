@@ -1,5 +1,6 @@
 import React, { useContext, useState } from 'react';
 import PropTypes from 'prop-types';
+import clsx from 'clsx';
 import { withRouter, Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
@@ -24,7 +25,7 @@ import ProfileContext from '../../../contexts/profile';
 
 import useStyles from './appbar.styles';
 
-const AppBar = ({ signOut, toggleMobileDrawer }) => {
+const AppBar = ({ signOut, isDrawerOpened, toggleMobileDrawer }) => {
   const classes = useStyles();
   const { t } = useTranslation();
   const { signedIn, displayName } = useContext(ProfileContext);
@@ -35,8 +36,13 @@ const AppBar = ({ signOut, toggleMobileDrawer }) => {
     setProfileMenu(null);
   };
 
+  const appBar = clsx(classes.base, {
+    [classes.appBar]: signedIn,
+    [classes.appBarShift]: signedIn && isDrawerOpened,
+  });
+
   return (
-    <MuiAppBar position="sticky">
+    <MuiAppBar position="fixed" className={appBar}>
       <Toolbar>
         {signedIn && (
           <Hidden mdUp>
@@ -44,7 +50,7 @@ const AppBar = ({ signOut, toggleMobileDrawer }) => {
               color="inherit"
               aria-label={t('appbar.openSidebar')}
               edge="start"
-              onClick={toggleMobileDrawer}
+              onClick={() => toggleMobileDrawer()}
               className={classes.menuButton}
             >
               <MenuIcon />
@@ -92,7 +98,7 @@ const AppBar = ({ signOut, toggleMobileDrawer }) => {
                   {t('appbar.menu.profile')}
                 </Typography>
               </MenuItem>
-              <MenuItem onClick={handleSignOut}>
+              <MenuItem onClick={() => handleSignOut()}>
                 <ListItemIcon>
                   <ExitToAppIcon />
                 </ListItemIcon>
@@ -118,6 +124,7 @@ const AppBar = ({ signOut, toggleMobileDrawer }) => {
 
 AppBar.propTypes = {
   signOut: PropTypes.func.isRequired,
+  isDrawerOpened: PropTypes.bool.isRequired,
   toggleMobileDrawer: PropTypes.func.isRequired,
 };
 

@@ -2,9 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import AppBar from './widgets/appbar/appbar.container';
+import Drawer from './widgets/drawer/drawer.container';
 import Alert from './widgets/alert/alert.container';
 import Waiting from './widgets/waiting/waiting.component';
-import ContentWrapper from './widgets/content-wrapper/content-wrapper.component';
+import ContentWrapper from './widgets/content-wrapper/content-wrapper.container';
 
 import { ProfileProvider } from '../contexts/profile';
 
@@ -14,14 +15,13 @@ const App = ({ authIsLoaded, isAppWaiting }) => (authIsLoaded ? (
   <>
     <ProfileProvider>
       <AppBar />
+      <Drawer />
       <ContentWrapper>
         <AppRoutes />
       </ContentWrapper>
       <Alert />
     </ProfileProvider>
-    {isAppWaiting && (
-      <Waiting type="app" />
-    )}
+    {isAppWaiting && <Waiting type="app" />}
   </>
 ) : (
   <Waiting type="screen" />
