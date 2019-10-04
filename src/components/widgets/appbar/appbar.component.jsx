@@ -12,9 +12,11 @@ import IconButton from '@material-ui/core/IconButton';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
+import Hidden from '@material-ui/core/Hidden';
 
 import PersonOutlineIcon from '@material-ui/icons/PersonOutline';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import MenuIcon from '@material-ui/icons/Menu';
 
 import ProfilePhoto from '../../commons/profile-photo/profile-photo.component';
 
@@ -22,7 +24,7 @@ import ProfileContext from '../../../contexts/profile';
 
 import useStyles from './appbar.styles';
 
-const AppBar = ({ signOut }) => {
+const AppBar = ({ signOut, toggleMobileDrawer }) => {
   const classes = useStyles();
   const { t } = useTranslation();
   const { signedIn, displayName } = useContext(ProfileContext);
@@ -36,6 +38,19 @@ const AppBar = ({ signOut }) => {
   return (
     <MuiAppBar position="sticky">
       <Toolbar>
+        {signedIn && (
+          <Hidden mdUp>
+            <IconButton
+              color="inherit"
+              aria-label={t('appbar.openSidebar')}
+              edge="start"
+              onClick={toggleMobileDrawer}
+              className={classes.menuButton}
+            >
+              <MenuIcon />
+            </IconButton>
+          </Hidden>
+        )}
         <Typography variant="h5">
           Series Rush
         </Typography>
@@ -103,6 +118,7 @@ const AppBar = ({ signOut }) => {
 
 AppBar.propTypes = {
   signOut: PropTypes.func.isRequired,
+  toggleMobileDrawer: PropTypes.func.isRequired,
 };
 
 export default withRouter(AppBar);

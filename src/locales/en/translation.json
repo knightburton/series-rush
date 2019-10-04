@@ -1,5 +1,6 @@
 {
   "appbar": {
+    "openSidebar": "Open Sidebar",
     "menu": {
       "profile": "Profile",
       "signOut": "Sign Out"
