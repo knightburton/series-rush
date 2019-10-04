@@ -11,7 +11,7 @@ import Button from '@material-ui/core/Button';
 
 import AppBarDrawerButton from './appbar-drawer-button/appbar-drawer-button.container';
 import AppBarProfileMenu from './appbar-profile-menu/appbar-profile-menu.container';
-import QuickSearch from '../quick-search/quick-search.component';
+import QuickSearch from '../quick-search/quick-search.container';
 import ProjectTitle from '../../commons/project-title/project-title.component';
 
 import ProfileContext from '../../../contexts/profile';
