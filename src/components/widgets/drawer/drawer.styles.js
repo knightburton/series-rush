@@ -26,22 +26,4 @@ export default makeStyles(theme => ({
       width: theme.spacing(9) + 1,
     },
   },
-  toolbar: {
-    ...theme.mixins.toolbar,
-  },
-  toggleToolbar: {
-    padding: 0,
-    ...theme.mixins.toolbar,
-  },
-  toggleButton: {
-    margin: theme.spacing(1),
-    padding: theme.spacing(1, 2),
-    width: '100%',
-    display: 'flex',
-    justifyContent: 'flex-end',
-    cursor: 'pointer',
-    '&:hover': {
-      color: theme.palette.secondary.main,
-    },
-  },
 }));
