@@ -1,19 +1,12 @@
 import { connect } from 'react-redux';
 
-import { signOut } from '../../../store/auth';
-import {
-  getIsDrawerOpened,
-  toggleMobileDrawer,
-} from '../../../store/app';
+import { getIsDrawerOpened } from '../../../store/app';
 import AppBar from './appbar.component';
 
 const mapStateToProps = state => ({
   isDrawerOpened: getIsDrawerOpened(state),
 });
 
-const mapDispatchToProps = {
-  signOut,
-  toggleMobileDrawer,
-};
+const mapDispatchToProps = {};
 
 export default connect(mapStateToProps, mapDispatchToProps)(AppBar);

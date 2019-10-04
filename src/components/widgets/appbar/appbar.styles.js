@@ -27,10 +27,4 @@ export default makeStyles(theme => ({
       }),
     },
   },
-  displayName: {
-    marginRight: theme.spacing(0.5),
-  },
-  menuButton: {
-    marginRight: theme.spacing(2),
-  },
 }));
