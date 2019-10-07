@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 
 import { getIsDrawerOpened } from '../../../store/app';
-import AppBar from './appbar.component';
+import ContentWrapper from './content-wrapper.component';
 
 const mapStateToProps = state => ({
   isDrawerOpened: getIsDrawerOpened(state),
@@ -9,4 +9,4 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = {};
 
-export default connect(mapStateToProps, mapDispatchToProps)(AppBar);
+export default connect(mapStateToProps, mapDispatchToProps)(ContentWrapper);

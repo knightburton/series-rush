@@ -26,5 +26,7 @@
   "auth/password-required": "The Current Password is required.",
   "auth/password-match": "The New Password and Confirm Password must match.",
   "auth/password-change-success": "Your password has been changed. You can sign in with your new password now.",
-  "auth/email-verification-success": "Instructions on how to activate your account have been emailed to you. Please check your email."
+  "auth/email-verification-success": "Instructions on how to activate your account have been emailed to you. Please check your email.",
+
+  "api/tvmaze-search-show": "The series search has failed, try to search again later."
 }

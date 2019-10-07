@@ -1,5 +1,7 @@
 {
   "appbar": {
+    "openSidebar": "Open Sidebar",
+    "toggleSidebar": "Expand or collapse Sidebar",
     "menu": {
       "profile": "Profile",
       "signOut": "Sign Out"
