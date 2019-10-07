@@ -27,7 +27,7 @@ const QuickSearchResult = ({ result, hasMoreResult, searching }) => {
     <Paper className={classes.paper}>
       {result.length ? (
         <Box className={classes.box}>
-          {result.map(({ show }) => (
+          {result.map(({ show }, index) => (
             <Box key={show.id}>
               <Grid container spacing={1} className={classes.grid}>
                 <Grid item xs={3}>
@@ -72,7 +72,9 @@ const QuickSearchResult = ({ result, hasMoreResult, searching }) => {
                   </Box>
                 </Grid>
               </Grid>
-              <Divider className={classes.divider} />
+              {(hasMoreResult || index !== result.length - 1) && (
+                <Divider className={classes.divider} />
+              )}
             </Box>
           ))}
           {hasMoreResult && (
