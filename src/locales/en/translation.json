@@ -2,6 +2,9 @@
   "appbar": {
     "openSidebar": "Open Sidebar",
     "toggleSidebar": "Expand or collapse Sidebar",
+    "search": {
+      "empty": "There is no result."
+    },
     "menu": {
       "profile": "Profile",
       "signOut": "Sign Out"

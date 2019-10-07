@@ -32,7 +32,13 @@ export default makeStyles(theme => ({
     transition: theme.transitions.create('width'),
     width: '100%',
     [theme.breakpoints.up('md')]: {
-      width: 200,
+      width: 250,
     },
+  },
+  resultPaper: {
+    position: 'absolute',
+    padding: theme.spacing(2, 1),
+    marginTop: theme.spacing(0.5),
+    width: '100%',
   },
 }));
