@@ -14,20 +14,24 @@ import useStyles from './quick-search.styles';
 const QuickSearch = ({ seriesSearch, clearSearchResult }) => {
   const classes = useStyles();
   const { t } = useTranslation();
-  const [query, changeQuery] = useState('');
+  const [query, setQuery] = useState('');
+  const [typing, setTyping] = useState(null);
   const [popup, setPopup] = useState(false);
-
-  const handleChange = value => {
-    if (value && value.length >= 3) {
-      seriesSearch(value);
-      setPopup(true);
-    }
-    changeQuery(value);
-  };
 
   const handleClickAway = () => {
     setPopup(false);
     clearSearchResult();
+  };
+
+  const handleChange = value => {
+    clearTimeout(typing);
+    setQuery(value);
+    setTyping(setTimeout(() => {
+      if (value && value.length >= 3) {
+        seriesSearch(value);
+        setPopup(true);
+      }
+    }, 500));
   };
 
   return (
