@@ -1,5 +1,7 @@
 import { createAction, handleActions } from 'redux-actions';
+import { createSelector } from 'reselect';
 import { addAlert } from '../app';
+import { NUMBER_OF_SEARCH_RESULTS } from '../../constants/config';
 
 // Initial state
 export const initialState = {
@@ -27,6 +29,14 @@ export const seriesSearchFailure = createAction(
 // Selectors
 export const getSerachResult = state => state.search.result;
 export const getSearching = state => state.search.searching;
+export const getFourSearchResult = createSelector(
+  getSerachResult,
+  result => result.slice(0, NUMBER_OF_SEARCH_RESULTS)
+);
+export const getHasMoreResult = createSelector(
+  getSerachResult,
+  result => result.length > NUMBER_OF_SEARCH_RESULTS
+);
 
 // Reducer
 export const reducer = handleActions(

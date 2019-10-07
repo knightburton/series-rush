@@ -2,13 +2,17 @@
   "appbar": {
     "openSidebar": "Open Sidebar",
     "toggleSidebar": "Expand or collapse Sidebar",
-    "search": {
-      "empty": "There is no result."
-    },
     "menu": {
       "profile": "Profile",
       "signOut": "Sign Out"
     }
+  },
+  "quickSearch": {
+    "empty": "There is no result.",
+    "seeAll": "See all results",
+    "officialSite": "Official site",
+    "add": "Add to your list",
+    "showInfo": "Show details"
   },
   "page": {
     "forgotPassword": {
