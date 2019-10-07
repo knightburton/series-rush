@@ -62,8 +62,14 @@ const QuickSearchResult = ({ result, hasMoreResult, searching, onClose }) => {
                   </Box>
                   <Box className={classes.actionContainer}>
                     <Link
-                      href={show.officialSite || show.url}
+                      href={show.officialSite || ''}
+                      component={Button}
                       target="_blank"
+                      disabled={!show.officialSite}
+                      className={classes.officialSite}
+                      disableRipple
+                      disableFocusRipple
+                      disableTouchRipple
                     >
                       {t('quickSearch.officialSite')}
                     </Link>

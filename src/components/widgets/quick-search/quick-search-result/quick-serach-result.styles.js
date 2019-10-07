@@ -42,6 +42,13 @@ export default makeStyles(theme => ({
     alignItems: 'center',
     margin: theme.spacing(0.5, 0),
   },
+  officialSite: {
+    textTransform: 'none',
+    padding: 0,
+    '&:hover': {
+      backgroundColor: 'transparent',
+    },
+  },
   divider: {
     marginBottom: theme.spacing(1),
   },
