@@ -9,6 +9,14 @@ export default makeStyles(theme => ({
     marginTop: theme.spacing(0.5),
     paddingTop: theme.spacing(1),
     width: '100%',
+    [theme.breakpoints.down('xs')]: {
+      width: '100vw',
+      marginLeft: -theme.spacing(8.5),
+      marginTop: theme.spacing(1.25),
+      borderRadius: 0,
+      height: `calc(100vh - ${theme.mixins.toolbar.minHeight}px)`,
+      overflowY: 'auto',
+    },
   },
   box: {
     display: 'flex',
@@ -16,6 +24,9 @@ export default makeStyles(theme => ({
   },
   grid: {
     padding: theme.spacing(0, 1),
+  },
+  innerGrid: {
+    paddingLeft: theme.spacing(1),
   },
   image: {
     width: '100%',
@@ -29,13 +40,14 @@ export default makeStyles(theme => ({
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
+    margin: theme.spacing(0.5, 0),
   },
   divider: {
     marginBottom: theme.spacing(1),
   },
-  seeAll: {
-    alignSelf: 'flex-end',
-    marginRight: theme.spacing(1),
-    marginBottom: theme.spacing(1),
+  buttonContainer: {
+    display: 'flex',
+    justifyContent: 'flex-end',
+    padding: theme.spacing(1),
   },
 }));

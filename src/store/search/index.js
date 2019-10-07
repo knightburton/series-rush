@@ -13,6 +13,7 @@ export const initialState = {
 export const SERIES_SEARCH_REQUEST = 'SERIES_SEARCH_REQUEST';
 export const SERIES_SEARCH_SUCCESS = 'SERIES_SEARCH_SUCCESS';
 export const SERIES_SEARCH_FAILURE = 'SERIES_SEARCH_FAILURE';
+export const CLEAR_SEARCH_RESULT = 'CLEAR_SEARCH_RESULT';
 
 // Action creators
 export const seriesSearchRequest = createAction(
@@ -24,6 +25,9 @@ export const seriesSearchSuccess = createAction(
 );
 export const seriesSearchFailure = createAction(
   SERIES_SEARCH_FAILURE
+);
+export const clearSearchResult = createAction(
+  CLEAR_SEARCH_RESULT
 );
 
 // Selectors
@@ -44,6 +48,7 @@ export const reducer = handleActions(
     [seriesSearchRequest]: state => ({ ...state, searching: true }),
     [seriesSearchSuccess]: (state, { payload: result }) => ({ ...state, searching: false, result }),
     [seriesSearchFailure]: state => ({ ...state, searching: false }),
+    [clearSearchResult]: state => ({ ...state, result: [] }),
   },
   initialState
 );

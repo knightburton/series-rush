@@ -11,7 +11,7 @@ import QuickSearchResult from './quick-search-result/quick-search-result.contain
 
 import useStyles from './quick-search.styles';
 
-const QuickSearch = ({ seriesSearch }) => {
+const QuickSearch = ({ seriesSearch, clearSearchResult }) => {
   const classes = useStyles();
   const { t } = useTranslation();
   const [query, changeQuery] = useState('');
@@ -27,6 +27,7 @@ const QuickSearch = ({ seriesSearch }) => {
 
   const handleClickAway = () => {
     setPopup(false);
+    clearSearchResult();
   };
 
   return (
@@ -46,7 +47,7 @@ const QuickSearch = ({ seriesSearch }) => {
           onChange={e => handleChange(e.target.value)}
         />
         {popup && (
-          <QuickSearchResult />
+          <QuickSearchResult onClose={handleClickAway} />
         )}
       </div>
     </ClickAwayListener>
@@ -55,6 +56,7 @@ const QuickSearch = ({ seriesSearch }) => {
 
 QuickSearch.propTypes = {
   seriesSearch: PropTypes.func.isRequired,
+  clearSearchResult: PropTypes.func.isRequired,
 };
 
 export default QuickSearch;
