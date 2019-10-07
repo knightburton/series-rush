@@ -11,7 +11,7 @@
     "empty": "There is no result.",
     "seeAll": "See all results",
     "officialSite": "Official site",
-    "add": "Add to your dashboard",
+    "add": "Add to your collection",
     "showInfo": "Show details"
   },
   "page": {
@@ -56,6 +56,9 @@
     },
     "dashboard": {
       "title": "Dashboard"
+    },
+    "collection": {
+      "title": "Collection"
     }
   }
 }
