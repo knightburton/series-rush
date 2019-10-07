@@ -11,7 +11,7 @@
     "empty": "There is no result.",
     "seeAll": "See all results",
     "officialSite": "Official site",
-    "add": "Add to your list",
+    "add": "Add to your dashboard",
     "showInfo": "Show details"
   },
   "page": {
@@ -53,6 +53,9 @@
         "deletePhoto": "Delete profile photo?",
         "deleteDescription": "Your photo will be completely removed from everywhere and will be replaced with the default avatar."
       }
+    },
+    "dashboard": {
+      "title": "Dashboard"
     }
   }
 }
