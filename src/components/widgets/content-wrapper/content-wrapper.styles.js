@@ -1,4 +1,5 @@
 import { makeStyles } from '@material-ui/core/styles';
+import { DRAWER_WIDTH } from '../../../constants/config';
 
 export default makeStyles(theme => ({
   base: {
@@ -20,7 +21,7 @@ export default makeStyles(theme => ({
         easing: theme.transitions.easing.easeOut,
         duration: theme.transitions.duration.enteringScreen,
       }),
-      marginLeft: 240,
+      marginLeft: DRAWER_WIDTH,
     },
   },
   toolbar: {

@@ -1,16 +1,17 @@
 import { makeStyles } from '@material-ui/core/styles';
+import { DRAWER_WIDTH } from '../../../constants/config';
 
 export default makeStyles(theme => ({
   drawer: {
     [theme.breakpoints.up('sm')]: {
-      width: 240,
+      width: DRAWER_WIDTH,
     },
     width: 0,
     flexShrink: 0,
     whiteSpace: 'nowrap',
   },
   drawerOpen: {
-    width: 240,
+    width: DRAWER_WIDTH,
     transition: theme.transitions.create(['margin', 'width'], {
       easing: theme.transitions.easing.easeOut,
       duration: theme.transitions.duration.enteringScreen,
