@@ -1,7 +1,5 @@
 import { createAction, handleActions } from 'redux-actions';
-import { createSelector } from 'reselect';
 import { addAlert } from '../app';
-import { NUMBER_OF_SEARCH_RESULTS } from '../../constants/config';
 
 // Initial state
 export const initialState = {
@@ -43,14 +41,6 @@ export const clearSearchResult = createAction(
 // Selectors
 export const getSerachResult = state => state.search.result;
 export const getSearching = state => state.search.searching;
-export const getFourSearchResult = createSelector(
-  getSerachResult,
-  result => result.slice(0, NUMBER_OF_SEARCH_RESULTS)
-);
-export const getHasMoreResult = createSelector(
-  getSerachResult,
-  result => result.length > NUMBER_OF_SEARCH_RESULTS
-);
 
 // Reducer
 export const reducer = handleActions(
@@ -65,9 +55,11 @@ export const reducer = handleActions(
   initialState
 );
 
-export const seriesSearch = query => async (dispatch, getState, { tvmazeApi }) => {
+export const seriesSearch = query => async (dispatch, getState, { tvmazeApi, history }) => {
   dispatch(seriesSearchRequest());
   try {
+    const { location: { pathname } } = history;
+    if (!pathname.startsWith('/search')) history.push('/search');
     const result = await tvmazeApi.searchShow(query);
     dispatch(seriesSearchSuccess(result));
   } catch (error) {

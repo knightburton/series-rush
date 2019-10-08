@@ -1,71 +1,48 @@
-import React, { useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 
 import InputBase from '@material-ui/core/InputBase';
-import ClickAwayListener from '@material-ui/core/ClickAwayListener';
 
 import SearchIcon from '@material-ui/icons/SearchOutlined';
 
-import QuickSearchResult from './quick-search-result/quick-search-result.container';
-
 import useStyles from './quick-search.styles';
 
-import {
-  MINIMUM_LENGTH_OF_QUERY,
-  MILISECONDS_TO_WAIT_FOR_TYPING,
-} from '../../../constants/config';
+import useForm from '../../../hooks/useForm';
 
-const QuickSearch = ({ seriesSearch, clearSearchResult }) => {
+const QuickSearch = ({ seriesSearch }) => {
   const classes = useStyles();
   const { t } = useTranslation();
-  const [query, setQuery] = useState('');
-  const [typing, setTyping] = useState(null);
-  const [popup, setPopup] = useState(false);
-
-  const handleClickAway = () => {
-    setPopup(false);
-    clearSearchResult();
-  };
-
-  const handleChange = value => {
-    clearTimeout(typing);
-    setQuery(value);
-    setTyping(setTimeout(() => {
-      if (value && value.length >= MINIMUM_LENGTH_OF_QUERY) {
-        seriesSearch(value);
-        setPopup(true);
-      }
-    }, MILISECONDS_TO_WAIT_FOR_TYPING));
-  };
+  const { state, handleChange, handleSubmit } = useForm({
+    stateSchema: { query: { value: '', error: '' } },
+    callback: ({ query }) => seriesSearch(query),
+  });
 
   return (
-    <ClickAwayListener onClickAway={handleClickAway}>
-      <div className={classes.search}>
-        <div className={classes.searchIcon}>
-          <SearchIcon />
-        </div>
-        <InputBase
-          placeholder={`${t('common:search')}...`}
-          classes={{
-            root: classes.inputRoot,
-            input: classes.inputInput,
-          }}
-          inputProps={{ 'aria-label': t('common:search') }}
-          value={query}
-          onChange={e => handleChange(e.target.value)}
-        />
-        {popup && (
-          <QuickSearchResult onClose={handleClickAway} />
-        )}
+    <form noValidate onSubmit={handleSubmit} className={classes.search}>
+      <div className={classes.searchIcon}>
+        <SearchIcon />
       </div>
-    </ClickAwayListener>
+      <InputBase
+        placeholder={`${t('common:quickSearch')}...`}
+        classes={{
+          root: classes.inputRoot,
+          input: classes.inputInput,
+        }}
+        inputProps={{ 'aria-label': t('common:quickSearch') }}
+        value={state.query.value}
+        onChange={handleChange}
+        autoComplete="off"
+        id="query"
+        name="query"
+        type="search"
+      />
+    </form>
   );
 };
 
 QuickSearch.propTypes = {
   seriesSearch: PropTypes.func.isRequired,
-  clearSearchResult: PropTypes.func.isRequired,
 };
 
 export default QuickSearch;
