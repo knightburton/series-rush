@@ -59,6 +59,9 @@
     },
     "collection": {
       "title": "Collection"
+    },
+    "search": {
+      "title": "Search"
     }
   }
 }

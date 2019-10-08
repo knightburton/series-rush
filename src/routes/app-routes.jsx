@@ -8,6 +8,7 @@ import ForgotPassword from '../components/pages/forgot-password/forgot-password.
 import Profile from '../components/pages/profile/profile.container';
 import Dashboard from '../components/pages/dashboard/dashboard.container';
 import Collection from '../components/pages/collection/collection.container';
+import Search from '../components/pages/search/search.container';
 
 import ProtectedRoute from './protected-route';
 
@@ -20,6 +21,7 @@ const AppRoutes = () => (
     <ProtectedRoute exact path="/profile" component={Profile} />
     <ProtectedRoute exact path="/dashboard" component={Dashboard} />
     <ProtectedRoute path="/collection" component={Collection} />
+    <ProtectedRoute path="/search" component={Search} />
     <Redirect to="/" />
   </Switch>
 );
