@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 
@@ -8,32 +8,36 @@ import SearchIcon from '@material-ui/icons/SearchOutlined';
 
 import useStyles from './quick-search.styles';
 
+import useForm from '../../../hooks/useForm';
+
 const QuickSearch = ({ seriesSearch }) => {
   const classes = useStyles();
   const { t } = useTranslation();
-  const [query, changeQuery] = useState('');
-
-  const handleChange = value => {
-    if (value && value.length >= 3) seriesSearch(value);
-    changeQuery(value);
-  };
+  const { state, handleChange, handleSubmit } = useForm({
+    stateSchema: { query: { value: '', error: '' } },
+    callback: ({ query }) => seriesSearch(query),
+  });
 
   return (
-    <div className={classes.search}>
+    <form noValidate onSubmit={handleSubmit} className={classes.search}>
       <div className={classes.searchIcon}>
         <SearchIcon />
       </div>
       <InputBase
-        placeholder={`${t('common:search')}...`}
+        placeholder={`${t('common:quickSearch')}...`}
         classes={{
           root: classes.inputRoot,
           input: classes.inputInput,
         }}
-        inputProps={{ 'aria-label': t('common:search') }}
-        value={query}
-        onChange={e => handleChange(e.target.value)}
+        inputProps={{ 'aria-label': t('common:quickSearch') }}
+        value={state.query.value}
+        onChange={handleChange}
+        autoComplete="off"
+        id="query"
+        name="query"
+        type="search"
       />
-    </div>
+    </form>
   );
 };
 

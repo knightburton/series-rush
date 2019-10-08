@@ -4,7 +4,7 @@ import clsx from 'clsx';
 
 import MuiDrawer from '@material-ui/core/Drawer';
 import Hidden from '@material-ui/core/Hidden';
-import DrawerContent from './drawer-content/drawer-content-component';
+import DrawerContent from './drawer-content/drawer-content.component';
 
 import ProfileContext from '../../../contexts/profile';
 

@@ -7,6 +7,13 @@
       "signOut": "Sign Out"
     }
   },
+  "quickSearch": {
+    "empty": "There is no result.",
+    "seeAll": "See all results",
+    "officialSite": "Official site",
+    "add": "Add to your collection",
+    "showInfo": "Show details"
+  },
   "page": {
     "forgotPassword": {
       "title": "Forgot Password"
@@ -46,6 +53,15 @@
         "deletePhoto": "Delete profile photo?",
         "deleteDescription": "Your photo will be completely removed from everywhere and will be replaced with the default avatar."
       }
+    },
+    "dashboard": {
+      "title": "Dashboard"
+    },
+    "collection": {
+      "title": "Collection"
+    },
+    "search": {
+      "title": "Search"
     }
   }
 }

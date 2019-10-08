@@ -26,13 +26,20 @@ export default makeStyles(theme => ({
   },
   inputRoot: {
     color: 'inherit',
+    width: '100%',
   },
   inputInput: {
     padding: theme.spacing(1, 1, 1, 7),
     transition: theme.transitions.create('width'),
     width: '100%',
-    [theme.breakpoints.up('md')]: {
-      width: 200,
+    [theme.breakpoints.up('sm')]: {
+      width: 250,
     },
+  },
+  resultPaper: {
+    position: 'absolute',
+    padding: theme.spacing(2, 1),
+    marginTop: theme.spacing(0.5),
+    width: '100%',
   },
 }));
