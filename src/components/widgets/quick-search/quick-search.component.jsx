@@ -11,6 +11,11 @@ import QuickSearchResult from './quick-search-result/quick-search-result.contain
 
 import useStyles from './quick-search.styles';
 
+import {
+  MINIMUM_LENGTH_OF_QUERY,
+  MILISECONDS_TO_WAIT_FOR_TYPING,
+} from '../../../constants/config';
+
 const QuickSearch = ({ seriesSearch, clearSearchResult }) => {
   const classes = useStyles();
   const { t } = useTranslation();
@@ -27,11 +32,11 @@ const QuickSearch = ({ seriesSearch, clearSearchResult }) => {
     clearTimeout(typing);
     setQuery(value);
     setTyping(setTimeout(() => {
-      if (value && value.length >= 3) {
+      if (value && value.length >= MINIMUM_LENGTH_OF_QUERY) {
         seriesSearch(value);
         setPopup(true);
       }
-    }, 500));
+    }, MILISECONDS_TO_WAIT_FOR_TYPING));
   };
 
   return (
