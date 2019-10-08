@@ -7,12 +7,15 @@ import { NUMBER_OF_SEARCH_RESULTS } from '../../constants/config';
 export const initialState = {
   searching: false,
   result: [],
+  query: '',
 };
 
 // Action types
 export const SERIES_SEARCH_REQUEST = 'SERIES_SEARCH_REQUEST';
 export const SERIES_SEARCH_SUCCESS = 'SERIES_SEARCH_SUCCESS';
 export const SERIES_SEARCH_FAILURE = 'SERIES_SEARCH_FAILURE';
+export const STORE_SEARCH_QUERY = 'STORE_SEARCH_QUERY';
+export const CLEAR_SEARCH_QUERY = 'CLEAR_SEARCH_QUERY';
 export const CLEAR_SEARCH_RESULT = 'CLEAR_SEARCH_RESULT';
 
 // Action creators
@@ -25,6 +28,13 @@ export const seriesSearchSuccess = createAction(
 );
 export const seriesSearchFailure = createAction(
   SERIES_SEARCH_FAILURE
+);
+export const storeSearchQuery = createAction(
+  STORE_SEARCH_QUERY,
+  query => query
+);
+export const clearSearchQuery = createAction(
+  CLEAR_SEARCH_QUERY
 );
 export const clearSearchResult = createAction(
   CLEAR_SEARCH_RESULT
@@ -48,6 +58,8 @@ export const reducer = handleActions(
     [seriesSearchRequest]: state => ({ ...state, searching: true }),
     [seriesSearchSuccess]: (state, { payload: result }) => ({ ...state, searching: false, result }),
     [seriesSearchFailure]: state => ({ ...state, searching: false }),
+    [storeSearchQuery]: (state, { payload: query }) => ({ ...state, query }),
+    [clearSearchQuery]: state => ({ ...state, query: '' }),
     [clearSearchResult]: state => ({ ...state, result: [] }),
   },
   initialState
