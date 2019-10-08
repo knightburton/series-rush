@@ -1,28 +1,9 @@
-import { createAction, handleActions } from 'redux-actions';
+import { handleActions } from 'redux-actions';
 import { setAppWaiting, addAlert } from '../app';
 import { getProfile } from '../auth';
 
 // Initial state
-export const initialState = {
-  list: [],
-};
-
-// Action types
-export const ADD_TO_COLLECTION_REQUEST = 'ADD_TO_COLLECTION_REQUEST';
-export const ADD_TO_COLLECTION_SUCCESS = 'ADD_TO_COLLECTION_SUCCESS';
-export const ADD_TO_COLLECTION_FAILURE = 'ADD_TO_COLLECTION_FAILURE';
-
-// Action creators
-export const addToCollectionRequest = createAction(
-  ADD_TO_COLLECTION_REQUEST
-);
-export const addToCollectionSuccess = createAction(
-  ADD_TO_COLLECTION_SUCCESS,
-  id => id
-);
-export const addToCollectionFailure = createAction(
-  ADD_TO_COLLECTION_FAILURE
-);
+export const initialState = {};
 
 // Reducer
 export const reducer = handleActions(
@@ -31,16 +12,25 @@ export const reducer = handleActions(
 );
 
 // Async actions
-export const addToCollection = showID => async (dispatch, getState, { getFirestore }) => {
+export const addToSeriesCollection = showID => async (dispatch, getState, { getFirestore }) => {
   dispatch(setAppWaiting(true));
   try {
     const firestore = getFirestore();
     const { id } = getProfile(getState());
-    await firestore.collection('collections').doc(id).add({
-      showID,
-    });
+    await firestore.add(
+      {
+        collection: 'collections',
+        doc: id,
+        subcollections: [{ collection: 'series' }],
+      },
+      {
+        showID,
+        group: 'default',
+      }
+    );
+    dispatch(addAlert('alert:collection/add-to-series-success', 'success'));
   } catch (error) {
-    dispatch(addAlert(error.message, 'error'));
+    dispatch(addAlert('alert:collection/add-to-series-failure', 'error'));
   } finally {
     dispatch(setAppWaiting(false));
   }

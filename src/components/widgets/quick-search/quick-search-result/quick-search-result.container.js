@@ -5,6 +5,9 @@ import {
   getHasMoreResult,
   getSearching,
 } from '../../../../store/search';
+import {
+  addToSeriesCollection,
+} from '../../../../store/collection';
 import QuickSearchResult from './quick-search-result.component';
 
 const mapStateToProps = state => ({
@@ -13,6 +16,8 @@ const mapStateToProps = state => ({
   hasMoreResult: getHasMoreResult(state),
 });
 
-const mapDispatchToProps = {};
+const mapDispatchToProps = {
+  addToSeriesCollection,
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(QuickSearchResult);

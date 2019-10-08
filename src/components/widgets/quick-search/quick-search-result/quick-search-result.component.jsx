@@ -20,7 +20,7 @@ import Tooltip from '../../../commons/tooltip/tooltip.component';
 
 import useStyles from './quick-serach-result.styles';
 
-const QuickSearchResult = ({ result, hasMoreResult, searching, onClose }) => {
+const QuickSearchResult = ({ result, hasMoreResult, searching, onClose, addToSeriesCollection }) => {
   const classes = useStyles();
   const { t } = useTranslation();
 
@@ -75,7 +75,7 @@ const QuickSearchResult = ({ result, hasMoreResult, searching, onClose }) => {
                     </Link>
                     <Box>
                       <Tooltip title={t('quickSearch.add')}>
-                        <IconButton color="primary">
+                        <IconButton color="primary" onClick={() => addToSeriesCollection(show.id)}>
                           <AddIcon fontSize="small" />
                         </IconButton>
                       </Tooltip>
@@ -129,6 +129,7 @@ QuickSearchResult.propTypes = {
   hasMoreResult: PropTypes.bool.isRequired,
   searching: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
+  addToSeriesCollection: PropTypes.func.isRequired,
 };
 
 QuickSearchResult.defaultProps = {

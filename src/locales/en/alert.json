@@ -28,5 +28,8 @@
   "auth/password-change-success": "Your password has been changed. You can sign in with your new password now.",
   "auth/email-verification-success": "Instructions on how to activate your account have been emailed to you. Please check your email.",
 
-  "api/tvmaze-search-show": "The series search has failed, try to search again later."
+  "api/tvmaze-search-show": "The series search has failed, try to search again later.",
+
+  "collection/add-to-series-success": "The series has been added to your collection.",
+  "collection/add-to-series-failure": "There was a problem adding the series to your collection, please try again."
 }
