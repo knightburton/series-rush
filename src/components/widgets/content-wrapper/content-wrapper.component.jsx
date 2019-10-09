@@ -15,9 +15,11 @@ const ContentWrapper = ({ children }) => {
   return (
     <Box className={classes.base}>
       <Box className={classes.toolbar} />
-      <Container maxWidth="lg" className={classes.searchWrapper}>
-        <QuickSearch />
-      </Container>
+      <Box className={classes.searchWrapper}>
+        <Container maxWidth="lg">
+          <QuickSearch />
+        </Container>
+      </Box>
       <Divider />
       <Box className={classes.content}>
         {children}
