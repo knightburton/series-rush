@@ -28,7 +28,7 @@ const Drawer = ({ isMobileDrawerOpened, toggleMobileDrawer }) => {
           keepMounted: true,
         }}
       >
-        <DrawerContent />
+        <DrawerContent onSelect={toggleMobileDrawer} />
       </MuiDrawer>
     </Hidden>
   ) : null;
