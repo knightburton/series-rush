@@ -32,7 +32,14 @@ const AppBar = () => {
             <AppBarDrawerButton />
           )}
           <Hidden smDown>
-            <ProjectTitle withLogo />
+            <Toolbar
+              disableGutters
+              component={Link}
+              to="/"
+              className={classes.titleLink}
+            >
+              <ProjectTitle withLogo />
+            </Toolbar>
             <AppBarNavigation />
           </Hidden>
           <Box className={classes.grow} />
