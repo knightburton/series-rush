@@ -7,7 +7,7 @@ import ProfileContext from '../contexts/profile';
 const ProtectedRoute = ({ component, path, exact, reverse }) => {
   const { signedIn } = useContext(ProfileContext);
 
-  if (reverse && signedIn) return <Redirect to="/" />;
+  if (reverse && signedIn) return <Redirect to="/dashboard" />;
   if (!(reverse === signedIn)) return <Route path={path} exact={exact} component={component} />;
   return <Redirect to="/sign-in" />;
 };
