@@ -10,6 +10,7 @@ import Button from '@material-ui/core/Button';
 import Hidden from '@material-ui/core/Hidden';
 
 import AppBarDrawerButton from './appbar-drawer-button/appbar-drawer-button.container';
+import AppBarNavigation from './appbar-navigation/appbar-navigation.component';
 import AppBarProfileMenu from './appbar-profile-menu/appbar-profile-menu.container';
 import ProjectTitle from '../../commons/project-title/project-title.component';
 
@@ -32,6 +33,7 @@ const AppBar = () => {
           )}
           <Hidden smDown>
             <ProjectTitle withLogo />
+            <AppBarNavigation />
           </Hidden>
           <Box className={classes.grow} />
           {signedIn ? (
