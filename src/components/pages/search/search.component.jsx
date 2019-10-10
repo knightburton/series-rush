@@ -12,6 +12,12 @@ import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import Link from '@material-ui/core/Link';
 
+import Card from '@material-ui/core/Card';
+import CardActionArea from '@material-ui/core/CardActionArea';
+import CardActions from '@material-ui/core/CardActions';
+import CardContent from '@material-ui/core/CardContent';
+import CardMedia from '@material-ui/core/CardMedia';
+
 import AddIcon from '@material-ui/icons/AddOutlined';
 import InfoIcon from '@material-ui/icons/InfoOutlined';
 
@@ -24,12 +30,32 @@ const Search = ({ result }) => {
   const { t } = useTranslation();
 
   return (
-    <Container maxWidth={false}>
+    <Container maxWidth="lg">
       {result.length ? (
         <Grid container spacing={2}>
           {result.map(({ show }) => (
-            <Grid item key={show.id} xs={12} md={6} lg={4}>
-              <Paper>
+            <Grid item key={show.id} xs={12} md={6}>
+              <Card>
+                <Grid container>
+                  <Grid item xs={4}>
+                    <img
+                      src={show.image ? show.image.medium : 'https://via.placeholder.com/70x98?text=...'}
+                      alt={show.name}
+                      className={classes.poster}
+                      draggable={false}
+                    />
+                  </Grid>
+                  <Grid item xs={8}>
+                    <CardContent>
+                      <Typography gutterBottom variant="h5" component="h2">
+                        {show.name}
+                      </Typography>
+                    </CardContent>
+                  </Grid>
+                </Grid>
+              </Card>
+
+              {/* <Paper>
                 <Grid container className={classes.grid}>
                   <Grid item xs={3}>
                     <img
@@ -88,7 +114,7 @@ const Search = ({ result }) => {
                     </Box>
                   </Grid>
                 </Grid>
-              </Paper>
+              </Paper> */}
             </Grid>
           ))}
         </Grid>
