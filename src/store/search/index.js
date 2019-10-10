@@ -39,7 +39,7 @@ export const clearSearchResult = createAction(
 );
 
 // Selectors
-export const getSerachResult = state => state.search.result;
+export const getSearchResult = state => state.search.result;
 export const getSearching = state => state.search.searching;
 
 // Reducer
