@@ -12,6 +12,8 @@ Track all your series and movies in one place.
 
 `curl -L https://www.npmjs.com/install.sh | sh`
 
+Or use nvm ( https://github.com/nvm-sh/nvm )
+
 ### Install packages
 
 In the root folder:
