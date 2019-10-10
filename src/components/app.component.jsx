@@ -5,7 +5,7 @@ import AppBar from './widgets/appbar/appbar.container';
 import Drawer from './widgets/drawer/drawer.container';
 import Alert from './widgets/alert/alert.container';
 import Waiting from './widgets/waiting/waiting.component';
-import ContentWrapper from './widgets/content-wrapper/content-wrapper.container';
+import ContentWrapper from './widgets/content-wrapper/content-wrapper.component';
 
 import { ProfileProvider } from '../contexts/profile';
 

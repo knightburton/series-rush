@@ -21,15 +21,15 @@ const QuickSearch = ({ seriesSearch }) => {
   return (
     <form noValidate onSubmit={handleSubmit} className={classes.search}>
       <div className={classes.searchIcon}>
-        <SearchIcon />
+        <SearchIcon fontSize="small" />
       </div>
       <InputBase
-        placeholder={`${t('common:quickSearch')}...`}
+        placeholder={`${t('common:search')}...`}
         classes={{
           root: classes.inputRoot,
           input: classes.inputInput,
         }}
-        inputProps={{ 'aria-label': t('common:quickSearch') }}
+        inputProps={{ 'aria-label': t('common:search') }}
         value={state.query.value}
         onChange={handleChange}
         autoComplete="off"

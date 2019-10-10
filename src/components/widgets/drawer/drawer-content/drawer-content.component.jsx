@@ -15,7 +15,7 @@ import ProjectTitle from '../../../commons/project-title/project-title.component
 import MENU from '../../../../constants/menu';
 import useStyles from './drawer-content.styles';
 
-const DrawerContent = ({ location: { pathname } }) => {
+const DrawerContent = ({ location: { pathname }, onSelect }) => {
   const classes = useStyles();
   const { t } = useTranslation();
   const isSelected = ({ path, exact }) => (exact ? path === pathname : pathname.includes(path));
@@ -26,6 +26,7 @@ const DrawerContent = ({ location: { pathname } }) => {
         component={Link}
         to="/"
         className={classes.toolbar}
+        onClick={() => onSelect()}
       >
         <ProjectTitle withLogo />
       </Toolbar>
@@ -40,6 +41,7 @@ const DrawerContent = ({ location: { pathname } }) => {
             classes={{
               selected: classes.selected,
             }}
+            onClick={() => onSelect()}
             button
           >
             <ListItemIcon className={classes.icon} color="inherit">
@@ -57,6 +59,7 @@ DrawerContent.propTypes = {
   location: PropTypes.shape({
     pathname: PropTypes.string,
   }).isRequired,
+  onSelect: PropTypes.func.isRequired,
 };
 
 export default withRouter(DrawerContent);

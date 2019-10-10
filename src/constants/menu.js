@@ -1,6 +1,5 @@
 import DashboardIcon from '@material-ui/icons/DashboardOutlined';
 import CollectionIcon from '@material-ui/icons/CollectionsOutlined';
-import SearchIcon from '@material-ui/icons/SearchOutlined';
 
 export default [
   {
@@ -18,13 +17,5 @@ export default [
     exact: false,
     reverse: false,
     icon: CollectionIcon,
-  },
-  {
-    key: 'search',
-    title: 'page.search.title',
-    path: '/search',
-    exact: false,
-    reverse: false,
-    icon: SearchIcon,
   },
 ];

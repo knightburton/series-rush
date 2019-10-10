@@ -61,7 +61,11 @@
       "title": "Collection"
     },
     "search": {
-      "title": "Search"
+      "title": "Search",
+      "rating": "Rating",
+      "premiered": "Premiered",
+      "status": "Status",
+      "emptyResult": "There is no result for the given search query."
     }
   }
 }

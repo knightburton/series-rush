@@ -9,7 +9,7 @@ import MenuIcon from '@material-ui/icons/Menu';
 
 import useStyles from './appbar-drawer-button.styles';
 
-const AppBarDrawerButton = ({ toggleDrawer, toggleMobileDrawer }) => {
+const AppBarDrawerButton = ({ toggleMobileDrawer }) => {
   const classes = useStyles();
   const { t } = useTranslation();
 
@@ -26,23 +26,11 @@ const AppBarDrawerButton = ({ toggleDrawer, toggleMobileDrawer }) => {
           <MenuIcon />
         </IconButton>
       </Hidden>
-      <Hidden smDown>
-        <IconButton
-          color="inherit"
-          aria-label={t('appbar.toggleSidebar')}
-          edge="start"
-          onClick={() => toggleDrawer()}
-          className={classes.button}
-        >
-          <MenuIcon />
-        </IconButton>
-      </Hidden>
     </>
   );
 };
 
 AppBarDrawerButton.propTypes = {
-  toggleDrawer: PropTypes.func.isRequired,
   toggleMobileDrawer: PropTypes.func.isRequired,
 };
 

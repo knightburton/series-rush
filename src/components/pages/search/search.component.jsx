@@ -4,18 +4,17 @@ import { useTranslation } from 'react-i18next';
 
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
-import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
-import Box from '@material-ui/core/Box';
-import Rating from '@material-ui/lab/Rating';
-import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import Link from '@material-ui/core/Link';
 
-import AddIcon from '@material-ui/icons/AddOutlined';
-import InfoIcon from '@material-ui/icons/InfoOutlined';
+import Card from '@material-ui/core/Card';
+import CardHeader from '@material-ui/core/CardHeader';
+import CardContent from '@material-ui/core/CardContent';
+import CardActions from '@material-ui/core/CardActions';
 
-import Tooltip from '../../commons/tooltip/tooltip.component';
+import AddIcon from '@material-ui/icons/AddCircleOutline';
+import PublicIcon from '@material-ui/icons/PublicOutlined';
 
 import useStyles from './search.styles';
 
@@ -24,71 +23,50 @@ const Search = ({ result }) => {
   const { t } = useTranslation();
 
   return (
-    <Container maxWidth={false}>
+    <Container maxWidth="lg">
       {result.length ? (
         <Grid container spacing={2}>
           {result.map(({ show }) => (
-            <Grid item key={show.id} xs={12} md={6} lg={4}>
-              <Paper>
-                <Grid container className={classes.grid}>
-                  <Grid item xs={3}>
+            <Grid item key={show.id} xs={12} md={6}>
+              <Card>
+                <Grid container spacing={0}>
+                  <Grid item xs={4}>
                     <img
                       src={show.image ? show.image.medium : 'https://via.placeholder.com/70x98?text=...'}
                       alt={show.name}
-                      className={classes.image}
+                      className={classes.poster}
                       draggable={false}
                     />
                   </Grid>
-                  <Grid
-                    item
-                    container
-                    xs={9}
-                    direction="column"
-                    justify="space-between"
-                    className={classes.innerGrid}
-                  >
-                    <Box>
-                      <Typography variant="h6">
-                        {show.name}
+                  <Grid item xs={8}>
+                    <CardHeader title={show.name} />
+                    <CardContent>
+                      <Typography variant="subtitle2" color="textSecondary">
+                        {`${t('page.search.premiered')}: ${show.premiered || t('common:unknown')}`}
                       </Typography>
-                      <Rating
-                        name={`rating-for${show.id}`}
-                        value={show.rating ? Math.floor(show.rating.average) : 0}
-                        max={10}
-                        size="small"
-                        readOnly
-                        disabled
-                      />
-                    </Box>
-                    <Box className={classes.actionContainer}>
-                      <Link
+                      <Typography variant="subtitle2" color="textSecondary">
+                        {`${t('page.search.status')}: ${show.status || t('common:unknown')}`}
+                      </Typography>
+                      <Typography variant="subtitle2" color="textSecondary">
+                        {`${t('page.search.rating')}: ${(show.rating && show.rating.average) || t('common:unknown')}`}
+                      </Typography>
+                    </CardContent>
+                    <CardActions disableSpacing>
+                      <IconButton
                         href={show.officialSite || ''}
-                        component={Button}
+                        component={Link}
                         target="_blank"
                         disabled={!show.officialSite}
-                        className={classes.officialSite}
-                        disableRipple
-                        disableFocusRipple
-                        disableTouchRipple
                       >
-                        {t('quickSearch.officialSite')}
-                      </Link>
-                      <Box>
-                        <Tooltip title={t('quickSearch.add')}>
-                          <IconButton color="primary">
-                            <AddIcon fontSize="small" />
-                          </IconButton>
-                        </Tooltip>
-                        <Tooltip title={t('quickSearch.showInfo')}>
-                          <IconButton color="secondary">
-                            <InfoIcon fontSize="small" />
-                          </IconButton>
-                        </Tooltip>
-                      </Box>
-                    </Box>
+                        <PublicIcon />
+                      </IconButton>
+                      <IconButton className={classes.arButton}>
+                        <AddIcon />
+                      </IconButton>
+                    </CardActions>
                   </Grid>
                 </Grid>
-              </Paper>
+              </Card>
             </Grid>
           ))}
         </Grid>
