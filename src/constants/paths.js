@@ -8,7 +8,7 @@ export const APP_PATHS = {
   DASHBOARD: '/dashboard',
   PROFILE: '/profile',
   COLLECTION: '/collection',
-  SEARCH: 'search',
+  SEARCH: '/search',
 };
 
 export const PROFILE_PATHS = {
