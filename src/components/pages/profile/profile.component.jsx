@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { Link, Switch, Route, Redirect, withRouter } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
 import Container from '@material-ui/core/Container';
@@ -10,36 +10,17 @@ import Tab from '@material-ui/core/Tab';
 import Box from '@material-ui/core/Box';
 import Hidden from '@material-ui/core/Hidden';
 
-import PersonalInformation from './personal-information/personal-information.container';
-import ChangePassword from './change-password/change-password.container';
-import DangerZone from './danger-zone/danger-zone.container';
+import ProfileRoutes from '../../../routes/profile-routes';
+
+import { PROFILE_MENU } from '../../../constants/navigation';
+import { PROFILE_PATHS } from '../../../constants/paths';
 
 import useStyles from './profile.styles';
 
-const defaultPath = '/profile/personal-information';
-
-const ProfileMenu = [
-  {
-    key: 'personal-information',
-    path: '/profile/personal-information',
-    title: 'page.profile.personalInformation.title',
-    component: PersonalInformation,
-  },
-  {
-    key: 'change-password',
-    path: '/profile/change-password',
-    title: 'page.profile.changePassword.title',
-    component: ChangePassword,
-  },
-  {
-    key: 'danger-zone',
-    path: '/profile/danger-zone',
-    title: 'page.profile.dangerZone.title',
-    component: DangerZone,
-  },
-];
-
-const getValidPathname = pathname => (ProfileMenu.map(({ path }) => path).includes(pathname) ? pathname : defaultPath);
+const getValidPathname = pathname => (PROFILE_MENU.map(({ path }) => path).includes(pathname)
+  ? pathname
+  : PROFILE_PATHS.PERSONAL_INFORMATION
+);
 
 const Profile = ({ location: { pathname } }) => {
   const classes = useStyles();
@@ -66,7 +47,7 @@ const Profile = ({ location: { pathname } }) => {
                 onChange={handleChange}
                 TabIndicatorProps={{ className: classes.verticalIndicator }}
               >
-                {ProfileMenu.map(item => (
+                {PROFILE_MENU.map(item => (
                   <Tab
                     key={item.key}
                     label={t(item.title)}
@@ -92,7 +73,7 @@ const Profile = ({ location: { pathname } }) => {
                 variant="scrollable"
                 scrollButtons="auto"
               >
-                {ProfileMenu.map(item => (
+                {PROFILE_MENU.map(item => (
                   <Tab
                     key={item.key}
                     label={t(item.title)}
@@ -112,12 +93,7 @@ const Profile = ({ location: { pathname } }) => {
           </Box>
         </Grid>
         <Grid item className={classes.contentGrid}>
-          <Switch>
-            {ProfileMenu.map(item => (
-              <Route key={item.key} path={item.path} component={item.component} />
-            ))}
-            <Redirect to={defaultPath} />
-          </Switch>
+          <ProfileRoutes />
         </Grid>
       </Grid>
     </Container>
