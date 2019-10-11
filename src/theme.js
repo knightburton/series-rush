@@ -8,6 +8,30 @@ const theme = createMuiTheme({
     },
   },
   overrides: {
+    MuiCssBaseline: {
+      '@global': {
+        html: {
+          width: '100%',
+          height: '100%',
+        },
+        body: {
+          display: 'flex',
+          flexDirection: 'column',
+          minHeight: '100%',
+          height: 'auto',
+        },
+        '#root': {
+          display: 'flex',
+          flexDirection: 'column',
+          flex: 1,
+        },
+        main: {
+          display: 'flex',
+          flexDirection: 'column',
+          flex: 1,
+        },
+      },
+    },
     MuiTextField: {
       root: {
         backgroundColor: common.white,

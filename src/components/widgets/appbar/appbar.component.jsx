@@ -40,7 +40,9 @@ const AppBar = () => {
             >
               <ProjectTitle withLogo />
             </Toolbar>
-            <AppBarNavigation />
+            {signedIn && (
+              <AppBarNavigation />
+            )}
           </Hidden>
           <Box className={classes.grow} />
           {signedIn ? (

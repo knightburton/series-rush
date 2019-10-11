@@ -6,23 +6,25 @@ import Drawer from './widgets/drawer/drawer.container';
 import Alert from './widgets/alert/alert.container';
 import Waiting from './widgets/waiting/waiting.component';
 import ContentWrapper from './widgets/content-wrapper/content-wrapper.component';
+import Footer from './widgets/footer/footer.component';
 
 import { ProfileProvider } from '../contexts/profile';
 
 import AppRoutes from '../routes/app-routes';
 
 const App = ({ authIsLoaded, isAppWaiting }) => (authIsLoaded ? (
-  <>
+  <main>
     <ProfileProvider>
       <AppBar />
       <Drawer />
       <ContentWrapper>
         <AppRoutes />
       </ContentWrapper>
+      <Footer />
       <Alert />
     </ProfileProvider>
     {isAppWaiting && <Waiting type="app" />}
-  </>
+  </main>
 ) : (
   <Waiting type="screen" />
 ));
