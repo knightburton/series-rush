@@ -18,8 +18,8 @@ const AppRoutes = () => (
     <ProtectedRoute exact reverse path="/sign-in" component={SignIn} />
     <ProtectedRoute exact reverse path="/sign-up" component={SignUp} />
     <ProtectedRoute exact reverse path="/forgot-password" component={ForgotPassword} />
-    <ProtectedRoute exact path="/profile" component={Profile} />
     <ProtectedRoute exact path="/dashboard" component={Dashboard} />
+    <ProtectedRoute path="/profile" component={Profile} />
     <ProtectedRoute path="/collection" component={Collection} />
     <ProtectedRoute path="/search" component={Search} />
     <Redirect to="/" />

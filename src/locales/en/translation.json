@@ -3,8 +3,10 @@
     "openSidebar": "Open Sidebar",
     "toggleSidebar": "Expand or collapse Sidebar",
     "menu": {
-      "profile": "Profile",
-      "signOut": "Sign Out"
+      "profile": "My Profile",
+      "profileDescription": "Account settings and more",
+      "signOut": "Sign Out",
+      "signOutDescription": "End access to Series Rush"
     }
   },
   "quickSearch": {

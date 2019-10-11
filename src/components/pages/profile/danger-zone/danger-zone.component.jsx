@@ -22,7 +22,7 @@ const DangerZone = ({ requestEmailVerification, deleteProfile }) => {
     >
       <Grid container spacing={2}>
 
-        <Grid item xs={12} sm={4}>
+        <Grid item xs={12} sm={5}>
           <Button
             color="secondary"
             disabled={emailVerified}
@@ -31,13 +31,13 @@ const DangerZone = ({ requestEmailVerification, deleteProfile }) => {
             {t('page.profile.dangerZone.verificationRequest')}
           </Button>
         </Grid>
-        <Grid item xs={12} sm={8}>
+        <Grid item xs={12} sm={7}>
           <Typography>
             {t('page.profile.dangerZone.verificationDescription')}
           </Typography>
         </Grid>
 
-        <Grid item xs={12} sm={4}>
+        <Grid item xs={12} sm={5}>
           <Confirmation
             id="delete-profile"
             title={t('page.profile.dangerZone.deleteConfirmationTitle')}
@@ -50,7 +50,7 @@ const DangerZone = ({ requestEmailVerification, deleteProfile }) => {
             )}
           />
         </Grid>
-        <Grid item xs={12} sm={8}>
+        <Grid item xs={12} sm={7}>
           <Typography>
             {t('page.profile.dangerZone.deleteDescription')}
           </Typography>

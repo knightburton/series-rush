@@ -8,9 +8,11 @@ import IconButton from '@material-ui/core/IconButton';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
+import ListItemText from '@material-ui/core/ListItemText';
 
 import PersonOutlineIcon from '@material-ui/icons/PersonOutline';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import RigthIcon from '@material-ui/icons/ChevronRightOutlined';
 
 import ProfilePhoto from '../../../commons/profile-photo/profile-photo.component';
 
@@ -59,19 +61,30 @@ const AppBarProfileMenu = ({ signOut, anchor, setAnchor }) => {
       >
         <MenuItem component={Link} to="/profile" onClick={() => setAnchor(null)}>
           <ListItemIcon>
-            <PersonOutlineIcon />
+            <PersonOutlineIcon fontSize="large" color="primary" />
           </ListItemIcon>
-          <Typography variant="inherit">
-            {t('appbar.menu.profile')}
-          </Typography>
+          <ListItemText
+            primary={t('appbar.menu.profile')}
+            primaryTypographyProps={{
+              component: 'p',
+              variant: 'subtitle2',
+            }}
+            secondary={t('appbar.menu.profileDescription')}
+          />
+          <RigthIcon fontSize="small" color="disabled" className={classes.rightIcon} />
         </MenuItem>
         <MenuItem onClick={() => handleSignOut()}>
           <ListItemIcon>
-            <ExitToAppIcon />
+            <ExitToAppIcon fontSize="large" color="secondary" />
           </ListItemIcon>
-          <Typography variant="inherit">
-            {t('appbar.menu.signOut')}
-          </Typography>
+          <ListItemText
+            primary={t('appbar.menu.signOut')}
+            primaryTypographyProps={{
+              component: 'p',
+              variant: 'subtitle2',
+            }}
+            secondary={t('appbar.menu.signOutDescription')}
+          />
         </MenuItem>
       </Menu>
     </>
