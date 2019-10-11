@@ -1,9 +1,11 @@
 import CONFIG from './config';
 import FORM from './form';
-import MENU from './menu';
+import NAVIGATION from './navigation';
+import PATHS from './paths';
 
 export default {
-  MENU,
   ...FORM,
   ...CONFIG,
+  ...NAVIGATION,
+  ...PATHS,
 };

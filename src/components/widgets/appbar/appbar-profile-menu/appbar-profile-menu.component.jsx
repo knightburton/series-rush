@@ -18,6 +18,8 @@ import ProfilePhoto from '../../../commons/profile-photo/profile-photo.component
 
 import ProfileContext from '../../../../contexts/profile';
 
+import { APP_PATHS } from '../../../../constants/paths';
+
 import useStyles from './appbar-profile-menu.styles';
 
 const AppBarProfileMenu = ({ signOut, anchor, setAnchor }) => {
@@ -59,7 +61,7 @@ const AppBarProfileMenu = ({ signOut, anchor, setAnchor }) => {
         open={!!anchor}
         onClose={() => setAnchor(null)}
       >
-        <MenuItem component={Link} to="/profile" onClick={() => setAnchor(null)}>
+        <MenuItem component={Link} to={APP_PATHS.PROFILE} onClick={() => setAnchor(null)}>
           <ListItemIcon>
             <PersonOutlineIcon fontSize="large" color="primary" />
           </ListItemIcon>

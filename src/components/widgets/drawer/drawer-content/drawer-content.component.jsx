@@ -12,19 +12,21 @@ import ListItemText from '@material-ui/core/ListItemText';
 
 import ProjectTitle from '../../../commons/project-title/project-title.component';
 
-import MENU from '../../../../constants/menu';
+import { MAIN_MENU } from '../../../../constants/navigation';
+import { APP_PATHS } from '../../../../constants/paths';
+
 import useStyles from './drawer-content.styles';
 
 const DrawerContent = ({ location: { pathname }, onSelect }) => {
   const classes = useStyles();
   const { t } = useTranslation();
-  const isSelected = ({ path, exact }) => (exact ? path === pathname : pathname.includes(path));
+  const isSelected = ({ path }) => pathname.includes(path);
 
   return (
     <>
       <Toolbar
         component={Link}
-        to="/"
+        to={APP_PATHS.LANDING}
         className={classes.toolbar}
         onClick={() => onSelect()}
       >
@@ -32,7 +34,7 @@ const DrawerContent = ({ location: { pathname }, onSelect }) => {
       </Toolbar>
       <Divider />
       <List className={classes.list}>
-        {MENU.map(item => (
+        {MAIN_MENU.map(item => (
           <ListItem
             key={item.key}
             component={Link}

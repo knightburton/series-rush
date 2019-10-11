@@ -12,17 +12,19 @@ import Search from '../components/pages/search/search.container';
 
 import ProtectedRoute from './protected-route';
 
+import { APP_PATHS } from '../constants/paths';
+
 const AppRoutes = () => (
   <Switch>
-    <Route exact path="/" component={Landing} />
-    <ProtectedRoute exact reverse path="/sign-in" component={SignIn} />
-    <ProtectedRoute exact reverse path="/sign-up" component={SignUp} />
-    <ProtectedRoute exact reverse path="/forgot-password" component={ForgotPassword} />
-    <ProtectedRoute exact path="/dashboard" component={Dashboard} />
-    <ProtectedRoute path="/profile" component={Profile} />
-    <ProtectedRoute path="/collection" component={Collection} />
-    <ProtectedRoute path="/search" component={Search} />
-    <Redirect to="/" />
+    <Route exact path={APP_PATHS.LANDING} component={Landing} />
+    <ProtectedRoute exact reverse path={APP_PATHS.SIGN_IN} component={SignIn} />
+    <ProtectedRoute exact reverse path={APP_PATHS.SIGN_UP} component={SignUp} />
+    <ProtectedRoute exact reverse path={APP_PATHS.FORGOT_PASSWORD} component={ForgotPassword} />
+    <ProtectedRoute exact path={APP_PATHS.DASHBOARD} component={Dashboard} />
+    <ProtectedRoute path={APP_PATHS.PROFILE} component={Profile} />
+    <ProtectedRoute path={APP_PATHS.COLLECTION} component={Collection} />
+    <ProtectedRoute path={APP_PATHS.SEARCH} component={Search} />
+    <Redirect to={APP_PATHS.LANDING} />
   </Switch>
 );
 
