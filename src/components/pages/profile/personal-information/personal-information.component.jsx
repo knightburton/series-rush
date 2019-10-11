@@ -28,13 +28,13 @@ const PersonalInformation = ({ updateInProgress, updateName, updateEmail, upload
       inProgress={updateInProgress}
     >
       <Grid container spacing={1}>
-        <Grid item container xs={12} sm={4} justify="flex-start" alignItems="center" direction="column">
+        <Grid item container xs={12} sm={6} justify="flex-start" alignItems="center" direction="column">
           <ProfilePhoto size="huge" withDisabledColor />
           <Typography variant="h5" align="center">
             {displayName}
           </Typography>
         </Grid>
-        <Grid item xs={12} sm={8}>
+        <Grid item xs={12} sm={6}>
           <Edit
             type="text"
             id="firstName"
