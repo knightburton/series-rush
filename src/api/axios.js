@@ -1,13 +1,16 @@
 import axios from 'axios';
 
-const invoke = (baseURL, method) => async (path, { headers = {}, query = {}, body } = {}) => {
+const invoke = (baseURL, method, defaultQuery = {}) => async (path, { headers = {}, query = {}, body } = {}) => {
   try {
     const response = await axios({
       method,
       url: path,
       baseURL,
       headers,
-      params: query,
+      params: {
+        ...defaultQuery,
+        ...query,
+      },
       data: body,
     });
 
