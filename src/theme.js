@@ -32,7 +32,7 @@ const theme = createMuiTheme({
         },
       },
     },
-    MuiTextField: {
+    MuiInputBase: {
       root: {
         backgroundColor: common.white,
       },

@@ -273,14 +273,10 @@ export const requestEmailVerification = () => async (dispatch, getState, { getFi
   }
 };
 
-export const deleteProfile = () => async (dispatch, getState, { getFirebase, getFirestore, history }) => {
+export const deleteProfile = () => async (dispatch, getState, { getFirebase, history }) => {
   dispatch(setAppWaiting(true));
   try {
     const firebase = getFirebase();
-    const firestore = getFirestore();
-    const { id, photoName } = getProfile(getState());
-    if (id && photoName) await firebase.deleteFile(`profiles/${id}/${photoName}`);
-    await firestore.collection('profiles').doc(id).delete();
     await firebase.auth().currentUser.delete();
     await firebase.logout();
     history.push('/');
