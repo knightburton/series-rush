@@ -13,6 +13,7 @@ export default makeStyles(theme => ({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
+    zIndex: +1,
   },
   inputRoot: {
     color: 'inherit',
