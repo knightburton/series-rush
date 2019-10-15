@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 
@@ -18,13 +18,15 @@ import PublicIcon from '@material-ui/icons/PublicOutlined';
 
 import useStyles from './search.styles';
 
-const Search = ({ result }) => {
+const Search = ({ result, searchQuery, clearSearchQuery }) => {
   const classes = useStyles();
   const { t } = useTranslation();
 
+  useEffect(() => () => clearSearchQuery(), [clearSearchQuery]);
+
   return (
     <Container maxWidth="lg">
-      {result.length ? (
+      {!!result && (
         <Grid container spacing={2}>
           {result.map(({ show }) => (
             <Grid item key={show.id} xs={12} md={6}>
@@ -70,7 +72,8 @@ const Search = ({ result }) => {
             </Grid>
           ))}
         </Grid>
-      ) : (
+      )}
+      {!result.length && !!searchQuery && (
         <Typography>
           {t('page.search.emptyResult')}
         </Typography>
@@ -81,10 +84,13 @@ const Search = ({ result }) => {
 
 Search.propTypes = {
   result: PropTypes.arrayOf(PropTypes.object),
+  searchQuery: PropTypes.string,
+  clearSearchQuery: PropTypes.func.isRequired,
 };
 
 Search.defaultProps = {
   result: [],
+  searchQuery: '',
 };
 
 export default Search;

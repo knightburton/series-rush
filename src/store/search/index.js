@@ -3,7 +3,7 @@ import { addAlert } from '../app';
 
 // Initial state
 export const initialState = {
-  searching: false,
+  searchInProgress: false,
   result: [],
   query: '',
 };
@@ -40,14 +40,15 @@ export const clearSearchResult = createAction(
 
 // Selectors
 export const getSearchResult = state => state.search.result;
-export const getSearching = state => state.search.searching;
+export const getSearchInProgress = state => state.search.searchInProgress;
+export const getSearchQuery = state => state.search.query;
 
 // Reducer
 export const reducer = handleActions(
   {
-    [seriesSearchRequest]: state => ({ ...state, searching: true }),
-    [seriesSearchSuccess]: (state, { payload: result }) => ({ ...state, searching: false, result }),
-    [seriesSearchFailure]: state => ({ ...state, searching: false }),
+    [seriesSearchRequest]: state => ({ ...state, searchInProgress: true }),
+    [seriesSearchSuccess]: (state, { payload: result }) => ({ ...state, searchInProgress: false, result }),
+    [seriesSearchFailure]: state => ({ ...state, searchInProgress: false }),
     [storeSearchQuery]: (state, { payload: query }) => ({ ...state, query }),
     [clearSearchQuery]: state => ({ ...state, query: '' }),
     [clearSearchResult]: state => ({ ...state, result: [] }),
@@ -57,6 +58,7 @@ export const reducer = handleActions(
 
 export const seriesSearch = query => async (dispatch, getState, { tvmazeApi, history }) => {
   dispatch(seriesSearchRequest());
+  dispatch(storeSearchQuery(query));
   try {
     const { location: { pathname } } = history;
     if (!pathname.startsWith('/search')) history.push('/search');
