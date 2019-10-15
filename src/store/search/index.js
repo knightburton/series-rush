@@ -9,23 +9,23 @@ export const initialState = {
 };
 
 // Action types
-export const SERIES_SEARCH_REQUEST = 'SERIES_SEARCH_REQUEST';
-export const SERIES_SEARCH_SUCCESS = 'SERIES_SEARCH_SUCCESS';
-export const SERIES_SEARCH_FAILURE = 'SERIES_SEARCH_FAILURE';
+export const SEARCH_REQUEST = 'SEARCH_REQUEST';
+export const SEARCH_SUCCESS = 'SEARCH_SUCCESS';
+export const SEARCH_FAILURE = 'SEARCH_FAILURE';
 export const STORE_SEARCH_QUERY = 'STORE_SEARCH_QUERY';
 export const CLEAR_SEARCH_QUERY = 'CLEAR_SEARCH_QUERY';
 export const CLEAR_SEARCH_RESULT = 'CLEAR_SEARCH_RESULT';
 
 // Action creators
-export const seriesSearchRequest = createAction(
-  SERIES_SEARCH_REQUEST
+export const searchRequest = createAction(
+  SEARCH_REQUEST
 );
-export const seriesSearchSuccess = createAction(
-  SERIES_SEARCH_SUCCESS,
+export const searchSuccess = createAction(
+  SEARCH_SUCCESS,
   result => result
 );
-export const seriesSearchFailure = createAction(
-  SERIES_SEARCH_FAILURE
+export const searchFailure = createAction(
+  SEARCH_FAILURE
 );
 export const storeSearchQuery = createAction(
   STORE_SEARCH_QUERY,
@@ -46,9 +46,9 @@ export const getSearchQuery = state => state.search.query;
 // Reducer
 export const reducer = handleActions(
   {
-    [seriesSearchRequest]: state => ({ ...state, searchInProgress: true }),
-    [seriesSearchSuccess]: (state, { payload: result }) => ({ ...state, searchInProgress: false, result }),
-    [seriesSearchFailure]: state => ({ ...state, searchInProgress: false }),
+    [searchRequest]: state => ({ ...state, searchInProgress: true }),
+    [searchSuccess]: (state, { payload: result }) => ({ ...state, searchInProgress: false, result }),
+    [searchFailure]: state => ({ ...state, searchInProgress: false }),
     [storeSearchQuery]: (state, { payload: query }) => ({ ...state, query }),
     [clearSearchQuery]: state => ({ ...state, query: '' }),
     [clearSearchResult]: state => ({ ...state, result: [] }),
@@ -56,16 +56,18 @@ export const reducer = handleActions(
   initialState
 );
 
-export const seriesSearch = query => async (dispatch, getState, { tvmazeApi, history }) => {
-  dispatch(seriesSearchRequest());
+export const search = (query, type) => async (dispatch, getState, { tmdbApi, history }) => {
+  dispatch(searchRequest());
   dispatch(storeSearchQuery(query));
   try {
+    // Check the location and navigate to the search page if neccessary
     const { location: { pathname } } = history;
     if (!pathname.startsWith('/search')) history.push('/search');
-    const result = await tvmazeApi.searchShow(query);
-    dispatch(seriesSearchSuccess(result));
+
+    // Fetch the results from tmdb
+    await tmdbApi.searchWithType(query, type);
   } catch (error) {
-    dispatch(seriesSearchFailure());
+    dispatch(searchFailure());
     dispatch(addAlert('alert:api/tvmaze-search-show', 'error'));
   }
 };

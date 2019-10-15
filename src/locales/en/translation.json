@@ -10,9 +10,9 @@
     }
   },
   "quickSearch": {
-    "shows": "Shows",
-    "movies": "Movies",
-    "multi": "Shows & Movies"
+    "tv": "TV Shows",
+    "movie": "Movies",
+    "multi": "TV Shows & Movies"
   },
   "page": {
     "forgotPassword": {

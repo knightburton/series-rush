@@ -15,15 +15,15 @@ import { SEARCH_TYPES } from '../../../constants/config';
 
 import useStyles from './quick-search.styles';
 
-const QuickSearch = ({ seriesSearch }) => {
+const QuickSearch = ({ search }) => {
   const classes = useStyles();
   const { t } = useTranslation();
   const { state, handleChange, handleSubmit } = useForm({
     stateSchema: {
       query: { value: '', error: '' },
-      type: { value: SEARCH_TYPES.SHOWS, error: '' },
+      type: { value: SEARCH_TYPES.TV, error: '' },
     },
-    callback: ({ query, type }) => seriesSearch(query, type),
+    callback: ({ query, type }) => search(query, type),
   });
 
   return (
@@ -71,7 +71,7 @@ const QuickSearch = ({ seriesSearch }) => {
 };
 
 QuickSearch.propTypes = {
-  seriesSearch: PropTypes.func.isRequired,
+  search: PropTypes.func.isRequired,
 };
 
 export default QuickSearch;
