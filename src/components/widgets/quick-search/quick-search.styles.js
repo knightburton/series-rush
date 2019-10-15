@@ -26,7 +26,7 @@ export default makeStyles(theme => ({
     width: '100%',
   },
   select: {
-    padding: theme.spacing(1, 3, 1, 1),
+    padding: theme.spacing(1, 3, 0.75, 1),
     borderLeft: `1px solid ${theme.palette.divider}`,
     minWidth: theme.spacing(14),
   },

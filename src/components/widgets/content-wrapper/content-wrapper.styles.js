@@ -13,8 +13,8 @@ export default makeStyles(theme => ({
   content: {
     padding: theme.spacing(3, 0),
   },
-  padding: {
-    paddingTop: theme.spacing(6),
+  margin: {
+    marginTop: theme.spacing(4.5),
   },
   toolbar: {
     ...theme.mixins.toolbar,
