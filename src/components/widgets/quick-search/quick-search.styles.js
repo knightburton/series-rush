@@ -4,6 +4,7 @@ export default makeStyles(theme => ({
   search: {
     position: 'relative',
     width: '100%',
+    display: 'flex',
   },
   searchIcon: {
     width: theme.spacing(3),
@@ -23,5 +24,10 @@ export default makeStyles(theme => ({
     padding: theme.spacing(1, 1, 1, 6),
     transition: theme.transitions.create('width'),
     width: '100%',
+  },
+  select: {
+    padding: theme.spacing(1, 3, 1, 1),
+    borderLeft: `1px solid ${theme.palette.divider}`,
+    minWidth: theme.spacing(14),
   },
 }));

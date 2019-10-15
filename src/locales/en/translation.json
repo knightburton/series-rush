@@ -10,11 +10,9 @@
     }
   },
   "quickSearch": {
-    "empty": "There is no result.",
-    "seeAll": "See all results",
-    "officialSite": "Official site",
-    "add": "Add to your collection",
-    "showInfo": "Show details"
+    "shows": "Shows",
+    "movies": "Movies",
+    "multi": "Shows & Movies"
   },
   "page": {
     "forgotPassword": {
