@@ -1,14 +1,14 @@
 import { connect } from 'react-redux';
 
 import {
-  getSearchResult,
+  getSearchResults,
   getSearchQuery,
   clearSearchQuery,
 } from '../../../store/search';
 import Search from './search.component';
 
 const mapStateToProps = state => ({
-  result: getSearchResult(state),
+  results: getSearchResults(state),
   searchQuery: getSearchQuery(state),
 });
 

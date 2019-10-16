@@ -1,11 +1,15 @@
 import { createAction, handleActions } from 'redux-actions';
 import { addAlert } from '../app';
+import { parseSearchData } from '../../utils';
 
 // Initial state
 export const initialState = {
   searchInProgress: false,
-  result: [],
   query: '',
+  page: null,
+  numberOfPages: null,
+  numberOfResults: null,
+  results: [],
 };
 
 // Action types
@@ -22,7 +26,7 @@ export const searchRequest = createAction(
 );
 export const searchSuccess = createAction(
   SEARCH_SUCCESS,
-  result => result
+  ({ page, numberOfPages, numberOfResults, results }) => ({ page, numberOfPages, numberOfResults, results })
 );
 export const searchFailure = createAction(
   SEARCH_FAILURE
@@ -39,15 +43,25 @@ export const clearSearchResult = createAction(
 );
 
 // Selectors
-export const getSearchResult = state => state.search.result;
 export const getSearchInProgress = state => state.search.searchInProgress;
 export const getSearchQuery = state => state.search.query;
+export const getSearchPage = state => state.search.page;
+export const getSearchNumberOfPages = state => state.search.numberOfPages;
+export const getSearchNumberOfResults = state => state.search.numberOfResults;
+export const getSearchResults = state => state.search.results;
 
 // Reducer
 export const reducer = handleActions(
   {
     [searchRequest]: state => ({ ...state, searchInProgress: true }),
-    [searchSuccess]: (state, { payload: result }) => ({ ...state, searchInProgress: false, result }),
+    [searchSuccess]: (state, { payload: { page, numberOfPages, numberOfResults, results } }) => ({
+      ...state,
+      searchInProgress: false,
+      page,
+      numberOfPages,
+      numberOfResults,
+      results,
+    }),
     [searchFailure]: state => ({ ...state, searchInProgress: false }),
     [storeSearchQuery]: (state, { payload: query }) => ({ ...state, query }),
     [clearSearchQuery]: state => ({ ...state, query: '' }),
@@ -65,7 +79,10 @@ export const search = (query, type) => async (dispatch, getState, { tmdbApi, his
     if (!pathname.startsWith('/search')) history.push('/search');
 
     // Fetch the results from tmdb
-    await tmdbApi.searchWithType(query, type);
+    const data = await tmdbApi.searchWithType(query, type);
+
+    // Parse and store the data
+    dispatch(searchSuccess(parseSearchData(data, type)));
   } catch (error) {
     dispatch(searchFailure());
     dispatch(addAlert('alert:api/tvmaze-search-show', 'error'));
