@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
+import { withRouter } from 'react-router-dom';
 
 import InputBase from '@material-ui/core/InputBase';
 import Select from '@material-ui/core/Select';
@@ -11,11 +12,12 @@ import SearchIcon from '@material-ui/icons/SearchOutlined';
 
 import useForm from '../../../hooks/useForm';
 
+import { getSearchFromQueryString } from '../../../utils';
 import { SEARCH_TYPES } from '../../../constants/config';
 
 import useStyles from './quick-search.styles';
 
-const QuickSearch = ({ search }) => {
+const QuickSearch = ({ search, location }) => {
   const classes = useStyles();
   const { t } = useTranslation();
   const { state, handleChange, handleSubmit } = useForm({
@@ -25,6 +27,13 @@ const QuickSearch = ({ search }) => {
     },
     callback: ({ query, type }) => search(query, type),
   });
+
+  useEffect(() => {
+    const { query, type } = getSearchFromQueryString(location.search);
+    if (query) handleChange({ target: { name: 'query', value: query } });
+    if (type) handleChange({ target: { name: 'type', value: type } });
+    // eslint-disable-next-line
+  }, []);
 
   return (
     <form noValidate onSubmit={handleSubmit} className={classes.search}>
@@ -72,6 +81,10 @@ const QuickSearch = ({ search }) => {
 
 QuickSearch.propTypes = {
   search: PropTypes.func.isRequired,
+  location: PropTypes.shape({
+    pathname: PropTypes.string,
+    search: PropTypes.string,
+  }).isRequired,
 };
 
-export default QuickSearch;
+export default withRouter(QuickSearch);

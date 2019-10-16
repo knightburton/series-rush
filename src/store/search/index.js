@@ -1,6 +1,10 @@
 import { createAction, handleActions } from 'redux-actions';
 import { addAlert } from '../app';
-import { parseSearchData } from '../../utils';
+import {
+  createSearchQueryString,
+  parseSearchData,
+} from '../../utils';
+import { APP_PATHS } from '../../constants/paths';
 
 // Initial state
 export const initialState = {
@@ -70,14 +74,23 @@ export const reducer = handleActions(
   initialState
 );
 
-export const search = (query, type) => async (dispatch, getState, { tmdbApi, history }) => {
-  dispatch(searchRequest());
+// Thunk actions
+export const prepareSearch = (query, type) => (dispatch, getState, { history }) => {
   dispatch(storeSearchQuery(query));
-  try {
-    // Check the location and navigate to the search page if neccessary
-    const { location: { pathname } } = history;
-    if (!pathname.startsWith('/search')) history.push('/search');
 
+  const { location } = history;
+
+  history.push({
+    ...location,
+    pathname: APP_PATHS.SEARCH,
+    search: createSearchQueryString({ query, type }),
+  });
+};
+
+export const search = (query, type) => async (dispatch, getState, { tmdbApi }) => {
+  dispatch(searchRequest());
+  dispatch(prepareSearch(query, type));
+  try {
     // Fetch the results from tmdb
     const data = await tmdbApi.searchWithType(query, type);
 
