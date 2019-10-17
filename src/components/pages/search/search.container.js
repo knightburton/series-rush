@@ -4,6 +4,7 @@ import {
   getSearchResults,
   getSearchQuery,
   clearSearchQuery,
+  search,
 } from '../../../store/search';
 import Search from './search.component';
 
@@ -14,6 +15,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = {
   clearSearchQuery,
+  search,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Search);

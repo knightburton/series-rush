@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 import { withRouter } from 'react-router-dom';
@@ -28,12 +28,15 @@ const QuickSearch = ({ search, location }) => {
     callback: ({ query, type }) => search(query, type),
   });
 
-  useEffect(() => {
-    const { query, type } = getSearchFromQueryString(location.search);
+  const updateAllInput = useCallback((query, type) => {
     if (query) handleChange({ target: { name: 'query', value: query } });
     if (type) handleChange({ target: { name: 'type', value: type } });
-    // eslint-disable-next-line
-  }, []);
+  }, [handleChange]);
+
+  useEffect(() => {
+    const { query, type } = getSearchFromQueryString(location.search);
+    updateAllInput(query, type);
+  }, [location.search, updateAllInput]);
 
   return (
     <form noValidate onSubmit={handleSubmit} className={classes.search}>

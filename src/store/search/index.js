@@ -1,6 +1,7 @@
 import { createAction, handleActions } from 'redux-actions';
 import { addAlert } from '../app';
 import {
+  getSearchFromQueryString,
   createSearchQueryString,
   parseSearchData,
 } from '../../utils';
@@ -79,12 +80,15 @@ export const prepareSearch = (query, type) => (dispatch, getState, { history }) 
   dispatch(storeSearchQuery(query));
 
   const { location } = history;
+  const { query: searchQuery } = getSearchFromQueryString(location.search);
 
-  history.push({
-    ...location,
-    pathname: APP_PATHS.SEARCH,
-    search: createSearchQueryString({ query, type }),
-  });
+  if (query !== searchQuery) {
+    history.push({
+      ...location,
+      pathname: APP_PATHS.SEARCH,
+      search: createSearchQueryString({ query, type }),
+    });
+  }
 };
 
 export const search = (query, type) => async (dispatch, getState, { tmdbApi }) => {
