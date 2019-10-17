@@ -6,13 +6,13 @@ const api = {
 };
 
 // TV Show related
-export const searchTV = query => api.get('/search/tv', { query: { query, page: 1 } });
+export const searchTV = (query, page = 1) => api.get('/search/tv', { query: { query, page } });
 
 // Movie related
-export const searchMovie = query => api.get('/search/movie', { query: { query, page: 1 } });
+export const searchMovie = (query, page = 1) => api.get('/search/movie', { query: { query, page } });
 
 // Other
-export const searchWithType = (query, type = 'tv') => api.get(`/search/${type}`, { query: { query, page: 1 } });
+export const searchWithType = (query, type, page = 1) => api.get(`/search/${type}`, { query: { query, page } });
 
 export default {
   searchTV,

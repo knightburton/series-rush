@@ -11,6 +11,7 @@ import { APP_PATHS } from '../../constants/paths';
 export const initialState = {
   searchInProgress: false,
   query: '',
+  type: '',
   page: null,
   numberOfPages: null,
   numberOfResults: null,
@@ -21,9 +22,9 @@ export const initialState = {
 export const SEARCH_REQUEST = 'SEARCH_REQUEST';
 export const SEARCH_SUCCESS = 'SEARCH_SUCCESS';
 export const SEARCH_FAILURE = 'SEARCH_FAILURE';
-export const STORE_SEARCH_QUERY = 'STORE_SEARCH_QUERY';
-export const CLEAR_SEARCH_QUERY = 'CLEAR_SEARCH_QUERY';
-export const CLEAR_SEARCH_RESULT = 'CLEAR_SEARCH_RESULT';
+export const STORE_SEARCH_PROPS = 'STORE_SEARCH_PROPS';
+export const CLEAR_SEARCH_PROPS = 'CLEAR_SEARCH_PROPS';
+export const CLEAR_SEARCH_RESULTS = 'CLEAR_SEARCH_RESULTS';
 
 // Action creators
 export const searchRequest = createAction(
@@ -36,20 +37,21 @@ export const searchSuccess = createAction(
 export const searchFailure = createAction(
   SEARCH_FAILURE
 );
-export const storeSearchQuery = createAction(
-  STORE_SEARCH_QUERY,
-  query => query
+export const storeSearchProps = createAction(
+  STORE_SEARCH_PROPS,
+  props => props
 );
-export const clearSearchQuery = createAction(
-  CLEAR_SEARCH_QUERY
+export const clearSearchProps = createAction(
+  CLEAR_SEARCH_PROPS
 );
-export const clearSearchResult = createAction(
-  CLEAR_SEARCH_RESULT
+export const clearSearchResults = createAction(
+  CLEAR_SEARCH_RESULTS
 );
 
 // Selectors
 export const getSearchInProgress = state => state.search.searchInProgress;
 export const getSearchQuery = state => state.search.query;
+export const getSearchType = state => state.search.type;
 export const getSearchPage = state => state.search.page;
 export const getSearchNumberOfPages = state => state.search.numberOfPages;
 export const getSearchNumberOfResults = state => state.search.numberOfResults;
@@ -68,16 +70,16 @@ export const reducer = handleActions(
       results,
     }),
     [searchFailure]: state => ({ ...state, searchInProgress: false }),
-    [storeSearchQuery]: (state, { payload: query }) => ({ ...state, query }),
-    [clearSearchQuery]: state => ({ ...state, query: '' }),
-    [clearSearchResult]: state => ({ ...state, result: [] }),
+    [storeSearchProps]: (state, { payload: props }) => ({ ...state, ...props }),
+    [clearSearchProps]: state => ({ ...state, query: '', type: '', page: null }),
+    [clearSearchResults]: state => ({ ...state, result: [] }),
   },
   initialState
 );
 
 // Thunk actions
 export const prepareSearch = (query, type) => (dispatch, getState, { history }) => {
-  dispatch(storeSearchQuery(query));
+  dispatch(storeSearchProps({ query, type }));
 
   const { location } = history;
   const { query: searchQuery } = getSearchFromQueryString(location.search);
@@ -102,6 +104,19 @@ export const search = (query, type) => async (dispatch, getState, { tmdbApi }) =
     dispatch(searchSuccess(parseSearchData(data, type)));
   } catch (error) {
     dispatch(searchFailure());
-    dispatch(addAlert('alert:api/tvmaze-search-show', 'error'));
+    dispatch(addAlert('alert:api/tmdb-search-failed', 'error'));
+  }
+};
+
+export const searchBySelectedPage = page => async (dispatch, getState, { tmdbApi }) => {
+  dispatch(searchRequest());
+  try {
+    const query = getSearchQuery(getState());
+    const type = getSearchType(getState());
+    const data = await tmdbApi.searchWithType(query, type, page);
+    dispatch(searchSuccess(parseSearchData(data, type)));
+  } catch (error) {
+    dispatch(searchFailure());
+    dispatch(addAlert('alert:api/tmdb-search-page-failed', 'error'));
   }
 };
