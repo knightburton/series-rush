@@ -1,4 +1,4 @@
-import React, { useEffect, useCallback } from 'react';
+import React, { useEffect, useCallback, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 import { withRouter } from 'react-router-dom';
@@ -19,6 +19,7 @@ import useStyles from './quick-search.styles';
 
 const QuickSearch = ({ search, location }) => {
   const classes = useStyles();
+  const inputRef = useRef(null);
   const { t } = useTranslation();
   const { state, handleChange, handleSubmit } = useForm({
     stateSchema: {
@@ -38,12 +39,17 @@ const QuickSearch = ({ search, location }) => {
     updateAllInput(query, type);
   }, [location.search, updateAllInput]);
 
+  useEffect(() => {
+    inputRef.current.focus();
+  }, [state.type.value]);
+
   return (
     <form noValidate onSubmit={handleSubmit} className={classes.search}>
       <div className={classes.searchIcon}>
         <SearchIcon fontSize="small" />
       </div>
       <InputBase
+        inputRef={inputRef}
         placeholder={`${t('common:search')}...`}
         classes={{
           root: classes.inputRoot,
