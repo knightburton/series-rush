@@ -7,29 +7,29 @@ import { withRouter } from 'react-router-dom';
 import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
 
-import { getSearchFromQueryString } from '../../../utils';
-
 import useStyles from './search.styles';
 
-const Search = ({ results, numberOfPages, page, searchQuery, clearSearchProps, search, searchBySelectedPage, location }) => {
+const Search = ({ results, query, page, numberOfPages, clearSearchProps, search, location }) => {
   const classes = useStyles();
   const { t } = useTranslation();
-  const [selectedPage, selectPage] = useState(page);
+  const [selectedPage, selectPage] = useState(null);
 
   const handlePageSelect = (e, offset) => {
-    searchBySelectedPage(offset + 1);
+    search({ page: offset + 1 });
     selectPage(offset);
   };
 
   useEffect(() => {
-    const { query, type } = getSearchFromQueryString(location.search);
-    if (searchQuery !== query && type) search(query, type);
-  }, [search, location.search, searchQuery]);
+    selectPage(page - 1);
+  }, [page]);
+  useEffect(() => {
+    search();
+  }, [search, location]);
   useEffect(() => () => clearSearchProps(), [clearSearchProps]);
 
   return (
     <Container maxWidth="lg">
-      {!results.length && !!searchQuery && (
+      {!results.length && !!query && (
         <Typography>
           {t('page.search.emptyResult')}
         </Typography>
@@ -52,12 +52,12 @@ const Search = ({ results, numberOfPages, page, searchQuery, clearSearchProps, s
 Search.propTypes = {
   results: PropTypes.arrayOf(PropTypes.string),
   numberOfPages: PropTypes.number,
+  query: PropTypes.string.isRequired,
   page: PropTypes.number,
-  searchQuery: PropTypes.string,
   clearSearchProps: PropTypes.func.isRequired,
   search: PropTypes.func.isRequired,
-  searchBySelectedPage: PropTypes.func.isRequired,
   location: PropTypes.shape({
+    pathname: PropTypes.string,
     search: PropTypes.string,
   }).isRequired,
 };
@@ -66,7 +66,6 @@ Search.defaultProps = {
   results: [],
   numberOfPages: null,
   page: null,
-  searchQuery: '',
 };
 
 export default withRouter(Search);

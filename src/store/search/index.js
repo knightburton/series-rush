@@ -78,45 +78,37 @@ export const reducer = handleActions(
 );
 
 // Thunk actions
-export const prepareSearch = (query, type) => (dispatch, getState, { history }) => {
-  dispatch(storeSearchProps({ query, type }));
-
+export const prepareSearch = props => (dispatch, getState, { history }) => {
   const { location } = history;
-  const { query: searchQuery } = getSearchFromQueryString(location.search);
+  const queryString = getSearchFromQueryString(location.search, { parseNumbers: true });
+  const validProps = {
+    ...queryString, // That is important to get the query first
+    ...props, // Then overrides the data with the new values from the current search props
+    page: Object.keys(props).length && !!queryString.page && queryString.page !== props.page ? props.page : props.page || queryString.page,
+  };
+  const newQueryString = createSearchQueryString(validProps);
 
-  if (query !== searchQuery) {
+  if (location.pathname !== APP_PATHS.SEARCH || newQueryString !== location.search.replace(/^\?/g, '')) {
     history.push({
       ...location,
       pathname: APP_PATHS.SEARCH,
-      search: createSearchQueryString({ query, type }),
+      search: newQueryString,
     });
   }
+
+  dispatch(storeSearchProps(validProps));
+  return validProps;
 };
 
-export const search = (query, type) => async (dispatch, getState, { tmdbApi }) => {
+export const search = (props = {}) => async (dispatch, getState, { tmdbApi }) => {
   dispatch(searchRequest());
-  dispatch(prepareSearch(query, type));
-  try {
-    // Fetch the results from tmdb
-    const data = await tmdbApi.searchWithType(query, type);
+  const { query, type, page } = dispatch(prepareSearch(props));
 
-    // Parse and store the data
-    dispatch(searchSuccess(parseSearchData(data, type)));
-  } catch (error) {
-    dispatch(searchFailure());
-    dispatch(addAlert('alert:api/tmdb-search-failed', 'error'));
-  }
-};
-
-export const searchBySelectedPage = page => async (dispatch, getState, { tmdbApi }) => {
-  dispatch(searchRequest());
   try {
-    const query = getSearchQuery(getState());
-    const type = getSearchType(getState());
     const data = await tmdbApi.searchWithType(query, type, page);
     dispatch(searchSuccess(parseSearchData(data, type)));
   } catch (error) {
     dispatch(searchFailure());
-    dispatch(addAlert('alert:api/tmdb-search-page-failed', 'error'));
+    dispatch(addAlert('alert:api/tmdb-search-failed', 'error'));
   }
 };

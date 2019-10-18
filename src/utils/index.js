@@ -2,7 +2,7 @@ import QueryString from 'query-string';
 import { SEARCH_TYPES } from '../constants/config';
 
 // Query utils
-export const getSearchFromQueryString = search => QueryString.parse(search);
+export const getSearchFromQueryString = (search, options) => QueryString.parse(search, options);
 export const createSearchQueryString = object => QueryString.stringify(object);
 
 // Time utils
