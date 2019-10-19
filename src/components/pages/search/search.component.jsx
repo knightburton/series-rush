@@ -24,7 +24,7 @@ const Search = ({ results, query, page, numberOfPages, clearSearchProps, search,
   }, [page]);
   useEffect(() => {
     checkSearch();
-  }, [location]);
+  }, [location, checkSearch]);
   useEffect(() => () => clearSearchProps(), [clearSearchProps]);
 
   return (

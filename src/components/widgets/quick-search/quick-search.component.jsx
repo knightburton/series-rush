@@ -14,6 +14,7 @@ import useForm from '../../../hooks/useForm';
 
 import { getSearchFromQueryString } from '../../../utils';
 import { SEARCH_TYPES } from '../../../constants/config';
+import { APP_PATHS } from '../../../constants/paths';
 
 import useStyles from './quick-search.styles';
 
@@ -34,10 +35,19 @@ const QuickSearch = ({ search, location }) => {
     if (type) handleChange({ target: { name: 'type', value: type } });
   }, [handleChange]);
 
+  const resetAllInput = useCallback(() => {
+    handleChange({ target: { name: 'query', value: '' } });
+    handleChange({ target: { name: 'type', value: SEARCH_TYPES.TV } });
+  }, [handleChange]);
+
   useEffect(() => {
-    const { query, type } = getSearchFromQueryString(location.search);
-    updateAllInput(query, type);
-  }, [location.search, updateAllInput]);
+    if (location.pathname === APP_PATHS.SEARCH) {
+      const { query, type } = getSearchFromQueryString(location.search);
+      updateAllInput(query, type);
+    } else {
+      resetAllInput();
+    }
+  }, [location.search, location.pathname, updateAllInput, resetAllInput]);
 
   useEffect(() => {
     inputRef.current.focus();
