@@ -9,7 +9,7 @@ import Typography from '@material-ui/core/Typography';
 
 import useStyles from './search.styles';
 
-const Search = ({ results, query, page, numberOfPages, clearSearchProps, search, location }) => {
+const Search = ({ results, query, page, numberOfPages, clearSearchProps, search, checkSearch, location }) => {
   const classes = useStyles();
   const { t } = useTranslation();
   const [selectedPage, selectPage] = useState(null);
@@ -23,8 +23,8 @@ const Search = ({ results, query, page, numberOfPages, clearSearchProps, search,
     selectPage(page - 1);
   }, [page]);
   useEffect(() => {
-    search();
-  }, [search, location]);
+    checkSearch();
+  }, [location]);
   useEffect(() => () => clearSearchProps(), [clearSearchProps]);
 
   return (
@@ -56,6 +56,7 @@ Search.propTypes = {
   page: PropTypes.number,
   clearSearchProps: PropTypes.func.isRequired,
   search: PropTypes.func.isRequired,
+  checkSearch: PropTypes.func.isRequired,
   location: PropTypes.shape({
     pathname: PropTypes.string,
     search: PropTypes.string,

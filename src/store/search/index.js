@@ -1,4 +1,5 @@
 import { createAction, handleActions } from 'redux-actions';
+import { createSelector } from 'reselect';
 import { addAlert } from '../app';
 import {
   getSearchFromQueryString,
@@ -53,6 +54,10 @@ export const getSearchInProgress = state => state.search.searchInProgress;
 export const getSearchQuery = state => state.search.query;
 export const getSearchType = state => state.search.type;
 export const getSearchPage = state => state.search.page;
+export const getSearchProps = createSelector(
+  [getSearchQuery, getSearchType, getSearchPage],
+  (query, type, page) => ({ query, type, page })
+);
 export const getSearchNumberOfPages = state => state.search.numberOfPages;
 export const getSearchNumberOfResults = state => state.search.numberOfResults;
 export const getSearchResults = state => state.search.results;
@@ -111,4 +116,13 @@ export const search = (props = {}) => async (dispatch, getState, { tmdbApi }) =>
     dispatch(searchFailure());
     dispatch(addAlert('alert:api/tmdb-search-failed', 'error'));
   }
+};
+
+export const checkSearch = () => (dispatch, getState, { history }) => {
+  const { location } = history;
+  const props = getSearchProps(getState());
+  const stateQueryString = createSearchQueryString(props);
+  const locationQuryString = location.search.replace(/^\?/g, '');
+
+  if (stateQueryString !== locationQuryString) dispatch(search());
 };
