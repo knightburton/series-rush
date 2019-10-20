@@ -1,6 +1,6 @@
 import { createAction, handleActions } from 'redux-actions';
 import { createSelector } from 'reselect';
-import { addAlert } from '../app';
+import { addAlert, getTmdbConfiguration } from '../app';
 import {
   getSearchFromQueryString,
   createSearchQueryString,
@@ -33,7 +33,7 @@ export const searchRequest = createAction(
 );
 export const searchSuccess = createAction(
   SEARCH_SUCCESS,
-  ({ page, numberOfPages, numberOfResults, results }) => ({ page, numberOfPages, numberOfResults, results })
+  ({ numberOfPage, numberOfPages, numberOfResults, results }) => ({ numberOfPage, numberOfPages, numberOfResults, results })
 );
 export const searchFailure = createAction(
   SEARCH_FAILURE
@@ -66,10 +66,10 @@ export const getSearchResults = state => state.search.results;
 export const reducer = handleActions(
   {
     [searchRequest]: state => ({ ...state, searchInProgress: true }),
-    [searchSuccess]: (state, { payload: { page, numberOfPages, numberOfResults, results } }) => ({
+    [searchSuccess]: (state, { payload: { numberOfPage, numberOfPages, numberOfResults, results } }) => ({
       ...state,
       searchInProgress: false,
-      page,
+      numberOfPage,
       numberOfPages,
       numberOfResults,
       results,
@@ -108,10 +108,11 @@ export const prepareSearch = props => (dispatch, getState, { history }) => {
 export const search = (props = {}) => async (dispatch, getState, { tmdbApi }) => {
   dispatch(searchRequest());
   const { query, type, page } = dispatch(prepareSearch(props));
+  const tmdbConfiguration = getTmdbConfiguration(getState());
 
   try {
     const data = await tmdbApi.searchWithType(query, type, page);
-    dispatch(searchSuccess(parseSearchData(data, type)));
+    dispatch(searchSuccess(parseSearchData(data, type, tmdbConfiguration)));
   } catch (error) {
     dispatch(searchFailure());
     dispatch(addAlert('alert:api/tmdb-search-failed', 'error'));

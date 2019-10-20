@@ -11,7 +11,7 @@ export const initialState = {
   alerts: [],
   waiting: 0,
   isMobileDrawerOpened: false,
-  tmdbConfiguration: null,
+  tmdbConfiguration: {},
 };
 
 // Action types

@@ -7,6 +7,8 @@ import { withRouter } from 'react-router-dom';
 import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
 
+import SearchResults from './search-results/search-results.container';
+
 import useStyles from './search.styles';
 
 const Search = ({ results, query, page, numberOfPages, clearSearchProps, search, checkSearch, location }) => {
@@ -29,7 +31,9 @@ const Search = ({ results, query, page, numberOfPages, clearSearchProps, search,
 
   return (
     <Container maxWidth="lg">
-      {!results.length && !!query && (
+      {results.length > 0 && !!query ? (
+        <SearchResults />
+      ) : (
         <Typography>
           {t('page.search.emptyResult')}
         </Typography>
@@ -50,7 +54,7 @@ const Search = ({ results, query, page, numberOfPages, clearSearchProps, search,
 };
 
 Search.propTypes = {
-  results: PropTypes.arrayOf(PropTypes.string),
+  results: PropTypes.arrayOf(PropTypes.object),
   numberOfPages: PropTypes.number,
   query: PropTypes.string.isRequired,
   page: PropTypes.number,
