@@ -1,4 +1,6 @@
+/* eslint-disable camelcase */
 import QueryString from 'query-string';
+import moment from 'moment';
 import { SEARCH_TYPES } from '../constants/config';
 
 // Query utils
@@ -6,13 +8,35 @@ export const getSearchFromQueryString = (search, options) => QueryString.parse(s
 export const createSearchQueryString = object => QueryString.stringify(object);
 
 // Time utils
-export const getTimestamp = () => new Date().getTime();
-export const getTimestampFromDate = date => new Date(date).getTime();
+export const getTimestamp = () => moment().valueOf();
+export const getTimestampFromDate = date => moment(date).valueOf();
+export const getDayDifferenceGreaterThan = (date, numberOfDays) => moment().diff(date, 'days') > numberOfDays;
+export const getDayDifferenceLessThan = (date, numberOfDays) => moment().diff(date, 'days') < numberOfDays;
 
 // TMDB utils
+export const parseTmdbConfiguration = data => {
+  if (data && data.images) {
+    const { secure_base_url, backdrop_sizes, poster_sizes } = data.images;
+
+    return {
+      imageBaseURL: secure_base_url,
+      backdropSizes: backdrop_sizes,
+      posterSizes: poster_sizes,
+    };
+  }
+
+  return {};
+};
+
 const parseTVShow = show => {
-  const { name } = show;
-  return name;
+  const { id, name, first_air_date, overview } = show;
+
+  return {
+    id,
+    name,
+    premiere: first_air_date,
+    overview,
+  };
 };
 const parseMovie = movie => {
   const { title } = movie;
@@ -29,7 +53,7 @@ export const parseSearchData = (data, type) => {
   const results = data.results.map(result => parseResult(result, result.media_type || type));
 
   return {
-    page: data.page,
+    numberOfPage: data.page,
     numberOfPages: data.total_pages,
     numberOfResults: data.total_results,
     results,
