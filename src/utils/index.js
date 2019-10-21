@@ -29,28 +29,31 @@ export const parseTmdbConfiguration = data => {
   return {};
 };
 
-const getPosterPath = (path, configuration) => {
-  if (configuration && path) {
-    const { imageBaseURL, posterSizes } = configuration;
-    const posterSize = posterSizes.includes('w185') ? 'w185' : 'original';
+const getImagePaths = (poster, backdrop, configuration) => {
+  const posterPath = configuration && poster && configuration.posterSizes.includes('w185')
+    ? `${configuration.imageBaseURL}w185${poster}`
+    : '/p-no-poster.jpg';
+  const backdropPath = configuration && backdrop && configuration.backdropSizes.includes('w780')
+    ? `${configuration.imageBaseURL}w780${backdrop}`
+    : '/p-no-poster.jpg';
 
-    return `${imageBaseURL}${posterSize}${path}`;
-  }
-
-  return '/no-poster.jpg';
+  return {
+    posterPath,
+    backdropPath,
+  };
 };
 
 const parseTVShow = (show, configuration) => {
-  const { id, name, first_air_date, overview, poster_path, vote_average } = show;
+  const { id, name, first_air_date, overview, poster_path, backdrop_path, vote_average } = show;
 
   return {
     id,
     type: SEARCH_TYPES.TV,
     name,
     premiere: getLocalizedDate(first_air_date),
-    poster: getPosterPath(poster_path, configuration),
     overview,
     vote: vote_average,
+    ...getImagePaths(poster_path, backdrop_path, configuration),
   };
 };
 

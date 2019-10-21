@@ -2,9 +2,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import Grid from '@material-ui/core/Grid';
+import Box from '@material-ui/core/Box';
 import Card from '@material-ui/core/Card';
-import CardContent from '@material-ui/core/CardContent';
-import Typography from '@material-ui/core/Typography';
+import CardHeader from '@material-ui/core/CardHeader';
+import CardActions from '@material-ui/core/CardActions';
+import IconButton from '@material-ui/core/IconButton';
+
+import AddIcon from '@material-ui/icons/AddCircleOutline';
+import RightIcon from '@material-ui/icons/KeyboardArrowRightOutlined';
 
 import { SEARCH_TYPES } from '../../../../constants/config';
 
@@ -20,18 +25,25 @@ const SearchResults = ({ results }) => {
           {result.type === SEARCH_TYPES.TV && (
             <Card className={classes.card}>
               <img
-                src={result.poster}
+                src={result.posterPath}
                 alt={result.name}
                 draggable={false}
               />
-              <CardContent>
-                <Typography gutterBottom variant="h5" component="p">
-                  {result.name}
-                </Typography>
-                <Typography variant="body2" color="textSecondary" component="p">
-                  {result.premiere}
-                </Typography>
-              </CardContent>
+              <Box className={classes.container}>
+                <CardHeader
+                  title={result.name}
+                  subheader={result.premiere}
+                />
+                <CardActions>
+                  <IconButton>
+                    <AddIcon />
+                  </IconButton>
+                  <Box className={classes.grow} />
+                  <IconButton>
+                    <RightIcon />
+                  </IconButton>
+                </CardActions>
+              </Box>
             </Card>
           )}
         </Grid>
