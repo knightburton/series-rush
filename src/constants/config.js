@@ -9,6 +9,13 @@ export const SEARCH_TYPES = {
   MULTI: 'multi',
 };
 
+export const ELLIPSIS_LENGTHS = {
+  XS: 160,
+  SM: 200,
+  MD: 220,
+  LG: 300,
+};
+
 export default {
   API_URLS: {
     TV_MAZE_API_ENDPOINT,
