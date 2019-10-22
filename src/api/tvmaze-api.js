@@ -1,8 +1,8 @@
 import invoke from './axios';
-import { TV_MAZE_API } from '../constants/config';
+import { TV_MAZE_API_ENDPOINT } from '../constants/config';
 
 const api = {
-  get: invoke(TV_MAZE_API, 'GET'),
+  get: invoke(TV_MAZE_API_ENDPOINT, 'GET'),
 };
 
 export const searchShow = show => api.get('/search/shows', { query: { q: show } });

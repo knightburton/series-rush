@@ -15,7 +15,7 @@ import useStyles from './content-wrapper.styles';
 const ContentWrapper = ({ children }) => {
   const classes = useStyles();
   const { signedIn } = useContext(ProfileContext);
-  const contentClasses = clsx(classes.content, { [classes.padding]: signedIn });
+  const contentClasses = clsx(classes.content, { [classes.margin]: signedIn });
 
   return (
     <Box className={classes.base}>

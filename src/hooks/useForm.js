@@ -96,7 +96,7 @@ const validateState = (stateSchema, validationSchema = {}, state = {}) => Object
 const useForm = ({ stateSchema, validationSchema, callback, resetState = false }) => {
   const [state, setState] = useState(stateSchema);
 
-  const handleChange = event => {
+  const handleChange = useCallback(event => {
     const { name, value } = event.target;
 
     setState(prevState => ({
@@ -106,7 +106,7 @@ const useForm = ({ stateSchema, validationSchema, callback, resetState = false }
         error: '',
       },
     }));
-  };
+  }, []);
 
   const handleSubmit = useCallback(event => {
     event.preventDefault();

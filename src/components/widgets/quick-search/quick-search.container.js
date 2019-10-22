@@ -1,14 +1,14 @@
 import { connect } from 'react-redux';
 
 import {
-  seriesSearch,
+  search,
 } from '../../../store/search';
 import QuickSearch from './quick-search.component';
 
 const mapStateToProps = () => ({});
 
 const mapDispatchToProps = {
-  seriesSearch,
+  search,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(QuickSearch);

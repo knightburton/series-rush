@@ -1,12 +1,27 @@
 import { connect } from 'react-redux';
 
-import { getSearchResult } from '../../../store/search';
+import {
+  getSearchResults,
+  getSearchNumberOfPages,
+  getSearchPage,
+  getSearchQuery,
+  search,
+  checkSearch,
+  clearSearchProps,
+} from '../../../store/search';
 import Search from './search.component';
 
 const mapStateToProps = state => ({
-  result: getSearchResult(state),
+  results: getSearchResults(state),
+  numberOfPages: getSearchNumberOfPages(state),
+  page: getSearchPage(state),
+  query: getSearchQuery(state),
 });
 
-const mapDispatchToProps = {};
+const mapDispatchToProps = {
+  clearSearchProps,
+  search,
+  checkSearch,
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(Search);
