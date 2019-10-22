@@ -10,10 +10,10 @@ export const SEARCH_TYPES = {
 };
 
 export const ELLIPSIS_LENGTHS = {
-  XS: 160,
-  SM: 200,
-  MD: 220,
-  LG: 300,
+  XS: 120,
+  SM: 160,
+  MD: 200,
+  LG: 240,
 };
 
 export default {

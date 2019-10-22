@@ -38,7 +38,7 @@ const getImagePaths = (poster, backdrop, configuration) => {
     : '/p-no-poster.jpg';
   const backdropPath = configuration && backdrop && configuration.backdropSizes.includes('w780')
     ? `${configuration.imageBaseURL}w780${backdrop}`
-    : '/p-no-poster.jpg';
+    : '/l-no-poster.jpg';
 
   return {
     posterPath,
