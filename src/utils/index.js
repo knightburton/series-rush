@@ -15,7 +15,11 @@ export const getDayDifferenceLessThan = (date, numberOfDays) => moment().diff(da
 export const getLocalizedDate = date => moment(date).format('LL');
 
 // Text utils
-export const getEllipsisText = (text, length) => `${text.substring(0, length).split(/\s/).slice(0, -1).join(' ')}...`;
+export const getEllipsisText = (text, length) => {
+  if (!text) return '';
+  if (text.length <= length) return text;
+  return `${text.substring(0, length).split(/\s/).slice(0, -1).join(' ')}...`;
+};
 
 // TMDB utils
 export const parseTmdbConfiguration = data => {

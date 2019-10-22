@@ -7,6 +7,9 @@ export default makeStyles(theme => ({
       maxHeight: 278,
     },
   },
+  poster: {
+    height: 278,
+  },
   backdrop: {
     width: '100%',
     height: 'auto',

@@ -28,11 +28,15 @@ const SearchResult = ({ result }) => {
           src={result.posterPath}
           alt={result.name}
           draggable={false}
+          className={classes.poster}
         />
       </Hidden>
       <Box className={classes.container}>
         <CardHeader
           title={result.name}
+          titleTypographyProps={{
+            variant: 'h6',
+          }}
           subheader={result.premiere}
         />
         <Hidden smUp>
@@ -45,11 +49,14 @@ const SearchResult = ({ result }) => {
         </Hidden>
         <CardContent className={classes.content}>
           <Typography variant="body2" component="p">
-            <Hidden smDown>
+            <Hidden mdDown>
+              {getEllipsisText(result.overview, ELLIPSIS_LENGTHS.MD)}
+            </Hidden>
+            <Hidden smDown lgUp>
               {getEllipsisText(result.overview, ELLIPSIS_LENGTHS.XS)}
             </Hidden>
             <Hidden xsDown mdUp>
-              {getEllipsisText(result.overview, ELLIPSIS_LENGTHS.SM)}
+              {getEllipsisText(result.overview, ELLIPSIS_LENGTHS.MD)}
             </Hidden>
             <Hidden smUp>
               {result.overview}
