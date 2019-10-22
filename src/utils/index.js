@@ -60,9 +60,18 @@ const parseTVShow = (show, configuration) => {
   };
 };
 
-const parseMovie = movie => {
-  const { title } = movie;
-  return title;
+const parseMovie = (movie, configuration) => {
+  const { id, title, release_date, overview, poster_path, backdrop_path, vote_average } = movie;
+
+  return {
+    id,
+    type: SEARCH_TYPES.MOVIE,
+    name: title,
+    premiere: getLocalizedDate(release_date),
+    overview,
+    vote: vote_average,
+    ...getImagePaths(poster_path, backdrop_path, configuration),
+  };
 };
 
 const parseResult = (data, type, configuration) => {
