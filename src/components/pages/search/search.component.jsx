@@ -38,7 +38,7 @@ const Search = ({ results, query, page, numberOfPages, clearSearchProps, search,
           {t('page.search.emptyResult')}
         </Typography>
       )}
-      {results.length && numberOfPages > 1 && (
+      {results.length > 0 && numberOfPages > 1 && (
         <Pagination
           limit={1}
           total={numberOfPages}
