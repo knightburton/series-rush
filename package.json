@@ -37,7 +37,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "lint": "eslint --ext .jsx,.js src"
+    "lint": "eslint --ext .jsx,.js src",
+    "test-coverage": "react-scripts test --coverage --watchAll=false"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -62,5 +63,13 @@
     "eslint-plugin-react": "^7.14.3",
     "eslint-plugin-react-hooks": "^1.7.0",
     "redux-mock-store": "^1.5.3"
+  },
+  "jest": {
+    "coverageReporters": ["text"],
+    "collectCoverageFrom": [
+      "src/store/*/*.js",
+      "!**/node_modules/**",
+      "!**/vendor/**"
+    ]
   }
 }
