@@ -1,6 +1,6 @@
 const findAction = (store, type) => store.getActions().find(action => action.type === type);
 
-const getAction = (store, type) => {
+export const getAction = (store, type) => {
   const action = findAction(store, type);
   if (action) return Promise.resolve(action);
 
@@ -12,4 +12,4 @@ const getAction = (store, type) => {
   });
 };
 
-export default getAction;
+export const getActionsLength = store => store.getActions().length;
