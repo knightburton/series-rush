@@ -1,9 +1,5 @@
 import * as app from '../../../store/app';
 import mockStore from '../../mock-store';
-import {
-  getAction,
-  getActionsLength,
-} from '../../get-action';
 
 const utils = require('../../../utils');
 
@@ -287,19 +283,21 @@ describe('App Thunk Actions', () => {
     jest.unmock('../../../utils');
   });
 
-  it('Retrive the tmdb configuration from local storage (last update was less then 3 days ago)', async () => {
+  it('Retrive the tmdb configuration from local storage (last update was less then 3 days ago)', async done => {
     utils.getDayDifferenceLessThan = jest.fn(() => true);
     const storage = {
       get: jest.fn(() => mockTmdbConfiguration),
     };
     const store = mockStore(mockState, { storage });
-    store.dispatch(app.requestTmdbConfiguration());
-    expect(getActionsLength(store)).toEqual(2);
-    expect(await getAction(store, app.TMDB_CONFIGURATON_START)).toEqual({
-      type: app.TMDB_CONFIGURATON_START,
-    });
-    expect(await getAction(store, app.TMDB_CONFIGURATON_FINISH)).toEqual({
-      type: app.TMDB_CONFIGURATON_FINISH, payload: mockTmdbConfiguration,
-    });
+    await store.dispatch(app.requestTmdbConfiguration());
+    expect(store.getActions().length).toEqual(2);
+    expect(store.getActions()).toEqual([
+      { type: app.TMDB_CONFIGURATON_START },
+      {
+        type: app.TMDB_CONFIGURATON_FINISH,
+        payload: mockTmdbConfiguration,
+      },
+    ]);
+    done();
   });
 });
