@@ -1,6 +1,7 @@
 import * as app from '../../../store/app';
 import mockStore from '../../mock-store';
 
+jest.mock('../../../utils');
 const utils = require('../../../utils');
 
 // Mock data
@@ -409,7 +410,7 @@ describe('App Thunk Actions', () => {
       set: jest.fn(),
     };
     const tmdbApi = {
-      getConfiguration: jest.fn(() => rawConfiguration),
+      getConfiguration: jest.fn(() => Promise.resolve(rawConfiguration)),
     };
     const store = mockStore(mockState, { storage, tmdbApi });
     await store.dispatch(app.requestTmdbConfiguration());
@@ -436,7 +437,7 @@ describe('App Thunk Actions', () => {
       set: jest.fn(),
     };
     const tmdbApi = {
-      getConfiguration: jest.fn(() => rawConfiguration),
+      getConfiguration: jest.fn(() => Promise.resolve(rawConfiguration)),
     };
     const store = mockStore(mockState, { storage, tmdbApi });
     await store.dispatch(app.requestTmdbConfiguration());
@@ -463,9 +464,7 @@ describe('App Thunk Actions', () => {
       set: jest.fn(),
     };
     const tmdbApi = {
-      getConfiguration: jest.fn(() => {
-        throw mockError;
-      }),
+      getConfiguration: jest.fn(() => Promise.reject(mockError)),
     };
     const store = mockStore(mockState, { storage, tmdbApi });
     await store.dispatch(app.requestTmdbConfiguration());

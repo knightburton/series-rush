@@ -67,7 +67,7 @@
   "jest": {
     "coverageReporters": ["text"],
     "collectCoverageFrom": [
-      "src/store/*/*.js",
+      "src/store/app/*.js",
       "!**/node_modules/**",
       "!**/vendor/**"
     ],
@@ -78,7 +78,7 @@
         "lines": 80,
         "statements": 80
       },
-      "src/store/*/*.js": {
+      "src/store/app/*.js": {
         "branches": 100,
         "functions": 100,
         "lines": 100,
