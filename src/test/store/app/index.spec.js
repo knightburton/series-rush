@@ -28,6 +28,104 @@ const mockState = {
   isMobileDrawerOpened: true,
   tmdbConfiguration: mockTmdbConfiguration,
 };
+const rawConfiguration = {
+  images: {
+    base_url: 'http://image.tmdb.org/t/p/',
+    secure_base_url: 'https://image.tmdb.org/t/p/',
+    backdrop_sizes: [
+      'w300',
+      'w780',
+      'w1280',
+      'original',
+    ],
+    logo_sizes: [
+      'w45',
+      'w92',
+      'w154',
+      'w185',
+      'w300',
+      'w500',
+      'original',
+    ],
+    poster_sizes: [
+      'w92',
+      'w154',
+      'w185',
+      'w342',
+      'w500',
+      'w780',
+      'original',
+    ],
+    profile_sizes: [
+      'w45',
+      'w185',
+      'h632',
+      'original',
+    ],
+    still_sizes: [
+      'w92',
+      'w185',
+      'w300',
+      'original',
+    ],
+  },
+  change_keys: [
+    'adult',
+    'air_date',
+    'also_known_as',
+    'alternative_titles',
+    'biography',
+    'birthday',
+    'budget',
+    'cast',
+    'certifications',
+    'character_names',
+    'created_by',
+    'crew',
+    'deathday',
+    'episode',
+    'episode_number',
+    'episode_run_time',
+    'freebase_id',
+    'freebase_mid',
+    'general',
+    'genres',
+    'guest_stars',
+    'homepage',
+    'images',
+    'imdb_id',
+    'languages',
+    'name',
+    'network',
+    'origin_country',
+    'original_name',
+    'original_title',
+    'overview',
+    'parts',
+    'place_of_birth',
+    'plot_keywords',
+    'production_code',
+    'production_companies',
+    'production_countries',
+    'releases',
+    'revenue',
+    'runtime',
+    'season',
+    'season_number',
+    'season_regular',
+    'spoken_languages',
+    'status',
+    'tagline',
+    'title',
+    'translations',
+    'tvdb_id',
+    'tvrage_id',
+    'type',
+    'video',
+    'videos',
+  ],
+};
+const mockError = new Error('There is an API error.');
 
 // Action creator unit tests
 describe('App Action Creators', () => {
@@ -298,6 +396,91 @@ describe('App Thunk Actions', () => {
         payload: mockTmdbConfiguration,
       },
     ]);
+    expect(storage.get).toHaveBeenCalledWith('TMDB_CONFIGURATION');
+    done();
+  });
+
+  it('Retrive the tmdb configuration from tmdb api (last update was more then 3 days ago)', async done => {
+    utils.getDayDifferenceLessThan = jest.fn(() => false);
+    utils.parseTmdbConfiguration = jest.fn(() => mockTmdbConfiguration);
+    utils.getTimestamp = jest.fn(() => mockTimestamp - 5);
+    const storage = {
+      get: jest.fn(() => mockTmdbConfiguration),
+      set: jest.fn(),
+    };
+    const tmdbApi = {
+      getConfiguration: jest.fn(() => rawConfiguration),
+    };
+    const store = mockStore(mockState, { storage, tmdbApi });
+    await store.dispatch(app.requestTmdbConfiguration());
+    expect(store.getActions().length).toEqual(2);
+    expect(store.getActions()).toEqual([
+      { type: app.TMDB_CONFIGURATON_START },
+      {
+        type: app.TMDB_CONFIGURATON_FINISH,
+        payload: mockTmdbConfiguration,
+      },
+    ]);
+    expect(tmdbApi.getConfiguration).toHaveBeenCalled();
+    expect(utils.parseTmdbConfiguration).toHaveBeenCalledWith(rawConfiguration);
+    expect(storage.get).toHaveBeenCalledWith('TMDB_CONFIGURATION');
+    expect(storage.set).toHaveBeenCalledWith('TMDB_CONFIGURATION', mockTmdbConfiguration);
+    done();
+  });
+
+  it('Retrive the tmdb configuration from tmdb api (there is no stored configuration in storage)', async done => {
+    utils.parseTmdbConfiguration = jest.fn(() => mockTmdbConfiguration);
+    utils.getTimestamp = jest.fn(() => mockTimestamp - 5);
+    const storage = {
+      get: jest.fn(() => undefined),
+      set: jest.fn(),
+    };
+    const tmdbApi = {
+      getConfiguration: jest.fn(() => rawConfiguration),
+    };
+    const store = mockStore(mockState, { storage, tmdbApi });
+    await store.dispatch(app.requestTmdbConfiguration());
+    expect(store.getActions().length).toEqual(2);
+    expect(store.getActions()).toEqual([
+      { type: app.TMDB_CONFIGURATON_START },
+      {
+        type: app.TMDB_CONFIGURATON_FINISH,
+        payload: mockTmdbConfiguration,
+      },
+    ]);
+    expect(tmdbApi.getConfiguration).toHaveBeenCalled();
+    expect(utils.parseTmdbConfiguration).toHaveBeenCalledWith(rawConfiguration);
+    expect(storage.get).toHaveBeenCalledWith('TMDB_CONFIGURATION');
+    expect(storage.set).toHaveBeenCalledWith('TMDB_CONFIGURATION', mockTmdbConfiguration);
+    done();
+  });
+
+  it('Throw error from tmdb get configuration api (there is no stored configuration in storage)', async done => {
+    utils.parseTmdbConfiguration = jest.fn(() => mockTmdbConfiguration);
+    utils.getTimestamp = jest.fn(() => mockTimestamp - 5);
+    const storage = {
+      get: jest.fn(() => undefined),
+      set: jest.fn(),
+    };
+    const tmdbApi = {
+      getConfiguration: jest.fn(() => {
+        throw mockError;
+      }),
+    };
+    const store = mockStore(mockState, { storage, tmdbApi });
+    await store.dispatch(app.requestTmdbConfiguration());
+    expect(store.getActions().length).toEqual(2);
+    expect(store.getActions()).toEqual([
+      { type: app.TMDB_CONFIGURATON_START },
+      {
+        type: app.TMDB_CONFIGURATON_FINISH,
+        payload: null,
+      },
+    ]);
+    expect(tmdbApi.getConfiguration).toHaveBeenCalled();
+    expect(utils.parseTmdbConfiguration).not.toHaveBeenCalledWith(rawConfiguration);
+    expect(storage.get).toHaveBeenCalledWith('TMDB_CONFIGURATION');
+    expect(storage.set).not.toHaveBeenCalled();
     done();
   });
 });
