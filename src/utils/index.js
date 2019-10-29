@@ -85,7 +85,11 @@ const parseResult = (data, type, configuration) => {
 };
 
 export const parseSearchData = (data, type, configuration) => {
-  const results = data.results.map(result => parseResult(result, result.media_type || type, configuration));
+  const results = data.results.reduce((a, result) => {
+    const parsedResult = parseResult(result, result.media_type || type, configuration);
+    if (parsedResult) return [...a, parsedResult];
+    return a;
+  }, []);
 
   return {
     numberOfPage: data.page,
