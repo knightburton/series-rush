@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import PropTypes from 'prop-types';
-import { Link, withRouter } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
 import Tabs from '@material-ui/core/Tabs';
@@ -10,9 +9,10 @@ import useStyles from './appbar-navigation.styles';
 
 import { MAIN_MENU } from '../../../../constants/navigation';
 
-const AppBarNavigation = ({ location: { pathname } }) => {
+const AppBarNavigation = () => {
   const classes = useStyles();
   const { t } = useTranslation();
+  const { pathname } = useLocation();
   const [selected, updateSelected] = useState(
     MAIN_MENU.map(({ path }) => path).includes(pathname)
       ? pathname
@@ -49,10 +49,4 @@ const AppBarNavigation = ({ location: { pathname } }) => {
   );
 };
 
-AppBarNavigation.propTypes = {
-  location: PropTypes.shape({
-    pathname: PropTypes.string,
-  }).isRequired,
-};
-
-export default withRouter(AppBarNavigation);
+export default AppBarNavigation;

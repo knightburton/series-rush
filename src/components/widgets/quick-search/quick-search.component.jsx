@@ -1,7 +1,7 @@
 import React, { useEffect, useCallback, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
-import { withRouter } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 
 import InputBase from '@material-ui/core/InputBase';
 import Select from '@material-ui/core/Select';
@@ -18,10 +18,11 @@ import { APP_PATHS } from '../../../constants/paths';
 
 import useStyles from './quick-search.styles';
 
-const QuickSearch = ({ search, location }) => {
+const QuickSearch = ({ search }) => {
   const classes = useStyles();
   const inputRef = useRef(null);
   const { t } = useTranslation();
+  const { search: searchLocation, pathname } = useLocation();
   const { state, handleChange, handleSubmit } = useForm({
     stateSchema: {
       query: { value: '', error: '' },
@@ -41,13 +42,13 @@ const QuickSearch = ({ search, location }) => {
   }, [handleChange]);
 
   useEffect(() => {
-    if (location.pathname === APP_PATHS.SEARCH) {
-      const { query, type } = getSearchFromQueryString(location.search);
+    if (pathname === APP_PATHS.SEARCH) {
+      const { query, type } = getSearchFromQueryString(searchLocation);
       updateAllInput(query, type);
     } else {
       resetAllInput();
     }
-  }, [location.search, location.pathname, updateAllInput, resetAllInput]);
+  }, [searchLocation, pathname, updateAllInput, resetAllInput]);
 
   useEffect(() => {
     inputRef.current.focus();
@@ -100,10 +101,6 @@ const QuickSearch = ({ search, location }) => {
 
 QuickSearch.propTypes = {
   search: PropTypes.func.isRequired,
-  location: PropTypes.shape({
-    pathname: PropTypes.string,
-    search: PropTypes.string,
-  }).isRequired,
 };
 
-export default withRouter(QuickSearch);
+export default QuickSearch;

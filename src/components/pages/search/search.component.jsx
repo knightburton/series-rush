@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import Pagination from 'material-ui-flat-pagination';
 import { useTranslation } from 'react-i18next';
-import { withRouter } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 
 import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
@@ -12,9 +12,10 @@ import SearchResults from './search-results/search-results.container';
 
 import useStyles from './search.styles';
 
-const Search = ({ results, query, page, numberOfPages, clearSearchProps, search, checkSearch, location, searchInProgress }) => {
+const Search = ({ results, query, page, numberOfPages, clearSearchProps, search, checkSearch, searchInProgress }) => {
   const classes = useStyles();
   const { t } = useTranslation();
+  const location = useLocation();
   const [selectedPage, selectPage] = useState(null);
 
   const handlePageSelect = (e, offset) => {
@@ -68,10 +69,6 @@ Search.propTypes = {
   clearSearchProps: PropTypes.func.isRequired,
   search: PropTypes.func.isRequired,
   checkSearch: PropTypes.func.isRequired,
-  location: PropTypes.shape({
-    pathname: PropTypes.string,
-    search: PropTypes.string,
-  }).isRequired,
   searchInProgress: PropTypes.bool.isRequired,
 };
 
@@ -81,4 +78,4 @@ Search.defaultProps = {
   page: null,
 };
 
-export default withRouter(Search);
+export default Search;
