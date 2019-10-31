@@ -5,6 +5,7 @@ import {
   getSearchNumberOfPages,
   getSearchPage,
   getSearchQuery,
+  getSearchInProgress,
   search,
   checkSearch,
   clearSearchProps,
@@ -16,6 +17,7 @@ const mapStateToProps = state => ({
   numberOfPages: getSearchNumberOfPages(state),
   page: getSearchPage(state),
   query: getSearchQuery(state),
+  searchInProgress: getSearchInProgress(state),
 });
 
 const mapDispatchToProps = {

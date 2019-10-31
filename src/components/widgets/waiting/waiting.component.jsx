@@ -10,6 +10,16 @@ import Icon from '@material-ui/icons/CodeOutlined';
 
 import useStyles from './waiting.styles';
 
+const ContetWaiting = () => {
+  const classes = useStyles();
+
+  return (
+    <Box className={classes.content}>
+      <CircularProgress size={48} color="secondary" />
+    </Box>
+  );
+};
+
 const AppWaiting = () => {
   const classes = useStyles();
 
@@ -49,11 +59,12 @@ const ScreenWaiting = () => {
 const Waiting = ({ type }) => {
   if (type === 'app') return <AppWaiting />;
   if (type === 'screen') return <ScreenWaiting />;
+  if (type === 'content') return <ContetWaiting />;
   return null;
 };
 
 Waiting.propTypes = {
-  type: PropTypes.oneOf(['app', 'screen']),
+  type: PropTypes.oneOf(['app', 'screen', 'content']),
 };
 
 Waiting.defaultProps = {

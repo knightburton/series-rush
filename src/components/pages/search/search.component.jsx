@@ -7,11 +7,12 @@ import { withRouter } from 'react-router-dom';
 import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
 
+import Waiting from '../../widgets/waiting/waiting.component';
 import SearchResults from './search-results/search-results.container';
 
 import useStyles from './search.styles';
 
-const Search = ({ results, query, page, numberOfPages, clearSearchProps, search, checkSearch, location }) => {
+const Search = ({ results, query, page, numberOfPages, clearSearchProps, search, checkSearch, location, searchInProgress }) => {
   const classes = useStyles();
   const { t } = useTranslation();
   const [selectedPage, selectPage] = useState(null);
@@ -31,23 +32,29 @@ const Search = ({ results, query, page, numberOfPages, clearSearchProps, search,
 
   return (
     <Container maxWidth="lg">
-      {results.length > 0 && !!query ? (
-        <SearchResults />
+      {searchInProgress ? (
+        <Waiting type="content" />
       ) : (
-        <Typography>
-          {t('page.search.emptyResult')}
-        </Typography>
-      )}
-      {results.length > 0 && numberOfPages > 1 && (
-        <Pagination
-          limit={1}
-          total={numberOfPages}
-          offset={selectedPage}
-          onClick={handlePageSelect}
-          classes={{
-            root: classes.pagination,
-          }}
-        />
+        <>
+          {results.length > 0 && !!query ? (
+            <SearchResults />
+          ) : (
+            <Typography>
+              {t('page.search.emptyResult')}
+            </Typography>
+          )}
+          {results.length > 0 && numberOfPages > 1 && (
+            <Pagination
+              limit={1}
+              total={numberOfPages}
+              offset={selectedPage}
+              onClick={handlePageSelect}
+              classes={{
+                root: classes.pagination,
+              }}
+            />
+          )}
+        </>
       )}
     </Container>
   );
@@ -65,6 +72,7 @@ Search.propTypes = {
     pathname: PropTypes.string,
     search: PropTypes.string,
   }).isRequired,
+  searchInProgress: PropTypes.bool.isRequired,
 };
 
 Search.defaultProps = {
