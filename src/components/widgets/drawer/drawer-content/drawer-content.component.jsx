@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
-import { Link, withRouter } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 import Toolbar from '@material-ui/core/Toolbar';
 import Divider from '@material-ui/core/Divider';
@@ -17,8 +17,9 @@ import { APP_PATHS } from '../../../../constants/paths';
 
 import useStyles from './drawer-content.styles';
 
-const DrawerContent = ({ location: { pathname }, onSelect }) => {
+const DrawerContent = ({ onSelect }) => {
   const classes = useStyles();
+  const { pathname } = useLocation();
   const { t } = useTranslation();
   const isSelected = ({ path }) => pathname.includes(path);
 
@@ -58,10 +59,7 @@ const DrawerContent = ({ location: { pathname }, onSelect }) => {
 };
 
 DrawerContent.propTypes = {
-  location: PropTypes.shape({
-    pathname: PropTypes.string,
-  }).isRequired,
   onSelect: PropTypes.func.isRequired,
 };
 
-export default withRouter(DrawerContent);
+export default DrawerContent;

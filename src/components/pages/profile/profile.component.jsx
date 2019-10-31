@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import PropTypes from 'prop-types';
-import { Link, withRouter } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
 import Container from '@material-ui/core/Container';
@@ -22,9 +21,10 @@ const getValidPathname = pathname => (PROFILE_MENU.map(({ path }) => path).inclu
   : PROFILE_PATHS.PERSONAL_INFORMATION
 );
 
-const Profile = ({ location: { pathname } }) => {
+const Profile = () => {
   const classes = useStyles();
   const { t } = useTranslation();
+  const { pathname } = useLocation();
   const [selected, updateSelected] = useState(getValidPathname(pathname));
 
   useEffect(() => {
@@ -100,11 +100,4 @@ const Profile = ({ location: { pathname } }) => {
   );
 };
 
-Profile.propTypes = {
-  location: PropTypes.shape({
-    pathname: PropTypes.string,
-  }).isRequired,
-};
-
-
-export default withRouter(Profile);
+export default Profile;

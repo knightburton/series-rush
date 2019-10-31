@@ -65,7 +65,9 @@
     "redux-mock-store": "^1.5.3"
   },
   "jest": {
-    "coverageReporters": ["text"],
+    "coverageReporters": [
+      "text"
+    ],
     "collectCoverageFrom": [
       "src/store/app/*.js",
       "!**/node_modules/**",
