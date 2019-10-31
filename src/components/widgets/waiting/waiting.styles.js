@@ -7,4 +7,9 @@ export default makeStyles(theme => ({
   dialog: {
     padding: theme.spacing(3),
   },
+  content: {
+    display: 'flex',
+    justifyContent: 'center',
+    paddingTop: theme.spacing(10),
+  },
 }));

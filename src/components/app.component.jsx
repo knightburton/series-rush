@@ -7,6 +7,7 @@ import Alert from './widgets/alert/alert.container';
 import Waiting from './widgets/waiting/waiting.component';
 import ContentWrapper from './widgets/content-wrapper/content-wrapper.component';
 import Footer from './widgets/footer/footer.component';
+import ScrollToTop from './widgets/scroll-to-top/scroll-to-top.component';
 
 import { ProfileProvider } from '../contexts/profile';
 
@@ -20,6 +21,7 @@ const App = ({ authIsLoaded, isAppWaiting, requestTmdbConfiguration }) => {
   return (authIsLoaded ? (
     <main>
       <ProfileProvider>
+        <ScrollToTop />
         <AppBar />
         <Drawer />
         <ContentWrapper>
