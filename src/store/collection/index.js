@@ -17,6 +17,7 @@ export const addToSeriesCollection = showID => async (dispatch, getState, { getF
   try {
     const firestore = getFirestore();
     const { id } = getProfile(getState());
+
     await firestore.add(
       {
         collection: 'collections',
@@ -28,6 +29,7 @@ export const addToSeriesCollection = showID => async (dispatch, getState, { getF
         group: 'default',
       }
     );
+
     dispatch(addAlert('alert:collection/add-to-series-success', 'success'));
   } catch (error) {
     dispatch(addAlert('alert:collection/add-to-series-failure', 'error'));

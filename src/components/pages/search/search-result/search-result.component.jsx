@@ -14,12 +14,18 @@ import AddIcon from '@material-ui/icons/AddCircleOutline';
 import RightIcon from '@material-ui/icons/KeyboardArrowRightOutlined';
 
 import { getEllipsisText } from '../../../../utils';
-import { ELLIPSIS_LENGTHS } from '../../../../constants/config';
+import { ELLIPSIS_LENGTHS, SEARCH_TYPES } from '../../../../constants/config';
 
 import useStyles from './search-result.styles';
 
-const SearchResult = ({ result }) => {
+const SearchResult = ({ result, addToSeriesCollection }) => {
   const classes = useStyles();
+
+  const handleAdd = () => {
+    const { id, type } = result;
+
+    if (type === SEARCH_TYPES.TV) addToSeriesCollection(id);
+  };
 
   return (
     <Card className={classes.card}>
@@ -64,7 +70,7 @@ const SearchResult = ({ result }) => {
           </Typography>
         </CardContent>
         <CardActions>
-          <IconButton>
+          <IconButton onClick={handleAdd}>
             <AddIcon />
           </IconButton>
           <Box className={classes.grow} />
@@ -88,6 +94,7 @@ SearchResult.propTypes = {
     overview: PropTypes.string,
     vote: PropTypes.number,
   }).isRequired,
+  addToSeriesCollection: PropTypes.func.isRequired,
 };
 
 export default SearchResult;
