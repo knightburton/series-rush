@@ -1,14 +1,14 @@
 import { connect } from 'react-redux';
 
 import {
-  addToSeriesCollection,
+  addToCollection,
 } from '../../../../store/collection';
 import SearchResult from './search-result.component';
 
 const mapStateToProps = () => ({});
 
 const mapDispatchToProps = {
-  addToSeriesCollection,
+  addToCollection,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(SearchResult);

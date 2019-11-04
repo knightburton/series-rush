@@ -12,27 +12,27 @@ export const reducer = handleActions(
 );
 
 // Async actions
-export const addToSeriesCollection = showID => async (dispatch, getState, { getFirestore }) => {
+export const addToCollection = (id, type) => async (dispatch, getState, { getFirestore }) => {
   dispatch(setAppWaiting(true));
   try {
     const firestore = getFirestore();
-    const { id } = getProfile(getState());
+    const { id: profileID } = getProfile(getState());
 
     await firestore.add(
       {
         collection: 'collections',
-        doc: id,
-        subcollections: [{ collection: 'series' }],
+        doc: profileID,
+        subcollections: [{ collection: type }],
       },
       {
-        showID,
+        id,
         group: 'default',
       }
     );
 
-    dispatch(addAlert('alert:collection/add-to-series-success', 'success'));
+    dispatch(addAlert('alert:collection/add-to-collection-success', 'success'));
   } catch (error) {
-    dispatch(addAlert('alert:collection/add-to-series-failure', 'error'));
+    dispatch(addAlert('alert:collection/add-to-collection-failure', 'error'));
   } finally {
     dispatch(setAppWaiting(false));
   }
