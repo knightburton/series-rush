@@ -9,15 +9,18 @@ import useStyles from './appbar-navigation.styles';
 
 import { MAIN_MENU } from '../../../../constants/navigation';
 
+const defaultSelected = pathname => {
+  const paths = MAIN_MENU.map(({ path }) => path);
+  const selected = paths.find(path => pathname.includes(path));
+
+  return selected || false;
+};
+
 const AppBarNavigation = () => {
   const classes = useStyles();
   const { t } = useTranslation();
   const { pathname } = useLocation();
-  const [selected, updateSelected] = useState(
-    MAIN_MENU.map(({ path }) => path).includes(pathname)
-      ? pathname
-      : false
-  );
+  const [selected, updateSelected] = useState(defaultSelected(pathname));
 
   useEffect(() => {
     if (!pathname.includes(selected)) updateSelected(false);
