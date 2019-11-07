@@ -23,7 +23,7 @@ const ProfilePhoto = ({ alt, size, withGutter, withDisabledColor }) => {
       imgProps={{ draggable: false }}
       className={clsx(
         { [classes[size]]: size },
-        classes.border
+        classes.border,
       )}
     />
   ) : (

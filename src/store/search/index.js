@@ -29,24 +29,24 @@ export const CLEAR_SEARCH_RESULTS = 'CLEAR_SEARCH_RESULTS';
 
 // Action creators
 export const searchRequest = createAction(
-  SEARCH_REQUEST
+  SEARCH_REQUEST,
 );
 export const searchSuccess = createAction(
   SEARCH_SUCCESS,
-  ({ numberOfPage, numberOfPages, numberOfResults, results }) => ({ numberOfPage, numberOfPages, numberOfResults, results })
+  ({ numberOfPage, numberOfPages, numberOfResults, results }) => ({ numberOfPage, numberOfPages, numberOfResults, results }),
 );
 export const searchFailure = createAction(
-  SEARCH_FAILURE
+  SEARCH_FAILURE,
 );
 export const storeSearchProps = createAction(
   STORE_SEARCH_PROPS,
-  props => props
+  props => props,
 );
 export const clearSearchProps = createAction(
-  CLEAR_SEARCH_PROPS
+  CLEAR_SEARCH_PROPS,
 );
 export const clearSearchResults = createAction(
-  CLEAR_SEARCH_RESULTS
+  CLEAR_SEARCH_RESULTS,
 );
 
 // Selectors
@@ -56,7 +56,7 @@ export const getSearchType = state => state.search.type;
 export const getSearchPage = state => state.search.page;
 export const getSearchProps = createSelector(
   [getSearchQuery, getSearchType, getSearchPage],
-  (query, type, page) => ({ query, type, page })
+  (query, type, page) => ({ query, type, page }),
 );
 export const getSearchNumberOfPages = state => state.search.numberOfPages;
 export const getSearchNumberOfResults = state => state.search.numberOfResults;
@@ -79,7 +79,7 @@ export const reducer = handleActions(
     [clearSearchProps]: state => ({ ...state, query: '', type: '', page: null }),
     [clearSearchResults]: state => ({ ...state, result: [] }),
   },
-  initialState
+  initialState,
 );
 
 // Thunk actions

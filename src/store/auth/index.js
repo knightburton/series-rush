@@ -17,15 +17,15 @@ export const SET_AUTH_PASSWORD_IN_PROGRESS = 'SET_AUTH_PASSWORD_IN_PROGRESS';
 // Action creators
 export const setAuthInProgress = createAction(
   SET_AUTH_IN_PROGRESS,
-  inProgress => inProgress
+  inProgress => inProgress,
 );
 export const setAuthUpdateInProgress = createAction(
   SET_AUTH_UPDATE_IN_PROGRESS,
-  updateInProgress => updateInProgress
+  updateInProgress => updateInProgress,
 );
 export const setAuthPasswordInProgress = createAction(
   SET_AUTH_PASSWORD_IN_PROGRESS,
-  passwordInProgress => passwordInProgress
+  passwordInProgress => passwordInProgress,
 );
 
 // Selectors
@@ -38,19 +38,19 @@ export const getFirebaseAuth = state => state.firebase.auth;
 export const getFirebaseAuthError = state => state.firebase.authError;
 export const getFirebaseAuthErrorMessage = createSelector(
   getFirebaseAuthError,
-  authError => (authError && authError.message) || null
+  authError => (authError && authError.message) || null,
 );
 export const getFirebaseAuthIsLoaded = createSelector(
   getFirebaseAuth,
-  auth => auth && auth.isLoaded
+  auth => auth && auth.isLoaded,
 );
 export const getFirebaseAuthIsEmpty = createSelector(
   getFirebaseAuth,
-  auth => auth && auth.isEmpty
+  auth => auth && auth.isEmpty,
 );
 export const getIsSignedIn = createSelector(
   [getFirebaseAuthIsLoaded, getFirebaseAuthIsEmpty, getFirebaseAuth],
-  (isLoaded, isEmpty, auth) => isLoaded && !isEmpty && auth && !!auth.uid
+  (isLoaded, isEmpty, auth) => isLoaded && !isEmpty && auth && !!auth.uid,
 );
 export const getProfile = createSelector(
   [getIsSignedIn, getFirebaseAuth, getFirebaseProfile],
@@ -66,7 +66,7 @@ export const getProfile = createSelector(
     photoName: profile.photoName || '',
     lastLoginAt: auth.lastLoginAt || null,
     createdAt: auth.createdAt || null,
-  })
+  }),
 );
 
 // Reducer
@@ -76,7 +76,7 @@ export const reducer = handleActions(
     [setAuthUpdateInProgress]: (state, { payload: updateInProgress }) => ({ ...state, updateInProgress }),
     [setAuthPasswordInProgress]: (state, { payload: passwordInProgress }) => ({ ...state, passwordInProgress }),
   },
-  initialState
+  initialState,
 );
 
 // Async actions
@@ -96,11 +96,11 @@ export const createProfile = credentials => async (dispatch, getState, { getFire
 
     await firebase.createUser(
       { email, password },
-      { firstName, lastName }
+      { firstName, lastName },
     );
     await firebase.updateAuth(
       { displayName: `${firstName} ${lastName}` },
-      true // Also update the Profile document
+      true, // Also update the Profile document
     );
   } catch (error) {
     dispatch(handleAuthError(error));
@@ -165,7 +165,7 @@ export const updateName = (key, value) => async (dispatch, getState, { getFireba
         displayName,
         [key]: value,
       },
-      true
+      true,
     );
   } catch (error) {
     dispatch(handleAuthError(error));
@@ -180,7 +180,7 @@ export const updateEmail = email => async (dispatch, getState, { getFirebase }) 
     const firebase = getFirebase();
     await firebase.updateEmail(
       email,
-      true
+      true,
     );
   } catch (error) {
     dispatch(handleAuthError(error));
@@ -202,7 +202,7 @@ export const uploadProfilePhoto = file => async (dispatch, getState, { getFireba
           photoURL: downloadUrl,
           photoName: metadata.name,
         },
-        true
+        true,
       );
     } catch (error) {
       dispatch(handleAuthError(error));
@@ -226,7 +226,7 @@ export const deleteProfilePhoto = () => async (dispatch, getState, { getFirebase
           photoURL: null,
           photoName: null,
         },
-        true
+        true,
       );
     } else {
       dispatch(addAlert('alert:auth/no-photo-selected', 'error'));

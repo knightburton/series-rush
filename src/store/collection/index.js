@@ -8,7 +8,7 @@ export const initialState = {};
 // Reducer
 export const reducer = handleActions(
   {},
-  initialState
+  initialState,
 );
 
 // Async actions
@@ -27,7 +27,7 @@ export const addToCollection = (id, type) => async (dispatch, getState, { getFir
       {
         id,
         group: 'default',
-      }
+      },
     );
 
     dispatch(addAlert('alert:collection/add-to-collection-success', 'success'));
