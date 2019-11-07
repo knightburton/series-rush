@@ -21,6 +21,13 @@ export const getEllipsisText = (text, length) => {
   return `${text.substring(0, length).split(/\s/).slice(0, -1).join(' ')}...`;
 };
 
+// Location utils
+export const getValidatedPathnameFromPaths = (pathname, paths, defaultValue) => (
+  paths.includes(pathname)
+    ? pathname
+    : defaultValue
+);
+
 // TMDB utils
 export const parseTmdbConfiguration = data => {
   if (data && data.images) {

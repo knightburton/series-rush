@@ -58,7 +58,11 @@
       "title": "Dashboard"
     },
     "collection": {
-      "title": "Collection"
+      "title": "Collection",
+      "menu": {
+        "tv": "TV Shows",
+        "movie": "Movies"
+      }
     },
     "search": {
       "title": "Search",
