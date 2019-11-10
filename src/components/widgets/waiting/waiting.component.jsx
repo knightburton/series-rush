@@ -6,8 +6,6 @@ import Box from '@material-ui/core/Box';
 import Dialog from '@material-ui/core/Dialog';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
-import Icon from '@material-ui/icons/CodeOutlined';
-
 import useStyles from './waiting.styles';
 
 const ContetWaiting = () => {
@@ -50,7 +48,12 @@ const ScreenWaiting = () => {
       container
     >
       <Grid item>
-        <Icon />
+        <img
+          src="/logo192.png"
+          alt="Series Rush"
+          className={classes.logo}
+          draggable={false}
+        />
       </Grid>
     </Grid>
   );
