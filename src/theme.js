@@ -3,6 +3,18 @@ import { blueGrey, common } from '@material-ui/core/colors';
 
 const theme = createMuiTheme({
   palette: {
+    primary: {
+      light: '#374b5c',
+      main: '#051E34',
+      dark: '#031524',
+      contrastText: '#fff',
+    },
+    secondary: {
+      light: '#ff6333',
+      main: '#ff3d00',
+      dark: '#b22a00',
+      contrastText: '#fff',
+    },
     background: {
       default: blueGrey['50'],
     },
