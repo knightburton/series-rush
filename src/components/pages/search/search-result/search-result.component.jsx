@@ -18,8 +18,14 @@ import { ELLIPSIS_LENGTHS } from '../../../../constants/config';
 
 import useStyles from './search-result.styles';
 
-const SearchResult = ({ result }) => {
+const SearchResult = ({ result, addToCollection }) => {
   const classes = useStyles();
+
+  const handleAdd = () => {
+    const { id, type } = result;
+
+    addToCollection(id, type);
+  };
 
   return (
     <Card className={classes.card}>
@@ -64,7 +70,7 @@ const SearchResult = ({ result }) => {
           </Typography>
         </CardContent>
         <CardActions>
-          <IconButton>
+          <IconButton onClick={handleAdd}>
             <AddIcon />
           </IconButton>
           <Box className={classes.grow} />
@@ -88,6 +94,7 @@ SearchResult.propTypes = {
     overview: PropTypes.string,
     vote: PropTypes.number,
   }).isRequired,
+  addToCollection: PropTypes.func.isRequired,
 };
 
 export default SearchResult;

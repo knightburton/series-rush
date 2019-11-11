@@ -12,4 +12,7 @@ export default makeStyles(theme => ({
     justifyContent: 'center',
     paddingTop: theme.spacing(10),
   },
+  logo: {
+    maxHeight: theme.spacing(6),
+  },
 }));

@@ -1,7 +1,11 @@
 import DashboardIcon from '@material-ui/icons/DashboardOutlined';
 import CollectionIcon from '@material-ui/icons/CollectionsOutlined';
 
-import { APP_PATHS, PROFILE_PATHS } from './paths';
+import {
+  APP_PATHS,
+  PROFILE_PATHS,
+  COLLECTION_PATHS,
+} from './paths';
 
 export const MAIN_MENU = [
   {
@@ -33,5 +37,18 @@ export const PROFILE_MENU = [
     key: 'danger-zone',
     path: PROFILE_PATHS.DANGER_ZONE,
     title: 'page.profile.dangerZone.title',
+  },
+];
+
+export const COLLECTION_MENU = [
+  {
+    key: 'tv-shows',
+    path: COLLECTION_PATHS.TV,
+    title: 'page.collection.menu.tv',
+  },
+  {
+    key: 'movies',
+    path: COLLECTION_PATHS.MOVIE,
+    title: 'page.collection.menu.movie',
   },
 ];

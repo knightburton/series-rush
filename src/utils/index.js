@@ -1,6 +1,6 @@
 /* eslint-disable camelcase */
 import QueryString from 'query-string';
-import moment from 'moment';
+import { getTime, differenceInDays, format } from 'date-fns';
 import { SEARCH_TYPES } from '../constants/config';
 
 // Query utils
@@ -8,11 +8,11 @@ export const getSearchFromQueryString = (search, options) => QueryString.parse(s
 export const createSearchQueryString = object => QueryString.stringify(object);
 
 // Time utils
-export const getTimestamp = () => moment().valueOf();
-export const getTimestampFromDate = date => moment(date).valueOf();
-export const getDayDifferenceGreaterThan = (date, numberOfDays) => moment().diff(date, 'days') > numberOfDays;
-export const getDayDifferenceLessThan = (date, numberOfDays) => moment().diff(date, 'days') < numberOfDays;
-export const getLocalizedDate = date => moment(date).format('LL');
+export const getTimestamp = () => getTime(new Date());
+export const getTimestampFromDate = date => getTime(new Date(date));
+export const getDayDifferenceGreaterThan = (date, numberOfDays) => differenceInDays(new Date(), new Date(date)) > numberOfDays;
+export const getDayDifferenceLessThan = (date, numberOfDays) => differenceInDays(new Date(), new Date(date)) < numberOfDays;
+export const getLocalizedDate = date => format(new Date(date), 'PPP');
 
 // Text utils
 export const getEllipsisText = (text, length) => {
@@ -20,6 +20,13 @@ export const getEllipsisText = (text, length) => {
   if (text.length <= length) return text;
   return `${text.substring(0, length).split(/\s/).slice(0, -1).join(' ')}...`;
 };
+
+// Location utils
+export const getValidatedPathnameFromPaths = (pathname, paths, defaultValue) => (
+  paths.includes(pathname)
+    ? pathname
+    : defaultValue
+);
 
 // TMDB utils
 export const parseTmdbConfiguration = data => {

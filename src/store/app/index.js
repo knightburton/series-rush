@@ -26,37 +26,37 @@ export const TMDB_CONFIGURATON_FINISH = 'TMDB_CONFIGURATON_FINISH';
 // Action creators
 export const addAlert = createAction(
   ADD_ALERT,
-  (message, variant) => ({ message, variant })
+  (message, variant) => ({ message, variant }),
 );
 export const removeAlert = createAction(
   REMOVE_ALERT,
-  key => key
+  key => key,
 );
 export const setAppWaiting = createAction(
   SET_APP_WAITING,
-  isWaiting => isWaiting
+  isWaiting => isWaiting,
 );
 export const toggleMobileDrawer = createAction(
-  TOGGLE_MOBILE_DRAWER
+  TOGGLE_MOBILE_DRAWER,
 );
 export const tmdbConfigurationStart = createAction(
-  TMDB_CONFIGURATON_START
+  TMDB_CONFIGURATON_START,
 );
 export const tmdbConfigurationFinish = createAction(
   TMDB_CONFIGURATON_FINISH,
-  tmdbConfiguration => tmdbConfiguration
+  tmdbConfiguration => tmdbConfiguration,
 );
 
 // Selectors
 export const getAlerts = state => state.app.alerts;
 export const getLastAlert = createSelector(
   getAlerts,
-  alerts => alerts.pop()
+  alerts => alerts.pop(),
 );
 export const getWaiting = state => state.app.waiting;
 export const getIsAppWaiting = createSelector(
   getWaiting,
-  waiting => waiting > 0
+  waiting => waiting > 0,
 );
 export const getIsMobileDrawerOpened = state => state.app.isMobileDrawerOpened;
 export const getTmdbConfiguration = state => state.app.tmdbConfiguration;
@@ -82,7 +82,7 @@ export const reducer = handleActions(
     [toggleMobileDrawer]: state => ({ ...state, isMobileDrawerOpened: !state.isMobileDrawerOpened }),
     [tmdbConfigurationFinish]: (state, { payload: tmdbConfiguration }) => ({ ...state, tmdbConfiguration }),
   },
-  initialState
+  initialState,
 );
 
 // Thunk actions

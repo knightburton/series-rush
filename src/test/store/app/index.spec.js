@@ -235,7 +235,7 @@ describe('App reducer', () => {
           message: mockAlert.message,
           variant: mockAlert.variant,
         },
-      })
+      }),
     );
     expected.toHaveProperty('alerts', [mockAlert]);
   });
@@ -247,7 +247,7 @@ describe('App reducer', () => {
         payload: {
           message: mockAlert.message,
         },
-      })
+      }),
     );
     expected.toHaveProperty('alerts', [{
       ...mockAlert,
@@ -260,7 +260,7 @@ describe('App reducer', () => {
       app.reducer(mockState, {
         type: app.REMOVE_ALERT,
         payload: mockAlert.key,
-      })
+      }),
     );
     expected.toHaveProperty('alerts', []);
   });
@@ -270,7 +270,7 @@ describe('App reducer', () => {
       app.reducer(mockState, {
         type: app.REMOVE_ALERT,
         payload: mockAlert.key + 1,
-      })
+      }),
     );
     expected.toHaveProperty('alerts', [mockAlert]);
   });
@@ -280,7 +280,7 @@ describe('App reducer', () => {
       app.reducer(state, {
         type: app.SET_APP_WAITING,
         payload: true,
-      })
+      }),
     );
     expected.toHaveProperty('waiting', 1);
   });
@@ -294,7 +294,7 @@ describe('App reducer', () => {
       app.reducer(localState, {
         type: app.SET_APP_WAITING,
         payload: true,
-      })
+      }),
     );
     expected.toHaveProperty('waiting', 2);
   });
@@ -308,7 +308,7 @@ describe('App reducer', () => {
       app.reducer(localState, {
         type: app.SET_APP_WAITING,
         payload: false,
-      })
+      }),
     );
     expected.toHaveProperty('waiting', 0);
   });
@@ -318,7 +318,7 @@ describe('App reducer', () => {
       app.reducer(state, {
         type: app.SET_APP_WAITING,
         payload: false,
-      })
+      }),
     );
     expected.toHaveProperty('waiting', -1);
   });
@@ -327,7 +327,7 @@ describe('App reducer', () => {
     const expected = expect(
       app.reducer(state, {
         type: app.TOGGLE_MOBILE_DRAWER,
-      })
+      }),
     );
     expected.toHaveProperty('isMobileDrawerOpened', true);
   });
@@ -340,7 +340,7 @@ describe('App reducer', () => {
     const expected = expect(
       app.reducer(localState, {
         type: app.TOGGLE_MOBILE_DRAWER,
-      })
+      }),
     );
     expected.toHaveProperty('isMobileDrawerOpened', false);
   });
@@ -350,7 +350,7 @@ describe('App reducer', () => {
       app.reducer(mockState, {
         type: app.TMDB_CONFIGURATON_FINISH,
         payload: {},
-      })
+      }),
     );
     expected.toHaveProperty('tmdbConfiguration', {});
   });
@@ -360,7 +360,7 @@ describe('App reducer', () => {
       app.reducer(mockState, {
         type: app.TMDB_CONFIGURATON_FINISH,
         payload: null,
-      })
+      }),
     );
     expected.toHaveProperty('tmdbConfiguration', null);
   });
@@ -370,7 +370,7 @@ describe('App reducer', () => {
       app.reducer(mockState, {
         type: app.TMDB_CONFIGURATON_FINISH,
         payload: mockTmdbConfiguration,
-      })
+      }),
     );
     expected.toHaveProperty('tmdbConfiguration', mockTmdbConfiguration);
   });

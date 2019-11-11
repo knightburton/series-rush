@@ -26,8 +26,10 @@ export default makeStyles(theme => ({
     width: '100%',
   },
   select: {
-    padding: theme.spacing(1, 3, 0.75, 1),
+    padding: theme.spacing(0, 3, 0, 1),
     borderLeft: `1px solid ${theme.palette.divider}`,
     minWidth: theme.spacing(14),
+    height: '100%',
+    ...theme.typography.caption,
   },
 }));

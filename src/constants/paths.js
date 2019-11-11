@@ -16,3 +16,8 @@ export const PROFILE_PATHS = {
   CHANGE_PASSWORD: '/profile/change-password',
   DANGER_ZONE: '/profile/danger-zone',
 };
+
+export const COLLECTION_PATHS = {
+  TV: '/collection/tv',
+  MOVIE: '/collection/movie',
+};

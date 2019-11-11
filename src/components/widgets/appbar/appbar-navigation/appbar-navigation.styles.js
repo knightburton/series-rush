@@ -30,5 +30,8 @@ export default makeStyles(theme => ({
     borderTopLeftRadius: theme.shape.borderRadius,
     borderTopRightRadius: theme.shape.borderRadius,
     backgroundColor: theme.palette.common.white,
+    borderBottomWidth: 1,
+    borderBottomColor: theme.palette.divider,
+    borderBottomStyle: 'solid',
   },
 }));
