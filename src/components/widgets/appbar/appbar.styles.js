@@ -11,5 +11,6 @@ export default makeStyles(() => ({
   },
   base: {
     marginLeft: 0,
+    boxShadow: 'none',
   },
 }));
