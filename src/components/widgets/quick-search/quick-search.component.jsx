@@ -4,9 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { useLocation } from 'react-router-dom';
 
 import InputBase from '@material-ui/core/InputBase';
-import Select from '@material-ui/core/Select';
-import MenuItem from '@material-ui/core/MenuItem';
-import Typography from '@material-ui/core/Typography';
+import NativeSelect from '@material-ui/core/NativeSelect';
 
 import SearchIcon from '@material-ui/icons/SearchOutlined';
 
@@ -74,27 +72,22 @@ const QuickSearch = ({ search }) => {
         name="query"
         type="search"
       />
-      <Select
+      <NativeSelect
         id="type"
         name="type"
         classes={{
           root: classes.select,
         }}
-        renderValue={selected => (
-          <Typography variant="caption">
-            {t(`quickSearch.${selected}`)}
-          </Typography>
-        )}
         value={state.type.value}
         onChange={handleChange}
         disableUnderline
       >
         {Object.values(SEARCH_TYPES).map(key => (
-          <MenuItem key={key} value={key}>
+          <option key={key} value={key}>
             {t(`quickSearch.${key}`)}
-          </MenuItem>
+          </option>
         ))}
-      </Select>
+      </NativeSelect>
     </form>
   );
 };
