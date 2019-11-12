@@ -6,8 +6,7 @@ Track all your series and movies in one place on multiple platform.
 
 **Prerequisites**
 * This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
-In order to be able to run on your local machine install [node.js](https://nodejs.org). We encourage you to use [nvm](https://github.com/nvm-sh/nvm) to get the proper node version. (We are using the latest LTS verison of node.js, which is **v12.13.0** now.)
-
+In order to be able to run on your local machine install [node.js](https://nodejs.org). We encourage you to use [nvm](https://github.com/nvm-sh/nvm) to get the proper node version.
 * Also, the project runs with the power of [firebase](https://firebase.google.com/). To run the project, you have to acquire the proper firebase configs and provide them as environment variables. We suggest that to create your own firebase project, configure it for your needs and use that to run the project.
 
 **Commands**
