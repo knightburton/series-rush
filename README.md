@@ -2,15 +2,15 @@
 
 Track all your series and movies in one place on multiple platform.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
-In order to be able to run on your local machine install [node.js](https://nodejs.org). We encourage you to use [nvm](https://github.com/nvm-sh/nvm) to get the proper node version.
-
-**Note**: We are using the latest LTS verison of node.js, which is v12.13.0 now.
-
 ### Run the project locally
 
-**Prerequisites**: The project runs with the power of [firebase](https://firebase.google.com/). In order to run the project on your local machine, you have to acquire the proper firebase configs and provide them as environment variables. We suggest that to create your own firebase project, configure it for your needs and use that to run the project.
+**Prerequisites**
+* This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+In order to be able to run on your local machine install [node.js](https://nodejs.org). We encourage you to use [nvm](https://github.com/nvm-sh/nvm) to get the proper node version. (We are using the latest LTS verison of node.js, which is **v12.13.0** now.)
 
+* Also, the project runs with the power of [firebase](https://firebase.google.com/). To run the project, you have to acquire the proper firebase configs and provide them as environment variables. We suggest that to create your own firebase project, configure it for your needs and use that to run the project.
+
+**Commands**
 ```
 # Get the code
 $ git clone https://github.com/knightburton/series-rush.git
