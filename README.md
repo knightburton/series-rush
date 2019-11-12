@@ -1,39 +1,41 @@
 # Series-Rush
 
-Track all your series and movies in one place.
+Track all your series and movies in one place on multiple platform.
 
-## Usage
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+In order to be able to run on your local machine install [node.js](https://nodejs.org). We encourage you to use [nvm](https://github.com/nvm-sh/nvm) to get the proper node version.
 
-### Get the code
+**Note**: We are using the latest LTS verison of node.js, which is v12.13.0 now.
 
-`git clone https://github.com/knightburton/series-rush.git`
+### Run the project locally
 
-### Install npm
+**Prerequisites**: The project runs with the power of [firebase](https://firebase.google.com/). In order to run the project on your local machine, you have to acquire the proper firebase configs and provide them as environment variables. We suggest that to create your own firebase project, configure it for your needs and use that to run the project.
 
-`curl -L https://www.npmjs.com/install.sh | sh`
+```
+# Get the code
+$ git clone https://github.com/knightburton/series-rush.git
 
-Or use nvm ( https://github.com/nvm-sh/nvm )
+# Enter the project root folder
+$ cd series-rush
 
-### Install packages
+# Install packages
+$ npm i
 
-In the root folder:
+# Optional: Clean install
+$ rm -rf node_modules
+$ npm clean cache --force
+$ npm i
 
-`npm install`
+# Start the project
+$ npm start
+```
 
-### Optional: Clean install
+### Contributing
 
-If you run into any issue during install:
+First off all, thanks for taking the time to contribute! :muscle:
 
-`rm -rf node_modules`
+Before any action, please visit the [Code of Conduct](https://github.com/knightburton/series-rush/blob/master/CODE_OF_CONDUCT.md) and [Contributing guideline](https://github.com/knightburton/series-rush/blob/master/CONTRIBUTING.md) for more information.
 
-`npm clean cache --force`
+### License
 
-`npm install`
-
-### Start the npm server
-
-`npm start`
-
-### Enjoy
-
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+Series Rush is Open Source software under the Apache 2.0 license. Complete license and copyright information can be found within the [license](https://github.com/knightburton/series-rush/blob/master/LICENSE).
