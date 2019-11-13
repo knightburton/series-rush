@@ -20,6 +20,7 @@ export const getEllipsisText = (text, length) => {
   if (text.length <= length) return text;
   return `${text.substring(0, length).split(/\s/).slice(0, -1).join(' ')}...`;
 };
+export const getFirstLetter = (string, defaultValue = '') => (string && typeof string === 'string' && string.charAt(0)) || defaultValue;
 
 // Location utils
 export const getValidatedPathnameFromPaths = (pathname, paths, defaultValue) => (
@@ -28,7 +29,7 @@ export const getValidatedPathnameFromPaths = (pathname, paths, defaultValue) => 
     : defaultValue
 );
 
-// TMDB utils
+// TMDb utils
 export const parseTmdbConfiguration = data => {
   if (data && data.images) {
     const { secure_base_url, backdrop_sizes, poster_sizes } = data.images;
