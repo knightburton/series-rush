@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
 
@@ -10,18 +10,12 @@ import { getFirstLetter } from '../../../utils';
 
 import useStyles from './chip-array.styles';
 
-const ChipArray = ({ items, size, variant, selectedByDefault, onClick }) => {
+const ChipArray = ({ items, size, variant, selected, onClick }) => {
   const classes = useStyles();
-  const [selected, updateSelected] = useState(onClick ? selectedByDefault : '');
   const boxClasses = clsx({
     [classes.smallBox]: size === 'small',
     [classes.mediumBox]: size === 'medium',
   });
-
-  const handleClick = key => {
-    updateSelected(key);
-    onClick(key);
-  };
 
   return (
     <Box className={boxClasses}>
@@ -34,7 +28,7 @@ const ChipArray = ({ items, size, variant, selectedByDefault, onClick }) => {
             </Avatar>
           )}
           label={item.label}
-          onClick={onClick ? () => handleClick(item.key) : undefined}
+          onClick={onClick ? () => onClick(item.key) : undefined}
           size={size}
           variant={variant}
           color={selected === item.key ? 'secondary' : 'default'}
@@ -52,15 +46,15 @@ ChipArray.propTypes = {
   })).isRequired,
   size: PropTypes.oneOf(['small', 'medium']),
   variant: PropTypes.oneOf(['default', 'outlined']),
-  selectedByDefault: PropTypes.string,
+  selected: PropTypes.string,
   onClick: PropTypes.func,
 };
 
 ChipArray.defaultProps = {
   size: 'medium',
   variant: 'default',
-  selectedByDefault: '',
-  onClick: null,
+  selected: '',
+  onClick: undefined,
 };
 
 export default ChipArray;
