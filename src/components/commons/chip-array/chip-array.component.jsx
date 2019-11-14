@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import clsx from 'clsx';
 
 import Box from '@material-ui/core/Box';
 import Chip from '@material-ui/core/Chip';
@@ -11,14 +10,10 @@ import { getFirstLetter } from '../../../utils';
 import useStyles from './chip-array.styles';
 
 const ChipArray = ({ items, size, variant, selected, onClick }) => {
-  const classes = useStyles();
-  const boxClasses = clsx({
-    [classes.smallBox]: size === 'small',
-    [classes.mediumBox]: size === 'medium',
-  });
+  const classes = useStyles({ size });
 
   return (
-    <Box className={boxClasses}>
+    <Box className={classes.box}>
       {items.map((item, index) => (
         <Chip
           key={item.key}
