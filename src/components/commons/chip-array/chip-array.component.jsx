@@ -9,8 +9,8 @@ import { getFirstLetter } from '../../../utils';
 
 import useStyles from './chip-array.styles';
 
-const ChipArray = ({ items, size, variant, selected, onClick }) => {
-  const classes = useStyles({ size });
+const ChipArray = ({ items, size, variant, selected, onClick, breakpoint }) => {
+  const classes = useStyles({ size, breakpoint });
 
   return (
     <Box className={classes.box}>
@@ -28,6 +28,9 @@ const ChipArray = ({ items, size, variant, selected, onClick }) => {
           variant={variant}
           color={selected === item.key ? 'secondary' : 'default'}
           className={classes.chip}
+          classes={{
+            label: classes.label,
+          }}
         />
       ))}
     </Box>
@@ -43,6 +46,7 @@ ChipArray.propTypes = {
   variant: PropTypes.oneOf(['default', 'outlined']),
   selected: PropTypes.string,
   onClick: PropTypes.func,
+  breakpoint: PropTypes.oneOf(['xs', 'sm', 'md', 'lg', '']),
 };
 
 ChipArray.defaultProps = {
@@ -50,6 +54,7 @@ ChipArray.defaultProps = {
   variant: 'default',
   selected: '',
   onClick: undefined,
+  breakpoint: '',
 };
 
 export default ChipArray;

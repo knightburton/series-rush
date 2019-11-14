@@ -13,9 +13,17 @@ export default makeStyles(theme => ({
     marginTop: theme.spacing(props.size === 'small' ? 1.5 : 1),
     marginBottom: theme.spacing(props.size === 'small' ? 1.5 : 1),
   }),
-  chip: {
+  chip: props => ({
     '&:not(:last-child)': {
       marginRight: theme.spacing(1),
     },
-  },
+    [theme.breakpoints.down(props.breakpoint)]: {
+      paddingRight: theme.spacing(1) + 2,
+    },
+  }),
+  label: props => ({
+    [theme.breakpoints.down(props.breakpoint)]: {
+      display: 'none',
+    },
+  }),
 }));
