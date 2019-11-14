@@ -24,7 +24,7 @@ export default makeStyles(theme => ({
   },
   progressCircle: {
     position: 'absolute',
-    color: theme.palette.primary.main,
+    color: theme.palette.primary.light,
     zIndex: 1,
   },
 }));
