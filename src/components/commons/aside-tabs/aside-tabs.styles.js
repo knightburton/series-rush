@@ -15,6 +15,7 @@ export default makeStyles(theme => ({
   },
   tab: {
     maxWidth: '100%',
+    minWidth: 'unset',
     '&:hover': {
       color: theme.palette.secondary.light,
     },
