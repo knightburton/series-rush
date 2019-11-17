@@ -6,6 +6,9 @@ const {
   GROUP_TYPES,
 } = require('../constants');
 
+/**
+ * Creates the default group object with the number of gourps constants.
+ */
 const createGroupItems = () => [...Array(NUMBER_OF_GROUPS).keys()].reduce((o, index) => ({
   ...o,
   [uuid()]: index === 0 ? 'Default' : '',
