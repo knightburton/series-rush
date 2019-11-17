@@ -27,8 +27,8 @@ const userCleanup = functions.auth.user().onDelete(async user => {
   console.log('[userCleanup]: User ID: ', uid);
 
   try {
-    const firestoreDoc = admin.firestore().collection('profiles').doc(uid);
-    const queryDocumentSnapshot = await firestoreDoc.get();
+    const profileDoc = admin.firestore().collection('profiles').doc(uid);
+    const queryDocumentSnapshot = await profileDoc.get();
     const photoName = queryDocumentSnapshot.get('photoName');
 
     if (photoName) {
@@ -38,7 +38,11 @@ const userCleanup = functions.auth.user().onDelete(async user => {
     }
 
     console.log('[userCleanup]: Cleanup profile data...');
-    await firestoreDoc.delete();
+    await profileDoc.delete();
+
+    console.log('[userCleanup]: Cleanup collections data...');
+    const collectionDoc = admin.firestore().collection('collections').doc(uid);
+    await collectionDoc.delete();
 
   } catch (error) {
     console.error('[userCleanup]: Failed with error: ', error);
