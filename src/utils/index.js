@@ -106,3 +106,13 @@ export const parseSearchData = (data, type, configuration) => {
     results,
   };
 };
+
+// Firestore utils
+export const getCollectionGroupsQuery = profileID => ({
+  collection: 'collections',
+  doc: profileID,
+  subcollections: [
+    { collection: 'groups' },
+  ],
+  storeAs: 'groups',
+});
