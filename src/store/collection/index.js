@@ -4,6 +4,7 @@ import { setAppWaiting, addAlert } from '../app';
 import { getProfile } from '../auth';
 import { getFirestoreOrderedByCollection } from '../firestore';
 import { SEARCH_TYPES } from '../../constants/config';
+import { getCollectionGroupsQuery } from '../../utils';
 
 // Initial state
 export const initialState = {};
@@ -29,14 +30,7 @@ export const fetchCollectionGroups = () => async (dispatch, getState, { getFires
   try {
     const firestore = getFirestore();
     const { id } = getProfile(getState());
-    await firestore.get({
-      collection: 'collections',
-      doc: id,
-      subcollections: [
-        { collection: 'groups' },
-      ],
-      storeAs: 'groups',
-    });
+    await firestore.get(getCollectionGroupsQuery(id));
   } catch (error) {
     dispatch(addAlert('alert:collection/fetch-collection-group-failure', 'error'));
   }
