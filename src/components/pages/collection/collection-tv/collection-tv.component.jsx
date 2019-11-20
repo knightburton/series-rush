@@ -1,11 +1,23 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import Box from '@material-ui/core/Box';
 
-const CollectionTv = () => (
+import ChipArray from '../../../commons/chip-array/chip-array.component';
+
+const CollectionTv = ({ groups }) => (
   <Box>
-    Collection TV
+    <ChipArray
+      items={groups}
+    />
   </Box>
 );
+
+CollectionTv.propTypes = {
+  groups: PropTypes.arrayOf(PropTypes.shape({
+    key: PropTypes.string,
+    label: PropTypes.string,
+  })).isRequired,
+};
 
 export default CollectionTv;
