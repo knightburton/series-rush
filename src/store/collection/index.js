@@ -4,7 +4,10 @@ import { setAppWaiting, addAlert } from '../app';
 import { getProfile } from '../auth';
 import { getFirestoreOrderedByCollection } from '../firestore';
 import { SEARCH_TYPES } from '../../constants/config';
-import { getCollectionGroupsQuery } from '../../utils';
+import {
+  getCollectionGroupsQuery,
+  getPropertyByPath,
+} from '../../utils';
 
 // Initial state
 export const initialState = {};
@@ -16,13 +19,17 @@ export const reducer = handleActions(
 );
 
 // Selectors
-export const getTVGroups = createSelector(
-  getFirestoreOrderedByCollection('groups'),
-  groups => groups && groups.length && groups.find(group => group.type === SEARCH_TYPES.TV),
+export const getAllGroupsByType = type => createSelector(
+  getFirestoreOrderedByCollection(type),
+  groups => groups && groups.length && getPropertyByPath(groups.find(group => group.type === SEARCH_TYPES[type]), 'items', {}),
 );
-export const getMovieGroups = createSelector(
-  getFirestoreOrderedByCollection('movie'),
-  groups => groups && groups.length && groups.find(group => group.type === SEARCH_TYPES.MOVIE),
+export const getValidGroupsByType = type => createSelector(
+  getFirestoreOrderedByCollection('groups'),
+  groups => {
+    const items = groups && groups.length && getPropertyByPath(groups.find(group => group.type === type), 'items', {});
+    const validItems = items && Object.keys(items).reduce((a, i) => (items[i] ? [...a, { key: i, label: items[i] }] : a), []);
+    return validItems || [];
+  },
 );
 
 // Async actions
