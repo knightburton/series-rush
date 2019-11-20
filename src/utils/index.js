@@ -29,6 +29,12 @@ export const getValidatedPathnameFromPaths = (pathname, paths, defaultValue) => 
     : defaultValue
 );
 
+// Object utils
+export const getPropertyByPath = (object, path, defaultValue) => {
+  if (!path) return object;
+  return path.split('.').reduce((o, key) => (o && o[key] ? o[key] : defaultValue), object);
+};
+
 // TMDb utils
 export const parseTmdbConfiguration = data => {
   if (data && data.images) {
