@@ -1,8 +1,12 @@
 import { connect } from 'react-redux';
-
 import CollectionMovie from './collection-movie.component';
 
-const mapStateToProps = () => ({});
+import { getGroupsByType } from '../../../../store/collection';
+import { SEARCH_TYPES } from '../../../../constants/config';
+
+const mapStateToProps = state => ({
+  groups: getGroupsByType(SEARCH_TYPES.MOVIE)(state),
+});
 
 const mapDispatchToProps = {};
 

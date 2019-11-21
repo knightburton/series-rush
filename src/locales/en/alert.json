@@ -31,6 +31,7 @@
   "api/tmdb-search-failed": "The search has failed, try to search again later.",
   "api/tmdb-search-page-failed": "The page load has failed, try to select a new page.",
 
+  "collection/fetch-collection-group-failure": "There was a problem fetching the colletion groups.",
   "collection/add-to-collection-success": "The selected item has been added to your collection.",
   "collection/add-to-collection-failure": "There was a problem adding the selected item to your collection, please try again."
 }
