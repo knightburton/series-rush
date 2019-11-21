@@ -53,24 +53,26 @@ const userCleanup = functions.auth.user().onDelete(async user => {
  * Creates the new fixed length tv and movi groups for the new user.
  */
 const userCreate = functions.auth.user().onCreate(async user => {
-  const { firstName, lastName, uid } = user;
+  const { uid } = user;
 
   console.log('[userCreate]: User ID: ', uid);
 
   try {
     console.log('[userCreate]: Create the default tv groups for the new user...');
-    const tvGroupItems = createGroupItems();
-    await admin.firestore().collection('collections').doc(uid).collection('groups').add({
-      type: GROUP_TYPES.TV,
-      items: tvGroupItems,
-    });
+    await admin.firestore()
+      .collection('collections')
+      .doc(uid)
+      .collection('groups')
+      .doc(GROUP_TYPES.TV)
+      .set(createGroupItems());
 
     console.log('[userCreate]: Create the default movie groups for the new user...');
-    const movieGroupItems = createGroupItems();
-    await admin.firestore().collection('collections').doc(uid).collection('groups').add({
-      type: GROUP_TYPES.MOVIE,
-      items: movieGroupItems,
-    });
+    await admin.firestore()
+      .collection('collections')
+      .doc(uid)
+      .collection('groups')
+      .doc(GROUP_TYPES.MOVIE)
+      .set(createGroupItems());
 
   } catch (error) {
     console.error('[userCreate]: Failed with error: ', error);
