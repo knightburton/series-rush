@@ -1,10 +1,11 @@
 import { connect } from 'react-redux';
-
-import { getValidGroupsByType } from '../../../../store/collection';
 import CollectionTv from './collection-tv.component';
 
+import { getGroupsByType } from '../../../../store/collection';
+import { SEARCH_TYPES } from '../../../../constants/config';
+
 const mapStateToProps = state => ({
-  groups: getValidGroupsByType('tv')(state),
+  groups: getGroupsByType(SEARCH_TYPES.TV)(state),
 });
 
 const mapDispatchToProps = {};

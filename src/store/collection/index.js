@@ -2,12 +2,8 @@ import { handleActions } from 'redux-actions';
 import { createSelector } from 'reselect';
 import { setAppWaiting, addAlert } from '../app';
 import { getProfile } from '../auth';
-import { getFirestoreOrderedByCollection } from '../firestore';
-import { SEARCH_TYPES } from '../../constants/config';
-import {
-  getCollectionGroupsQuery,
-  getPropertyByPath,
-} from '../../utils';
+import { getFirestoreDataByPath } from '../firestore';
+import { getCollectionGroupsQuery } from '../../utils';
 
 // Initial state
 export const initialState = {};
@@ -19,17 +15,12 @@ export const reducer = handleActions(
 );
 
 // Selectors
-export const getAllGroupsByType = type => createSelector(
-  getFirestoreOrderedByCollection(type),
-  groups => groups && groups.length && getPropertyByPath(groups.find(group => group.type === SEARCH_TYPES[type]), 'items', {}),
-);
-export const getValidGroupsByType = type => createSelector(
-  getFirestoreOrderedByCollection('groups'),
-  groups => {
-    const items = groups && groups.length && getPropertyByPath(groups.find(group => group.type === type), 'items', {});
-    const validItems = items && Object.keys(items).reduce((a, i) => (items[i] ? [...a, { key: i, label: items[i] }] : a), []);
-    return validItems || [];
-  },
+export const getGroupsByType = type => createSelector(
+  getFirestoreDataByPath(`groups.${type}`),
+  groups => Object.keys(groups).reduce((a, group) => {
+    if (groups[group]) return [...a, { key: group, label: groups[group] }];
+    return a;
+  }, []),
 );
 
 // Async actions

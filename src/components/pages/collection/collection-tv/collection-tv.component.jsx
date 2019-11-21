@@ -9,6 +9,7 @@ const CollectionTv = ({ groups }) => (
   <Box>
     <ChipArray
       items={groups}
+      breakpoint="xs"
     />
   </Box>
 );

@@ -1,17 +1,18 @@
 import { createSelector } from 'reselect';
+import { getPropertyByPath } from '../../utils';
 
 // Selectors
 export const getFirestore = state => state.firestore;
 export const getFirestoreStatus = state => state.firestore.status;
 
 export const getFirestoreData = state => state.firestore.data;
-export const getFirestoreDataByCollection = collection => createSelector(
+export const getFirestoreDataByPath = path => createSelector(
   getFirestoreData,
-  data => (data && data[collection]) || null,
+  data => getPropertyByPath(data, path, {}),
 );
 
 export const getFirestoreOrdered = state => state.firestore.ordered;
-export const getFirestoreOrderedByCollection = collection => createSelector(
+export const getFirestoreOrderedByPath = path => createSelector(
   getFirestoreOrdered,
-  ordered => (ordered && ordered[collection]) || null,
+  ordered => getPropertyByPath(ordered, path, []),
 );
