@@ -22,6 +22,7 @@ const ContentWrapper = ({ children }) => {
       <Box className={classes.toolbar} />
       {signedIn && (
         <Box className={classes.searchWrapper}>
+          <Box className={classes.toolbar} />
           <Container maxWidth="lg">
             <QuickSearch />
           </Container>

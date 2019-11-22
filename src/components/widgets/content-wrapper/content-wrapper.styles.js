@@ -2,6 +2,8 @@ import { makeStyles } from '@material-ui/core/styles';
 
 export default makeStyles(theme => ({
   base: {
+    display: 'flex',
+    flexDirection: 'column',
     flexGrow: 1,
   },
   searchWrapper: {
@@ -11,10 +13,13 @@ export default makeStyles(theme => ({
     zIndex: theme.zIndex.appBar - 1,
   },
   content: {
-    padding: theme.spacing(3, 0),
+    position: 'relative',
+    display: 'flex',
+    flexGrow: 1,
+    padding: theme.spacing(3, 0, 2, 0),
   },
   margin: {
-    marginTop: theme.spacing(4.5),
+    marginTop: theme.spacing(4),
   },
   toolbar: {
     ...theme.mixins.toolbar,
