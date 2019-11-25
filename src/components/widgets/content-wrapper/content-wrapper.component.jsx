@@ -1,6 +1,5 @@
 import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
-import clsx from 'clsx';
 
 import Box from '@material-ui/core/Box';
 import Container from '@material-ui/core/Container';
@@ -13,9 +12,8 @@ import ProfileContext from '../../../contexts/profile';
 import useStyles from './content-wrapper.styles';
 
 const ContentWrapper = ({ children }) => {
-  const classes = useStyles();
   const { signedIn } = useContext(ProfileContext);
-  const contentClasses = clsx(classes.content, { [classes.margin]: signedIn });
+  const classes = useStyles({ contentMargin: signedIn });
 
   return (
     <Box className={classes.base}>
@@ -29,7 +27,7 @@ const ContentWrapper = ({ children }) => {
           <Divider />
         </Box>
       )}
-      <Box className={contentClasses}>
+      <Box className={classes.content}>
         {children}
       </Box>
     </Box>

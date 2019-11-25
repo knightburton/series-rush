@@ -12,15 +12,13 @@ export default makeStyles(theme => ({
     backgroundColor: theme.palette.background.paper,
     zIndex: theme.zIndex.appBar - 1,
   },
-  content: {
+  content: ({ contentMargin }) => ({
     position: 'relative',
     display: 'flex',
     flexGrow: 1,
     padding: theme.spacing(3, 0, 2, 0),
-  },
-  margin: {
-    marginTop: theme.spacing(4),
-  },
+    marginTop: theme.spacing(contentMargin ? 4 : 0),
+  }),
   toolbar: {
     ...theme.mixins.toolbar,
   },

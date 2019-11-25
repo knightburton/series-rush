@@ -1,6 +1,5 @@
 import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
-import clsx from 'clsx';
 
 import MuiDrawer from '@material-ui/core/Drawer';
 import Hidden from '@material-ui/core/Hidden';
@@ -18,9 +17,9 @@ const Drawer = ({ isMobileDrawerOpened, toggleMobileDrawer }) => {
     <Hidden mdUp>
       <MuiDrawer
         variant="temporary"
-        className={clsx(classes.drawer, classes.drawerOpen)}
+        className={classes.drawer}
         classes={{
-          paper: classes.drawerOpen,
+          paper: classes.drawer,
         }}
         open={isMobileDrawerOpened}
         onClose={() => toggleMobileDrawer()}
