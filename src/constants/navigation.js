@@ -43,12 +43,12 @@ export const PROFILE_MENU = [
 export const COLLECTION_MENU = [
   {
     key: 'tv-shows',
-    path: COLLECTION_PATHS.TV,
+    path: COLLECTION_PATHS.LIST_TV,
     title: 'page.collection.menu.tv',
   },
   {
     key: 'movies',
-    path: COLLECTION_PATHS.MOVIE,
+    path: COLLECTION_PATHS.LIST_MOVIE,
     title: 'page.collection.menu.movie',
   },
 ];

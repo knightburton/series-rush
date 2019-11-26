@@ -24,7 +24,7 @@ const Collection = () => {
       <Box position="relative" height="100%">
         <AsideTabsGrid
           tabs={COLLECTION_MENU}
-          defaultTab={COLLECTION_PATHS.TV}
+          defaultTab={COLLECTION_PATHS.LIST_TV}
         >
           <CollectionRoutes />
         </AsideTabsGrid>
