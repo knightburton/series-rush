@@ -5,7 +5,6 @@ import Container from '@material-ui/core/Container';
 import Box from '@material-ui/core/Box';
 
 import AsideTabsGrid from '../../commons/aside-tabs-grid/aside-tabs-grid.component';
-import FloatingEditButton from '../../commons/floating-edit-button/floating-edit-button.component';
 
 import CollectionRoutes from '../../../routes/collection-routes';
 
@@ -28,7 +27,6 @@ const Collection = () => {
         >
           <CollectionRoutes />
         </AsideTabsGrid>
-        <FloatingEditButton onClick={() => {}} bottom right />
       </Box>
     </Container>
   );
