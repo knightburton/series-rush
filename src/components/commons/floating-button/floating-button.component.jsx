@@ -5,7 +5,7 @@ import Fab from '@material-ui/core/Fab';
 
 import useStyles from './floating-button.styles';
 
-const FLoatingEditButton = ({ icon, color, size, disabled, bottom, right, withGutter, onClick }) => {
+const FLoatingEditButton = ({ icon: Icon, color, size, disabled, bottom, right, withGutter, onClick }) => {
   const classes = useStyles({ bottom, right, withGutter });
 
   return (
@@ -16,7 +16,7 @@ const FLoatingEditButton = ({ icon, color, size, disabled, bottom, right, withGu
       className={classes.button}
       onClick={onClick}
     >
-      <icon />
+      <Icon />
     </Fab>
   );
 };
