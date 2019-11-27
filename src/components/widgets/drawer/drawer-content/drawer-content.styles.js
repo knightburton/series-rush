@@ -5,6 +5,7 @@ export default makeStyles(theme => ({
     textTransform: 'none',
     textDecoration: 'none',
     color: 'inherit',
+    padding: theme.spacing(0, 2),
   },
   list: {
     paddingTop: 0,

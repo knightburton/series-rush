@@ -15,6 +15,9 @@ export default makeStyles(theme => ({
     alignItems: 'center',
     justifyContent: 'center',
     zIndex: +1,
+    [theme.breakpoints.up('md')]: {
+      marginLeft: theme.spacing(1),
+    },
   },
   inputRoot: {
     color: 'inherit',
@@ -24,6 +27,9 @@ export default makeStyles(theme => ({
     padding: theme.spacing(1, 1, 1, 6),
     transition: theme.transitions.create('width'),
     width: '100%',
+    [theme.breakpoints.up('md')]: {
+      paddingLeft: theme.spacing(7),
+    },
   },
   select: {
     padding: theme.spacing(0, 3, 0, 1),

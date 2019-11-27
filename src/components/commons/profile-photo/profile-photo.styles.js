@@ -1,31 +1,18 @@
 import { makeStyles } from '@material-ui/core/styles';
 
+const SIZES = {
+  extraSmall: 24,
+  small: 30,
+  medium: 40,
+  large: 60,
+  extraLarge: 120,
+  huge: 200,
+};
+
 export default makeStyles(() => ({
-  margin: {
-    margin: 10,
-  },
-  extraSmall: {
-    width: 24,
-    height: 24,
-  },
-  small: {
-    width: 30,
-    height: 30,
-  },
-  medium: {
-    width: 40,
-    height: 40,
-  },
-  large: {
-    width: 60,
-    height: 60,
-  },
-  extraLarge: {
-    width: 120,
-    height: 120,
-  },
-  huge: {
-    width: 200,
-    height: 200,
-  },
+  avatar: ({ size, withGutter }) => ({
+    width: SIZES[size],
+    height: SIZES[size],
+    margin: withGutter ? 10 : 0,
+  }),
 }));

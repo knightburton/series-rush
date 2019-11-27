@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import { useFirestoreConnect } from 'react-redux-firebase';
 
 import Container from '@material-ui/core/Container';
+import Box from '@material-ui/core/Box';
 
 import AsideTabsGrid from '../../commons/aside-tabs-grid/aside-tabs-grid.component';
 
@@ -19,12 +20,14 @@ const Collection = () => {
 
   return (
     <Container maxWidth="lg">
-      <AsideTabsGrid
-        tabs={COLLECTION_MENU}
-        defaultTab={COLLECTION_PATHS.TV}
-      >
-        <CollectionRoutes />
-      </AsideTabsGrid>
+      <Box position="relative" height="100%">
+        <AsideTabsGrid
+          tabs={COLLECTION_MENU}
+          defaultTab={COLLECTION_PATHS.LIST_TV}
+        >
+          <CollectionRoutes />
+        </AsideTabsGrid>
+      </Box>
     </Container>
   );
 };

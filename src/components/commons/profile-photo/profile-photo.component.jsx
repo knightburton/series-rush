@@ -1,6 +1,5 @@
 import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
-import clsx from 'clsx';
 import { useTranslation } from 'react-i18next';
 
 import Avatar from '@material-ui/core/Avatar';
@@ -12,7 +11,7 @@ import ProfileContext from '../../../contexts/profile';
 import useStyles from './profile-photo.styles';
 
 const ProfilePhoto = ({ alt, size, withGutter, withDisabledColor }) => {
-  const classes = useStyles();
+  const classes = useStyles({ size, withGutter });
   const { t } = useTranslation();
   const { photoURL } = useContext(ProfileContext);
 
@@ -21,17 +20,11 @@ const ProfilePhoto = ({ alt, size, withGutter, withDisabledColor }) => {
       alt={alt || t('common:profilePhoto')}
       src={photoURL}
       imgProps={{ draggable: false }}
-      className={clsx(
-        { [classes[size]]: size },
-        classes.border,
-      )}
+      className={classes.avatar}
     />
   ) : (
     <AccountCircleIcon
-      className={clsx({
-        [classes[size]]: size,
-        [classes.margin]: withGutter,
-      })}
+      className={classes.avatar}
       color={withDisabledColor ? 'disabled' : 'inherit'}
     />
   ));

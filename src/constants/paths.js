@@ -18,6 +18,7 @@ export const PROFILE_PATHS = {
 };
 
 export const COLLECTION_PATHS = {
-  TV: '/collection/tv',
-  MOVIE: '/collection/movie',
+  LIST: '/collection/:listType',
+  LIST_TV: '/collection/tv',
+  LIST_MOVIE: '/collection/movie',
 };

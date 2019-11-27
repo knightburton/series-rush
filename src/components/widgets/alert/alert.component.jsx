@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import clsx from 'clsx';
 import { useTranslation } from 'react-i18next';
 
 import IconButton from '@material-ui/core/IconButton';
@@ -23,9 +22,9 @@ const variantIcon = {
 };
 
 const Alert = ({ alert, removeAlert }) => {
-  const classes = useStyles();
-  const { t } = useTranslation();
   const { key, variant, message } = alert;
+  const classes = useStyles({ variant });
+  const { t } = useTranslation();
 
   const handleClose = reason => {
     if (reason === 'timeout') removeAlert(key);
@@ -49,11 +48,11 @@ const Alert = ({ alert, removeAlert }) => {
       disableWindowBlurListener
     >
       <SnackbarContent
-        className={clsx(classes[variant], classes.snackbarContent)}
+        className={classes.snackbarContent}
         aria-describedby="sr-single-snackbar"
         message={(
           <span id="sr-single-snackbar" className={classes.message}>
-            <Icon className={clsx(classes.icon, classes.iconVariant)} />
+            <Icon className={classes.messageIcon} />
             {t(message)}
           </span>
         )}
