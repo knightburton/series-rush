@@ -16,7 +16,7 @@ const ChipArray = ({ items, size, variant, selected, onClick, breakpoint }) => {
     <Box className={classes.box}>
       {items.map((item, index) => (
         <Chip
-          key={item.key}
+          key={item.key || item.id}
           avatar={(
             <Avatar>
               {getFirstLetter(item.label, index + 1)}
@@ -39,6 +39,7 @@ const ChipArray = ({ items, size, variant, selected, onClick, breakpoint }) => {
 
 ChipArray.propTypes = {
   items: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.string,
     key: PropTypes.string,
     label: PropTypes.string,
   })).isRequired,
