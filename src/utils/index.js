@@ -9,10 +9,10 @@ export const createSearchQueryString = object => QueryString.stringify(object);
 
 // Time utils
 export const getTimestamp = () => getTime(new Date());
-export const getTimestampFromDate = date => getTime(new Date(date));
+export const getTimestampFromDate = date => (date ? getTime(new Date(date)) : '');
 export const getDayDifferenceGreaterThan = (date, numberOfDays) => differenceInDays(new Date(), new Date(date)) > numberOfDays;
 export const getDayDifferenceLessThan = (date, numberOfDays) => differenceInDays(new Date(), new Date(date)) < numberOfDays;
-export const getLocalizedDate = date => format(new Date(date), 'PPP');
+export const getLocalizedDate = date => (date ? format(new Date(date), 'PPP') : '');
 
 // Text utils
 export const getEllipsisText = (text, length) => {
