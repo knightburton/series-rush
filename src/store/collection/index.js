@@ -2,7 +2,7 @@ import { handleActions } from 'redux-actions';
 import { createSelector } from 'reselect';
 import { setAppWaiting, addAlert } from '../app';
 import { getProfile } from '../auth';
-import { getFirestoreDataByPath } from '../firestore';
+import { getFirestoreOrderedByPath } from '../firestore';
 import { getCollectionGroupsQuery } from '../../utils';
 
 // Initial state
@@ -16,11 +16,8 @@ export const reducer = handleActions(
 
 // Selectors
 export const getGroupsByType = type => createSelector(
-  getFirestoreDataByPath(`groups.${type}`),
-  groups => Object.keys(groups).reduce((a, group) => {
-    if (groups[group]) return [...a, { key: group, label: groups[group] }];
-    return a;
-  }, []),
+  getFirestoreOrderedByPath(`${type}Groups`),
+  groups => groups,
 );
 
 // Async actions
