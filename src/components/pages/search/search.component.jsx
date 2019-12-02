@@ -1,14 +1,19 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import PropTypes from 'prop-types';
 import Pagination from 'material-ui-flat-pagination';
 import { useTranslation } from 'react-i18next';
 import { useLocation } from 'react-router-dom';
+import { useFirestoreConnect } from 'react-redux-firebase';
 
 import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
 
+import ProfileContext from '../../../contexts/profile';
+
 import Waiting from '../../widgets/waiting/waiting.component';
 import SearchResults from './search-results/search-results.container';
+
+import { getEnabledCollectionGroupsQuery } from '../../../utils';
 
 import useStyles from './search.styles';
 
@@ -17,6 +22,8 @@ const Search = ({ results, query, page, numberOfPages, clearSearchProps, search,
   const { t } = useTranslation();
   const location = useLocation();
   const [selectedPage, selectPage] = useState(null);
+  const { id } = useContext(ProfileContext);
+  useFirestoreConnect(getEnabledCollectionGroupsQuery(id));
 
   const handlePageSelect = (e, offset) => {
     search({ page: offset + 1 });

@@ -1,11 +1,15 @@
 import { connect } from 'react-redux';
-
-import {
-  addToCollection,
-} from '../../../../store/collection';
 import SearchResult from './search-result.component';
 
-const mapStateToProps = () => ({});
+import {
+  getGroupsByType,
+  addToCollection,
+} from '../../../../store/collection';
+import { getPropertyByPath } from '../../../../utils';
+
+const mapStateToProps = (state, { result }) => ({
+  groups: getGroupsByType(getPropertyByPath(result, 'type'))(state),
+});
 
 const mapDispatchToProps = {
   addToCollection,
