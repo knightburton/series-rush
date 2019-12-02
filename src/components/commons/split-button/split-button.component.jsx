@@ -19,11 +19,12 @@ const SplitButton = ({ options, variant, color, size, disabled, onClick }) => {
 
   const handleClick = () => {
     setOpen(false);
-    onClick(selected.key);
+    onClick(selected.id);
   };
 
   const handleMenuItemClick = option => {
     setSelected(option);
+    setOpen(false);
   };
 
   const handleToggle = () => {
@@ -70,8 +71,9 @@ const SplitButton = ({ options, variant, color, size, disabled, onClick }) => {
             <MenuList>
               {options.map(option => (
                 <MenuItem
-                  key={option.key}
-                  selected={option.key === selected.key}
+                  key={option.id}
+                  selected={option.id === selected.id}
+                  disabled={option.id === selected.id}
                   onClick={() => handleMenuItemClick(option)}
                 >
                   {option.label}
@@ -87,7 +89,7 @@ const SplitButton = ({ options, variant, color, size, disabled, onClick }) => {
 
 SplitButton.propTypes = {
   options: PropTypes.arrayOf(PropTypes.shape({
-    key: PropTypes.string,
+    id: PropTypes.string,
     label: PropTypes.string,
   })).isRequired,
   onClick: PropTypes.func.isRequired,
