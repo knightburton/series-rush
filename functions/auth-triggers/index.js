@@ -1,6 +1,6 @@
 const functions = require('firebase-functions');
 const admin = require('firebase-admin');
-const uuid = require('uuid').v4;
+const firebaseTools = require('firebase-tools');
 const {
   GROUP_TYPES,
 } = require('../constants');
@@ -32,8 +32,12 @@ const userCleanup = functions.auth.user().onDelete(async user => {
     await profileDoc.delete();
 
     console.log('[userCleanup]: Cleanup collections data...');
-    const collectionDoc = admin.firestore().collection('collections').doc(uid);
-    await collectionDoc.delete();
+    const collectionPath = `collections/${uid}`;
+    await firebaseTools.firestore.delete(collectionPath, {
+      project: process.env.GCLOUD_PROJECT,
+      recursive: true,
+      yes: true,
+    });
 
   } catch (error) {
     console.error('[userCleanup]: Failed with error: ', error);
