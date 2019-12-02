@@ -135,3 +135,13 @@ export const getEnabledCollectionGroupsQuery = profileID => ([
   getCollectionGroupByTypeQuery(profileID, SEARCH_TYPES.TV, ['enabled', '==', true]),
   getCollectionGroupByTypeQuery(profileID, SEARCH_TYPES.MOVIE, ['enabled', '==', true]),
 ]);
+
+export const getCollectionByTypeQuery = (profileID, type, group = '') => ({
+  collection: 'collections',
+  doc: profileID,
+  subcollections: [{
+    collection: type,
+    where: group ? ['group', '==', group] : undefined,
+  }],
+  storeAs: `${type}Collection`,
+});
