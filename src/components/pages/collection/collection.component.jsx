@@ -12,11 +12,17 @@ import ProfileContext from '../../../contexts/profile';
 
 import { COLLECTION_MENU } from '../../../constants/navigation';
 import { COLLECTION_PATHS } from '../../../constants/paths';
-import { getEnabledCollectionGroupsQuery } from '../../../utils';
+import {
+  getEnabledCollectionGroupsQuery,
+  getCollectionsQuery,
+} from '../../../utils';
 
 const Collection = () => {
   const { id } = useContext(ProfileContext);
-  useFirestoreConnect(getEnabledCollectionGroupsQuery(id));
+  useFirestoreConnect([
+    ...getEnabledCollectionGroupsQuery(id),
+    ...getCollectionsQuery(id),
+  ]);
 
   return (
     <Container maxWidth="lg">

@@ -145,3 +145,8 @@ export const getCollectionByTypeQuery = (profileID, type, group = '') => ({
   }],
   storeAs: `${type}Collection`,
 });
+
+export const getCollectionsQuery = profileID => ([
+  getCollectionByTypeQuery(profileID, SEARCH_TYPES.TV),
+  getCollectionByTypeQuery(profileID, SEARCH_TYPES.MOVIE),
+]);
