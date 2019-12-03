@@ -16,7 +16,15 @@ export const reducer = handleActions(
 // Selectors
 export const getGroupsByType = type => createSelector(
   getFirestoreOrderedByPath(`${type}Groups`),
-  groups => groups,
+  groups => groups.sort((a, b) => a.order - b.order),
+);
+export const getCollectionByType = type => createSelector(
+  getFirestoreOrderedByPath(`${type}Collection`),
+  collection => collection,
+);
+export const getCollectionByTypeAndGroup = (type, group) => createSelector(
+  getCollectionByType(type),
+  collection => collection.filter(item => item.group === group),
 );
 
 // Async actions
