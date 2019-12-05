@@ -26,7 +26,7 @@ const QuickSearch = ({ search }) => {
       query: { value: '', error: '' },
       type: { value: SEARCH_TYPES.TV, error: '' },
     },
-    callback: ({ query, type }) => search({ query, type }),
+    callback: ({ query, type }) => query && search({ query, type }),
   });
 
   const updateAllInput = useCallback((query, type) => {
