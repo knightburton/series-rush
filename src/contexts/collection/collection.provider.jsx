@@ -10,13 +10,13 @@ import {
 } from '../../utils';
 
 const CollectionProvider = ({ children, profile: { id } }) => {
-  useFirestoreConnect(id ? [
+  useFirestoreConnect(id && [
     ...getEnabledCollectionGroupsQuery(id),
     ...getCollectionsQuery(id),
-  ] : []);
+  ]);
 
   return (
-    <CollectionContext.Provider value={{}}>
+    <CollectionContext.Provider>
       {children}
     </CollectionContext.Provider>
   );
