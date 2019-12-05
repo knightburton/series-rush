@@ -1,5 +1,4 @@
-import React, { useContext } from 'react';
-import { useFirestoreConnect } from 'react-redux-firebase';
+import React from 'react';
 
 import Container from '@material-ui/core/Container';
 import Box from '@material-ui/core/Box';
@@ -8,28 +7,21 @@ import AsideTabsGrid from '../../commons/aside-tabs-grid/aside-tabs-grid.compone
 
 import CollectionRoutes from '../../../routes/collection-routes';
 
-import ProfileContext from '../../../contexts/profile';
 
 import { COLLECTION_MENU } from '../../../constants/navigation';
 import { COLLECTION_PATHS } from '../../../constants/paths';
-import { getCollectionGroupsQuery } from '../../../utils';
 
-const Collection = () => {
-  const { id } = useContext(ProfileContext);
-  useFirestoreConnect(getCollectionGroupsQuery(id));
-
-  return (
-    <Container maxWidth="lg">
-      <Box position="relative" height="100%">
-        <AsideTabsGrid
-          tabs={COLLECTION_MENU}
-          defaultTab={COLLECTION_PATHS.LIST_TV}
-        >
-          <CollectionRoutes />
-        </AsideTabsGrid>
-      </Box>
-    </Container>
-  );
-};
+const Collection = () => (
+  <Container maxWidth="lg">
+    <Box position="relative" height="100%">
+      <AsideTabsGrid
+        tabs={COLLECTION_MENU}
+        defaultTab={COLLECTION_PATHS.LIST_TV}
+      >
+        <CollectionRoutes />
+      </AsideTabsGrid>
+    </Box>
+  </Container>
+);
 
 export default Collection;

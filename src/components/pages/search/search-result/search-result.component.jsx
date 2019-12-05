@@ -1,30 +1,29 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { useTranslation } from 'react-i18next';
 
 import Box from '@material-ui/core/Box';
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
 import CardContent from '@material-ui/core/CardContent';
 import CardActions from '@material-ui/core/CardActions';
-import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import Hidden from '@material-ui/core/Hidden';
 
-import AddIcon from '@material-ui/icons/AddCircleOutline';
-import RightIcon from '@material-ui/icons/KeyboardArrowRightOutlined';
+import SplitButton from '../../../commons/split-button/split-button.component';
 
 import { getEllipsisText } from '../../../../utils';
 import { ELLIPSIS_LENGTHS } from '../../../../constants/config';
 
 import useStyles from './search-result.styles';
 
-const SearchResult = ({ result, addToCollection }) => {
+const SearchResult = ({ result, groups, addToCollection }) => {
   const classes = useStyles();
+  const { t } = useTranslation();
 
-  const handleAdd = () => {
+  const handleAdd = group => {
     const { id, type } = result;
-
-    addToCollection(id, type);
+    addToCollection(id, type, group);
   };
 
   return (
@@ -69,14 +68,20 @@ const SearchResult = ({ result, addToCollection }) => {
             </Hidden>
           </Typography>
         </CardContent>
-        <CardActions>
-          <IconButton onClick={handleAdd}>
-            <AddIcon />
-          </IconButton>
+        <CardActions className={classes.actions}>
+          {groups.length > 0 && (
+            <Box>
+              <Typography variant="caption">
+                {t('page.search.addTo')}
+              </Typography>
+              <SplitButton
+                size="small"
+                options={groups}
+                onClick={handleAdd}
+              />
+            </Box>
+          )}
           <Box className={classes.grow} />
-          <IconButton>
-            <RightIcon />
-          </IconButton>
         </CardActions>
       </Box>
     </Card>
@@ -94,7 +99,15 @@ SearchResult.propTypes = {
     overview: PropTypes.string,
     vote: PropTypes.number,
   }).isRequired,
+  groups: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.string,
+    label: PropTypes.string,
+  })),
   addToCollection: PropTypes.func.isRequired,
+};
+
+SearchResult.defaultProps = {
+  groups: [],
 };
 
 export default SearchResult;

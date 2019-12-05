@@ -22,6 +22,9 @@ export default makeStyles(theme => ({
   content: {
     flex: 1,
   },
+  actions: {
+    padding: theme.spacing(0, 2, 2, 2),
+  },
   grow: {
     flexGrow: 1,
   },

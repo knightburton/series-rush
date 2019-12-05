@@ -9,10 +9,10 @@ export const createSearchQueryString = object => QueryString.stringify(object);
 
 // Time utils
 export const getTimestamp = () => getTime(new Date());
-export const getTimestampFromDate = date => getTime(new Date(date));
+export const getTimestampFromDate = date => (date ? getTime(new Date(date)) : '');
 export const getDayDifferenceGreaterThan = (date, numberOfDays) => differenceInDays(new Date(), new Date(date)) > numberOfDays;
 export const getDayDifferenceLessThan = (date, numberOfDays) => differenceInDays(new Date(), new Date(date)) < numberOfDays;
-export const getLocalizedDate = date => format(new Date(date), 'PPP');
+export const getLocalizedDate = date => (date ? format(new Date(date), 'PPP') : '');
 
 // Text utils
 export const getEllipsisText = (text, length) => {
@@ -114,11 +114,39 @@ export const parseSearchData = (data, type, configuration) => {
 };
 
 // Firestore utils
-export const getCollectionGroupsQuery = profileID => ({
+export const getCollectionGroupByTypeQuery = (profileID, type, where = []) => ({
   collection: 'collections',
   doc: profileID,
   subcollections: [
-    { collection: 'groups' },
+    {
+      collection: `${type}-groups`,
+      where: where.length ? where : undefined,
+    },
   ],
-  storeAs: 'groups',
+  storeAs: `${type}Groups`,
 });
+
+export const getCollectionGroupsQuery = profileID => ([
+  getCollectionGroupByTypeQuery(profileID, SEARCH_TYPES.TV),
+  getCollectionGroupByTypeQuery(profileID, SEARCH_TYPES.MOVIE),
+]);
+
+export const getEnabledCollectionGroupsQuery = profileID => ([
+  getCollectionGroupByTypeQuery(profileID, SEARCH_TYPES.TV, ['enabled', '==', true]),
+  getCollectionGroupByTypeQuery(profileID, SEARCH_TYPES.MOVIE, ['enabled', '==', true]),
+]);
+
+export const getCollectionByTypeQuery = (profileID, type, group = '') => ({
+  collection: 'collections',
+  doc: profileID,
+  subcollections: [{
+    collection: type,
+    where: group ? ['group', '==', group] : undefined,
+  }],
+  storeAs: `${type}Collection`,
+});
+
+export const getCollectionsQuery = profileID => ([
+  getCollectionByTypeQuery(profileID, SEARCH_TYPES.TV),
+  getCollectionByTypeQuery(profileID, SEARCH_TYPES.MOVIE),
+]);

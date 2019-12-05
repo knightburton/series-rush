@@ -10,6 +10,7 @@ import Footer from './widgets/footer/footer.component';
 import ScrollToTop from './widgets/scroll-to-top/scroll-to-top.component';
 
 import { ProfileProvider } from '../contexts/profile';
+import { CollectionProvider } from '../contexts/collection';
 
 import AppRoutes from '../routes/app-routes';
 
@@ -22,13 +23,15 @@ const App = ({ authIsLoaded, isAppWaiting, requestTmdbConfiguration }) => {
     <main>
       <ProfileProvider>
         <ScrollToTop />
-        <AppBar />
-        <Drawer />
-        <ContentWrapper>
-          <AppRoutes />
-        </ContentWrapper>
-        <Footer />
-        <Alert />
+        <CollectionProvider>
+          <AppBar />
+          <Drawer />
+          <ContentWrapper>
+            <AppRoutes />
+          </ContentWrapper>
+          <Footer />
+          <Alert />
+        </CollectionProvider>
       </ProfileProvider>
       {isAppWaiting && <Waiting type="app" />}
     </main>

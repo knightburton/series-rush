@@ -110,6 +110,12 @@ export const search = (props = {}) => async (dispatch, getState, { tmdbApi }) =>
   const { query, type, page } = dispatch(prepareSearch(props));
   const tmdbConfiguration = getTmdbConfiguration(getState());
 
+  if (!query) {
+    dispatch(searchFailure());
+    dispatch(addAlert('alert:api/tmdb-search-without-query-info', 'info'));
+    return;
+  }
+
   try {
     const data = await tmdbApi.searchWithType(query, type, page);
     dispatch(searchSuccess(parseSearchData(data, type, tmdbConfiguration)));

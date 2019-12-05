@@ -2,8 +2,7 @@ import { handleActions } from 'redux-actions';
 import { createSelector } from 'reselect';
 import { setAppWaiting, addAlert } from '../app';
 import { getProfile } from '../auth';
-import { getFirestoreDataByPath } from '../firestore';
-import { getCollectionGroupsQuery } from '../../utils';
+import { getFirestoreOrderedByPath } from '../firestore';
 
 // Initial state
 export const initialState = {};
@@ -16,25 +15,20 @@ export const reducer = handleActions(
 
 // Selectors
 export const getGroupsByType = type => createSelector(
-  getFirestoreDataByPath(`groups.${type}`),
-  groups => Object.keys(groups).reduce((a, group) => {
-    if (groups[group]) return [...a, { key: group, label: groups[group] }];
-    return a;
-  }, []),
+  getFirestoreOrderedByPath(`${type}Groups`),
+  groups => groups.sort((a, b) => a.order - b.order),
+);
+export const getCollectionByType = type => createSelector(
+  getFirestoreOrderedByPath(`${type}Collection`),
+  collection => collection,
+);
+export const getCollectionByTypeAndGroup = (type, group) => createSelector(
+  getCollectionByType(type),
+  collection => collection.filter(item => item.group === group),
 );
 
 // Async actions
-export const fetchCollectionGroups = () => async (dispatch, getState, { getFirestore }) => {
-  try {
-    const firestore = getFirestore();
-    const { id } = getProfile(getState());
-    await firestore.get(getCollectionGroupsQuery(id));
-  } catch (error) {
-    dispatch(addAlert('alert:collection/fetch-collection-group-failure', 'error'));
-  }
-};
-
-export const addToCollection = (id, type) => async (dispatch, getState, { getFirestore }) => {
+export const addToCollection = (id, type, group) => async (dispatch, getState, { getFirestore }) => {
   dispatch(setAppWaiting(true));
   try {
     const firestore = getFirestore();
@@ -48,7 +42,7 @@ export const addToCollection = (id, type) => async (dispatch, getState, { getFir
       },
       {
         id,
-        group: 'default',
+        group,
       },
     );
 

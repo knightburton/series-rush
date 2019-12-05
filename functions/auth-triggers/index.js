@@ -1,18 +1,9 @@
 const functions = require('firebase-functions');
 const admin = require('firebase-admin');
-const uuid = require('uuid').v4;
+const firebaseTools = require('firebase-tools');
 const {
-  NUMBER_OF_GROUPS,
   GROUP_TYPES,
 } = require('../constants');
-
-/**
- * Creates the default group object with the number of gourps constants.
- */
-const createGroupItems = () => [...Array(NUMBER_OF_GROUPS).keys()].reduce((o, index) => ({
-  ...o,
-  [uuid()]: index === 0 ? 'Default' : '',
-}), {});
 
 /**
  * Deletes every data that relates to the actual user.
@@ -41,8 +32,12 @@ const userCleanup = functions.auth.user().onDelete(async user => {
     await profileDoc.delete();
 
     console.log('[userCleanup]: Cleanup collections data...');
-    const collectionDoc = admin.firestore().collection('collections').doc(uid);
-    await collectionDoc.delete();
+    const collectionPath = `collections/${uid}`;
+    await firebaseTools.firestore.delete(collectionPath, {
+      project: process.env.GCLOUD_PROJECT,
+      recursive: true,
+      yes: true,
+    });
 
   } catch (error) {
     console.error('[userCleanup]: Failed with error: ', error);
@@ -58,22 +53,21 @@ const userCreate = functions.auth.user().onCreate(async user => {
   console.log('[userCreate]: User ID: ', uid);
 
   try {
-    console.log('[userCreate]: Create the default tv groups for the new user...');
-    await admin.firestore()
-      .collection('collections')
-      .doc(uid)
-      .collection('groups')
-      .doc(GROUP_TYPES.TV)
-      .set(createGroupItems());
+    const baseDocRef = admin.firestore().collection('collections').doc(uid);
 
-    console.log('[userCreate]: Create the default movie groups for the new user...');
-    await admin.firestore()
-      .collection('collections')
-      .doc(uid)
-      .collection('groups')
-      .doc(GROUP_TYPES.MOVIE)
-      .set(createGroupItems());
+    console.log('[userCreate]: Start to create the default collection groups for the user...');
+    const promises = Object.values(GROUP_TYPES).map(type => {
+      console.log(`[userCreate]: Create ${type}-groups...`);
+      const collectionRef = baseDocRef.collection(`${type}-groups`);
+      return collectionRef.add({
+        label: 'Default',
+        order: 0,
+        color: '',
+        enabled: true,
+      });
+    });
 
+    await Promise.all(promises);
   } catch (error) {
     console.error('[userCreate]: Failed with error: ', error);
   }

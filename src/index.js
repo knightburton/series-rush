@@ -7,6 +7,7 @@ import { MuiThemeProvider } from '@material-ui/core/styles';
 import { ReactReduxFirebaseProvider } from 'react-redux-firebase';
 import { createFirestoreInstance } from 'redux-firestore';
 
+import './side-effects/console';
 import history from './side-effects/history';
 import configureStore from './store/configure-store';
 import firebase, { rfConfig } from './side-effects/firebase';
