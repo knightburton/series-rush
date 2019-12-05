@@ -11,7 +11,7 @@ const variants = (theme, variant) => {
       return amber[700];
     case 'info':
     default:
-      return theme.palette.primary.main;
+      return theme.palette.secondary.main;
   }
 };
 
