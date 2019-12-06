@@ -5,14 +5,14 @@ import { useFirestoreConnect } from 'react-redux-firebase';
 import CollectionContext from './context';
 
 import {
-  getEnabledCollectionGroupsQuery,
-  getCollectionsQuery,
+  getCollectionGroupsQuery,
+  getAllCollectionQuery,
 } from '../../utils';
 
 const CollectionProvider = ({ children, profile: { id } }) => {
   useFirestoreConnect(id && [
-    ...getEnabledCollectionGroupsQuery(id),
-    ...getCollectionsQuery(id),
+    ...getAllCollectionQuery(id),
+    getCollectionGroupsQuery(id),
   ]);
 
   return (

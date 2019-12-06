@@ -41,8 +41,8 @@ export const getSelectedGroupTv = state => state.collection.selectedGroup.tv;
 export const getSelectedGroupMovie = state => state.collection.selectedGroup.movie;
 
 export const getGroupsByType = type => createSelector(
-  getFirestoreOrderedByPath(`${type}Groups`),
-  groups => groups.sort((a, b) => a.order - b.order),
+  getFirestoreOrderedByPath('collectionGroups'),
+  groups => groups.filter(group => group.type === type),
 );
 
 export const getCollectionByType = type => createSelector(
