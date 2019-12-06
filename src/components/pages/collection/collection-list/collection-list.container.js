@@ -1,13 +1,13 @@
 import { connect } from 'react-redux';
 import CollectionList from './collection-list.component';
 
-import { getFirestoreOrderedByPath } from '../../../../store/firestore';
+import { getGroupsByType } from '../../../../store/collection';
 
 import { getPropertyByPath } from '../../../../utils';
 import { SEARCH_TYPES } from '../../../../constants/config';
 
 const mapStateToProps = (state, { match }) => ({
-  groups: getFirestoreOrderedByPath(`${getPropertyByPath(match, 'params.listType', SEARCH_TYPES.TV)}Groups`)(state),
+  groups: getGroupsByType(getPropertyByPath(match, 'params.listType', SEARCH_TYPES.TV))(state),
 });
 
 const mapDispatchToProps = {};
