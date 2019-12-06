@@ -114,39 +114,29 @@ export const parseSearchData = (data, type, configuration) => {
 };
 
 // Firestore utils
-export const getCollectionGroupByTypeQuery = (profileID, type, where = []) => ({
+export const getCollectionGroupsQuery = profileID => ({
   collection: 'collections',
   doc: profileID,
-  subcollections: [
-    {
-      collection: `${type}-groups`,
-      where: where.length ? where : undefined,
-    },
-  ],
-  storeAs: `${type}Groups`,
+  subcollections: [{ collection: 'groups' }],
+  storeAs: 'collectionGroups',
 });
-
-export const getCollectionGroupsQuery = profileID => ([
-  getCollectionGroupByTypeQuery(profileID, SEARCH_TYPES.TV),
-  getCollectionGroupByTypeQuery(profileID, SEARCH_TYPES.MOVIE),
-]);
-
-export const getEnabledCollectionGroupsQuery = profileID => ([
-  getCollectionGroupByTypeQuery(profileID, SEARCH_TYPES.TV, ['enabled', '==', true]),
-  getCollectionGroupByTypeQuery(profileID, SEARCH_TYPES.MOVIE, ['enabled', '==', true]),
-]);
-
-export const getCollectionByTypeQuery = (profileID, type, group = '') => ({
+export const getCollectionsGroupsByTypeQuery = (profileID, type) => ({
   collection: 'collections',
   doc: profileID,
   subcollections: [{
-    collection: type,
-    where: group ? ['group', '==', group] : undefined,
+    collection: 'groups',
+    where: ['type', '==', type],
   }],
-  storeAs: `${type}Collection`,
+  storeAs: `${type}CollectionGroup`,
 });
 
-export const getCollectionsQuery = profileID => ([
-  getCollectionByTypeQuery(profileID, SEARCH_TYPES.TV),
-  getCollectionByTypeQuery(profileID, SEARCH_TYPES.MOVIE),
+export const getCollectionQuery = (profileID, type) => ({
+  collection: 'collections',
+  doc: profileID,
+  subcollections: [{ collection: type }],
+  storeAs: `${type}Collection`,
+});
+export const getAllCollectionQuery = profileID => ([
+  getCollectionQuery(profileID, SEARCH_TYPES.TV),
+  getCollectionQuery(profileID, SEARCH_TYPES.MOVIE),
 ]);
