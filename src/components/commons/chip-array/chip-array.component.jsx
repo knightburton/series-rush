@@ -27,7 +27,7 @@ const ChipArray = ({ items, size, variant, selected, onClick, breakpoint }) => {
             </Avatar>
           )}
           label={item.label}
-          onClick={onClick ? () => onClick(item.id) : undefined}
+          onClick={onClick && selected !== item.id ? () => onClick(item.id) : undefined}
           size={size}
           variant={variant}
           color={selected === item.id ? 'secondary' : 'default'}
