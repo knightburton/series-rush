@@ -6,7 +6,7 @@ import Box from '@material-ui/core/Box';
 
 import ChipArray from '../../../commons/chip-array/chip-array.component';
 
-const CollectionList = ({ groups, selectedGroup, collectionSelectGroup }) => {
+const CollectionList = ({ groups, selectedGroup, collectionSelectGroup, list }) => {
   const { listType } = useParams();
 
   return (
@@ -17,6 +17,9 @@ const CollectionList = ({ groups, selectedGroup, collectionSelectGroup }) => {
         selected={selectedGroup}
         onClick={key => collectionSelectGroup(listType, key)}
       />
+      {list.map(item => (
+        item.id
+      ))}
     </Box>
   );
 };
@@ -28,10 +31,14 @@ CollectionList.propTypes = {
   })).isRequired,
   collectionSelectGroup: PropTypes.func.isRequired,
   selectedGroup: PropTypes.string,
+  list: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.number,
+  })),
 };
 
 CollectionList.defaultProps = {
   selectedGroup: '',
+  list: [],
 };
 
 export default CollectionList;
