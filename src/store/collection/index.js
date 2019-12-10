@@ -39,6 +39,10 @@ export const reducer = handleActions(
 export const getSelectedGroup = state => state.collection.selectedGroup;
 export const getSelectedGroupTv = state => state.collection.selectedGroup.tv;
 export const getSelectedGroupMovie = state => state.collection.selectedGroup.movie;
+export const getSelectedGroupByType = type => createSelector(
+  getSelectedGroup,
+  group => group[type],
+);
 
 export const getGroupsByType = type => createSelector(
   getFirestoreOrderedByPath('collectionGroups'),
