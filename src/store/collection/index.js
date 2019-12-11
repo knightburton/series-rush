@@ -69,11 +69,17 @@ export const addToCollection = (id, type, group) => async (dispatch, getState, {
       {
         collection: 'collections',
         doc: profileID,
-        subcollections: [{ collection: type }],
+        subcollections: [{
+          collection: 'groups',
+          doc: group,
+          subcollections: [{ collection: 'groupItems' }],
+        }],
       },
       {
         id,
-        group,
+        groupID: group,
+        profileID,
+        type,
       },
     );
 
