@@ -53,7 +53,7 @@ const userCreate = functions.auth.user().onCreate(async user => {
   console.log('[userCreate]: User ID: ', uid);
 
   try {
-    const baseRef = admin.firestore().collection('collections').doc(uid).collection('groups');
+    const baseRef = admin.firestore().collection('profiles').doc(uid).collection('groups');
 
     console.log('[userCreate]: Start to create the default collection groups for the user...');
     const promises = Object.values(GROUP_TYPES).map(type => {
@@ -62,6 +62,7 @@ const userCreate = functions.auth.user().onCreate(async user => {
         label: 'Default',
         color: '',
         type: type,
+        order: 0,
       });
     });
 
