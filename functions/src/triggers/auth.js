@@ -1,6 +1,7 @@
 const functions = require('firebase-functions');
 const admin = require('firebase-admin');
 const firebaseTools = require('firebase-tools');
+
 const {
   GROUP_TYPES,
 } = require('../constants');
@@ -30,10 +31,8 @@ const userCleanup = functions.auth.user().onDelete(async user => {
 
     console.log('[userCleanup]: Cleanup profile data...');
     await profileDoc.delete();
-
-    console.log('[userCleanup]: Cleanup collections data...');
-    const collectionPath = `collections/${uid}`;
-    await firebaseTools.firestore.delete(collectionPath, {
+    const profilePath = `profiles/${uid}`;
+    await firebaseTools.firestore.delete(profilePath, {
       project: process.env.GCLOUD_PROJECT,
       recursive: true,
       yes: true,
@@ -53,7 +52,7 @@ const userCreate = functions.auth.user().onCreate(async user => {
   console.log('[userCreate]: User ID: ', uid);
 
   try {
-    const baseRef = admin.firestore().collection('collections').doc(uid).collection('groups');
+    const baseRef = admin.firestore().collection('profiles').doc(uid).collection('groups');
 
     console.log('[userCreate]: Start to create the default collection groups for the user...');
     const promises = Object.values(GROUP_TYPES).map(type => {
@@ -62,6 +61,7 @@ const userCreate = functions.auth.user().onCreate(async user => {
         label: 'Default',
         color: '',
         type: type,
+        order: 0,
       });
     });
 
