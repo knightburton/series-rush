@@ -2,11 +2,7 @@ rules_version = '2';
 
 service cloud.firestore {
   match /databases/{database}/documents {
-  	match /profiles/{profile} {
-      allow read, write: if isSignedIn();
-    }
-
-    match /{path=**}/groupItems/{itemID} {
+    match /profiles/{profile=**} {
       allow read, write: if isSignedIn();
     }
 

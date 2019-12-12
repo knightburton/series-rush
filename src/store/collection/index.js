@@ -45,8 +45,8 @@ export const getSelectedGroupByType = type => createSelector(
 );
 
 export const getGroupsByType = type => createSelector(
-  getFirestoreOrderedByPath('collectionGroups'),
-  groups => groups.filter(group => group.type === type),
+  getFirestoreOrderedByPath(`${type}Groups`),
+  groups => groups,
 );
 
 export const getCollectionByType = type => createSelector(
@@ -55,7 +55,7 @@ export const getCollectionByType = type => createSelector(
 );
 export const getCollectionByTypeAndGroup = (type, group) => createSelector(
   getCollectionByType(type),
-  collection => collection.filter(item => item.group === group),
+  collection => collection.filter(item => item.groupID === group),
 );
 
 // Thunks
@@ -65,21 +65,18 @@ export const addToCollection = (id, type, group) => async (dispatch, getState, {
     const firestore = getFirestore();
     const { id: profileID } = getProfile(getState());
 
-    await firestore.add(
+    await firestore.set(
       {
-        collection: 'collections',
+        collection: 'profiles',
         doc: profileID,
         subcollections: [{
-          collection: 'groups',
-          doc: group,
-          subcollections: [{ collection: 'groupItems' }],
+          collection: 'collection',
+          doc: `${id}`,
         }],
       },
       {
-        id,
-        groupID: group,
-        profileID,
         type,
+        groupID: group,
       },
     );
 

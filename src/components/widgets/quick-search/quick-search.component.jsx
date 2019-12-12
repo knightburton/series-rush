@@ -11,7 +11,7 @@ import SearchIcon from '@material-ui/icons/SearchOutlined';
 import useForm from '../../../hooks/useForm';
 
 import { getSearchFromQueryString } from '../../../utils';
-import { SEARCH_TYPES } from '../../../constants/config';
+import { COLLECTION_TYPE } from '../../../constants/config';
 import { APP_PATHS } from '../../../constants/paths';
 
 import useStyles from './quick-search.styles';
@@ -24,7 +24,7 @@ const QuickSearch = ({ search }) => {
   const { state, handleChange, handleSubmit } = useForm({
     stateSchema: {
       query: { value: '', error: '' },
-      type: { value: SEARCH_TYPES.TV, error: '' },
+      type: { value: COLLECTION_TYPE.TV, error: '' },
     },
     callback: ({ query, type }) => query && search({ query, type }),
   });
@@ -36,7 +36,7 @@ const QuickSearch = ({ search }) => {
 
   const resetAllInput = useCallback(() => {
     handleChange({ target: { name: 'query', value: '' } });
-    handleChange({ target: { name: 'type', value: SEARCH_TYPES.TV } });
+    handleChange({ target: { name: 'type', value: COLLECTION_TYPE.TV } });
   }, [handleChange]);
 
   useEffect(() => {
@@ -82,7 +82,7 @@ const QuickSearch = ({ search }) => {
         onChange={handleChange}
         disableUnderline
       >
-        {Object.values(SEARCH_TYPES).map(key => (
+        {Object.values(COLLECTION_TYPE).map(key => (
           <option key={key} value={key}>
             {t(`quickSearch.${key}`)}
           </option>

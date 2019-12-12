@@ -32,7 +32,10 @@ CollectionList.propTypes = {
   collectionSelectGroup: PropTypes.func.isRequired,
   selectedGroup: PropTypes.string,
   list: PropTypes.arrayOf(PropTypes.shape({
-    id: PropTypes.number,
+    id: PropTypes.oneOfType([
+      PropTypes.number,
+      PropTypes.string,
+    ]),
   })),
 };
 
