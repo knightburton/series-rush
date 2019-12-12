@@ -3,7 +3,7 @@ const admin = require('firebase-admin');
 
 admin.initializeApp();
 
-const { userCleanup, userCreate } = require('./auth-triggers');
+const { userCleanup, userCreate } = require('./src/triggers/auth');
 
 // Auth triggers
 exports.userCleanup = userCleanup;

@@ -1,6 +1,7 @@
 const functions = require('firebase-functions');
 const admin = require('firebase-admin');
 const firebaseTools = require('firebase-tools');
+
 const {
   GROUP_TYPES,
 } = require('../constants');
@@ -30,10 +31,8 @@ const userCleanup = functions.auth.user().onDelete(async user => {
 
     console.log('[userCleanup]: Cleanup profile data...');
     await profileDoc.delete();
-
-    console.log('[userCleanup]: Cleanup collections data...');
-    const collectionPath = `collections/${uid}`;
-    await firebaseTools.firestore.delete(collectionPath, {
+    const profilePath = `profiles/${uid}`;
+    await firebaseTools.firestore.delete(profilePath, {
       project: process.env.GCLOUD_PROJECT,
       recursive: true,
       yes: true,
