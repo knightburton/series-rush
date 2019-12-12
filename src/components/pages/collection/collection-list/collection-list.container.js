@@ -19,6 +19,7 @@ const mapStateToProps = (state, { match }) => {
     groups: getGroupsByType(type)(state),
     list: getCollectionByTypeAndGroup(type, selectedGroup)(state),
     selectedGroup,
+    type,
   };
 };
 
