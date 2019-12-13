@@ -23,7 +23,7 @@ const Edit = ({ type, id, value, label, helperText, disabled, required, validato
   const { t } = useTranslation();
   const [edit, setEdit] = useState(false);
   const { state: { [id]: state }, handleChange, handleSubmit } = useForm({
-    stateSchema: { [id]: { value, error: '' } },
+    stateSchema: { [id]: value },
     validationSchema: { [id]: { required, validators, errors } },
     callback: ({ [id]: submitValue }) => {
       onSubmit(submitValue);

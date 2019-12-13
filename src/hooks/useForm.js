@@ -2,6 +2,17 @@ import { useState, useCallback } from 'react';
 import { VALIDATORS, ERRORS } from '../constants/form';
 
 /**
+ * Creates a nested object from the initial state schema,
+ * which will contains the value and error properties.
+ *
+ * @param {object} stateSchema The initial state values with keys and values.
+ */
+const getInitialState = stateSchema => Object.keys(stateSchema).reduce((o, key) => ({
+  ...o,
+  [key]: { value: stateSchema[key], error: '' }
+}), {});
+
+/**
  * Return an array that contains the error key for the i18n and the possible interpolation values.
  *
  * @param {object} error The error object that contains the error message and the interpolation props
@@ -94,7 +105,7 @@ const validateState = (stateSchema, validationSchema = {}, state = {}) => Object
  * @param {boolean} resetState Should reset the actual state after a successfull submit or not.
  */
 const useForm = ({ stateSchema, validationSchema, callback, resetState = false }) => {
-  const [state, setState] = useState(stateSchema);
+  const [state, setState] = useState(() => getInitialState(stateSchema));
 
   const handleChange = useCallback(event => {
     const { name, value } = event.target;

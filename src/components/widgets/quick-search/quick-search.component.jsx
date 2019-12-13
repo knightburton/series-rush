@@ -23,8 +23,8 @@ const QuickSearch = ({ search }) => {
   const { search: searchLocation, pathname } = useLocation();
   const { state, handleChange, handleSubmit } = useForm({
     stateSchema: {
-      query: { value: '', error: '' },
-      type: { value: COLLECTION_TYPE.TV, error: '' },
+      query: '',
+      type: COLLECTION_TYPE.TV,
     },
     callback: ({ query, type }) => query && search({ query, type }),
   });

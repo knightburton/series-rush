@@ -34,7 +34,7 @@ const EditControlWrapper = ({ id, label, error, helperText, disabled, required, 
 EditControlWrapper.propTypes = {
   id: PropTypes.string.isRequired,
   label: PropTypes.string.isRequired,
-  error: PropTypes.oneOfType([PropTypes.string, PropTypes.array]).isRequired,
+  error: PropTypes.oneOfType([PropTypes.string, PropTypes.object, PropTypes.array]).isRequired,
   helperText: PropTypes.string.isRequired,
   disabled: PropTypes.bool.isRequired,
   required: PropTypes.bool.isRequired,
