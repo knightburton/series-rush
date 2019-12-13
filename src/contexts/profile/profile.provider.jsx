@@ -2,6 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { useFirestoreConnect } from 'react-redux-firebase';
 
+import Waiting from '../../components/widgets/waiting/waiting.component';
+
 import ProfileContext from './context';
 
 import {
@@ -10,7 +12,7 @@ import {
 } from '../../utils';
 import { COLLECTION_TYPE } from '../../constants/config';
 
-const ProfileProvider = ({ children, profile }) => {
+const ProfileProvider = ({ children, authIsLoaded, profile }) => {
   const { id } = profile;
   useFirestoreConnect(id && [
     getProfileGroupsByTypeQuery(id, COLLECTION_TYPE.TV),
@@ -19,6 +21,7 @@ const ProfileProvider = ({ children, profile }) => {
     getProfileCollectionByTypeQuery(id, COLLECTION_TYPE.MOVIE),
   ]);
 
+  if (!authIsLoaded) return <Waiting type="screen" />;
   return (
     <ProfileContext.Provider value={profile}>
       {children}
@@ -28,6 +31,7 @@ const ProfileProvider = ({ children, profile }) => {
 
 ProfileProvider.propTypes = {
   children: PropTypes.oneOfType([PropTypes.node, PropTypes.arrayOf(PropTypes.node)]).isRequired,
+  authIsLoaded: PropTypes.bool.isRequired,
   profile: PropTypes.object,
 };
 

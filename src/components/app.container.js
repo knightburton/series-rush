@@ -4,11 +4,9 @@ import {
   getIsAppWaiting,
   requestTmdbConfiguration,
 } from '../store/app';
-import { getFirebaseAuthIsLoaded } from '../store/auth';
 import App from './app.component';
 
 const mapStateToProps = state => ({
-  authIsLoaded: getFirebaseAuthIsLoaded(state),
   isAppWaiting: getIsAppWaiting(state),
 });
 
