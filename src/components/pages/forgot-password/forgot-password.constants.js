@@ -1,7 +1,7 @@
 import { VALIDATORS, ERRORS } from '../../../constants/form';
 
 export const stateSchema = {
-  email: { value: '', error: '' },
+  email: '',
 };
 
 export const validationSchema = {

@@ -8,6 +8,7 @@ import { ReactReduxFirebaseProvider } from 'react-redux-firebase';
 import { createFirestoreInstance } from 'redux-firestore';
 
 import './side-effects/console';
+import { ProfileProvider } from './contexts/profile';
 import history from './side-effects/history';
 import configureStore from './store/configure-store';
 import firebase, { rfConfig } from './side-effects/firebase';
@@ -29,9 +30,11 @@ ReactDOM.render(
     >
       <MuiThemeProvider theme={theme}>
         <CssBaseline />
-        <Router history={history}>
-          <MainRoutes />
-        </Router>
+        <ProfileProvider>
+          <Router history={history}>
+            <MainRoutes />
+          </Router>
+        </ProfileProvider>
       </MuiThemeProvider>
     </ReactReduxFirebaseProvider>
   </Provider>,
