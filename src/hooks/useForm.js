@@ -9,7 +9,7 @@ import { VALIDATORS, ERRORS } from '../constants/form';
  */
 const getInitialState = stateSchema => Object.keys(stateSchema).reduce((o, key) => ({
   ...o,
-  [key]: { value: stateSchema[key], error: '' }
+  [key]: { value: stateSchema[key], error: '' },
 }), {});
 
 /**
