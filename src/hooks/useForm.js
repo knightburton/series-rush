@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react';
+import { useReducer, useCallback } from 'react';
 import { VALIDATORS, ERRORS } from '../constants/form';
 
 /**
@@ -9,7 +9,7 @@ import { VALIDATORS, ERRORS } from '../constants/form';
  */
 const getInitialState = stateSchema => Object.keys(stateSchema).reduce((o, key) => ({
   ...o,
-  [key]: { value: stateSchema[key], error: '' },
+  [key]: { value: stateSchema[key], error: null },
 }), {});
 
 /**
@@ -53,19 +53,20 @@ const getInvalidValidatorIndex = (value = null, validators = []) => {
  * @param {object} validationSchema The schema that contains the validation props.
  * @param {boolean} validationSchema.required The required value of the state item.
  * @param {string} validationSchema.match The match key of the state item.
- * @param {string} validationSchema.matchError The match error message in case of mismatch.
+ * @param {string} validationSchema.gt The greater than key of state item.
  * @param {array} validationSchema.validators The validators of the state item.
  * @param {array} validationSchema.errors The error messages of the state item.
  * @param {object} state The actual state of the form.
  */
-const getValidationError = (value = null, { required, match, matchError, validators, errors } = {}, state = {}) => {
-  if (required && !VALIDATORS.REQUIRED.test(value)) return [ERRORS.REQUIRED.message];
-  if (match && state[match] && state[match].value !== value) return [matchError.message];
-  if (validators) {
+const getValidationError = (value = null, { required, match, gt, validators, errors = [] } = {}, state = {}) => {
+  if (required && (!VALIDATORS.REQUIRED.test(value) || value === null || value === undefined)) return [ERRORS.REQUIRED.message];
+  if (match && state[match.field] && state[match.field].value !== value) return getErrorArguments(match.error);
+  if (gt && state[gt.field] && state[gt.field].value > value) return getErrorArguments(gt.error);
+  if (validators && value) {
     const invalidIndex = getInvalidValidatorIndex(value, validators, state);
-    return invalidIndex !== null ? getErrorArguments(errors[invalidIndex]) : '';
+    return invalidIndex !== null ? getErrorArguments(errors[invalidIndex]) : null;
   }
-  return '';
+  return null;
 };
 
 /**
@@ -78,7 +79,7 @@ const getValidationError = (value = null, { required, match, matchError, validat
  */
 const getIsStateValid = (validationSchema = {}, state = {}) => Object.keys(state).every(key => {
   const { value } = state[key];
-  return getValidationError(value, validationSchema[key], state) === '';
+  return getValidationError(value, validationSchema[key], state) === null;
 });
 
 /**
@@ -92,9 +93,28 @@ const validateState = (stateSchema, validationSchema = {}, state = {}) => Object
   ...o,
   [key]: {
     ...state[key],
-    error: validationSchema[key] ? getValidationError(state[key].value, validationSchema[key], state) : '',
+    error: validationSchema[key] ? getValidationError(state[key].value, validationSchema[key], state) : null,
   },
 }), {});
+
+/**
+ * Main state reducer.
+ * Returns a new state based on the given action.
+ *
+ * @param {object} state Actual state of the reducer.
+ * @param {object} action The object that conatins the action type and payload if necessary.
+ */
+const reducer = (state, { type, payload }) => {
+  if (type === 'reset') return getInitialState(payload);
+  if (type === 'validate') return payload;
+  return {
+    ...state,
+    [payload.name]: {
+      value: payload.value,
+      error: payload.error || null,
+    },
+  };
+};
 
 /**
  * Custom hooks to validate and handle a form.
@@ -105,18 +125,19 @@ const validateState = (stateSchema, validationSchema = {}, state = {}) => Object
  * @param {boolean} resetState Should reset the actual state after a successfull submit or not.
  */
 const useForm = ({ stateSchema, validationSchema, callback, resetState = false }) => {
-  const [state, setState] = useState(() => getInitialState(stateSchema));
+  const [state, dispatch] = useReducer(reducer, stateSchema, getInitialState);
 
   const handleChange = useCallback(event => {
     const { name, value } = event.target;
 
-    setState(prevState => ({
-      ...prevState,
-      [name]: {
-        value,
-        error: '',
-      },
-    }));
+    dispatch({ payload: { name, value } });
+  }, []);
+
+  const handleDoubleChange = useCallback(second => event => {
+    const { name, value } = event.target;
+
+    dispatch({ payload: { name, value } });
+    dispatch({ payload: { name: second, value } });
   }, []);
 
   const handleSubmit = useCallback(event => {
@@ -126,17 +147,22 @@ const useForm = ({ stateSchema, validationSchema, callback, resetState = false }
 
     if (isStateValid) {
       if (callback) callback(Object.keys(state).reduce((o, key) => ({ ...o, [key]: state[key].value }), {}));
-      if (resetState) setState(stateSchema);
+      if (resetState) dispatch({ type: 'reset', payload: stateSchema });
       return;
     }
-    setState(validateState(stateSchema, validationSchema, state));
+    dispatch({ type: 'validate', payload: validateState(stateSchema, validationSchema, state) });
   }, [state, stateSchema, validationSchema, callback, resetState]);
+
+  const updateState = useCallback(newSchema => {
+    dispatch({ type: 'reset', payload: newSchema });
+  }, []);
 
   return {
     state,
+    updateState,
     handleChange,
+    handleDoubleChange,
     handleSubmit,
-    resetState,
   };
 };
 
