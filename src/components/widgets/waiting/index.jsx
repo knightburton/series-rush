@@ -6,7 +6,7 @@ import Box from '@material-ui/core/Box';
 import Dialog from '@material-ui/core/Dialog';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
-import useStyles from './waiting.styles';
+import useStyles from './styles';
 
 const ContetWaiting = () => {
   const classes = useStyles();

@@ -14,7 +14,7 @@ import { getSearchFromQueryString } from '../../../utils';
 import { COLLECTION_TYPE } from '../../../constants/config';
 import { APP_PATHS } from '../../../constants/paths';
 
-import useStyles from './quick-search.styles';
+import useStyles from './styles';
 
 const QuickSearch = ({ search }) => {
   const classes = useStyles();

@@ -7,7 +7,7 @@ import { useLocation } from 'react-router-dom';
 import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
 
-import Waiting from '../../widgets/waiting/waiting.component';
+import Waiting from '../../widgets/waiting';
 import SearchResults from './search-results/search-results.container';
 
 import useStyles from './search.styles';

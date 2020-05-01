@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { useFirestoreConnect } from 'react-redux-firebase';
 
-import Waiting from '../../components/widgets/waiting/waiting.component';
+import Waiting from '../../components/widgets/waiting';
 
 import ProfileContext from './context';
 
