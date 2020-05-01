@@ -45,7 +45,7 @@ const SignIn = () => {
   const { state, handleChange, handleSubmit } = useForm({
     stateSchema,
     validationSchema,
-    callback: dispatch(signIn),
+    callback: credentials => dispatch(signIn(credentials)),
   });
   const { email, password } = state;
 
