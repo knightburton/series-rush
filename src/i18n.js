@@ -27,6 +27,7 @@ i18n
     returnObjects: true,
     debug,
     returnEmptyString: true,
+    nsSeparator: '::',
   });
 
 export default i18n;
