@@ -4,6 +4,7 @@ const ALIGNS = {
   left: 'flex-start',
   center: 'center',
   right: 'flex-end',
+  space: 'space-between',
 };
 
 const getAligns = (variant, align) => {

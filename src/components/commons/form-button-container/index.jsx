@@ -15,7 +15,7 @@ const FormButtonContainer = ({ variant, align, children }) => {
 
 FormButtonContainer.propTypes = {
   variant: PropTypes.oneOf(['horizontal', 'vertical']),
-  align: PropTypes.oneOf(['left', 'center', 'right']),
+  align: PropTypes.oneOf(['left', 'center', 'right', 'space']),
   children: PropTypes.oneOfType([
     PropTypes.node.isRequired,
     PropTypes.arrayOf(PropTypes.node.isRequired),
