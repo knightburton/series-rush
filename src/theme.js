@@ -1,5 +1,12 @@
 import { createMuiTheme } from '@material-ui/core/styles';
 import { blueGrey, common } from '@material-ui/core/colors';
+import WebFont from 'webfontloader';
+
+WebFont.load({
+  google: {
+    families: ['Roboto:300,400,500,700'],
+  },
+});
 
 const theme = createMuiTheme({
   palette: {
