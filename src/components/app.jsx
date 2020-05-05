@@ -6,7 +6,7 @@ import {
 
 import AppBar from './widgets/appbar/appbar.container';
 import Drawer from './widgets/drawer/drawer.container';
-import Alert from './widgets/alert/alert.container';
+import AppAlert from './widgets/app-alert';
 import Waiting from './widgets/waiting';
 import ContentWrapper from './widgets/content-wrapper/content-wrapper.component';
 import AppFooter from './widgets/app-footer';
@@ -36,7 +36,7 @@ const App = () => {
         <AppRoutes />
       </ContentWrapper>
       <AppFooter />
-      <Alert />
+      <AppAlert />
       {isAppWaiting && (
         <Waiting type="app" />
       )}
