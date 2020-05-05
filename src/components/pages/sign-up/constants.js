@@ -1,4 +1,4 @@
-import { VALIDATORS, ERRORS } from '../../../../constants/form';
+import { VALIDATORS, ERRORS } from '../../../constants/form';
 
 export const stateSchema = {
   firstName: '',
@@ -27,7 +27,9 @@ export const validationSchema = {
   },
   confirmPassword: {
     required: true,
-    match: 'password',
-    matchError: ERRORS.MATCH('Password', 'Confirm password'),
+    match: {
+      field: 'password',
+      error: ERRORS.MATCH('common::password', 'common::confirmPassword'),
+    },
   },
 };
