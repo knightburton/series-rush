@@ -9,7 +9,7 @@ import Drawer from './widgets/drawer/drawer.container';
 import Alert from './widgets/alert/alert.container';
 import Waiting from './widgets/waiting';
 import ContentWrapper from './widgets/content-wrapper/content-wrapper.component';
-import Footer from './widgets/footer/footer.component';
+import AppFooter from './widgets/app-footer';
 import ScrollToTop from './widgets/scroll-to-top';
 
 import AppRoutes from '../routes/app-routes';
@@ -35,7 +35,7 @@ const App = () => {
       <ContentWrapper>
         <AppRoutes />
       </ContentWrapper>
-      <Footer />
+      <AppFooter />
       <Alert />
       {isAppWaiting && (
         <Waiting type="app" />
