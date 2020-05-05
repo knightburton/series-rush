@@ -1,5 +1,8 @@
 import React, { useEffect } from 'react';
-import PropTypes from 'prop-types';
+import {
+  useDispatch,
+  useSelector,
+} from 'react-redux';
 
 import AppBar from './widgets/appbar/appbar.container';
 import Drawer from './widgets/drawer/drawer.container';
@@ -11,10 +14,18 @@ import ScrollToTop from './widgets/scroll-to-top';
 
 import AppRoutes from '../routes/app-routes';
 
-const App = ({ isAppWaiting, requestTmdbConfiguration }) => {
+import {
+  getIsAppWaiting,
+  requestTmdbConfiguration,
+} from '../store/app';
+
+const App = () => {
+  const dispatch = useDispatch();
+  const isAppWaiting = useSelector(getIsAppWaiting);
+
   useEffect(() => {
-    requestTmdbConfiguration();
-  }, [requestTmdbConfiguration]);
+    dispatch(requestTmdbConfiguration());
+  }, [dispatch]);
 
   return (
     <main>
@@ -26,14 +37,11 @@ const App = ({ isAppWaiting, requestTmdbConfiguration }) => {
       </ContentWrapper>
       <Footer />
       <Alert />
-      {isAppWaiting && <Waiting type="app" />}
+      {isAppWaiting && (
+        <Waiting type="app" />
+      )}
     </main>
   );
-};
-
-App.propTypes = {
-  isAppWaiting: PropTypes.bool.isRequired,
-  requestTmdbConfiguration: PropTypes.func.isRequired,
 };
 
 export default App;
