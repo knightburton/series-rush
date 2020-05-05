@@ -16,13 +16,13 @@ const EditControlFile = ({ id, type, state: { value, error }, label, helperText,
   const classes = useStlyes();
   const { t } = useTranslation();
   const fileInput = useRef(null);
-  const fileName = (value && value.length && value[0].name) || t('alert:form/noFileSelected');
+  const fileName = (value && value.length && value[0].name) || t('alert::form/noFileSelected');
 
   const handleAddClick = () => fileInput.current.children[0].click();
 
   return (
     <>
-      <Tooltip title={t('common:browse')}>
+      <Tooltip title={t('common::browse')}>
         <IconButton color="primary" onClick={handleAddClick} className={classes.addFileButton}>
           <AddPhotoIcon />
         </IconButton>

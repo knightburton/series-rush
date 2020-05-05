@@ -14,20 +14,20 @@ export const VALIDATORS = {
 };
 
 export const ERRORS = {
-  REQUIRED: { message: 'alert:form/required' },
-  ONLY_NUMBER: { message: 'alert:form/onlyNumber' },
-  ONLY_ALPHANUMERIC: { message: 'alert:form/onlyAlphanumeric' },
-  TEXT_MIN: min => ({ message: 'alert:form/textMin', props: { min } }),
-  TEXT_MAX: max => ({ message: 'alert:form/textMax', props: { max } }),
-  TEXT_BETWEEN: (min, max) => ({ message: 'alert:form/textBetween', props: { min, max } }),
-  NUMBER_MIN: min => ({ message: 'alert:form/numberMin', props: { min } }),
-  NUMBER_MAX: max => ({ message: 'alert:form/numberMax', props: { max } }),
-  NUMBER_BETWEEN: (min, max) => ({ message: 'alert:form/numberBetween', props: { min, max } }),
-  EMAIL: { message: 'alert:form/email' },
-  FILE_MAX_SIZE: size => ({ message: 'alert:form/fileMaxSize', props: { size: size / 1000000 } }),
-  FILE_IMAGE_TYPE: { message: 'alert:form/fileImageType' },
+  REQUIRED: { message: 'alert::form/required' },
+  ONLY_NUMBER: { message: 'alert::form/onlyNumber' },
+  ONLY_ALPHANUMERIC: { message: 'alert::form/onlyAlphanumeric' },
+  TEXT_MIN: min => ({ message: 'alert::form/textMin', props: { min } }),
+  TEXT_MAX: max => ({ message: 'alert::form/textMax', props: { max } }),
+  TEXT_BETWEEN: (min, max) => ({ message: 'alert::form/textBetween', props: { min, max } }),
+  NUMBER_MIN: min => ({ message: 'alert::form/numberMin', props: { min } }),
+  NUMBER_MAX: max => ({ message: 'alert::form/numberMax', props: { max } }),
+  NUMBER_BETWEEN: (min, max) => ({ message: 'alert::form/numberBetween', props: { min, max } }),
+  EMAIL: { message: 'alert::form/email' },
+  FILE_MAX_SIZE: size => ({ message: 'alert::form/fileMaxSize', props: { size: size / 1000000 } }),
+  FILE_IMAGE_TYPE: { message: 'alert::form/fileImageType' },
   // Errors without validator constant
-  MATCH: (a, b) => ({ message: 'alert:form/match', props: { a, b } }),
+  MATCH: (a, b) => ({ message: 'alert::form/match', props: { a, b } }),
 };
 
 export default {

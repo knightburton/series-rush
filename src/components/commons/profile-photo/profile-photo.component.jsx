@@ -17,7 +17,7 @@ const ProfilePhoto = ({ alt, size, withGutter, withDisabledColor }) => {
 
   return (photoURL ? (
     <Avatar
-      alt={alt || t('common:profilePhoto')}
+      alt={alt || t('common::profilePhoto')}
       src={photoURL}
       imgProps={{ draggable: false }}
       className={classes.avatar}

@@ -112,7 +112,7 @@ export const search = (props = {}) => async (dispatch, getState, { tmdbApi }) =>
 
   if (!query) {
     dispatch(searchFailure());
-    dispatch(addAlert('alert:api/tmdb-search-without-query-info', 'info'));
+    dispatch(addAlert('alert::api/tmdb-search-without-query-info', 'info'));
     return;
   }
 
@@ -121,7 +121,7 @@ export const search = (props = {}) => async (dispatch, getState, { tmdbApi }) =>
     dispatch(searchSuccess(parseSearchData(data, type, tmdbConfiguration)));
   } catch (error) {
     dispatch(searchFailure());
-    dispatch(addAlert('alert:api/tmdb-search-failed', 'error'));
+    dispatch(addAlert('alert::api/tmdb-search-failed', 'error'));
   }
 };
 

@@ -50,12 +50,12 @@ const Edit = ({ type, id, value, label, helperText, disabled, required, validato
         onChange={handleChange}
       />
       <Box className={classes.buttons}>
-        <Tooltip title={t('common:cancel')}>
+        <Tooltip title={t('common::cancel')}>
           <IconButton onClick={() => setEdit(false)}>
             <CloseIcon fontSize="small" />
           </IconButton>
         </Tooltip>
-        <Tooltip title={t('common:submit')}>
+        <Tooltip title={t('common::submit')}>
           <IconButton type="submit" color="primary">
             <CheckIcon fontSize="small" />
           </IconButton>
@@ -73,7 +73,7 @@ const Edit = ({ type, id, value, label, helperText, disabled, required, validato
         </Typography>
       </Box>
       <Box className={classes.buttons}>
-        <Tooltip title={t('common:edit')}>
+        <Tooltip title={t('common::edit')}>
           <IconButton onClick={handleEdit}>
             <EditIcon fontSize="small" />
           </IconButton>

@@ -36,10 +36,10 @@ const Confirmation = ({ id, title, description, onAgree, toggle }) => {
         </DialogContent>
         <DialogActions>
           <Button onClick={hide} color="secondary">
-            {t('common:disagree')}
+            {t('common::disagree')}
           </Button>
           <Button onClick={handleAgree} color="primary" autoFocus>
-            {t('common:agree')}
+            {t('common::agree')}
           </Button>
         </DialogActions>
       </Dialog>

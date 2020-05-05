@@ -80,9 +80,9 @@ export const addToCollection = (id, type, group) => async (dispatch, getState, {
       },
     );
 
-    dispatch(addAlert('alert:collection/add-to-collection-success', 'success'));
+    dispatch(addAlert('alert::collection/add-to-collection-success', 'success'));
   } catch (error) {
-    dispatch(addAlert('alert:collection/add-to-collection-failure', 'error'));
+    dispatch(addAlert('alert::collection/add-to-collection-failure', 'error'));
   } finally {
     dispatch(setAppWaiting(false));
   }

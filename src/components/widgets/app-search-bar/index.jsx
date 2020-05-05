@@ -61,12 +61,12 @@ const AppSearchBar = () => {
       </div>
       <InputBase
         inputRef={inputRef}
-        placeholder={`${t('common:search')}...`}
+        placeholder={`${t('common::search')}...`}
         classes={{
           root: classes.inputRoot,
           input: classes.inputInput,
         }}
-        inputProps={{ 'aria-label': t('common:search') }}
+        inputProps={{ 'aria-label': t('common::search') }}
         value={state.query.value}
         onChange={handleChange}
         autoComplete="off"
