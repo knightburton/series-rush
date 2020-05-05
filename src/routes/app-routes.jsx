@@ -1,7 +1,7 @@
 import React from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 
-import Landing from '../components/pages/landing/landing.container';
+import Landing from '../components/pages/landing';
 import SignIn from '../components/pages/sign-in';
 import SignUp from '../components/pages/sign-up';
 import ForgotPassword from '../components/pages/forgot-password';
