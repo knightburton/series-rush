@@ -5,7 +5,7 @@ import Box from '@material-ui/core/Box';
 import Container from '@material-ui/core/Container';
 import Divider from '@material-ui/core/Divider';
 
-import QuickSearch from '../quick-search/quick-search.container';
+import AppSearchBar from '../app-search-bar';
 
 import ProfileContext from '../../../contexts/profile';
 
@@ -22,7 +22,7 @@ const ContentWrapper = ({ children }) => {
         <Box className={classes.searchWrapper}>
           <Box className={classes.toolbar} />
           <Container maxWidth="lg">
-            <QuickSearch />
+            <AppSearchBar />
           </Container>
           <Divider />
         </Box>

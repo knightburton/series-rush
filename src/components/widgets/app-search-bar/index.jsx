@@ -1,13 +1,14 @@
 import React, { useEffect, useCallback, useRef } from 'react';
-import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 import { useLocation } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 
 import InputBase from '@material-ui/core/InputBase';
 import NativeSelect from '@material-ui/core/NativeSelect';
 
-import SearchIcon from '@material-ui/icons/SearchOutlined';
+import SearchTwoToneIcon from '@material-ui/icons/SearchTwoTone';
 
+import { search } from '../../../store/search';
 import useForm from '../../../hooks/useForm';
 
 import { getSearchFromQueryString } from '../../../utils';
@@ -16,8 +17,9 @@ import { APP_PATHS } from '../../../constants/paths';
 
 import useStyles from './styles';
 
-const QuickSearch = ({ search }) => {
+const AppSearchBar = () => {
   const classes = useStyles();
+  const dispatch = useDispatch();
   const inputRef = useRef(null);
   const { t } = useTranslation();
   const { search: searchLocation, pathname } = useLocation();
@@ -26,7 +28,7 @@ const QuickSearch = ({ search }) => {
       query: '',
       type: COLLECTION_TYPE.TV,
     },
-    callback: ({ query, type }) => query && search({ query, type }),
+    callback: ({ query, type }) => query && dispatch(search({ query, type })),
   });
 
   const updateAllInput = useCallback((query, type) => {
@@ -55,7 +57,7 @@ const QuickSearch = ({ search }) => {
   return (
     <form noValidate onSubmit={handleSubmit} className={classes.search}>
       <div className={classes.searchIcon}>
-        <SearchIcon fontSize="small" />
+        <SearchTwoToneIcon fontSize="small" />
       </div>
       <InputBase
         inputRef={inputRef}
@@ -92,8 +94,4 @@ const QuickSearch = ({ search }) => {
   );
 };
 
-QuickSearch.propTypes = {
-  search: PropTypes.func.isRequired,
-};
-
-export default QuickSearch;
+export default AppSearchBar;
