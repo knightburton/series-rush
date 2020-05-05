@@ -13,7 +13,7 @@ import Form from '../../../commons/form';
 import FormText from '../../../commons/form-text';
 import FormButtonContainer from '../../../commons/form-button-container';
 import FormButton from '../../../commons/form-button';
-import Confirmation from '../../../widgets/confirmation/confirmation.component';
+import Confirmation from '../../../widgets/confirmation';
 
 import {
   getPasswordInProgress,

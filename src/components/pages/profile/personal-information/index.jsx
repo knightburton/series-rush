@@ -16,7 +16,7 @@ import Section from '../../../commons/section/section.component';
 import ProfilePhoto from '../../../commons/profile-photo/profile-photo.component';
 import Edit from '../../../commons/edit/edit.component';
 import Tooltip from '../../../commons/tooltip/tooltip.component';
-import Confirmation from '../../../widgets/confirmation/confirmation.component';
+import Confirmation from '../../../widgets/confirmation';
 
 import ProfileContext from '../../../../contexts/profile';
 import {
