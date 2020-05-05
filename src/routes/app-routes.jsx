@@ -4,7 +4,7 @@ import { Switch, Route, Redirect } from 'react-router-dom';
 import Landing from '../components/pages/landing/landing.container';
 import SignIn from '../components/pages/sign-in';
 import SignUp from '../components/pages/sign-up/sign-up.container';
-import ForgotPassword from '../components/pages/forgot-password/forgot-password.container';
+import ForgotPassword from '../components/pages/forgot-password';
 import Profile from '../components/pages/profile/profile.container';
 import Dashboard from '../components/pages/dashboard/dashboard.container';
 import Collection from '../components/pages/collection/collection.container';
