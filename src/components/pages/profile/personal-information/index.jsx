@@ -1,13 +1,16 @@
-import React, { useContext } from 'react';
-import PropTypes from 'prop-types';
+import React, { useContext, useCallback, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
+import {
+  useDispatch,
+  useSelector,
+} from 'react-redux';
 
 import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 
-import DeleteIcon from '@material-ui/icons/DeleteOutline';
+import DeleteTwoToneIcon from '@material-ui/icons/DeleteTwoTone';
 
 import Section from '../../../commons/section/section.component';
 import ProfilePhoto from '../../../commons/profile-photo/profile-photo.component';
@@ -16,10 +19,41 @@ import Tooltip from '../../../commons/tooltip/tooltip.component';
 import Confirmation from '../../../widgets/confirmation/confirmation.component';
 
 import ProfileContext from '../../../../contexts/profile';
+import {
+  getUpdateInProgress,
+  updateName,
+  updateEmail,
+  uploadProfilePhoto,
+  deleteProfilePhoto,
+} from '../../../../store/auth';
 
-const PersonalInformation = ({ updateInProgress, updateName, updateEmail, uploadProfilePhoto, deleteProfilePhoto }) => {
+const PersonalInformation = () => {
   const { t } = useTranslation();
   const { displayName, firstName, lastName, email, emailVerified, photoName } = useContext(ProfileContext);
+  const dispatch = useDispatch();
+  const updateInProgress = useSelector(getUpdateInProgress);
+
+  const emailLabel = useMemo(() => (
+    `${t('common::email')} (${emailVerified
+      ? t('common::verified')
+      : t('common::notVerified')})`
+  ), [emailVerified]);
+
+  const handleUpdateName = useCallback(key => value => {
+    dispatch(updateName(key, value));
+  }, [dispatch]);
+
+  const handleUpdateEmail = useCallback(value => {
+    dispatch(updateEmail(value));
+  }, [dispatch]);
+
+  const handleUploadPhoto = useCallback(photo => {
+    dispatch(uploadProfilePhoto(photo[0]));
+  }, [dispatch]);
+
+  const handleDeletePhoto = useCallback(() => {
+    dispatch(deleteProfilePhoto());
+  }, [dispatch]);
 
   return (
     <Section
@@ -38,45 +72,45 @@ const PersonalInformation = ({ updateInProgress, updateName, updateEmail, upload
           <Edit
             type="text"
             id="firstName"
-            label={t('common:firstName')}
+            label={t('common::firstName')}
             value={firstName}
-            onSubmit={value => updateName('firstName', value)}
+            onSubmit={handleUpdateName('firstName')}
             required
           />
           <Edit
             type="text"
             id="lastName"
-            label={t('common:lastName')}
+            label={t('common::lastName')}
             value={lastName}
-            onSubmit={value => updateName('lastName', value)}
+            onSubmit={handleUpdateName('lastName')}
             required
           />
           <Edit
             type="text"
             id="email"
-            label={`${t('common:email')} (${emailVerified ? t('common:verified') : t('common:notVerified')})`}
+            label={emailLabel}
             value={email}
-            onSubmit={updateEmail}
+            onSubmit={handleUpdateEmail}
             required
           />
           <Edit
             type="file"
             id="photoURL"
-            label={t('common:profilePhoto')}
+            label={t('common::profilePhoto')}
             value={photoName}
-            onSubmit={photo => uploadProfilePhoto(photo[0])}
+            onSubmit={handleUploadPhoto}
             required
             secondaryButton={(
               <Confirmation
                 id="delete-profile-photo"
                 title={t('page.profile.personalInformation.deletePhoto')}
                 description={t('page.profile.personalInformation.deleteDescription')}
-                onAgree={deleteProfilePhoto}
+                onAgree={handleDeletePhoto}
                 toggle={show => (
-                  <Tooltip title={t('common:delete')}>
+                  <Tooltip title={t('common::delete')}>
                     <Box>
                       <IconButton onClick={() => show()} disabled={!photoName}>
-                        <DeleteIcon fontSize="small" color="error" />
+                        <DeleteTwoToneIcon fontSize="small" color="error" />
                       </IconButton>
                     </Box>
                   </Tooltip>
@@ -88,14 +122,6 @@ const PersonalInformation = ({ updateInProgress, updateName, updateEmail, upload
       </Grid>
     </Section>
   );
-};
-
-PersonalInformation.propTypes = {
-  updateInProgress: PropTypes.bool.isRequired,
-  updateName: PropTypes.func.isRequired,
-  updateEmail: PropTypes.func.isRequired,
-  uploadProfilePhoto: PropTypes.func.isRequired,
-  deleteProfilePhoto: PropTypes.func.isRequired,
 };
 
 export default PersonalInformation;

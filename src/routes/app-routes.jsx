@@ -5,7 +5,7 @@ import Landing from '../components/pages/landing';
 import SignIn from '../components/pages/sign-in';
 import SignUp from '../components/pages/sign-up';
 import ForgotPassword from '../components/pages/forgot-password';
-import Profile from '../components/pages/profile/profile.container';
+import Profile from '../components/pages/profile';
 import Dashboard from '../components/pages/dashboard';
 import Collection from '../components/pages/collection/collection.container';
 import Search from '../components/pages/search/search.container';

@@ -18,6 +18,6 @@ export const validationSchema = {
   confirmPassword: {
     required: true,
     match: 'newPassword',
-    matchError: ERRORS.MATCH('New passwrod', 'Confirm password'),
+    matchError: ERRORS.MATCH('commonn::newPassword', 'commonn::confirmPassword'),
   },
 };

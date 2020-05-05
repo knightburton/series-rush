@@ -1,6 +1,6 @@
-import React, { useContext } from 'react';
-import PropTypes from 'prop-types';
+import React, { useContext, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useDispatch } from 'react-redux';
 
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
@@ -10,10 +10,23 @@ import Section from '../../../commons/section/section.component';
 import Confirmation from '../../../widgets/confirmation/confirmation.component';
 
 import ProfileContext from '../../../../contexts/profile';
+import {
+  requestEmailVerification,
+  deleteProfile,
+} from '../../../../store/auth';
 
-const DangerZone = ({ requestEmailVerification, deleteProfile }) => {
+const DangerZone = () => {
   const { t } = useTranslation();
   const { emailVerified } = useContext(ProfileContext);
+  const dispatch = useDispatch();
+
+  const handleRequestVerificationClick = useCallback(() => {
+    dispatch(requestEmailVerification());
+  }, [dispatch]);
+
+  const handleDeleteClick = useCallback(() => {
+    dispatch(deleteProfile());
+  }, [dispatch]);
 
   return (
     <Section
@@ -26,7 +39,7 @@ const DangerZone = ({ requestEmailVerification, deleteProfile }) => {
           <Button
             color="secondary"
             disabled={emailVerified}
-            onClick={requestEmailVerification}
+            onClick={handleRequestVerificationClick}
           >
             {t('page.profile.dangerZone.verificationRequest')}
           </Button>
@@ -42,7 +55,7 @@ const DangerZone = ({ requestEmailVerification, deleteProfile }) => {
             id="delete-profile"
             title={t('page.profile.dangerZone.deleteConfirmationTitle')}
             description={t('page.profile.dangerZone.deleteConfirmationDescription')}
-            onAgree={deleteProfile}
+            onAgree={handleDeleteClick}
             toggle={show => (
               <Button color="secondary" onClick={show}>
                 {t('page.profile.dangerZone.deleteProfile')}
@@ -59,11 +72,6 @@ const DangerZone = ({ requestEmailVerification, deleteProfile }) => {
       </Grid>
     </Section>
   );
-};
-
-DangerZone.propTypes = {
-  requestEmailVerification: PropTypes.func.isRequired,
-  deleteProfile: PropTypes.func.isRequired,
 };
 
 export default DangerZone;
