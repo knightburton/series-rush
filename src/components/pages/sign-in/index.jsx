@@ -19,23 +19,8 @@ import {
   getInProgress,
   signIn,
 } from '../../../store/auth';
-import useForm, { VALIDATORS, ERRORS } from '../../../hooks/useForm';
-
-export const stateSchema = {
-  email: '',
-  password: '',
-};
-
-export const validationSchema = {
-  email: {
-    required: true,
-    validators: [VALIDATORS.EMAIL],
-    errors: [ERRORS.EMAIL],
-  },
-  password: {
-    required: true,
-  },
-};
+import useForm from '../../../hooks/useForm';
+import { stateSchema, validationSchema } from './constants';
 
 const SignIn = () => {
   const dispatch = useDispatch();
