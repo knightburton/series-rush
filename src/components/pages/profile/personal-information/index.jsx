@@ -37,7 +37,7 @@ const PersonalInformation = () => {
     `${t('common::email')} (${emailVerified
       ? t('common::verified')
       : t('common::notVerified')})`
-  ), [emailVerified]);
+  ), [emailVerified, t]);
 
   const handleUpdateName = useCallback(key => value => {
     dispatch(updateName(key, value));

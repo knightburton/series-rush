@@ -37,11 +37,11 @@ const AppAlert = () => {
 
   const handleClose = useCallback((e, reason) => {
     if (reason === 'timeout') dispatch(removeAlert(alert?.key));
-  }, [dispatch]);
+  }, [dispatch, alert]);
 
   const handleCloseClick = useCallback(() => {
     dispatch(removeAlert(alert?.key));
-  }, [dispatch]);
+  }, [dispatch, alert]);
 
   if (!alert?.key && !alert?.message && !alert?.variant) return null;
 
