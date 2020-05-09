@@ -6,7 +6,7 @@ import Box from '@material-ui/core/Box';
 import Hidden from '@material-ui/core/Hidden';
 import IconButton from '@material-ui/core/IconButton';
 
-import MenuIcon from '@material-ui/icons/Menu';
+import MenuTwoToneIcon from '@material-ui/icons/MenuTwoTone';
 
 import { toggleMobileDrawer } from '../../../../store/app';
 
@@ -27,7 +27,7 @@ const AppBarDrawerButton = () => {
           edge="start"
           onClick={handleButtonClick}
         >
-          <MenuIcon />
+          <MenuTwoToneIcon />
         </IconButton>
       </Box>
     </Hidden>

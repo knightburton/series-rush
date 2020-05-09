@@ -1,8 +1,8 @@
 import React, { useContext, useCallback } from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
+import { useHistory } from 'react-router';
 
 import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
@@ -12,9 +12,9 @@ import MenuItem from '@material-ui/core/MenuItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 
-import PersonOutlineIcon from '@material-ui/icons/PersonOutline';
-import ExitToAppIcon from '@material-ui/icons/ExitToApp';
-import RigthIcon from '@material-ui/icons/ChevronRightOutlined';
+import PersonOutlineTwoToneIcon from '@material-ui/icons/PersonOutlineTwoTone';
+import ExitToAppTwoToneIcon from '@material-ui/icons/ExitToAppTwoTone';
+import ChevronRightTwoToneIcon from '@material-ui/icons/ChevronRightTwoTone';
 
 import ProfilePhoto from '../../../commons/profile-photo/profile-photo.component';
 
@@ -27,6 +27,7 @@ import { APP_PATHS } from '../../../../constants/paths';
 const AppBarProfileMenu = ({ anchor, setAnchor }) => {
   const dispatch = useDispatch();
   const { t } = useTranslation();
+  const { push } = useHistory();
   const { displayName } = useContext(ProfileContext);
 
   const handleSignOut = useCallback(() => {
@@ -41,6 +42,11 @@ const AppBarProfileMenu = ({ anchor, setAnchor }) => {
   const handleMenuClose = useCallback(() => {
     setAnchor(null);
   }, [setAnchor]);
+
+  const handleProfileClick = useCallback(() => {
+    push(APP_PATHS.PROFILE);
+    handleMenuClose();
+  }, [push, handleMenuClose]);
 
   return (
     <>
@@ -73,9 +79,9 @@ const AppBarProfileMenu = ({ anchor, setAnchor }) => {
         open={!!anchor}
         onClose={handleMenuClose}
       >
-        <MenuItem component={Link} to={APP_PATHS.PROFILE} onClick={handleMenuClose}>
+        <MenuItem onClick={handleProfileClick}>
           <ListItemIcon>
-            <PersonOutlineIcon fontSize="large" color="primary" />
+            <PersonOutlineTwoToneIcon fontSize="large" color="primary" />
           </ListItemIcon>
           <ListItemText
             primary={t('appbar.menu.profile')}
@@ -86,12 +92,12 @@ const AppBarProfileMenu = ({ anchor, setAnchor }) => {
             secondary={t('appbar.menu.profileDescription')}
           />
           <Box ml={2}>
-            <RigthIcon fontSize="small" color="disabled" />
+            <ChevronRightTwoToneIcon fontSize="small" color="disabled" />
           </Box>
         </MenuItem>
         <MenuItem onClick={handleSignOut}>
           <ListItemIcon>
-            <ExitToAppIcon fontSize="large" color="secondary" />
+            <ExitToAppTwoToneIcon fontSize="large" color="error" />
           </ListItemIcon>
           <ListItemText
             primary={t('appbar.menu.signOut')}
