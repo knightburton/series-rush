@@ -1,37 +1,37 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useDispatch } from 'react-redux';
 
+import Box from '@material-ui/core/Box';
 import Hidden from '@material-ui/core/Hidden';
 import IconButton from '@material-ui/core/IconButton';
 
 import MenuIcon from '@material-ui/icons/Menu';
 
-import useStyles from './appbar-drawer-button.styles';
+import { toggleMobileDrawer } from '../../../../store/app';
 
-const AppBarDrawerButton = ({ toggleMobileDrawer }) => {
-  const classes = useStyles();
+const AppBarDrawerButton = () => {
+  const dispatch = useDispatch();
   const { t } = useTranslation();
 
+  const handleButtonClick = useCallback(() => {
+    dispatch(toggleMobileDrawer());
+  }, [dispatch]);
+
   return (
-    <>
-      <Hidden mdUp>
+    <Hidden mdUp>
+      <Box mr={2}>
         <IconButton
           color="inherit"
           aria-label={t('appbar.openSidebar')}
           edge="start"
-          onClick={() => toggleMobileDrawer()}
-          className={classes.button}
+          onClick={handleButtonClick}
         >
           <MenuIcon />
         </IconButton>
-      </Hidden>
-    </>
+      </Box>
+    </Hidden>
   );
-};
-
-AppBarDrawerButton.propTypes = {
-  toggleMobileDrawer: PropTypes.func.isRequired,
 };
 
 export default AppBarDrawerButton;

@@ -1,8 +1,10 @@
-import React, { useContext } from 'react';
+import React, { useContext, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import { useDispatch } from 'react-redux';
 
+import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import Menu from '@material-ui/core/Menu';
@@ -18,30 +20,40 @@ import ProfilePhoto from '../../../commons/profile-photo/profile-photo.component
 
 import ProfileContext from '../../../../contexts/profile';
 
+import { signOut } from '../../../../store/auth';
 import { APP_PATHS } from '../../../../constants/paths';
 
-import useStyles from './appbar-profile-menu.styles';
 
-const AppBarProfileMenu = ({ signOut, anchor, setAnchor }) => {
-  const classes = useStyles();
+const AppBarProfileMenu = ({ anchor, setAnchor }) => {
+  const dispatch = useDispatch();
   const { t } = useTranslation();
   const { displayName } = useContext(ProfileContext);
 
-  const handleSignOut = () => {
-    signOut();
+  const handleSignOut = useCallback(() => {
+    dispatch(signOut());
     setAnchor(null);
-  };
+  }, [dispatch, setAnchor]);
+
+  const handleMenuCLick = useCallback(e => {
+    setAnchor(e.currentTarget);
+  }, [setAnchor]);
+
+  const handleMenuClose = useCallback(() => {
+    setAnchor(null);
+  }, [setAnchor]);
 
   return (
     <>
-      <Typography variant="body2" display="block" className={classes.displayName}>
-        {displayName}
-      </Typography>
+      <Box mr={0.5}>
+        <Typography variant="body2" display="block">
+          {displayName}
+        </Typography>
+      </Box>
       <IconButton
         edge="end"
         aria-owns={anchor ? 'material-appbar' : undefined}
         aria-haspopup="true"
-        onClick={e => setAnchor(e.currentTarget)}
+        onClick={handleMenuCLick}
         color="inherit"
       >
         <ProfilePhoto size="extraSmall" />
@@ -59,9 +71,9 @@ const AppBarProfileMenu = ({ signOut, anchor, setAnchor }) => {
           horizontal: 'right',
         }}
         open={!!anchor}
-        onClose={() => setAnchor(null)}
+        onClose={handleMenuClose}
       >
-        <MenuItem component={Link} to={APP_PATHS.PROFILE} onClick={() => setAnchor(null)}>
+        <MenuItem component={Link} to={APP_PATHS.PROFILE} onClick={handleMenuClose}>
           <ListItemIcon>
             <PersonOutlineIcon fontSize="large" color="primary" />
           </ListItemIcon>
@@ -73,9 +85,11 @@ const AppBarProfileMenu = ({ signOut, anchor, setAnchor }) => {
             }}
             secondary={t('appbar.menu.profileDescription')}
           />
-          <RigthIcon fontSize="small" color="disabled" className={classes.rightIcon} />
+          <Box ml={2}>
+            <RigthIcon fontSize="small" color="disabled" />
+          </Box>
         </MenuItem>
-        <MenuItem onClick={() => handleSignOut()}>
+        <MenuItem onClick={handleSignOut}>
           <ListItemIcon>
             <ExitToAppIcon fontSize="large" color="secondary" />
           </ListItemIcon>
@@ -94,7 +108,6 @@ const AppBarProfileMenu = ({ signOut, anchor, setAnchor }) => {
 };
 
 AppBarProfileMenu.propTypes = {
-  signOut: PropTypes.func.isRequired,
   setAnchor: PropTypes.func.isRequired,
   anchor: PropTypes.object,
 };

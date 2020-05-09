@@ -4,7 +4,7 @@ import {
   useSelector,
 } from 'react-redux';
 
-import AppBar from './widgets/appbar/appbar.container';
+import AppBar from './widgets/app-bar';
 import Drawer from './widgets/drawer/drawer.container';
 import AppAlert from './widgets/app-alert';
 import Waiting from './widgets/waiting';

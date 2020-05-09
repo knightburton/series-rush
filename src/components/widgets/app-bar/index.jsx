@@ -1,6 +1,6 @@
-import React, { useContext, useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useContext, useState, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useHistory } from 'react-router';
 
 import Container from '@material-ui/core/Container';
 import MuiAppBar from '@material-ui/core/AppBar';
@@ -9,20 +9,29 @@ import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import Hidden from '@material-ui/core/Hidden';
 
-import AppBarDrawerButton from './appbar-drawer-button/appbar-drawer-button.container';
-import AppBarNavigation from './appbar-navigation/appbar-navigation.component';
-import AppBarProfileMenu from './appbar-profile-menu/appbar-profile-menu.container';
+import AppBarDrawerButton from './app-bar-drawer-button';
+import AppBarNavigation from './app-bar-navigation';
+import AppBarProfileMenu from './app-bar-profile-menu';
 import ProjectTitle from '../../commons/project-title/project-title.component';
 
 import ProfileContext from '../../../contexts/profile';
 
-import useStyles from './appbar.styles';
+import useStyles from './styles';
 
 const AppBar = () => {
   const classes = useStyles();
   const { t } = useTranslation();
   const { signedIn } = useContext(ProfileContext);
+  const { push } = useHistory();
   const [profileMenu, setProfileMenu] = useState(null);
+
+  const handleTitleClick = useCallback(() => {
+    push('/');
+  }, [push]);
+
+  const handleSignInClick = useCallback(() => {
+    push('/sign-in');
+  }, [push]);
 
   return (
     <MuiAppBar position="fixed" className={classes.base}>
@@ -34,8 +43,7 @@ const AppBar = () => {
           <Hidden smDown>
             <Toolbar
               disableGutters
-              component={Link}
-              to="/"
+              onClick={handleTitleClick}
               className={classes.titleLink}
             >
               <ProjectTitle withLogo />
@@ -44,7 +52,7 @@ const AppBar = () => {
               <AppBarNavigation />
             )}
           </Hidden>
-          <Box className={classes.grow} />
+          <Box display="flex" flex={1} />
           {signedIn ? (
             <AppBarProfileMenu
               anchor={profileMenu}
@@ -53,8 +61,7 @@ const AppBar = () => {
           ) : (
             <Button
               color="inherit"
-              component={Link}
-              to="/sign-in"
+              onClick={handleSignInClick}
             >
               {t('common::signIn')}
             </Button>

@@ -1,13 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 
-import useStyles from './appbar-navigation.styles';
-
 import { MAIN_MENU } from '../../../../constants/navigation';
+
+import useStyles from './styles';
 
 const defaultSelected = pathname => {
   const paths = MAIN_MENU.map(({ path }) => path);
@@ -22,6 +22,10 @@ const AppBarNavigation = () => {
   const { pathname } = useLocation();
   const [selected, updateSelected] = useState(defaultSelected(pathname));
 
+  const handleTabChange = useCallback((e, value) => {
+    updateSelected(value);
+  }, []);
+
   useEffect(() => {
     if (!pathname.includes(selected)) updateSelected(false);
   }, [selected, pathname]);
@@ -29,7 +33,7 @@ const AppBarNavigation = () => {
   return (
     <Tabs
       value={selected}
-      onChange={(e, value) => updateSelected(value)}
+      onChange={handleTabChange}
       className={classes.root}
       TabIndicatorProps={{ className: classes.indicator }}
       classes={{ flexContainer: classes.flexContainer }}

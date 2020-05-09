@@ -6,9 +6,6 @@ export default makeStyles(() => ({
     textDecoration: 'none',
     color: 'inherit',
   },
-  grow: {
-    flex: 1,
-  },
   base: {
     marginLeft: 0,
     boxShadow: 'none',
