@@ -1,17 +1,30 @@
-import React, { useContext } from 'react';
-import PropTypes from 'prop-types';
+import React, { useContext, useCallback } from 'react';
+import {
+  useDispatch,
+  useSelector,
+} from 'react-redux';
 
 import MuiDrawer from '@material-ui/core/Drawer';
 import Hidden from '@material-ui/core/Hidden';
-import DrawerContent from './drawer-content/drawer-content.component';
+import AppDrawerContent from './app-drawer-content';
 
+import {
+  getIsMobileDrawerOpened,
+  toggleMobileDrawer,
+} from '../../../store/app';
 import ProfileContext from '../../../contexts/profile';
 
-import useStyles from './drawer.styles';
+import useStyles from './styles';
 
-const Drawer = ({ isMobileDrawerOpened, toggleMobileDrawer }) => {
+const Drawer = () => {
   const classes = useStyles();
+  const dispatch = useDispatch();
+  const isMobileDrawerOpened = useSelector(getIsMobileDrawerOpened);
   const { signedIn } = useContext(ProfileContext);
+
+  const handleSelect = useCallback(() => {
+    dispatch(toggleMobileDrawer());
+  }, [dispatch]);
 
   return signedIn ? (
     <Hidden mdUp>
@@ -22,20 +35,15 @@ const Drawer = ({ isMobileDrawerOpened, toggleMobileDrawer }) => {
           paper: classes.drawer,
         }}
         open={isMobileDrawerOpened}
-        onClose={() => toggleMobileDrawer()}
+        onClose={handleSelect}
         ModalProps={{
           keepMounted: true,
         }}
       >
-        <DrawerContent onSelect={toggleMobileDrawer} />
+        <AppDrawerContent onSelect={handleSelect} />
       </MuiDrawer>
     </Hidden>
   ) : null;
-};
-
-Drawer.propTypes = {
-  isMobileDrawerOpened: PropTypes.bool.isRequired,
-  toggleMobileDrawer: PropTypes.func.isRequired,
 };
 
 export default Drawer;

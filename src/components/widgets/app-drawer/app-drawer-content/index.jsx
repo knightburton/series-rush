@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 import { Link, useLocation } from 'react-router-dom';
@@ -15,13 +15,14 @@ import ProjectTitle from '../../../commons/project-title/project-title.component
 import { MAIN_MENU } from '../../../../constants/navigation';
 import { APP_PATHS } from '../../../../constants/paths';
 
-import useStyles from './drawer-content.styles';
+import useStyles from './styles';
 
 const DrawerContent = ({ onSelect }) => {
   const classes = useStyles();
   const { pathname } = useLocation();
   const { t } = useTranslation();
-  const isSelected = ({ path }) => pathname.includes(path);
+
+  const isSelected = useCallback(({ path }) => pathname.includes(path), [pathname]);
 
   return (
     <>
@@ -29,7 +30,7 @@ const DrawerContent = ({ onSelect }) => {
         component={Link}
         to={APP_PATHS.LANDING}
         className={classes.toolbar}
-        onClick={() => onSelect()}
+        onClick={onSelect}
       >
         <ProjectTitle withLogo />
       </Toolbar>
@@ -44,7 +45,7 @@ const DrawerContent = ({ onSelect }) => {
             classes={{
               selected: classes.selected,
             }}
-            onClick={() => onSelect()}
+            onClick={onSelect}
             button
           >
             <ListItemIcon className={classes.icon} color="inherit">

@@ -7,8 +7,8 @@ import {
 import AppAlert from './widgets/app-alert';
 import AppBar from './widgets/app-bar';
 import AppContent from './widgets/app-content';
+import AppDrawer from './widgets/app-drawer';
 import AppFooter from './widgets/app-footer';
-import Drawer from './widgets/drawer/drawer.container';
 import Waiting from './widgets/waiting';
 import ScrollToTop from './widgets/scroll-to-top';
 
@@ -31,7 +31,7 @@ const App = () => {
     <main>
       <ScrollToTop />
       <AppBar />
-      <Drawer />
+      <AppDrawer />
       <AppContent>
         <AppRoutes />
       </AppContent>
