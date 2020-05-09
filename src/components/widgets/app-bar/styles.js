@@ -5,6 +5,7 @@ export default makeStyles(() => ({
     textTransform: 'none',
     textDecoration: 'none',
     color: 'inherit',
+    cursor: 'pointer',
   },
   base: {
     marginLeft: 0,
