@@ -4,12 +4,12 @@ import {
   useSelector,
 } from 'react-redux';
 
-import AppBar from './widgets/app-bar';
-import Drawer from './widgets/drawer/drawer.container';
 import AppAlert from './widgets/app-alert';
-import Waiting from './widgets/waiting';
-import ContentWrapper from './widgets/content-wrapper/content-wrapper.component';
+import AppBar from './widgets/app-bar';
+import AppContent from './widgets/app-content';
 import AppFooter from './widgets/app-footer';
+import Drawer from './widgets/drawer/drawer.container';
+import Waiting from './widgets/waiting';
 import ScrollToTop from './widgets/scroll-to-top';
 
 import AppRoutes from '../routes/app-routes';
@@ -32,9 +32,9 @@ const App = () => {
       <ScrollToTop />
       <AppBar />
       <Drawer />
-      <ContentWrapper>
+      <AppContent>
         <AppRoutes />
-      </ContentWrapper>
+      </AppContent>
       <AppFooter />
       <AppAlert />
       {isAppWaiting && (

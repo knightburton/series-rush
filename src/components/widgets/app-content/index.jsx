@@ -9,7 +9,7 @@ import AppSearchBar from '../app-search-bar';
 
 import ProfileContext from '../../../contexts/profile';
 
-import useStyles from './content-wrapper.styles';
+import useStyles from './styles';
 
 const ContentWrapper = ({ children }) => {
   const { signedIn } = useContext(ProfileContext);
