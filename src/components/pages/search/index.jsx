@@ -1,35 +1,55 @@
-import React, { useEffect, useState } from 'react';
-import PropTypes from 'prop-types';
+import React, { useEffect, useState, useCallback } from 'react';
 import Pagination from 'material-ui-flat-pagination';
 import { useTranslation } from 'react-i18next';
 import { useLocation } from 'react-router-dom';
+import {
+  useDispatch,
+  useSelector,
+} from 'react-redux';
 
 import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
 
 import Waiting from '../../widgets/waiting';
-import SearchResults from './search-results/search-results.container';
+import SearchResultList from './search-result-list';
 
-import useStyles from './search.styles';
+import {
+  getSearchResults,
+  getSearchNumberOfPages,
+  getSearchPage,
+  getSearchQuery,
+  getSearchInProgress,
+  search,
+  checkSearch,
+  clearSearchProps,
+} from '../../../store/search';
 
-const Search = ({ results, query, page, numberOfPages, clearSearchProps, search, checkSearch, searchInProgress }) => {
-  const classes = useStyles();
+import useStyles from './styles';
+
+const Search = () => {
   const { t } = useTranslation();
+  const classes = useStyles();
+  const dispatch = useDispatch();
+  const results = useSelector(getSearchResults);
+  const numberOfPages = useSelector(getSearchNumberOfPages);
+  const page = useSelector(getSearchPage);
+  const query = useSelector(getSearchQuery);
+  const searchInProgress = useSelector(getSearchInProgress);
   const location = useLocation();
   const [selectedPage, selectPage] = useState(null);
 
-  const handlePageSelect = (e, offset) => {
-    search({ page: offset + 1 });
+  const handlePageSelect = useCallback((e, offset) => {
+    dispatch(search({ page: offset + 1 }));
     selectPage(offset);
-  };
+  }, [dispatch]);
 
   useEffect(() => {
     selectPage(page - 1);
   }, [page]);
   useEffect(() => {
-    checkSearch();
-  }, [location, checkSearch]);
-  useEffect(() => () => clearSearchProps(), [clearSearchProps]);
+    dispatch(checkSearch());
+  }, [location, dispatch]);
+  useEffect(() => () => dispatch(clearSearchProps()), [dispatch]);
 
   return (
     <Container maxWidth="lg">
@@ -38,7 +58,7 @@ const Search = ({ results, query, page, numberOfPages, clearSearchProps, search,
       ) : (
         <>
           {results.length > 0 && !!query ? (
-            <SearchResults />
+            <SearchResultList />
           ) : (
             <Typography>
               {t('page.search.emptyResult')}
@@ -59,23 +79,6 @@ const Search = ({ results, query, page, numberOfPages, clearSearchProps, search,
       )}
     </Container>
   );
-};
-
-Search.propTypes = {
-  results: PropTypes.arrayOf(PropTypes.object),
-  numberOfPages: PropTypes.number,
-  query: PropTypes.string.isRequired,
-  page: PropTypes.number,
-  clearSearchProps: PropTypes.func.isRequired,
-  search: PropTypes.func.isRequired,
-  checkSearch: PropTypes.func.isRequired,
-  searchInProgress: PropTypes.bool.isRequired,
-};
-
-Search.defaultProps = {
-  results: [],
-  numberOfPages: null,
-  page: null,
 };
 
 export default Search;

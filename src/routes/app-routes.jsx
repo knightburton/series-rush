@@ -8,7 +8,7 @@ import ForgotPassword from '../components/pages/forgot-password';
 import Profile from '../components/pages/profile';
 import Dashboard from '../components/pages/dashboard';
 import Collection from '../components/pages/collection';
-import Search from '../components/pages/search/search.container';
+import Search from '../components/pages/search';
 
 import ProtectedRoute from './protected-route';
 

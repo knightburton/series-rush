@@ -1,6 +1,10 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
+import {
+  useDispatch,
+  useSelector,
+} from 'react-redux';
 
 import Box from '@material-ui/core/Box';
 import Card from '@material-ui/core/Card';
@@ -12,19 +16,28 @@ import Hidden from '@material-ui/core/Hidden';
 
 import SplitButton from '../../../commons/split-button/split-button.component';
 
-import { getEllipsisText } from '../../../../utils';
+import {
+  getGroupsByType,
+  addToCollection,
+} from '../../../../store/collection';
+import {
+  getEllipsisText,
+  getPropertyByPath,
+} from '../../../../utils';
 import { ELLIPSIS_LENGTHS } from '../../../../constants/config';
 
-import useStyles from './search-result.styles';
+import useStyles from './styles';
 
-const SearchResult = ({ result, groups, addToCollection }) => {
+const SearchResultItem = ({ result }) => {
   const classes = useStyles();
   const { t } = useTranslation();
+  const dispatch = useDispatch();
+  const type = getPropertyByPath(result, 'type');
+  const groups = useSelector(getGroupsByType(type));
 
-  const handleAdd = group => {
-    const { id, type } = result;
-    addToCollection(id, type, group);
-  };
+  const handleAdd = useCallback(group => {
+    dispatch(addToCollection(result.id, result.type, group));
+  }, [dispatch, result]);
 
   return (
     <Card className={classes.card}>
@@ -88,7 +101,7 @@ const SearchResult = ({ result, groups, addToCollection }) => {
   );
 };
 
-SearchResult.propTypes = {
+SearchResultItem.propTypes = {
   result: PropTypes.shape({
     id: PropTypes.number,
     type: PropTypes.string,
@@ -99,15 +112,6 @@ SearchResult.propTypes = {
     overview: PropTypes.string,
     vote: PropTypes.number,
   }).isRequired,
-  groups: PropTypes.arrayOf(PropTypes.shape({
-    id: PropTypes.string,
-    label: PropTypes.string,
-  })),
-  addToCollection: PropTypes.func.isRequired,
 };
 
-SearchResult.defaultProps = {
-  groups: [],
-};
-
-export default SearchResult;
+export default SearchResultItem;
