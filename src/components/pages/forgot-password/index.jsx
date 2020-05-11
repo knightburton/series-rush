@@ -20,6 +20,7 @@ import {
   sendPasswordResetEmail,
 } from '../../../store/auth';
 import useForm from '../../../hooks/useForm';
+import { APP_PATHS } from '../../../constants/paths';
 import { stateSchema, validationSchema } from './constants';
 
 const ForgotPassword = () => {
@@ -35,7 +36,7 @@ const ForgotPassword = () => {
   const { email } = state;
 
   const handleAlreadyHaveClick = useCallback(() => {
-    push('/sign-in');
+    push(APP_PATHS.SIGN_IN.path);
   }, [push]);
 
   return (

@@ -10,19 +10,19 @@ import ChangePassword from './change-password';
 import DangerZone from './danger-zone';
 
 import { PROFILE_MENU } from '../../../constants/navigation';
-import { PROFILE_PATHS } from '../../../constants/paths';
+import { APP_PATHS } from '../../../constants/paths';
 
 const Profile = () => (
   <Container maxWidth="lg">
     <AsideTabsGrid
       tabs={PROFILE_MENU}
-      defaultTab={PROFILE_PATHS.PERSONAL_INFORMATION}
+      defaultTab={APP_PATHS.PROFILE_PERSONAL_INFORMATION.path}
     >
       <Switch>
-        <Route path={PROFILE_PATHS.PERSONAL_INFORMATION} component={PersonalInformation} />
-        <Route path={PROFILE_PATHS.CHANGE_PASSWORD} component={ChangePassword} />
-        <Route path={PROFILE_PATHS.DANGER_ZONE} component={DangerZone} />
-        <Redirect to={PROFILE_PATHS.PERSONAL_INFORMATION} />
+        <Route path={APP_PATHS.PROFILE_PERSONAL_INFORMATION.path} component={PersonalInformation} />
+        <Route path={APP_PATHS.PROFILE_CHANGE_PASSWORD.path} component={ChangePassword} />
+        <Route path={APP_PATHS.PROFILE_DANGER_ZONE.path} component={DangerZone} />
+        <Redirect to={APP_PATHS.PROFILE_PERSONAL_INFORMATION.path} />
       </Switch>
     </AsideTabsGrid>
   </Container>

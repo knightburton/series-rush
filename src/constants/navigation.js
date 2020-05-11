@@ -1,54 +1,17 @@
-import DashboardIcon from '@material-ui/icons/DashboardOutlined';
-import CollectionIcon from '@material-ui/icons/CollectionsOutlined';
-
-import {
-  APP_PATHS,
-  PROFILE_PATHS,
-  COLLECTION_PATHS,
-} from './paths';
+import { APP_PATHS } from './paths';
 
 export const MAIN_MENU = [
-  {
-    key: 'dashboard',
-    title: 'page.dashboard.title',
-    path: APP_PATHS.DASHBOARD,
-    icon: DashboardIcon,
-  },
-  {
-    key: 'collection',
-    title: 'page.collection.title',
-    path: APP_PATHS.COLLECTION,
-    icon: CollectionIcon,
-  },
+  APP_PATHS.DASHBOARD,
+  APP_PATHS.COLLECTION,
 ];
 
 export const PROFILE_MENU = [
-  {
-    key: 'personal-information',
-    path: PROFILE_PATHS.PERSONAL_INFORMATION,
-    title: 'page.profile.personalInformation.title',
-  },
-  {
-    key: 'change-password',
-    path: PROFILE_PATHS.CHANGE_PASSWORD,
-    title: 'page.profile.changePassword.title',
-  },
-  {
-    key: 'danger-zone',
-    path: PROFILE_PATHS.DANGER_ZONE,
-    title: 'page.profile.dangerZone.title',
-  },
+  APP_PATHS.PROFILE_PERSONAL_INFORMATION,
+  APP_PATHS.CHANGE_PASSWORD,
+  APP_PATHS.DANGER_ZONE,
 ];
 
 export const COLLECTION_MENU = [
-  {
-    key: 'tv-shows',
-    path: COLLECTION_PATHS.LIST_TV,
-    title: 'page.collection.menu.tv',
-  },
-  {
-    key: 'movies',
-    path: COLLECTION_PATHS.LIST_MOVIE,
-    title: 'page.collection.menu.movie',
-  },
+  APP_PATHS.COLLECTION_LIST_TV,
+  APP_PATHS.COLLECTION_LIST_MOVIE,
 ];

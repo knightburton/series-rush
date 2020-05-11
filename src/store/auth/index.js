@@ -1,6 +1,7 @@
 import { createAction, handleActions } from 'redux-actions';
 import { createSelector } from 'reselect';
 import { addAlert, setAppWaiting } from '../app';
+import { APP_PATHS } from '../../constants/paths';
 
 // Initial state
 export const initialState = {
@@ -126,7 +127,7 @@ export const signOut = () => async (dispatch, getState, { getFirebase, history }
   try {
     const firebase = getFirebase();
     await firebase.logout();
-    history.push('/');
+    history.push(APP_PATHS.LANDING.path);
   } catch (error) {
     dispatch(handleAuthError(error));
   } finally {
@@ -279,7 +280,7 @@ export const deleteProfile = () => async (dispatch, getState, { getFirebase, his
     const firebase = getFirebase();
     await firebase.auth().currentUser.delete();
     await firebase.logout();
-    history.push('/');
+    history.push(APP_PATHS.LANDING.path);
   } catch (error) {
     dispatch(handleAuthError(error));
   } finally {

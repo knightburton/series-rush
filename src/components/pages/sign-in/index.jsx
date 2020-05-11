@@ -20,6 +20,7 @@ import {
   signIn,
 } from '../../../store/auth';
 import useForm from '../../../hooks/useForm';
+import { APP_PATHS } from '../../../constants/paths';
 import { stateSchema, validationSchema } from './constants';
 
 const SignIn = () => {
@@ -35,11 +36,11 @@ const SignIn = () => {
   const { email, password } = state;
 
   const handleForgotPasswordClick = useCallback(() => {
-    push('/forgot-password');
+    push(APP_PATHS.FORGOT_PASSWORD.path);
   }, [push]);
 
   const handleSignUpClick = useCallback(() => {
-    push('/sign-up');
+    push(APP_PATHS.SIGN_UP.path);
   }, [push]);
 
   return (

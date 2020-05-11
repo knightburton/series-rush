@@ -15,6 +15,9 @@
     "multi": "TV Shows & Movies"
   },
   "page": {
+    "landing": {
+      "title": "Landing Page"
+    },
     "forgotPassword": {
       "title": "Forgot Password"
     },
@@ -25,6 +28,7 @@
       "title": "Sign In"
     },
     "profile": {
+      "title": "Profile",
       "changePassword": {
         "title": "Change Password",
         "subtitle": "change or reset your account password",

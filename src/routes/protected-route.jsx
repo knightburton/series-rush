@@ -9,9 +9,9 @@ import { APP_PATHS } from '../constants/paths';
 const ProtectedRoute = ({ component, path, exact, reverse }) => {
   const { signedIn } = useContext(ProfileContext);
 
-  if (reverse && signedIn) return <Redirect to={APP_PATHS.DASHBOARD} />;
+  if (reverse && signedIn) return <Redirect to={APP_PATHS.DASHBOARD.path} />;
   if (!(reverse === signedIn)) return <Route path={path} exact={exact} component={component} />;
-  return <Redirect to={APP_PATHS.SIGN_IN} />;
+  return <Redirect to={APP_PATHS.SIGN_IN.path} />;
 };
 
 ProtectedRoute.propTypes = {

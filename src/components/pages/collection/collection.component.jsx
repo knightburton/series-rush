@@ -9,14 +9,14 @@ import CollectionRoutes from '../../../routes/collection-routes';
 
 
 import { COLLECTION_MENU } from '../../../constants/navigation';
-import { COLLECTION_PATHS } from '../../../constants/paths';
+import { APP_PATHS } from '../../../constants/paths';
 
 const Collection = () => (
   <Container maxWidth="lg">
     <Box position="relative" height="100%">
       <AsideTabsGrid
         tabs={COLLECTION_MENU}
-        defaultTab={COLLECTION_PATHS.LIST_TV}
+        defaultTab={APP_PATHS.COLLECTION_LIST_TV.path}
       >
         <CollectionRoutes />
       </AsideTabsGrid>

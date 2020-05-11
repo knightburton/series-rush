@@ -20,6 +20,7 @@ import {
   createProfile,
 } from '../../../store/auth';
 import useForm from '../../../hooks/useForm';
+import { APP_PATHS } from '../../../constants/paths';
 import {
   stateSchema,
   validationSchema,
@@ -38,7 +39,7 @@ const SignUp = () => {
   const { firstName, lastName, email, password, confirmPassword } = state;
 
   const handleAlreadyHaveClick = useCallback(() => {
-    push('sign-in');
+    push(APP_PATHS.SIGN_IN.path);
   }, [push]);
 
   return (

@@ -44,7 +44,7 @@ const AppBarProfileMenu = ({ anchor, setAnchor }) => {
   }, [setAnchor]);
 
   const handleProfileClick = useCallback(() => {
-    push(APP_PATHS.PROFILE);
+    push(APP_PATHS.PROFILE.path);
     handleMenuClose();
   }, [push, handleMenuClose]);
 

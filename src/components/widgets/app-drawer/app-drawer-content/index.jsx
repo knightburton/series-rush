@@ -28,7 +28,7 @@ const DrawerContent = ({ onSelect }) => {
     <>
       <Toolbar
         component={Link}
-        to={APP_PATHS.LANDING}
+        to={APP_PATHS.LANDING.path}
         className={classes.toolbar}
         onClick={onSelect}
       >

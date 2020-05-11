@@ -93,10 +93,10 @@ export const prepareSearch = props => (dispatch, getState, { history }) => {
   };
   const newQueryString = createSearchQueryString(validProps);
 
-  if (location.pathname !== APP_PATHS.SEARCH || newQueryString !== location.search.replace(/^\?/g, '')) {
+  if (location.pathname !== APP_PATHS.SEARCH.path || newQueryString !== location.search.replace(/^\?/g, '')) {
     history.push({
       ...location,
-      pathname: APP_PATHS.SEARCH,
+      pathname: APP_PATHS.SEARCH.path,
       search: newQueryString,
     });
   }

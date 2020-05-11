@@ -16,15 +16,15 @@ import { APP_PATHS } from '../constants/paths';
 
 const AppRoutes = () => (
   <Switch>
-    <Route exact path={APP_PATHS.LANDING} component={Landing} />
-    <ProtectedRoute exact reverse path={APP_PATHS.SIGN_IN} component={SignIn} />
-    <ProtectedRoute exact reverse path={APP_PATHS.SIGN_UP} component={SignUp} />
-    <ProtectedRoute exact reverse path={APP_PATHS.FORGOT_PASSWORD} component={ForgotPassword} />
-    <ProtectedRoute exact path={APP_PATHS.DASHBOARD} component={Dashboard} />
-    <ProtectedRoute path={APP_PATHS.PROFILE} component={Profile} />
-    <ProtectedRoute path={APP_PATHS.COLLECTION} component={Collection} />
-    <ProtectedRoute path={APP_PATHS.SEARCH} component={Search} />
-    <Redirect to={APP_PATHS.LANDING} />
+    <Route exact path={APP_PATHS.LANDING.path} component={Landing} />
+    <ProtectedRoute exact reverse path={APP_PATHS.SIGN_IN.path} component={SignIn} />
+    <ProtectedRoute exact reverse path={APP_PATHS.SIGN_UP.path} component={SignUp} />
+    <ProtectedRoute exact reverse path={APP_PATHS.FORGOT_PASSWORD.path} component={ForgotPassword} />
+    <ProtectedRoute exact path={APP_PATHS.DASHBOARD.path} component={Dashboard} />
+    <ProtectedRoute path={APP_PATHS.PROFILE.path} component={Profile} />
+    <ProtectedRoute path={APP_PATHS.COLLECTION.path} component={Collection} />
+    <ProtectedRoute path={APP_PATHS.SEARCH.path} component={Search} />
+    <Redirect to={APP_PATHS.LANDING.path} />
   </Switch>
 );
 

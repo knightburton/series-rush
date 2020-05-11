@@ -42,7 +42,7 @@ const AppSearchBar = () => {
   }, [handleChange]);
 
   useEffect(() => {
-    if (pathname === APP_PATHS.SEARCH) {
+    if (pathname === APP_PATHS.SEARCH.path) {
       const { query, type } = getSearchFromQueryString(searchLocation);
       updateAllInput(query, type);
     } else {
