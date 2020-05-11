@@ -73,8 +73,8 @@ export const APP_PATHS = {
     title: 'page.collection.title',
     icon: LibraryBooksTwoToneIcon,
   },
-  COLLECTION_LIST_TYPE: {
-    key: 'collectionListType',
+  COLLECTION_LIST: {
+    key: 'collectionList',
     path: '/collection/:type',
     title: 'page.collection.title',
     icon: LibraryBooksTwoToneIcon,

@@ -7,7 +7,7 @@ import SignUp from '../components/pages/sign-up';
 import ForgotPassword from '../components/pages/forgot-password';
 import Profile from '../components/pages/profile';
 import Dashboard from '../components/pages/dashboard';
-import Collection from '../components/pages/collection/collection.container';
+import Collection from '../components/pages/collection';
 import Search from '../components/pages/search/search.container';
 
 import ProtectedRoute from './protected-route';
