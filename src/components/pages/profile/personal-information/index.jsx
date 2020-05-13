@@ -14,8 +14,8 @@ import DeleteTwoToneIcon from '@material-ui/icons/DeleteTwoTone';
 
 import Section from '../../../commons/section';
 import ProfilePhoto from '../../../commons/profile-photo';
-import Edit from '../../../commons/edit/edit.component';
 import Tooltip from '../../../commons/tooltip';
+import FormInline from '../../../commons/form-inline';
 import Confirmation from '../../../widgets/confirmation';
 
 import ProfileContext from '../../../../contexts/profile';
@@ -69,7 +69,7 @@ const PersonalInformation = () => {
           </Typography>
         </Grid>
         <Grid item xs={12} sm={6}>
-          <Edit
+          <FormInline
             type="text"
             id="firstName"
             label={t('common::firstName')}
@@ -77,7 +77,7 @@ const PersonalInformation = () => {
             onSubmit={handleUpdateName('firstName')}
             required
           />
-          <Edit
+          <FormInline
             type="text"
             id="lastName"
             label={t('common::lastName')}
@@ -85,7 +85,7 @@ const PersonalInformation = () => {
             onSubmit={handleUpdateName('lastName')}
             required
           />
-          <Edit
+          <FormInline
             type="text"
             id="email"
             label={emailLabel}
@@ -93,14 +93,14 @@ const PersonalInformation = () => {
             onSubmit={handleUpdateEmail}
             required
           />
-          <Edit
+          <FormInline
             type="file"
             id="photoURL"
             label={t('common::profilePhoto')}
             value={photoName}
             onSubmit={handleUploadPhoto}
             required
-            secondaryButton={(
+            actionButton={(
               <Confirmation
                 id="delete-profile-photo"
                 title={t('page.profile.personalInformation.deletePhoto')}
