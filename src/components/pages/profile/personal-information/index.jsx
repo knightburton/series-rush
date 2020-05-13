@@ -13,7 +13,7 @@ import Typography from '@material-ui/core/Typography';
 import DeleteTwoToneIcon from '@material-ui/icons/DeleteTwoTone';
 
 import Section from '../../../commons/section';
-import ProfilePhoto from '../../../commons/profile-photo/profile-photo.component';
+import ProfilePhoto from '../../../commons/profile-photo';
 import Edit from '../../../commons/edit/edit.component';
 import Tooltip from '../../../commons/tooltip';
 import Confirmation from '../../../widgets/confirmation';

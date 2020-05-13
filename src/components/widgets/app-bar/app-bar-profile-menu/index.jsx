@@ -16,7 +16,7 @@ import PersonOutlineTwoToneIcon from '@material-ui/icons/PersonOutlineTwoTone';
 import ExitToAppTwoToneIcon from '@material-ui/icons/ExitToAppTwoTone';
 import ChevronRightTwoToneIcon from '@material-ui/icons/ChevronRightTwoTone';
 
-import ProfilePhoto from '../../../commons/profile-photo/profile-photo.component';
+import ProfilePhoto from '../../../commons/profile-photo';
 
 import ProfileContext from '../../../../contexts/profile';
 

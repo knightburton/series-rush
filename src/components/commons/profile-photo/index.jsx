@@ -8,7 +8,7 @@ import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 
 import ProfileContext from '../../../contexts/profile';
 
-import useStyles from './profile-photo.styles';
+import useStyles from './styles';
 
 const ProfilePhoto = ({ alt, size, withGutter, withDisabledColor }) => {
   const classes = useStyles({ size, withGutter });
