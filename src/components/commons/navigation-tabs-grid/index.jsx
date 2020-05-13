@@ -4,7 +4,7 @@ import { useLocation } from 'react-router-dom';
 
 import Grid from '@material-ui/core/Grid';
 
-import AsideTabs from '../aside-tabs/aside-tabs.component';
+import NavigationTabs from '../navigation-tabs';
 
 import { getValidatedPathnameFromPaths } from '../../../utils';
 
@@ -26,7 +26,7 @@ const NavigationTabsGrid = ({ tabs, defaultTab, children }) => {
   return (
     <Grid container spacing={3}>
       <Grid item xs={12} md="auto" className={classes.menuGrid}>
-        <AsideTabs
+        <NavigationTabs
           tabs={tabs}
           selected={selected}
           onChange={handleChange}

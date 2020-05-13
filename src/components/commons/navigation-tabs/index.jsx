@@ -8,9 +8,9 @@ import Tab from '@material-ui/core/Tab';
 import Box from '@material-ui/core/Box';
 import Hidden from '@material-ui/core/Hidden';
 
-import useStyles from './aside-tabs.styles';
+import useStyles from './styles';
 
-const AsideTabs = ({ tabs, selected, onChange }) => {
+const NavigationTabs = ({ tabs, selected, onChange }) => {
   const classes = useStyles();
   const { t } = useTranslation();
 
@@ -70,7 +70,7 @@ const AsideTabs = ({ tabs, selected, onChange }) => {
   );
 };
 
-AsideTabs.propTypes = {
+NavigationTabs.propTypes = {
   tabs: PropTypes.arrayOf(PropTypes.shape({
     key: PropTypes.string.isRequired,
     path: PropTypes.string.isRequired,
@@ -83,4 +83,4 @@ AsideTabs.propTypes = {
   onChange: PropTypes.func.isRequired,
 };
 
-export default AsideTabs;
+export default NavigationTabs;
