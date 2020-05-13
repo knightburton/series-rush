@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import { useLocation } from 'react-router-dom';
 
@@ -8,9 +8,9 @@ import AsideTabs from '../aside-tabs/aside-tabs.component';
 
 import { getValidatedPathnameFromPaths } from '../../../utils';
 
-import useStyles from './aside-tabs-grid.styles';
+import useStyles from './styles';
 
-const AsideTabsGrid = ({ tabs, defaultTab, children }) => {
+const NavigationTabsGrid = ({ tabs, defaultTab, children }) => {
   const classes = useStyles();
   const { pathname } = useLocation();
   const [selected, updateSelected] = useState(getValidatedPathnameFromPaths(pathname, tabs.map(({ path }) => path), defaultTab));
@@ -19,9 +19,9 @@ const AsideTabsGrid = ({ tabs, defaultTab, children }) => {
     if (pathname !== selected) updateSelected(getValidatedPathnameFromPaths(pathname, tabs.map(({ path }) => path), defaultTab));
   }, [selected, pathname, tabs, defaultTab]);
 
-  const handleChange = (e, newSelected) => {
+  const handleChange = useCallback((e, newSelected) => {
     updateSelected(newSelected);
-  };
+  }, []);
 
   return (
     <Grid container spacing={3}>
@@ -40,7 +40,7 @@ const AsideTabsGrid = ({ tabs, defaultTab, children }) => {
 };
 
 
-AsideTabsGrid.propTypes = {
+NavigationTabsGrid.propTypes = {
   tabs: PropTypes.arrayOf(PropTypes.shape({
     key: PropTypes.string.isRequired,
     path: PropTypes.string.isRequired,
@@ -50,4 +50,4 @@ AsideTabsGrid.propTypes = {
   children: PropTypes.node.isRequired,
 };
 
-export default AsideTabsGrid;
+export default NavigationTabsGrid;

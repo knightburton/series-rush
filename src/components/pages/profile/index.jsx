@@ -3,7 +3,7 @@ import { Switch, Route, Redirect } from 'react-router-dom';
 
 
 import Container from '@material-ui/core/Container';
-import AsideTabsGrid from '../../commons/aside-tabs-grid/aside-tabs-grid.component';
+import NavigationTabsGrid from '../../commons/navigation-tabs-grid';
 
 import PersonalInformation from './personal-information';
 import ChangePassword from './change-password';
@@ -14,7 +14,7 @@ import { APP_PATHS } from '../../../constants/paths';
 
 const Profile = () => (
   <Container maxWidth="lg">
-    <AsideTabsGrid
+    <NavigationTabsGrid
       tabs={PROFILE_MENU}
       defaultTab={APP_PATHS.PROFILE_PERSONAL_INFORMATION.path}
     >
@@ -24,7 +24,7 @@ const Profile = () => (
         <Route path={APP_PATHS.PROFILE_DANGER_ZONE.path} component={DangerZone} />
         <Redirect to={APP_PATHS.PROFILE_PERSONAL_INFORMATION.path} />
       </Switch>
-    </AsideTabsGrid>
+    </NavigationTabsGrid>
   </Container>
 );
 
