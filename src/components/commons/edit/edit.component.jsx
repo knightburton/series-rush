@@ -11,7 +11,7 @@ import EditIcon from '@material-ui/icons/Edit';
 import CheckIcon from '@material-ui/icons/Check';
 import CloseIcon from '@material-ui/icons/Close';
 
-import Tooltip from '../tooltip/tooltip.component';
+import Tooltip from '../tooltip';
 import EditControl from './edit-control.component';
 
 import useForm from '../../../hooks/useForm';

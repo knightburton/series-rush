@@ -15,7 +15,7 @@ import DeleteTwoToneIcon from '@material-ui/icons/DeleteTwoTone';
 import Section from '../../../commons/section/section.component';
 import ProfilePhoto from '../../../commons/profile-photo/profile-photo.component';
 import Edit from '../../../commons/edit/edit.component';
-import Tooltip from '../../../commons/tooltip/tooltip.component';
+import Tooltip from '../../../commons/tooltip';
 import Confirmation from '../../../widgets/confirmation';
 
 import ProfileContext from '../../../../contexts/profile';

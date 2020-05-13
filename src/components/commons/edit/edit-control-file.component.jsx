@@ -7,7 +7,7 @@ import IconButton from '@material-ui/core/IconButton';
 
 import AddPhotoIcon from '@material-ui/icons/AddPhotoAlternateOutlined';
 
-import Tooltip from '../tooltip/tooltip.component';
+import Tooltip from '../tooltip';
 import EditControlWrapper from './edit-control-wrapper.component';
 
 import useStlyes from './edit.styles';
