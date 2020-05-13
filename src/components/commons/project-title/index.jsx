@@ -1,11 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { useTranslation } from 'react-i18next';
 
 import Typography from '@material-ui/core/Typography';
 
-import useStyles from './project-title.styles';
+import useStyles from './styles';
 
 const ProjectTitle = ({ withLogo }) => {
+  const { t } = useTranslation();
   const classes = useStyles();
 
   return (
@@ -14,12 +16,12 @@ const ProjectTitle = ({ withLogo }) => {
         <img
           src="/logo192.png"
           alt="Series Rush"
-          className={classes.logo}
           draggable={false}
+          className={classes.logo}
         />
       )}
       <Typography variant="h6" component="h6">
-        Series Rush
+        {t('title')}
       </Typography>
     </>
   );

@@ -12,7 +12,7 @@ import Hidden from '@material-ui/core/Hidden';
 import AppBarDrawerButton from './app-bar-drawer-button';
 import AppBarNavigation from './app-bar-navigation';
 import AppBarProfileMenu from './app-bar-profile-menu';
-import ProjectTitle from '../../commons/project-title/project-title.component';
+import ProjectTitle from '../../commons/project-title';
 
 import ProfileContext from '../../../contexts/profile';
 

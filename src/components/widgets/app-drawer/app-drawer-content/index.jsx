@@ -10,7 +10,7 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 
-import ProjectTitle from '../../../commons/project-title/project-title.component';
+import ProjectTitle from '../../../commons/project-title';
 
 import { MAIN_MENU } from '../../../../constants/navigation';
 import { APP_PATHS } from '../../../../constants/paths';
