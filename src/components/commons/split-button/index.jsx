@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useCallback } from 'react';
 import PropTypes from 'prop-types';
 
 import Box from '@material-ui/core/Box';
@@ -17,26 +17,24 @@ const SplitButton = ({ options, variant, color, size, disabled, onClick }) => {
   const [open, setOpen] = useState(false);
   const [selected, setSelected] = useState(options[0]);
 
-  const handleClick = () => {
+  const handleClick = useCallback(() => {
     setOpen(false);
     onClick(selected.id);
-  };
+  }, [onClick, selected.id]);
 
-  const handleMenuItemClick = option => {
+  const handleMenuItemClick = useCallback(option => {
     setSelected(option);
     setOpen(false);
-  };
+  }, []);
 
-  const handleToggle = () => {
+  const handleToggle = useCallback(() => {
     setOpen(prevOpen => !prevOpen);
-  };
+  }, []);
 
-  const handleClose = event => {
-    if (anchorRef.current && anchorRef.current.contains(event.target)) {
-      return;
-    }
+  const handleClose = useCallback(event => {
+    if (anchorRef.current && anchorRef.current.contains(event.target)) return;
     setOpen(false);
-  };
+  }, [anchorRef]);
 
   return (
     <Box>

@@ -14,7 +14,7 @@ import CardActions from '@material-ui/core/CardActions';
 import Typography from '@material-ui/core/Typography';
 import Hidden from '@material-ui/core/Hidden';
 
-import SplitButton from '../../../commons/split-button/split-button.component';
+import SplitButton from '../../../commons/split-button';
 
 import {
   getGroupsByType,
