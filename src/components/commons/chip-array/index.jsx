@@ -7,7 +7,7 @@ import Avatar from '@material-ui/core/Avatar';
 
 import { getFirstLetter } from '../../../utils';
 
-import useStyles from './chip-array.styles';
+import useStyles from './styles';
 
 const ChipArray = ({ items, size, variant, selected, onClick, breakpoint }) => {
   const classes = useStyles({ size, breakpoint });
@@ -27,10 +27,14 @@ const ChipArray = ({ items, size, variant, selected, onClick, breakpoint }) => {
             </Avatar>
           )}
           label={item.label}
-          onClick={onClick && selected !== item.id ? () => onClick(item.id) : undefined}
+          onClick={onClick && selected !== item.id
+            ? () => onClick(item.id)
+            : undefined}
           size={size}
           variant={variant}
-          color={selected === item.id ? 'secondary' : 'default'}
+          color={selected === item.id
+            ? 'secondary'
+            : 'default'}
           className={classes.chip}
           classes={{
             label: classes.label,

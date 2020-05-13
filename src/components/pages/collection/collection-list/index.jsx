@@ -7,7 +7,7 @@ import {
 
 import Box from '@material-ui/core/Box';
 
-import ChipArray from '../../../commons/chip-array/chip-array.component';
+import ChipArray from '../../../commons/chip-array';
 
 import {
   getGroupsByType,
