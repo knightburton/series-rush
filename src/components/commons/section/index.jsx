@@ -8,21 +8,19 @@ import Divider from '@material-ui/core/Divider';
 import Typography from '@material-ui/core/Typography';
 import LinearProgress from '@material-ui/core/LinearProgress';
 
-import useStyles from './section.styles';
-
-const Section = ({ children, title, subtitle, inProgress }) => {
-  const classes = useStyles();
-
-  return (
-    <Paper className={classes.paper}>
+const Section = ({ children, title, subtitle, inProgress }) => (
+  <Box mb={3}>
+    <Paper>
       {title && (
         <>
-          <Box className={classes.header}>
+          <Box position="relative" py={1} px={2}>
             <Grid container alignItems="baseline">
               <Grid item xs={12} sm="auto">
-                <Typography variant="h6" display="inline" className={classes.title}>
-                  {title}
-                </Typography>
+                <Box mr={2}>
+                  <Typography variant="h6" display="inline">
+                    {title}
+                  </Typography>
+                </Box>
               </Grid>
               {subtitle && (
                 <Grid item xs={12} sm="auto">
@@ -33,23 +31,37 @@ const Section = ({ children, title, subtitle, inProgress }) => {
               )}
             </Grid>
             {inProgress && (
-              <Box className={classes.progressBox} />
+              <Box
+                position="absolute"
+                width="100%"
+                height="100%"
+                top={0}
+                left={0}
+                bgcolor="action.hover"
+              />
             )}
           </Box>
           <Divider />
         </>
       )}
-      <Box className={classes.content}>
+      <Box position="relative" py={3} px={2}>
         {children}
         {inProgress && (
-          <Box className={classes.progressBox}>
+          <Box
+            position="absolute"
+            width="100%"
+            height="100%"
+            top={0}
+            left={0}
+            bgcolor="action.hover"
+          >
             <LinearProgress />
           </Box>
         )}
       </Box>
     </Paper>
-  );
-};
+  </Box>
+);
 
 Section.propTypes = {
   children: PropTypes.node.isRequired,

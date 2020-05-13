@@ -8,7 +8,7 @@ import {
 import Container from '@material-ui/core/Container';
 import Box from '@material-ui/core/Box';
 
-import Section from '../../../commons/section/section.component';
+import Section from '../../../commons/section';
 import Form from '../../../commons/form';
 import FormText from '../../../commons/form-text';
 import FormButtonContainer from '../../../commons/form-button-container';
