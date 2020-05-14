@@ -1,4 +1,4 @@
-import { VALIDATORS, ERRORS } from '../../../../constants/form';
+import { VALIDATORS, ERRORS } from '../../../../hooks/useForm';
 
 export const stateSchema = {
   currentPassword: '',

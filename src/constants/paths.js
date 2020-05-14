@@ -16,7 +16,7 @@ export const APP_PATHS = {
   LANDING: {
     key: 'landing',
     path: '/',
-    title: 'page.landing.title',
+    title: '',
     icon: null,
   },
   SIGN_IN: {
@@ -97,16 +97,4 @@ export const APP_PATHS = {
     title: 'page.search.title',
     icon: SearchTwoToneIcon,
   },
-};
-
-export const PROFILE_PATHS = {
-  PERSONAL_INFORMATION: '/profile/personal-information',
-  CHANGE_PASSWORD: '/profile/change-password',
-  DANGER_ZONE: '/profile/danger-zone',
-};
-
-export const COLLECTION_PATHS = {
-  LIST: '/collection/:listType',
-  LIST_TV: '/collection/tv',
-  LIST_MOVIE: '/collection/movie',
 };
