@@ -5,7 +5,7 @@ import Box from '@material-ui/core/Box';
 import Chip from '@material-ui/core/Chip';
 import Avatar from '@material-ui/core/Avatar';
 
-import { getFirstLetter } from '../../../utils';
+import { getFirstLetter } from '../../../utils/text';
 
 import useStyles from './styles';
 

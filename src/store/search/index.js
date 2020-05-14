@@ -1,11 +1,11 @@
 import { createAction, handleActions } from 'redux-actions';
 import { createSelector } from 'reselect';
 import { addAlert, getTmdbConfiguration } from '../app';
+import { parseSearchData } from '../../utils/parser';
 import {
   getSearchFromQueryString,
   createSearchQueryString,
-  parseSearchData,
-} from '../../utils';
+} from '../../utils/query';
 import { APP_PATHS } from '../../constants/paths';
 
 // Initial state

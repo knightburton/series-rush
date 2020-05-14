@@ -3,7 +3,7 @@ import { Helmet } from 'react-helmet';
 import { useTranslation } from 'react-i18next';
 import { useLocation } from 'react-router';
 
-import { getHelmetTitle } from '../../../utils';
+import { getHelmetTitle } from '../../../utils/location';
 
 const AppHeader = () => {
   const { t } = useTranslation();

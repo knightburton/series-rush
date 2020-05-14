@@ -1,8 +1,10 @@
 import * as app from '../../../store/app';
 import mockStore from '../../mock-store';
 
-jest.mock('../../../utils');
-const utils = require('../../../utils');
+jest.mock('../../../utils/time');
+jest.mock('../../../utils/parser');
+const time = require('../../../utils/time');
+const parser = require('../../../utils/parser');
 
 // Mock data
 const mockTimestamp = 1571841496157;
@@ -212,7 +214,7 @@ describe('App reducer', () => {
   let state = app.initialState;
 
   beforeAll(() => {
-    utils.getTimestamp = jest.fn(() => mockTimestamp);
+    time.getTimestamp = jest.fn(() => mockTimestamp);
   });
 
   beforeEach(() => {
@@ -220,7 +222,8 @@ describe('App reducer', () => {
   });
 
   afterAll(() => {
-    jest.unmock('../../../utils');
+    jest.unmock('../../../utils/time');
+    jest.unmock('../../../utils/parser');
   });
 
   test('Initial State', () => {
@@ -379,11 +382,12 @@ describe('App reducer', () => {
 // Thunk action unit tests
 describe('App Thunk Actions', () => {
   afterAll(() => {
-    jest.unmock('../../../utils');
+    jest.unmock('../../../utils/time');
+    jest.unmock('../../../utils/parser');
   });
 
   it('Retrive the tmdb configuration from local storage (last update was less then 3 days ago)', async done => {
-    utils.getDayDifferenceLessThan = jest.fn(() => true);
+    time.getDayDifferenceLessThan = jest.fn(() => true);
     const storage = {
       get: jest.fn(() => mockTmdbConfiguration),
     };
@@ -402,9 +406,9 @@ describe('App Thunk Actions', () => {
   });
 
   it('Retrive the tmdb configuration from tmdb api (last update was more then 3 days ago)', async done => {
-    utils.getDayDifferenceLessThan = jest.fn(() => false);
-    utils.parseTmdbConfiguration = jest.fn(() => mockTmdbConfiguration);
-    utils.getTimestamp = jest.fn(() => mockTimestamp - 5);
+    time.getDayDifferenceLessThan = jest.fn(() => false);
+    parser.parseTmdbConfiguration = jest.fn(() => mockTmdbConfiguration);
+    time.getTimestamp = jest.fn(() => mockTimestamp - 5);
     const storage = {
       get: jest.fn(() => mockTmdbConfiguration),
       set: jest.fn(),
@@ -423,15 +427,15 @@ describe('App Thunk Actions', () => {
       },
     ]);
     expect(tmdbApi.getConfiguration).toHaveBeenCalled();
-    expect(utils.parseTmdbConfiguration).toHaveBeenCalledWith(rawConfiguration);
+    expect(parser.parseTmdbConfiguration).toHaveBeenCalledWith(rawConfiguration);
     expect(storage.get).toHaveBeenCalledWith('TMDB_CONFIGURATION');
     expect(storage.set).toHaveBeenCalledWith('TMDB_CONFIGURATION', mockTmdbConfiguration);
     done();
   });
 
   it('Retrive the tmdb configuration from tmdb api (there is no stored configuration in storage)', async done => {
-    utils.parseTmdbConfiguration = jest.fn(() => mockTmdbConfiguration);
-    utils.getTimestamp = jest.fn(() => mockTimestamp - 5);
+    parser.parseTmdbConfiguration = jest.fn(() => mockTmdbConfiguration);
+    time.getTimestamp = jest.fn(() => mockTimestamp - 5);
     const storage = {
       get: jest.fn(() => undefined),
       set: jest.fn(),
@@ -450,15 +454,15 @@ describe('App Thunk Actions', () => {
       },
     ]);
     expect(tmdbApi.getConfiguration).toHaveBeenCalled();
-    expect(utils.parseTmdbConfiguration).toHaveBeenCalledWith(rawConfiguration);
+    expect(parser.parseTmdbConfiguration).toHaveBeenCalledWith(rawConfiguration);
     expect(storage.get).toHaveBeenCalledWith('TMDB_CONFIGURATION');
     expect(storage.set).toHaveBeenCalledWith('TMDB_CONFIGURATION', mockTmdbConfiguration);
     done();
   });
 
   it('Throw error from tmdb get configuration api (there is no stored configuration in storage)', async done => {
-    utils.parseTmdbConfiguration = jest.fn(() => mockTmdbConfiguration);
-    utils.getTimestamp = jest.fn(() => mockTimestamp - 5);
+    parser.parseTmdbConfiguration = jest.fn(() => mockTmdbConfiguration);
+    time.getTimestamp = jest.fn(() => mockTimestamp - 5);
     const storage = {
       get: jest.fn(() => undefined),
       set: jest.fn(),
@@ -477,7 +481,7 @@ describe('App Thunk Actions', () => {
       },
     ]);
     expect(tmdbApi.getConfiguration).toHaveBeenCalled();
-    expect(utils.parseTmdbConfiguration).not.toHaveBeenCalledWith(rawConfiguration);
+    expect(parser.parseTmdbConfiguration).not.toHaveBeenCalledWith(rawConfiguration);
     expect(storage.get).toHaveBeenCalledWith('TMDB_CONFIGURATION');
     expect(storage.set).not.toHaveBeenCalled();
     done();

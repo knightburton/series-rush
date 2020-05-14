@@ -20,7 +20,7 @@ import {
   getGroupsByType,
   addToCollection,
 } from '../../../../store/collection';
-import { getEllipsisText } from '../../../../utils';
+import { getEllipsisText } from '../../../../utils/text';
 import { ELLIPSIS_LENGTHS } from '../../../../constants/config';
 
 import useStyles from './styles';

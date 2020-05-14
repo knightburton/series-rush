@@ -9,7 +9,7 @@ import ProfileContext from './context';
 import {
   getProfileGroupsByTypeQuery,
   getProfileCollectionByTypeQuery,
-} from '../../utils';
+} from '../../utils/firebase';
 import { COLLECTION_TYPE } from '../../constants/config';
 
 const ProfileProvider = ({ children, authIsLoaded, profile }) => {

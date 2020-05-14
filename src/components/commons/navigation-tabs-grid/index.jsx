@@ -6,17 +6,17 @@ import Grid from '@material-ui/core/Grid';
 
 import NavigationTabs from '../navigation-tabs';
 
-import { getValidatedPathnameFromPaths } from '../../../utils';
+import { getPathnameFromPaths } from '../../../utils/location';
 
 import useStyles from './styles';
 
 const NavigationTabsGrid = ({ tabs, defaultTab, children }) => {
   const classes = useStyles();
   const { pathname } = useLocation();
-  const [selected, updateSelected] = useState(getValidatedPathnameFromPaths(pathname, tabs.map(({ path }) => path), defaultTab));
+  const [selected, updateSelected] = useState(getPathnameFromPaths(pathname, tabs.map(({ path }) => path), defaultTab));
 
   useEffect(() => {
-    if (pathname !== selected) updateSelected(getValidatedPathnameFromPaths(pathname, tabs.map(({ path }) => path), defaultTab));
+    if (pathname !== selected) updateSelected(getPathnameFromPaths(pathname, tabs.map(({ path }) => path), defaultTab));
   }, [selected, pathname, tabs, defaultTab]);
 
   const handleChange = useCallback((e, newSelected) => {

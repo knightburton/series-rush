@@ -11,7 +11,7 @@ import SearchTwoToneIcon from '@material-ui/icons/SearchTwoTone';
 import { search } from '../../../store/search';
 import useForm from '../../../hooks/useForm';
 
-import { getSearchFromQueryString } from '../../../utils';
+import { getSearchFromQueryString } from '../../../utils/query';
 import { COLLECTION_TYPE } from '../../../constants/config';
 import { APP_PATHS } from '../../../constants/paths';
 
