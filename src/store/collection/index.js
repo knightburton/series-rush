@@ -2,7 +2,7 @@ import { handleActions, createAction } from 'redux-actions';
 import { createSelector } from 'reselect';
 import { setAppWaiting, addAlert } from '../app';
 import { getProfile } from '../auth';
-import { getFirestoreOrderedByPath } from '../firestore';
+import { getFirestoreOrderedData } from '../firestore';
 
 // Initial state
 export const initialState = {
@@ -45,13 +45,13 @@ export const getSelectedGroupByType = type => createSelector(
 );
 
 export const getGroupsByType = type => createSelector(
-  getFirestoreOrderedByPath(`${type}Groups`),
-  groups => groups,
+  getFirestoreOrderedData,
+  data => data?.[`${type}Groups`] || [],
 );
 
 export const getCollectionByType = type => createSelector(
-  getFirestoreOrderedByPath(`${type}Collection`),
-  collection => collection,
+  getFirestoreOrderedData,
+  data => data?.[`${type}Collection`] || [],
 );
 export const getCollectionByTypeAndGroup = (type, group) => createSelector(
   getCollectionByType(type),
@@ -80,9 +80,9 @@ export const addToCollection = (id, type, group) => async (dispatch, getState, {
       },
     );
 
-    dispatch(addAlert('alert:collection/add-to-collection-success', 'success'));
+    dispatch(addAlert('alert::collection/add-to-collection-success', 'success'));
   } catch (error) {
-    dispatch(addAlert('alert:collection/add-to-collection-failure', 'error'));
+    dispatch(addAlert('alert::collection/add-to-collection-failure', 'error'));
   } finally {
     dispatch(setAppWaiting(false));
   }

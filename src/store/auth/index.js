@@ -1,6 +1,7 @@
 import { createAction, handleActions } from 'redux-actions';
 import { createSelector } from 'reselect';
 import { addAlert, setAppWaiting } from '../app';
+import { APP_PATHS } from '../../constants/paths';
 
 // Initial state
 export const initialState = {
@@ -82,7 +83,7 @@ export const reducer = handleActions(
 // Async actions
 export const handleAuthError = error => dispatch => {
   const message = error && error.code && error.code.startsWith('auth/')
-    ? `alert:${error.code}`
+    ? `alert::${error.code}`
     : error.message;
 
   dispatch(addAlert(message, 'error'));
@@ -126,7 +127,7 @@ export const signOut = () => async (dispatch, getState, { getFirebase, history }
   try {
     const firebase = getFirebase();
     await firebase.logout();
-    history.push('/');
+    history.push(APP_PATHS.LANDING.path);
   } catch (error) {
     dispatch(handleAuthError(error));
   } finally {
@@ -143,7 +144,7 @@ export const sendPasswordResetEmail = (email, fromProfile = false) => async (dis
     const { id, email: profileEmail } = getProfile(getState());
     const address = fromProfile && !email && !!id ? profileEmail : email;
     await firebase.auth().sendPasswordResetEmail(address);
-    dispatch(addAlert('alert:auth/password-reset-email-success', 'success'));
+    dispatch(addAlert('alert::auth/password-reset-email-success', 'success'));
   } catch (error) {
     dispatch(handleAuthError(error));
   } finally {
@@ -210,7 +211,7 @@ export const uploadProfilePhoto = file => async (dispatch, getState, { getFireba
       dispatch(setAuthUpdateInProgress(false));
     }
   } else {
-    dispatch(addAlert('alert:auth/no-photo-selected', 'error'));
+    dispatch(addAlert('alert::auth/no-photo-selected', 'error'));
   }
 };
 
@@ -229,7 +230,7 @@ export const deleteProfilePhoto = () => async (dispatch, getState, { getFirebase
         true,
       );
     } else {
-      dispatch(addAlert('alert:auth/no-photo-selected', 'error'));
+      dispatch(addAlert('alert::auth/no-photo-selected', 'error'));
     }
   } catch (error) {
     dispatch(handleAuthError(error));
@@ -243,8 +244,8 @@ export const changePassword = passwords => async (dispatch, getState, { getFireb
   try {
     const firebase = getFirebase();
     const { currentPassword, newPassword, confirmPassword } = passwords;
-    if (!currentPassword) throw new Error('alert:auth/password-required');
-    if (newPassword !== confirmPassword) throw new Error('alert:auth/password-match');
+    if (!currentPassword) throw new Error('alert::auth/password-required');
+    if (newPassword !== confirmPassword) throw new Error('alert::auth/password-match');
 
     const { email } = getProfile(getState());
     // Before update user's password we should reautheticate the user.
@@ -252,7 +253,7 @@ export const changePassword = passwords => async (dispatch, getState, { getFireb
     // With this scenario the user has to remember their password.
     await firebase.login({ email, password: currentPassword });
     await firebase.auth().currentUser.updatePassword(newPassword);
-    dispatch(addAlert('alert:auth/password-change-success', 'success'));
+    dispatch(addAlert('alert::auth/password-change-success', 'success'));
   } catch (error) {
     dispatch(handleAuthError(error));
   } finally {
@@ -265,7 +266,7 @@ export const requestEmailVerification = () => async (dispatch, getState, { getFi
   try {
     const firebase = getFirebase();
     await firebase.auth().currentUser.sendEmailVerification();
-    dispatch(addAlert('alert:auth/email-verification-success', 'success'));
+    dispatch(addAlert('alert::auth/email-verification-success', 'success'));
   } catch (error) {
     dispatch(handleAuthError(error));
   } finally {
@@ -279,7 +280,7 @@ export const deleteProfile = () => async (dispatch, getState, { getFirebase, his
     const firebase = getFirebase();
     await firebase.auth().currentUser.delete();
     await firebase.logout();
-    history.push('/');
+    history.push(APP_PATHS.LANDING.path);
   } catch (error) {
     dispatch(handleAuthError(error));
   } finally {

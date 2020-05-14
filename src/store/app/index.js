@@ -1,10 +1,10 @@
 import { createAction, handleActions } from 'redux-actions';
 import { createSelector } from 'reselect';
+import { parseTmdbConfiguration } from '../../utils/parser';
 import {
   getTimestamp,
-  parseTmdbConfiguration,
   getDayDifferenceLessThan,
-} from '../../utils';
+} from '../../utils/time';
 
 // Initial state
 export const initialState = {

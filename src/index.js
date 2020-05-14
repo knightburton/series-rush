@@ -16,7 +16,6 @@ import theme from './theme';
 import * as serviceWorker from './serviceWorker';
 import MainRoutes from './routes/main-routes';
 import './i18n';
-import 'typeface-roboto';
 
 const store = configureStore();
 

@@ -2,14 +2,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { useFirestoreConnect } from 'react-redux-firebase';
 
-import Waiting from '../../components/widgets/waiting/waiting.component';
+import Waiting from '../../components/widgets/waiting';
 
 import ProfileContext from './context';
 
 import {
   getProfileGroupsByTypeQuery,
   getProfileCollectionByTypeQuery,
-} from '../../utils';
+} from '../../utils/firebase';
 import { COLLECTION_TYPE } from '../../constants/config';
 
 const ProfileProvider = ({ children, authIsLoaded, profile }) => {

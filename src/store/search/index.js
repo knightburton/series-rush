@@ -1,11 +1,11 @@
 import { createAction, handleActions } from 'redux-actions';
 import { createSelector } from 'reselect';
 import { addAlert, getTmdbConfiguration } from '../app';
+import { parseSearchData } from '../../utils/parser';
 import {
   getSearchFromQueryString,
   createSearchQueryString,
-  parseSearchData,
-} from '../../utils';
+} from '../../utils/query';
 import { APP_PATHS } from '../../constants/paths';
 
 // Initial state
@@ -93,10 +93,10 @@ export const prepareSearch = props => (dispatch, getState, { history }) => {
   };
   const newQueryString = createSearchQueryString(validProps);
 
-  if (location.pathname !== APP_PATHS.SEARCH || newQueryString !== location.search.replace(/^\?/g, '')) {
+  if (location.pathname !== APP_PATHS.SEARCH.path || newQueryString !== location.search.replace(/^\?/g, '')) {
     history.push({
       ...location,
-      pathname: APP_PATHS.SEARCH,
+      pathname: APP_PATHS.SEARCH.path,
       search: newQueryString,
     });
   }
@@ -112,7 +112,7 @@ export const search = (props = {}) => async (dispatch, getState, { tmdbApi }) =>
 
   if (!query) {
     dispatch(searchFailure());
-    dispatch(addAlert('alert:api/tmdb-search-without-query-info', 'info'));
+    dispatch(addAlert('alert::api/tmdb-search-without-query-info', 'info'));
     return;
   }
 
@@ -121,7 +121,7 @@ export const search = (props = {}) => async (dispatch, getState, { tmdbApi }) =>
     dispatch(searchSuccess(parseSearchData(data, type, tmdbConfiguration)));
   } catch (error) {
     dispatch(searchFailure());
-    dispatch(addAlert('alert:api/tmdb-search-failed', 'error'));
+    dispatch(addAlert('alert::api/tmdb-search-failed', 'error'));
   }
 };
 
