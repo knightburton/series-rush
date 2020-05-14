@@ -2,7 +2,7 @@ import { handleActions, createAction } from 'redux-actions';
 import { createSelector } from 'reselect';
 import { setAppWaiting, addAlert } from '../app';
 import { getProfile } from '../auth';
-import { getFirestoreOrderedByPath } from '../firestore';
+import { getFirestoreOrderedData } from '../firestore';
 
 // Initial state
 export const initialState = {
@@ -45,13 +45,13 @@ export const getSelectedGroupByType = type => createSelector(
 );
 
 export const getGroupsByType = type => createSelector(
-  getFirestoreOrderedByPath(`${type}Groups`),
-  groups => groups,
+  getFirestoreOrderedData,
+  data => data?.[`${type}Groups`] || [],
 );
 
 export const getCollectionByType = type => createSelector(
-  getFirestoreOrderedByPath(`${type}Collection`),
-  collection => collection,
+  getFirestoreOrderedData,
+  data => data?.[`${type}Collection`] || [],
 );
 export const getCollectionByTypeAndGroup = (type, group) => createSelector(
   getCollectionByType(type),

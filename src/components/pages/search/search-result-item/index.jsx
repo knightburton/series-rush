@@ -20,10 +20,7 @@ import {
   getGroupsByType,
   addToCollection,
 } from '../../../../store/collection';
-import {
-  getEllipsisText,
-  getPropertyByPath,
-} from '../../../../utils';
+import { getEllipsisText } from '../../../../utils';
 import { ELLIPSIS_LENGTHS } from '../../../../constants/config';
 
 import useStyles from './styles';
@@ -32,7 +29,7 @@ const SearchResultItem = ({ result }) => {
   const classes = useStyles();
   const { t } = useTranslation();
   const dispatch = useDispatch();
-  const type = getPropertyByPath(result, 'type');
+  const type = result?.type;
   const groups = useSelector(getGroupsByType(type));
 
   const handleAdd = useCallback(group => {

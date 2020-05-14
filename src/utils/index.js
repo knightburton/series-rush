@@ -31,12 +31,6 @@ export const getValidatedPathnameFromPaths = (pathname, paths, defaultValue) => 
     : defaultValue
 );
 
-// Object utils
-export const getPropertyByPath = (object, path, defaultValue) => {
-  if (!path) return object;
-  return path.split('.').reduce((o, key) => (o && o[key] ? o[key] : defaultValue), object);
-};
-
 // Helmet utils
 export const getHelmetTitle = pathname => {
   const appKey = Object.keys(APP_PATHS).reverse().find(key => matchPath(pathname, APP_PATHS[key]));
