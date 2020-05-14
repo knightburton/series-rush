@@ -9,6 +9,7 @@ import AppBar from './widgets/app-bar';
 import AppContent from './widgets/app-content';
 import AppDrawer from './widgets/app-drawer';
 import AppFooter from './widgets/app-footer';
+import AppHeader from './widgets/app-header';
 import Waiting from './widgets/waiting';
 import ScrollToTop from './widgets/scroll-to-top';
 
@@ -30,6 +31,7 @@ const App = () => {
   return (
     <main>
       <ScrollToTop />
+      <AppHeader />
       <AppBar />
       <AppDrawer />
       <AppContent>
