@@ -1,7 +1,9 @@
 /* eslint-disable camelcase */
 import QueryString from 'query-string';
 import { getTime, differenceInDays, format } from 'date-fns';
+import { matchPath } from 'react-router';
 import { COLLECTION_TYPE } from '../constants/config';
+import { APP_PATHS } from '../constants/paths';
 
 // Query utils
 export const getSearchFromQueryString = (search, options) => QueryString.parse(search, options);
@@ -33,6 +35,13 @@ export const getValidatedPathnameFromPaths = (pathname, paths, defaultValue) => 
 export const getPropertyByPath = (object, path, defaultValue) => {
   if (!path) return object;
   return path.split('.').reduce((o, key) => (o && o[key] ? o[key] : defaultValue), object);
+};
+
+// Helmet utils
+export const getHelmetTitle = pathname => {
+  const appKey = Object.keys(APP_PATHS).reverse().find(key => matchPath(pathname, APP_PATHS[key]));
+  if (appKey) return APP_PATHS[appKey]?.title || '';
+  return '';
 };
 
 // TMDb utils
