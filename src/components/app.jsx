@@ -1,8 +1,5 @@
-import React, { useEffect } from 'react';
-import {
-  useDispatch,
-  useSelector,
-} from 'react-redux';
+import React from 'react';
+import { useSelector } from 'react-redux';
 
 import AppAlert from './widgets/app-alert';
 import AppBar from './widgets/app-bar';
@@ -15,18 +12,10 @@ import ScrollToTop from './widgets/scroll-to-top';
 
 import AppRoutes from '../routes/app-routes';
 
-import {
-  getIsAppWaiting,
-  requestTmdbConfiguration,
-} from '../store/app';
+import { getIsAppWaiting } from '../store/app';
 
 const App = () => {
-  const dispatch = useDispatch();
   const isAppWaiting = useSelector(getIsAppWaiting);
-
-  useEffect(() => {
-    dispatch(requestTmdbConfiguration());
-  }, [dispatch]);
 
   return (
     <main>

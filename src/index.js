@@ -9,6 +9,7 @@ import { createFirestoreInstance } from 'redux-firestore';
 
 import './side-effects/console';
 import { ProfileProvider } from './contexts/profile';
+import { ConfigurationProvider } from './contexts/configuration';
 import history from './side-effects/history';
 import configureStore from './store/configure-store';
 import firebase, { rfConfig } from './side-effects/firebase';
@@ -30,9 +31,11 @@ ReactDOM.render(
       <MuiThemeProvider theme={theme}>
         <CssBaseline />
         <ProfileProvider>
-          <Router history={history}>
-            <MainRoutes />
-          </Router>
+          <ConfigurationProvider>
+            <Router history={history}>
+              <MainRoutes />
+            </Router>
+          </ConfigurationProvider>
         </ProfileProvider>
       </MuiThemeProvider>
     </ReactReduxFirebaseProvider>
