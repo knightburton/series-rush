@@ -30,6 +30,7 @@ const mockState = {
   waiting: 1,
   isMobileDrawerOpened: true,
   tmdbConfiguration: mockTmdbConfiguration,
+  tmdbConfigurationDone: false,
 };
 const rawConfiguration = {
   images: {
@@ -162,16 +163,22 @@ describe('App Action Creators', () => {
     });
   });
 
-  test(app.TMDB_CONFIGURATON_START, () => {
+  test(app.TMDB_CONFIGURATOIN_START, () => {
     expect(app.tmdbConfigurationStart()).toEqual({
-      type: app.TMDB_CONFIGURATON_START,
+      type: app.TMDB_CONFIGURATOIN_START,
     });
   });
 
-  test(app.TMDB_CONFIGURATON_FINISH, () => {
-    expect(app.tmdbConfigurationFinish(mockTmdbConfiguration)).toEqual({
-      type: app.TMDB_CONFIGURATON_FINISH,
+  test(app.TMDB_CONFIGURATOIN_STORE, () => {
+    expect(app.tmdbConfigurationStore(mockTmdbConfiguration)).toEqual({
+      type: app.TMDB_CONFIGURATOIN_STORE,
       payload: mockTmdbConfiguration,
+    });
+  });
+
+  test(app.TMDB_CONFIGURATION_FINISH, () => {
+    expect(app.tmdbConfigurationFinish()).toEqual({
+      type: app.TMDB_CONFIGURATION_FINISH,
     });
   });
 });
@@ -206,6 +213,10 @@ describe('App Selectors', () => {
 
   test('getTmdbConfiguration', () => {
     expect(app.getTmdbConfiguration(state)).toEqual(mockState.tmdbConfiguration);
+  });
+
+  test('getTmdbConfigurationDone', () => {
+    expect(app.getTmdbConfigurationDone(state)).toEqual(mockState.tmdbConfigurationDone);
   });
 });
 
@@ -348,34 +359,43 @@ describe('App reducer', () => {
     expected.toHaveProperty('isMobileDrawerOpened', false);
   });
 
-  test(`${app.TMDB_CONFIGURATON_FINISH} ({})`, () => {
+  test(`${app.TMDB_CONFIGURATOIN_STORE} ({})`, () => {
     const expected = expect(
       app.reducer(mockState, {
-        type: app.TMDB_CONFIGURATON_FINISH,
+        type: app.TMDB_CONFIGURATOIN_STORE,
         payload: {},
       }),
     );
     expected.toHaveProperty('tmdbConfiguration', {});
   });
 
-  test(`${app.TMDB_CONFIGURATON_FINISH} (null)`, () => {
+  test(`${app.TMDB_CONFIGURATOIN_STORE} (null)`, () => {
     const expected = expect(
       app.reducer(mockState, {
-        type: app.TMDB_CONFIGURATON_FINISH,
+        type: app.TMDB_CONFIGURATOIN_STORE,
         payload: null,
       }),
     );
     expected.toHaveProperty('tmdbConfiguration', null);
   });
 
-  test(`${app.TMDB_CONFIGURATON_FINISH} (valid data)`, () => {
+  test(`${app.TMDB_CONFIGURATOIN_STORE} (valid data)`, () => {
     const expected = expect(
       app.reducer(mockState, {
-        type: app.TMDB_CONFIGURATON_FINISH,
+        type: app.TMDB_CONFIGURATOIN_STORE,
         payload: mockTmdbConfiguration,
       }),
     );
     expected.toHaveProperty('tmdbConfiguration', mockTmdbConfiguration);
+  });
+
+  test(app.TMDB_CONFIGURATION_FINISH, () => {
+    const expected = expect(
+      app.reducer(mockState, {
+        type: app.TMDB_CONFIGURATION_FINISH,
+      }),
+    );
+    expected.toHaveProperty('tmdbConfigurationDone', true);
   });
 });
 
@@ -395,9 +415,9 @@ describe('App Thunk Actions', () => {
     await store.dispatch(app.requestTmdbConfiguration());
     expect(store.getActions().length).toEqual(2);
     expect(store.getActions()).toEqual([
-      { type: app.TMDB_CONFIGURATON_START },
+      { type: app.TMDB_CONFIGURATOIN_START },
       {
-        type: app.TMDB_CONFIGURATON_FINISH,
+        type: app.TMDB_CONFIGURATOIN_STORE,
         payload: mockTmdbConfiguration,
       },
     ]);
@@ -420,9 +440,9 @@ describe('App Thunk Actions', () => {
     await store.dispatch(app.requestTmdbConfiguration());
     expect(store.getActions().length).toEqual(2);
     expect(store.getActions()).toEqual([
-      { type: app.TMDB_CONFIGURATON_START },
+      { type: app.TMDB_CONFIGURATOIN_START },
       {
-        type: app.TMDB_CONFIGURATON_FINISH,
+        type: app.TMDB_CONFIGURATOIN_STORE,
         payload: mockTmdbConfiguration,
       },
     ]);
@@ -447,9 +467,9 @@ describe('App Thunk Actions', () => {
     await store.dispatch(app.requestTmdbConfiguration());
     expect(store.getActions().length).toEqual(2);
     expect(store.getActions()).toEqual([
-      { type: app.TMDB_CONFIGURATON_START },
+      { type: app.TMDB_CONFIGURATOIN_START },
       {
-        type: app.TMDB_CONFIGURATON_FINISH,
+        type: app.TMDB_CONFIGURATOIN_STORE,
         payload: mockTmdbConfiguration,
       },
     ]);
@@ -474,11 +494,8 @@ describe('App Thunk Actions', () => {
     await store.dispatch(app.requestTmdbConfiguration());
     expect(store.getActions().length).toEqual(2);
     expect(store.getActions()).toEqual([
-      { type: app.TMDB_CONFIGURATON_START },
-      {
-        type: app.TMDB_CONFIGURATON_FINISH,
-        payload: null,
-      },
+      { type: app.TMDB_CONFIGURATOIN_START },
+      { type: app.TMDB_CONFIGURATION_FINISH },
     ]);
     expect(tmdbApi.getConfiguration).toHaveBeenCalled();
     expect(parser.parseTmdbConfiguration).not.toHaveBeenCalledWith(rawConfiguration);

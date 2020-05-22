@@ -86,7 +86,7 @@ export const reducer = handleActions(
       waiting: isWaiting ? state.waiting + 1 : state.waiting - 1,
     }),
     [toggleMobileDrawer]: state => ({ ...state, isMobileDrawerOpened: !state.isMobileDrawerOpened }),
-    [tmdbConfigurationStore]: (state, { payload: tmdbConfiguration }) => ({ ...state, tmdbConfiguration }),
+    [tmdbConfigurationStore]: (state, { payload: tmdbConfiguration }) => ({ ...state, tmdbConfiguration, tmdbConfigurationDone: true }),
     [tmdbConfigurationFinish]: state => ({ ...state, tmdbConfigurationDone: true }),
   },
   initialState,
@@ -99,7 +99,6 @@ export const requestTmdbConfiguration = () => async (dispatch, getState, { stora
 
   if (storedConfiguration && getDayDifferenceLessThan(storedConfiguration.lastUpdate, 3)) {
     dispatch(tmdbConfigurationStore(storedConfiguration));
-    dispatch(tmdbConfigurationFinish());
   } else {
     try {
       const rawConfiguration = await tmdbApi.getConfiguration();
