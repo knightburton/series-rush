@@ -14,10 +14,10 @@ export const parseTmdbConfiguration = data => {
 };
 
 const getImagePaths = (poster, backdrop, configuration) => {
-  const posterPath = configuration && poster && configuration.posterSizes.includes('w185')
+  const posterPath = configuration && poster && configuration?.posterSizes?.includes('w185')
     ? `${configuration.imageBaseURL}w185${poster}`
     : '/p-no-poster.jpg';
-  const backdropPath = configuration && backdrop && configuration.backdropSizes.includes('w780')
+  const backdropPath = configuration && backdrop && configuration?.backdropSizes?.includes('w780')
     ? `${configuration.imageBaseURL}w780${backdrop}`
     : '/l-no-poster.jpg';
 

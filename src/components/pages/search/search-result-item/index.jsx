@@ -1,6 +1,5 @@
 import React, { useCallback } from 'react';
 import PropTypes from 'prop-types';
-import { useTranslation } from 'react-i18next';
 import {
   useDispatch,
   useSelector,
@@ -14,7 +13,9 @@ import CardActions from '@material-ui/core/CardActions';
 import Typography from '@material-ui/core/Typography';
 import Hidden from '@material-ui/core/Hidden';
 
-import SplitButton from '../../../commons/split-button';
+import AddCircleTwoToneIcon from '@material-ui/icons/AddCircleTwoTone';
+
+import PopupMenuButton from '../../../commons/popup-menu-button';
 
 import {
   getGroupsByType,
@@ -27,7 +28,6 @@ import useStyles from './styles';
 
 const SearchResultItem = ({ result }) => {
   const classes = useStyles();
-  const { t } = useTranslation();
   const dispatch = useDispatch();
   const type = result?.type;
   const groups = useSelector(getGroupsByType(type));
@@ -79,19 +79,16 @@ const SearchResultItem = ({ result }) => {
           </Typography>
         </CardContent>
         <CardActions className={classes.actions}>
-          {groups.length > 0 && (
-            <Box>
-              <Typography variant="caption">
-                {t('page.search.addTo')}
-              </Typography>
-              <SplitButton
-                size="small"
-                options={groups}
-                onClick={handleAdd}
-              />
-            </Box>
-          )}
           <Box className={classes.grow} />
+          {groups.length > 0 && (
+            <PopupMenuButton
+              icon={<AddCircleTwoToneIcon />}
+              menu={{
+                options: groups,
+                itemOnClick: handleAdd,
+              }}
+            />
+          )}
         </CardActions>
       </Box>
     </Card>
