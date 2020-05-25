@@ -77,9 +77,9 @@ export const addToCollection = (id, type, group) => async (dispatch, getState, {
       groupID: group,
     });
 
-    dispatch(addAlert('alert::collection/add-to-collection-success', 'success'));
+    dispatch(addAlert('alert::add-success', 'success', { title: 'collection' }));
   } catch (error) {
-    dispatch(addAlert('alert::collection/add-to-collection-failure', 'error'));
+    dispatch(addAlert('alert::add-failure', 'error', { title: 'collection' }));
   } finally {
     dispatch(setAppWaiting(false));
   }
@@ -100,9 +100,9 @@ export const removeFromCollection = id => async (dispatch, getState, { getFirest
       }],
     });
 
-    dispatch(addAlert('alert::collection/remove-from-collection-success', 'success'));
+    dispatch(addAlert('alert::delete-success', 'success', { title: 'collection' }));
   } catch (error) {
-    dispatch(addAlert('alert::collection/remove-from-collection-failure', 'error'));
+    dispatch(addAlert('alert::delete-failure', 'error', { title: 'collection' }));
   } finally {
     dispatch(setAppWaiting(false));
   }

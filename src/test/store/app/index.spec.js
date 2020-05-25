@@ -12,11 +12,15 @@ const mockAlert = {
   key: mockTimestamp,
   message: 'Mock alert message',
   variant: 'warning',
+  props: {
+    title: 'random',
+  },
 };
 const mockAlertTheSecond = {
   key: mockTimestamp + 1,
   message: 'Mock alert message #2',
   variant: 'info',
+  props: {},
 };
 const mockWaiting = true;
 const mockTmdbConfiguration = {
@@ -134,11 +138,22 @@ const mockError = new Error('There is an API error.');
 // Action creator unit tests
 describe('App Action Creators', () => {
   test(app.ADD_ALERT, () => {
-    expect(app.addAlert(mockAlert.message, mockAlert.variant)).toEqual({
+    expect(app.addAlert(mockAlert.message, mockAlert.variant, mockAlert.props)).toEqual({
       type: app.ADD_ALERT,
       payload: {
         message: mockAlert.message,
         variant: mockAlert.variant,
+        props: mockAlert.props,
+      },
+    });
+  });
+
+  test(app.ADD_ALERT, () => {
+    expect(app.addAlert(mockAlertTheSecond.message, mockAlertTheSecond.variant)).toEqual({
+      type: app.ADD_ALERT,
+      payload: {
+        message: mockAlertTheSecond.message,
+        variant: mockAlertTheSecond.variant,
       },
     });
   });
@@ -248,13 +263,14 @@ describe('App reducer', () => {
         payload: {
           message: mockAlert.message,
           variant: mockAlert.variant,
+          props: mockAlert.props,
         },
       }),
     );
     expected.toHaveProperty('alerts', [mockAlert]);
   });
 
-  test(`${app.ADD_ALERT} (only message -> variant = 'info')`, () => {
+  test(`${app.ADD_ALERT} (only message -> variant = 'info' and props = {})`, () => {
     const expected = expect(
       app.reducer(state, {
         type: app.ADD_ALERT,
@@ -266,6 +282,7 @@ describe('App reducer', () => {
     expected.toHaveProperty('alerts', [{
       ...mockAlert,
       variant: 'info',
+      props: {},
     }]);
   });
 
