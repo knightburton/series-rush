@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 
@@ -9,21 +9,35 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 
-const Confirmation = ({ id, title, description, onAgree, toggle }) => {
+const Confirmation = ({ id, title, description, onAgree, onDisagree, agreeLabel, disagreeLabel, toggle, open }) => {
   const { t } = useTranslation();
   const [isShown, setIsShown] = useState(false);
-  const hide = () => setIsShown(false);
-  const show = () => setIsShown(true);
-  const handleAgree = () => {
+
+  const hide = useCallback(() => {
+    setIsShown(false);
+  }, []);
+
+  const show = useCallback(() => {
+    setIsShown(true);
+  }, []);
+
+  const handleDisagree = useCallback(() => {
+    hide();
+    if (onDisagree) onDisagree();
+  }, [hide, onDisagree]);
+
+  const handleAgree = useCallback(() => {
     hide();
     onAgree();
-  };
+  }, [hide, onAgree]);
+
+  const guardedOpen = useMemo(() => (open !== null ? open : isShown), [open, isShown]);
 
   return (
     <>
-      {toggle(show)}
+      {open === null && toggle !== null && toggle(show)}
       <Dialog
-        open={isShown}
+        open={guardedOpen}
         onClose={hide}
         aria-labelledby={`${id}-confirmation-dialog-title`}
         aria-describedby={`${id}-confirmation-dialog-description`}
@@ -35,11 +49,11 @@ const Confirmation = ({ id, title, description, onAgree, toggle }) => {
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button onClick={hide} color="secondary">
-            {t('common::disagree')}
+          <Button onClick={handleDisagree} color="secondary">
+            {agreeLabel || t('common::disagree')}
           </Button>
           <Button onClick={handleAgree} color="primary" autoFocus>
-            {t('common::agree')}
+            {disagreeLabel || t('common::agree')}
           </Button>
         </DialogActions>
       </Dialog>
@@ -52,7 +66,19 @@ Confirmation.propTypes = {
   title: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,
   onAgree: PropTypes.func.isRequired,
-  toggle: PropTypes.func.isRequired,
+  onDisagree: PropTypes.func,
+  agreeLabel: PropTypes.string,
+  disagreeLabel: PropTypes.string,
+  toggle: PropTypes.func,
+  open: PropTypes.bool,
+};
+
+Confirmation.defaultProps = {
+  onDisagree: null,
+  agreeLabel: '',
+  disagreeLabel: '',
+  toggle: null,
+  open: null,
 };
 
 export default Confirmation;
