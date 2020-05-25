@@ -65,24 +65,44 @@ export const addToCollection = (id, type, group) => async (dispatch, getState, {
     const firestore = getFirestore();
     const { id: profileID } = getProfile(getState());
 
-    await firestore.set(
-      {
-        collection: 'profiles',
-        doc: profileID,
-        subcollections: [{
-          collection: 'collection',
-          doc: `${id}`,
-        }],
-      },
-      {
-        type,
-        groupID: group,
-      },
-    );
+    await firestore.set({
+      collection: 'profiles',
+      doc: profileID,
+      subcollections: [{
+        collection: 'collection',
+        doc: `${id}`,
+      }],
+    }, {
+      type,
+      groupID: group,
+    });
 
     dispatch(addAlert('alert::collection/add-to-collection-success', 'success'));
   } catch (error) {
     dispatch(addAlert('alert::collection/add-to-collection-failure', 'error'));
+  } finally {
+    dispatch(setAppWaiting(false));
+  }
+};
+
+export const removeFromCollection = id => async (dispatch, getState, { getFirestore }) => {
+  dispatch(setAppWaiting(true));
+  try {
+    const firestore = getFirestore();
+    const { id: profileID } = getProfile(getState());
+
+    await firestore.delete({
+      collection: 'profiles',
+      doc: profileID,
+      subcollections: [{
+        collection: 'collection',
+        doc: `${id}`,
+      }],
+    });
+
+    dispatch(addAlert('alert::collection/remove-from-collection-success', 'success'));
+  } catch (error) {
+    dispatch(addAlert('alert::collection/remove-from-collection-failure', 'error'));
   } finally {
     dispatch(setAppWaiting(false));
   }

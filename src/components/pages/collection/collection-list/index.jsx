@@ -6,6 +6,10 @@ import {
 } from 'react-redux';
 
 import Box from '@material-ui/core/Box';
+import Card from '@material-ui/core/Card';
+import CardContent from '@material-ui/core/CardContent';
+import Typography from '@material-ui/core/Typography';
+import Button from '@material-ui/core/Button';
 
 import ChipArray from '../../../commons/chip-array';
 
@@ -14,6 +18,7 @@ import {
   getSelectedGroupByType,
   getCollectionByTypeAndGroup,
   collectionSelectGroup,
+  removeFromCollection,
 } from '../../../../store/collection';
 
 const CollectionList = () => {
@@ -27,6 +32,10 @@ const CollectionList = () => {
     dispatch(collectionSelectGroup(type, key));
   }, [dispatch, type]);
 
+  const handleRemoveClick = useCallback(id => {
+    dispatch(removeFromCollection(id));
+  }, [dispatch]);
+
   return (
     <Box>
       <ChipArray
@@ -36,7 +45,16 @@ const CollectionList = () => {
         onClick={handleChipClick}
       />
       {list.map(item => (
-        item.id
+        <Card key={item.id}>
+          <CardContent>
+            <Typography>
+              {item.id}
+            </Typography>
+            <Button onClick={() => handleRemoveClick(item.id)}>
+              Remove
+            </Button>
+          </CardContent>
+        </Card>
       ))}
     </Box>
   );
