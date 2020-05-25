@@ -67,7 +67,8 @@
       "menu": {
         "tv": "TV Shows",
         "movie": "Movies"
-      }
+      },
+      "editGroups": "Edit Groups"
     },
     "search": {
       "title": "Search",
