@@ -1,6 +1,9 @@
 import React, { useCallback } from 'react';
-import { useParams } from 'react-router';
 import { useTranslation } from 'react-i18next';
+import {
+  useParams,
+  useHistory,
+} from 'react-router';
 import {
   useDispatch,
   useSelector,
@@ -19,10 +22,12 @@ import {
   getSelectedGroupByType,
   collectionSelectGroup,
 } from '../../../../../store/collection';
+import { APP_PATHS } from '../../../../../constants/paths';
 
 const CollectionGroups = () => {
   const { t } = useTranslation();
   const { type } = useParams();
+  const { push } = useHistory();
   const dispatch = useDispatch();
   const groups = useSelector(getGroupsByType(type));
   const selectedGroup = useSelector(getSelectedGroupByType(type));
@@ -30,6 +35,10 @@ const CollectionGroups = () => {
   const handleChipClick = useCallback(key => {
     dispatch(collectionSelectGroup(type, key));
   }, [dispatch, type]);
+
+  const handleEditClick = useCallback(() => {
+    push(APP_PATHS.COLLECTIONS_EDIT_GROUPS.path.replace(':type', type));
+  }, [push, type]);
 
   return (
     <Box
@@ -45,8 +54,8 @@ const CollectionGroups = () => {
         selected={selectedGroup}
         onClick={handleChipClick}
       />
-      <Tooltip title={t('page.collection.editGroups')}>
-        <IconButton>
+      <Tooltip title={t('page.collections.edit.groups')}>
+        <IconButton onClick={handleEditClick}>
           <EditTwoToneIcon
             fontSize="small"
             color="secondary"

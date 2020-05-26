@@ -72,7 +72,10 @@
         "tv": "TV Show",
         "movie": "Movie"
       },
-      "editGroups": "Edit Groups",
+      "edit": {
+        "title": "Collections Edit",
+        "groups": "Edit Collection Groups"
+      },
       "deleteItemTitle": "Delete from Collection",
       "deleteItemDescription": [
         "{{name}} $t(page.collections.type.{{type}}) will be removed from {{group}} collection group.",
