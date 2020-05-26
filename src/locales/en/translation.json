@@ -75,7 +75,7 @@
       "editGroups": "Edit Groups",
       "deleteItemTitle": "Delete from Collection",
       "deleteItemDescription": [
-        "{{name}} $t(page.collection.type.{{type}}) will be removed from {{group}} collection group.",
+        "{{name}} $t(page.collections.type.{{type}}) will be removed from {{group}} collection group.",
         "The remove will be permanently and your profile will be updated."
       ]
     },
