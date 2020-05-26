@@ -4,7 +4,8 @@ import { useLocation } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 
 import InputBase from '@material-ui/core/InputBase';
-import NativeSelect from '@material-ui/core/NativeSelect';
+import Select from '@material-ui/core/Select';
+import MenuItem from '@material-ui/core/MenuItem';
 
 import SearchTwoToneIcon from '@material-ui/icons/SearchTwoTone';
 
@@ -74,7 +75,7 @@ const AppSearchBar = () => {
         name="query"
         type="search"
       />
-      <NativeSelect
+      <Select
         id="type"
         name="type"
         classes={{
@@ -85,11 +86,11 @@ const AppSearchBar = () => {
         disableUnderline
       >
         {Object.values(SEARCH_TYPES).map(key => (
-          <option key={key} value={key}>
+          <MenuItem key={key} value={key}>
             {t(`quickSearch.${key}`)}
-          </option>
+          </MenuItem>
         ))}
-      </NativeSelect>
+      </Select>
     </form>
   );
 };
