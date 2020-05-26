@@ -67,28 +67,28 @@ export const APP_PATHS = {
     title: 'page.profile.dangerZone.title',
     icon: ReportProblemTwoToneIcon,
   },
-  COLLECTION: {
-    key: 'collection',
-    path: '/collection',
-    title: 'page.collection.title',
+  COLLECTIONS: {
+    key: 'collections',
+    path: '/collections',
+    title: 'page.collections.title',
     icon: LibraryBooksTwoToneIcon,
   },
-  COLLECTION_LIST: {
-    key: 'collectionList',
-    path: '/collection/:type',
-    title: 'page.collection.title',
+  COLLECTIONS_TYPE: {
+    key: 'collectionsType',
+    path: '/collections/:type',
+    title: 'page.collections.title',
     icon: LibraryBooksTwoToneIcon,
   },
-  COLLECTION_LIST_TV: {
-    key: 'collectionListTv',
-    path: '/collection/tv',
-    title: 'page.collection.menu.tv',
+  COLLECTIONS_TV: {
+    key: 'collectionsTv',
+    path: '/collections/tv',
+    title: 'page.collections.menu.tv',
     icon: TvTwoToneIcon,
   },
-  COLLECTION_LIST_MOVIE: {
-    key: 'collectionListMovie',
-    path: '/collection/movie',
-    title: 'page.collection.menu.movie',
+  COLLECTIONS_MOVIE: {
+    key: 'collectionsMovie',
+    path: '/collections/movie',
+    title: 'page.collections.menu.movie',
     icon: MovieTwoToneIcon,
   },
   SEARCH: {

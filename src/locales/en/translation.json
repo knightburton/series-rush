@@ -62,8 +62,8 @@
     "dashboard": {
       "title": "Dashboard"
     },
-    "collection": {
-      "title": "Collection",
+    "collections": {
+      "title": "Collections",
       "menu": {
         "tv": "TV Shows",
         "movie": "Movies"

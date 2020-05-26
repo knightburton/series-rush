@@ -7,7 +7,7 @@ import SignUp from '../components/pages/sign-up';
 import ForgotPassword from '../components/pages/forgot-password';
 import Profile from '../components/pages/profile';
 import Dashboard from '../components/pages/dashboard';
-import Collection from '../components/pages/collection';
+import Collections from '../components/pages/collections';
 import Search from '../components/pages/search';
 
 import ProtectedRoute from './protected-route';
@@ -22,7 +22,7 @@ const AppRoutes = () => (
     <ProtectedRoute exact reverse path={APP_PATHS.FORGOT_PASSWORD.path} component={ForgotPassword} />
     <ProtectedRoute exact path={APP_PATHS.DASHBOARD.path} component={Dashboard} />
     <ProtectedRoute path={APP_PATHS.PROFILE.path} component={Profile} />
-    <ProtectedRoute path={APP_PATHS.COLLECTION.path} component={Collection} />
+    <ProtectedRoute path={APP_PATHS.COLLECTIONS.path} component={Collections} />
     <ProtectedRoute path={APP_PATHS.SEARCH.path} component={Search} />
     <Redirect to={APP_PATHS.LANDING.path} />
   </Switch>

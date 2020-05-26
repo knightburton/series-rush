@@ -7,24 +7,18 @@ import {
 } from 'react-redux';
 
 import Box from '@material-ui/core/Box';
-import IconButton from '@material-ui/core/IconButton';
 
-import EditTwoToneIcon from '@material-ui/icons/EditTwoTone';
-
-import ChipArray from '../../../commons/chip-array';
-import Tooltip from '../../../commons/tooltip';
-import Confirmation from '../../../widgets/confirmation';
-import CollectionListItem from './collection-list-item';
+import Confirmation from '../../../../widgets/confirmation';
+import CollectionListItem from '../collection-list-item';
 
 import {
   getGroupsByType,
   getSelectedGroupByType,
   getCollectionByTypeAndGroup,
-  collectionSelectGroup,
   removeFromCollection,
-} from '../../../../store/collection';
+} from '../../../../../store/collection';
 
-const CollectionList = () => {
+const CollectionListContainer = () => {
   const { t } = useTranslation();
   const { type } = useParams();
   const [deleteItem, setDeleteItem] = useState(null);
@@ -37,10 +31,6 @@ const CollectionList = () => {
   const selectedGroupName = useMemo(() => (
     groups?.find(group => group.id === selectedGroup)?.label || t('common::unknown')
   ), [groups, selectedGroup, t]);
-
-  const handleChipClick = useCallback(key => {
-    dispatch(collectionSelectGroup(type, key));
-  }, [dispatch, type]);
 
   const handleItemDeleteClick = useCallback(item => {
     setDeleteItem(item);
@@ -59,28 +49,6 @@ const CollectionList = () => {
 
   return (
     <Box>
-      <Box
-        display="flex"
-        justifyContent="space-between"
-        alignContent="center"
-        alignItems="center"
-        mb={1}
-      >
-        <ChipArray
-          items={groups}
-          breakpoint="xs"
-          selected={selectedGroup}
-          onClick={handleChipClick}
-        />
-        <Tooltip title={t('page.collection.editGroups')}>
-          <IconButton>
-            <EditTwoToneIcon
-              fontSize="small"
-              color="secondary"
-            />
-          </IconButton>
-        </Tooltip>
-      </Box>
       {list.map(item => (
         <CollectionListItem
           key={item.id}
@@ -100,4 +68,4 @@ const CollectionList = () => {
   );
 };
 
-export default CollectionList;
+export default CollectionListContainer;
