@@ -11,7 +11,7 @@ import CollectionList from './collection-list';
 import { COLLECTIONS_MENU } from '../../../../constants/navigation';
 import { APP_PATHS } from '../../../../constants/paths';
 
-const Collection = () => (
+const CollectionsView = () => (
   <Container maxWidth="lg">
     <Box position="relative" height="100%">
       <NavigationTabsGrid
@@ -25,4 +25,4 @@ const Collection = () => (
   </Container>
 );
 
-export default Collection;
+export default CollectionsView;
