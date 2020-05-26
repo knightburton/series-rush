@@ -1,9 +1,9 @@
 import React, { useCallback } from 'react';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
-import {
-  useDispatch,
-} from 'react-redux';
+// import {
+//   useDispatch,
+// } from 'react-redux';
 
 import Box from '@material-ui/core/Box';
 import Card from '@material-ui/core/Card';
@@ -16,17 +16,17 @@ import DeleteTwoToneIcon from '@material-ui/icons/DeleteTwoTone';
 
 import Tooltip from '../../../../commons/tooltip';
 
-import {
-  removeFromCollection,
-} from '../../../../../store/collection';
+// import {
+//   removeFromCollection,
+// } from '../../../../../store/collection';
 
-const CollectionListItem = ({ id }) => {
+const CollectionListItem = ({ item: { id }, onDeleteClick }) => {
   const { t } = useTranslation();
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
 
-  const handleRemoveClick = useCallback(() => {
-    dispatch(removeFromCollection(id));
-  }, [dispatch, id]);
+  const handleDeleteClick = useCallback(() => {
+    onDeleteClick({ id });
+  }, [onDeleteClick, id]);
 
   return (
     <Box mb={2}>
@@ -39,7 +39,7 @@ const CollectionListItem = ({ id }) => {
         <CardActions>
           <Box ml="auto" />
           <Tooltip title={t('common::delete')}>
-            <IconButton onClick={handleRemoveClick}>
+            <IconButton onClick={handleDeleteClick}>
               <DeleteTwoToneIcon
                 fontSize="small"
                 color="error"
@@ -53,10 +53,13 @@ const CollectionListItem = ({ id }) => {
 };
 
 CollectionListItem.propTypes = {
-  id: PropTypes.oneOfType([
-    PropTypes.number,
-    PropTypes.string,
-  ]).isRequired,
+  item: PropTypes.shape({
+    id: PropTypes.oneOfType([
+      PropTypes.number,
+      PropTypes.string,
+    ]).isRequired,
+  }).isRequired,
+  onDeleteClick: PropTypes.func.isRequired,
 };
 
 export default CollectionListItem;

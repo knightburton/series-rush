@@ -68,7 +68,16 @@
         "tv": "TV Shows",
         "movie": "Movies"
       },
-      "editGroups": "Edit Groups"
+      "type": {
+        "tv": "TV Show",
+        "movie": "Movie"
+      },
+      "editGroups": "Edit Groups",
+      "deleteItemTitle": "Delete from Collection",
+      "deleteItemDescription": [
+        "{{name}} $t(page.collection.type.{{type}}) will be removed from {{group}} collection group.",
+        "The remove will be permanently and your profile will be updated."
+      ]
     },
     "search": {
       "title": "Search",
