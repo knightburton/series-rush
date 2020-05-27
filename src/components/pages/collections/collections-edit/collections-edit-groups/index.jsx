@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useCallback } from 'react';
 import { useParams } from 'react-router';
 import { useTranslation } from 'react-i18next';
 
@@ -11,11 +11,21 @@ import AddCircleTwoToneIcon from '@material-ui/icons/AddCircleTwoTone';
 import PageTitle from '../../../../commons/page-title';
 import Tooltip from '../../../../commons/tooltip';
 
+import CollectionsEditGroupsFormDialog from './collections-edit-groups-form-dialog';
 import CollectionsEditGroupsList from './collections-edit-groups-list';
 
 const CollectionsEditGroups = () => {
   const { t } = useTranslation();
   const { type } = useParams();
+  const [formOpen, setFormOpen] = useState(false);
+
+  const handleAddGroupClick = useCallback(() => {
+    setFormOpen(true);
+  }, []);
+
+  const handleFormClose = useCallback(() => {
+    setFormOpen(false);
+  }, []);
 
   return (
     <Container maxWidth="lg">
@@ -29,13 +39,18 @@ const CollectionsEditGroups = () => {
           <PageTitle title={t(`page.collections.edit.${type}Groups`)} />
         </Box>
         <Tooltip title={t('page.collections.edit.addGroup')}>
-          <IconButton>
+          <IconButton onClick={handleAddGroupClick}>
             <AddCircleTwoToneIcon color="secondary" />
           </IconButton>
         </Tooltip>
       </Box>
 
       <CollectionsEditGroupsList />
+
+      <CollectionsEditGroupsFormDialog
+        open={formOpen}
+        onClose={handleFormClose}
+      />
     </Container>
   );
 };
