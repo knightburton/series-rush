@@ -10,6 +10,8 @@ import AddCircleTwoToneIcon from '@material-ui/icons/AddCircleTwoTone';
 
 import PageTitle from '../../../../commons/page-title';
 import Tooltip from '../../../../commons/tooltip';
+import FormButtonContainer from '../../../../commons/form-button-container';
+import FormButton from '../../../../commons/form-button';
 
 import CollectionsEditGroupsList from './collections-edit-groups-list';
 
@@ -19,18 +21,39 @@ const CollectionsEditGroups = () => {
 
   return (
     <Container maxWidth="lg">
-      <PageTitle title={t(`page.collections.edit.${type}Groups`)} />
-      <CollectionsEditGroupsList />
       <Box
         display="flex"
-        justifyContent="center"
+        justifyContent="space-between"
+        alignContent="center"
+        alignItems="center"
       >
+        <Box pt={1}>
+          <PageTitle title={t(`page.collections.edit.${type}Groups`)} />
+        </Box>
         <Tooltip title={t('page.collections.edit.addGroup')}>
           <IconButton>
-            <AddCircleTwoToneIcon fontSize="large" color="secondary" />
+            <AddCircleTwoToneIcon color="secondary" />
           </IconButton>
         </Tooltip>
       </Box>
+
+      <CollectionsEditGroupsList />
+
+      <FormButtonContainer
+        align="center"
+        variant="horizontal"
+      >
+        <FormButton
+          variant="outlined"
+          color="primary"
+          label={t('common::cancel')}
+        />
+        <FormButton
+          variant="outlined"
+          color="secondary"
+          label={t('common::submit')}
+        />
+      </FormButtonContainer>
     </Container>
   );
 };
