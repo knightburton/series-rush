@@ -18,7 +18,7 @@ import Tooltip from '../../../../commons/tooltip';
 
 // import {
 //   removeFromCollection,
-// } from '../../../../../store/collection';
+// } from '../../../../../store/collections';
 
 const CollectionListItem = ({ item: { id }, onDeleteClick }) => {
   const { t } = useTranslation();

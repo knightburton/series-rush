@@ -16,7 +16,7 @@ import {
   getSelectedGroupByType,
   getCollectionByTypeAndGroup,
   removeFromCollection,
-} from '../../../../../store/collection';
+} from '../../../../../store/collections';
 
 const CollectionListContainer = () => {
   const { t } = useTranslation();

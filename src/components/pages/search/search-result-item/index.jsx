@@ -20,7 +20,7 @@ import PopupMenuButton from '../../../commons/popup-menu-button';
 import {
   getGroupsByType,
   addToCollection,
-} from '../../../../store/collection';
+} from '../../../../store/collections';
 import { getEllipsisText } from '../../../../utils/text';
 import { ELLIPSIS_LENGTHS } from '../../../../constants/config';
 

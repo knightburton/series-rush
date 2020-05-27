@@ -21,7 +21,7 @@ import {
   getGroupsByType,
   getSelectedGroupByType,
   collectionSelectGroup,
-} from '../../../../../store/collection';
+} from '../../../../../store/collections';
 import { APP_PATHS } from '../../../../../constants/paths';
 
 const CollectionGroups = () => {
