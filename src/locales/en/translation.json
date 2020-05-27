@@ -74,7 +74,11 @@
       },
       "edit": {
         "title": "Collections Edit",
-        "groups": "Edit Collection Groups"
+        "groups": "Edit Collection Groups",
+        "tvGroups": "Edit TV Show groups",
+        "movieGroups": "Edit Movie groups",
+        "moveUp": "Move up",
+        "moveDown": "Move down"
       },
       "deleteItemTitle": "Delete from Collection",
       "deleteItemDescription": [
