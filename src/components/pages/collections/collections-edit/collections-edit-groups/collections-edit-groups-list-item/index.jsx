@@ -12,6 +12,7 @@ import Grid from '@material-ui/core/Grid';
 
 import KeyboardArrowUpTwoToneIcon from '@material-ui/icons/KeyboardArrowUpTwoTone';
 import KeyboardArrowDownTwoToneIcon from '@material-ui/icons/KeyboardArrowDownTwoTone';
+import EditTwoToneIcon from '@material-ui/icons/EditTwoTone';
 import DeleteTwoToneIcon from '@material-ui/icons/DeleteTwoTone';
 
 import Tooltip from '../../../../../commons/tooltip';
@@ -45,6 +46,11 @@ const CollectionsEditGroupsListItem = ({ group: { id, label } }) => {
           <Tooltip title={t('page.collections.edit.moveDown')}>
             <IconButton>
               <KeyboardArrowDownTwoToneIcon fontSize="small" />
+            </IconButton>
+          </Tooltip>
+          <Tooltip title={t('common::edit')}>
+            <IconButton>
+              <EditTwoToneIcon fontSize="small" color="secondary" />
             </IconButton>
           </Tooltip>
           <Tooltip title={t('common::delete')}>

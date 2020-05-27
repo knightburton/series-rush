@@ -10,8 +10,6 @@ import AddCircleTwoToneIcon from '@material-ui/icons/AddCircleTwoTone';
 
 import PageTitle from '../../../../commons/page-title';
 import Tooltip from '../../../../commons/tooltip';
-import FormButtonContainer from '../../../../commons/form-button-container';
-import FormButton from '../../../../commons/form-button';
 
 import CollectionsEditGroupsList from './collections-edit-groups-list';
 
@@ -38,22 +36,6 @@ const CollectionsEditGroups = () => {
       </Box>
 
       <CollectionsEditGroupsList />
-
-      <FormButtonContainer
-        align="center"
-        variant="horizontal"
-      >
-        <FormButton
-          variant="outlined"
-          color="primary"
-          label={t('common::cancel')}
-        />
-        <FormButton
-          variant="outlined"
-          color="secondary"
-          label={t('common::submit')}
-        />
-      </FormButtonContainer>
     </Container>
   );
 };
