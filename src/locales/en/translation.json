@@ -78,7 +78,8 @@
         "tvGroups": "Edit TV Show groups",
         "movieGroups": "Edit Movie groups",
         "moveUp": "Move up",
-        "moveDown": "Move down"
+        "moveDown": "Move down",
+        "addGroup": "Add new group"
       },
       "deleteItemTitle": "Delete from Collection",
       "deleteItemDescription": [

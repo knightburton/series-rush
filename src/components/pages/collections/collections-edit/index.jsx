@@ -15,6 +15,7 @@ import Grid from '@material-ui/core/Grid';
 import KeyboardArrowUpTwoToneIcon from '@material-ui/icons/KeyboardArrowUpTwoTone';
 import KeyboardArrowDownTwoToneIcon from '@material-ui/icons/KeyboardArrowDownTwoTone';
 import DeleteTwoToneIcon from '@material-ui/icons/DeleteTwoTone';
+import AddCircleTwoToneIcon from '@material-ui/icons/AddCircleTwoTone';
 
 import PageTitle from '../../../commons/page-title';
 import Tooltip from '../../../commons/tooltip';
@@ -65,6 +66,17 @@ const CollectionsEdit = () => {
           </CardActions>
         </Card>
       ))}
+      <Box
+        display="flex"
+        justifyContent="flex-end"
+        mt={2}
+      >
+        <Tooltip title={t('page.collections.edit.addGroup')}>
+          <IconButton>
+            <AddCircleTwoToneIcon fontSize="large" color="secondary" />
+          </IconButton>
+        </Tooltip>
+      </Box>
     </Container>
   );
 };
