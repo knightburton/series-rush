@@ -21,7 +21,7 @@ const CollectionsEditGroups = () => {
   const { t } = useTranslation();
   const { type } = useParams();
   const [formOpen, setFormOpen] = useState(false);
-  const isNUmberOfGroupsByTypeFull = useSelector(getIsNumberOfGroupsByTypeFull(type));
+  const isNumberOfGroupsByTypeFull = useSelector(getIsNumberOfGroupsByTypeFull(type));
 
   const handleAddGroupClick = useCallback(() => {
     setFormOpen(true);
@@ -46,7 +46,7 @@ const CollectionsEditGroups = () => {
           <Box>
             <IconButton
               onClick={handleAddGroupClick}
-              disabled={isNUmberOfGroupsByTypeFull}
+              disabled={!isNumberOfGroupsByTypeFull}
             >
               <AddCircleTwoToneIcon color="secondary" />
             </IconButton>
