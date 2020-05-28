@@ -43,12 +43,14 @@ const CollectionsEditGroups = () => {
           <PageTitle title={t('page.collections.edit.groups.typeTitle', { type })} />
         </Box>
         <Tooltip title={t('page.collections.edit.groups.add')}>
-          <IconButton
-            onClick={handleAddGroupClick}
-            disabled={isNUmberOfGroupsByTypeFull}
-          >
-            <AddCircleTwoToneIcon color="secondary" />
-          </IconButton>
+          <Box>
+            <IconButton
+              onClick={handleAddGroupClick}
+              disabled={isNUmberOfGroupsByTypeFull}
+            >
+              <AddCircleTwoToneIcon color="secondary" />
+            </IconButton>
+          </Box>
         </Tooltip>
       </Box>
 
