@@ -101,7 +101,7 @@ export const APP_PATHS = {
   COLLECTIONS_EDIT_GROUPS: {
     key: 'collectionsEditGroups',
     path: '/collections/:type/edit/groups',
-    title: 'page.collections.edit.groups',
+    title: 'page.collections.edit.groups.title',
     icon: EditTwoToneIcon,
   },
   SEARCH: {
