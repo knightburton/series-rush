@@ -58,8 +58,8 @@ const CollectionListContainer = () => {
       ))}
       <Confirmation
         id="collection-list-item-delete-confirmation"
-        title={t('page.collections.deleteItemTitle')}
-        description={t('page.collections.deleteItemDescription', { type, group: selectedGroupName, name: deleteItem?.title || t('common::unknown') })}
+        title={t('page.collections.item.deleteTitle')}
+        description={t('page.collections.item.deleteDescription', { type, group: selectedGroupName, name: deleteItem?.title || t('common::unknown') })}
         onAgree={handleDeleteAgree}
         onDisagree={handleDeleteDisagree}
         open={deleteOpen}

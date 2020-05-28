@@ -36,7 +36,7 @@ const CollectionsEditGroups = () => {
         alignItems="center"
       >
         <Box pt={1}>
-          <PageTitle title={t(`page.collections.edit.${type}Groups`)} />
+          <PageTitle title={t('page.collections.edit.groups.type', { type })} />
         </Box>
         <Tooltip title={t('page.collections.edit.addGroup')}>
           <IconButton onClick={handleAddGroupClick}>

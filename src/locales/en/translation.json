@@ -68,24 +68,33 @@
         "tv": "TV Shows",
         "movie": "Movies"
       },
-      "type": {
-        "tv": "TV Show",
-        "movie": "Movie"
+      "item": {
+        "type": {
+          "tv": "TV Show",
+          "movie": "Movie"
+        },
+        "deleteTitle": "Delete from Collection",
+        "deleteDescription": [
+          "{{name}} $t(page.collections.item.type.{{type}}) will be removed from {{group}} collection group.",
+          "The remove will be permanently and your profile will be updated."
+        ]
       },
       "edit": {
         "title": "Collections Edit",
-        "groups": "Edit Collection Groups",
-        "tvGroups": "Edit TV Show groups",
-        "movieGroups": "Edit Movie groups",
-        "moveUp": "Move up",
-        "moveDown": "Move down",
-        "addGroup": "Add new group"
-      },
-      "deleteItemTitle": "Delete from Collection",
-      "deleteItemDescription": [
-        "{{name}} $t(page.collections.type.{{type}}) will be removed from {{group}} collection group.",
-        "The remove will be permanently and your profile will be updated."
-      ]
+        "groups": {
+          "title": "Edit Collection Groups",
+          "type": "Edit $t(page.collections.item.type.{{type}}) groups",
+          "moveUp": "Move up",
+          "moveDown": "Move down",
+          "add": "Add new group",
+          "addDescription": [
+            "The new group will be available in your collection and you will be able to add new items to it.",
+            "Simply give it a name as you wish and pick a color that helps you to identify the group."
+          ],
+          "label": "Group name",
+          "color": "Group color"
+        }
+      }
     },
     "search": {
       "title": "Search",

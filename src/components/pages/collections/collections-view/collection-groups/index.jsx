@@ -54,7 +54,7 @@ const CollectionGroups = () => {
         selected={selectedGroup}
         onClick={handleChipClick}
       />
-      <Tooltip title={t('page.collections.edit.groups')}>
+      <Tooltip title={t('page.collections.edit.groups.title')}>
         <IconButton onClick={handleEditClick}>
           <EditTwoToneIcon
             fontSize="small"

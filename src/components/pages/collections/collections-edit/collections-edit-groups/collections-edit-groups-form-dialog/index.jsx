@@ -40,7 +40,7 @@ const CollectionsEditGroupsFormDialog = ({ open, onClose }) => {
       fullWidth
     >
       <DialogTitle>
-        {t('page.collections.edit.title')}
+        {t('page.collections.edit.groups.add')}
       </DialogTitle>
 
       <Form
@@ -49,11 +49,11 @@ const CollectionsEditGroupsFormDialog = ({ open, onClose }) => {
       >
         <DialogContent>
           <DialogContentText>
-            {t('page.collections.edit.title')}
+            {t('page.collections.edit.groups.addDescription')}
           </DialogContentText>
           <FormText
             id="label"
-            label={t('page.collections.edit.label')}
+            label={t('page.collections.edit.groups.label')}
             value={label.value}
             error={label.error}
             onChange={handleChange}
@@ -61,7 +61,7 @@ const CollectionsEditGroupsFormDialog = ({ open, onClose }) => {
           />
           <FormText
             id="color"
-            label={t('page.collections.edit.color')}
+            label={t('page.collections.edit.groups.color')}
             value={color.value}
             error={color.error}
             onChange={handleChange}
