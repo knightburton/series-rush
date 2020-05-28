@@ -104,5 +104,15 @@
       "emptyResult": "There is no result for the given search query.",
       "addTo": "Add to collection"
     }
+  },
+  "colors": {
+    "red": "Red",
+    "pink": "Pink",
+    "purple": "Purple",
+    "blue": "Blue",
+    "cyan": "Cyan",
+    "green": "Green",
+    "yellow": "Yellow",
+    "orange": "Orange"
   }
 }

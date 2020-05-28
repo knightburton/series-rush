@@ -13,10 +13,12 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 
 import Form from '../../../../../commons/form';
 import FormText from '../../../../../commons/form-text';
+import FormSelect from '../../../../../commons/form-select';
 import FormButton from '../../../../../commons/form-button';
 
 import { addNewCollectionGroup } from '../../../../../../store/collections';
 import useForm from '../../../../../../hooks/useForm';
+import { GROUP_COLORS } from '../../../../../../constants/config';
 import {
   stateSchema,
   validationSchema,
@@ -65,12 +67,14 @@ const CollectionsEditGroupsFormDialog = ({ open, onClose, type }) => {
             onChange={handleChange}
             required
           />
-          <FormText
+          <FormSelect
             id="color"
             label={t('page.collections.edit.groups.color')}
             value={color.value}
             error={color.error}
             onChange={handleChange}
+            options={GROUP_COLORS}
+            translateOptions
             required
           />
         </DialogContent>
