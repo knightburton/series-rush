@@ -18,7 +18,7 @@ import DeleteTwoToneIcon from '@material-ui/icons/DeleteTwoTone';
 import Tooltip from '../../../../../commons/tooltip';
 
 
-const CollectionsEditGroupsListItem = ({ group: { id, label } }) => {
+const CollectionsEditGroupsListItem = ({ group: { id, label, color } }) => {
   const { t } = useTranslation();
 
   return (
@@ -32,7 +32,7 @@ const CollectionsEditGroupsListItem = ({ group: { id, label } }) => {
               </Typography>
             </Grid>
             <Grid item xs={12} md={6}>
-              Color chooser...
+              {t(color ? `colors.${color}` : 'common::unknown')}
             </Grid>
           </Grid>
         </CardContent>
@@ -71,6 +71,7 @@ CollectionsEditGroupsListItem.propTypes = {
       PropTypes.string,
     ]).isRequired,
     label: PropTypes.string,
+    color: PropTypes.string,
   }).isRequired,
 };
 
