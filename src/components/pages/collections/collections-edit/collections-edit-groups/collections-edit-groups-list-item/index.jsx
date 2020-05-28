@@ -38,12 +38,12 @@ const CollectionsEditGroupsListItem = ({ group: { id, label } }) => {
         </CardContent>
         <CardActions>
           <Box ml="auto" />
-          <Tooltip title={t('page.collections.edit.moveUp')}>
+          <Tooltip title={t('page.collections.edit.groups.moveUp')}>
             <IconButton>
               <KeyboardArrowUpTwoToneIcon fontSize="small" />
             </IconButton>
           </Tooltip>
-          <Tooltip title={t('page.collections.edit.moveDown')}>
+          <Tooltip title={t('page.collections.edit.groups.moveDown')}>
             <IconButton>
               <KeyboardArrowDownTwoToneIcon fontSize="small" />
             </IconButton>
