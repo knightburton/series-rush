@@ -36,9 +36,9 @@ const CollectionsEditGroups = () => {
         alignItems="center"
       >
         <Box pt={1}>
-          <PageTitle title={t('page.collections.edit.groups.type', { type })} />
+          <PageTitle title={t('page.collections.edit.groups.typeTitle', { type })} />
         </Box>
-        <Tooltip title={t('page.collections.edit.addGroup')}>
+        <Tooltip title={t('page.collections.edit.groups.add')}>
           <IconButton onClick={handleAddGroupClick}>
             <AddCircleTwoToneIcon color="secondary" />
           </IconButton>
@@ -50,6 +50,7 @@ const CollectionsEditGroups = () => {
       <CollectionsEditGroupsFormDialog
         open={formOpen}
         onClose={handleFormClose}
+        type={type}
       />
     </Container>
   );

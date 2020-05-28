@@ -40,5 +40,6 @@
   "delete-failure": "There was a problem deleting data from the $t(alert::{{title}}). Try again later, please.",
 
   "collection-groups": "colletion groups",
-  "collection": "collection"
+  "collection-group": "colletion group",
+  "collections": "collections"
 }

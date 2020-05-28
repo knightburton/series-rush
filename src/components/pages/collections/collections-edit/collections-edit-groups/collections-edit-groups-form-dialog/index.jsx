@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
+import { useDispatch } from 'react-redux';
 
 import Box from '@material-ui/core/Box';
 import Dialog from '@material-ui/core/Dialog';
@@ -14,18 +15,23 @@ import Form from '../../../../../commons/form';
 import FormText from '../../../../../commons/form-text';
 import FormButton from '../../../../../commons/form-button';
 
+import { addNewCollectionGroup } from '../../../../../../store/collections';
 import useForm from '../../../../../../hooks/useForm';
 import {
   stateSchema,
   validationSchema,
 } from './constants';
 
-const CollectionsEditGroupsFormDialog = ({ open, onClose }) => {
+const CollectionsEditGroupsFormDialog = ({ open, onClose, type }) => {
+  const dispatch = useDispatch();
   const { t } = useTranslation();
   const { state, handleChange, handleSubmit } = useForm({
     stateSchema,
     validationSchema,
-    callback: () => {},
+    callback: details => dispatch(addNewCollectionGroup({
+      ...details,
+      type,
+    })),
   });
 
   const { label, color } = state;
@@ -77,6 +83,7 @@ const CollectionsEditGroupsFormDialog = ({ open, onClose }) => {
               onClick={onClose}
             />
             <FormButton
+              submit
               variant="text"
               color="secondary"
               label={t('common::submit')}
@@ -92,6 +99,11 @@ const CollectionsEditGroupsFormDialog = ({ open, onClose }) => {
 CollectionsEditGroupsFormDialog.propTypes = {
   open: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
+  type: PropTypes.string,
+};
+
+CollectionsEditGroupsFormDialog.defaultProps = {
+  type: '',
 };
 
 export default CollectionsEditGroupsFormDialog;
