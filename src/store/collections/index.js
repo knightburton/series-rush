@@ -3,6 +3,7 @@ import { createSelector } from 'reselect';
 import { setAppWaiting, addAlert } from '../app';
 import { getProfile } from '../auth';
 import { getFirestoreOrderedData } from '../firestore';
+import { MAXIMUM_NUMBER_OF_GROUPS } from '../../constants/config';
 
 // Initial state
 export const initialState = {
@@ -58,6 +59,14 @@ export const getCollectionByTypeAndGroup = (type, group) => createSelector(
 export const getHighestGroupOrderByType = type => createSelector(
   getGroupsByType(type),
   groups => Math.max(...groups.map(group => group?.order), 0),
+);
+export const getNumberOfGroupsByType = type => createSelector(
+  getGroupsByType(type),
+  groups => groups?.length || 0,
+);
+export const getIsNumberOfGroupsByTypeFull = type => createSelector(
+  getNumberOfGroupsByType(type),
+  numberOfGroups => numberOfGroups < MAXIMUM_NUMBER_OF_GROUPS,
 );
 
 // Thunks

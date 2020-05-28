@@ -27,6 +27,8 @@ export const GROUP_COLORS = [
   { id: 'orange', label: 'colors.orange' },
 ];
 
+export const MAXIMUM_NUMBER_OF_GROUPS = 6;
+
 export default {
   API_URLS: {
     TV_MAZE_API_ENDPOINT,
