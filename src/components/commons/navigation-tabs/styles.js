@@ -5,19 +5,19 @@ export default makeStyles(theme => ({
     width: '4px',
     borderTopLeftRadius: theme.shape.borderRadius,
     borderBottomLeftRadius: theme.shape.borderRadius,
-    backgroundColor: theme.palette.secondary.main,
+    backgroundColor: theme.palette.primary.main,
   },
   horizontalIndicator: {
     height: '4px',
     borderTopLeftRadius: theme.shape.borderRadius,
     borderTopRightRadius: theme.shape.borderRadius,
-    backgroundColor: theme.palette.secondary.main,
+    backgroundColor: theme.palette.primary.main,
   },
   tab: {
     maxWidth: '100%',
     minWidth: 'unset',
     '&:hover': {
-      color: theme.palette.secondary.light,
+      color: theme.palette.primary.light,
     },
   },
   wrapper: {
@@ -25,7 +25,7 @@ export default makeStyles(theme => ({
     textTransform: 'none',
   },
   selected: {
-    color: theme.palette.secondary.main,
+    color: theme.palette.primary.main,
   },
   box: {
     [theme.breakpoints.down('sm')]: {
