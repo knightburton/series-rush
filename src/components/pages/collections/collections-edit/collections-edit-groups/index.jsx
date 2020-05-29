@@ -23,6 +23,7 @@ import {
   getIsGroupFormOpen,
   openGroupForm,
   closeGroupForm,
+  setGroupFormData,
 } from '../../../../../store/collections';
 
 const CollectionsEditGroups = () => {
@@ -38,6 +39,7 @@ const CollectionsEditGroups = () => {
 
   const handleFormClose = useCallback(() => {
     dispatch(closeGroupForm());
+    dispatch(setGroupFormData(null));
   }, [dispatch]);
 
   return (

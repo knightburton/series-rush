@@ -1,6 +1,9 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
+import {
+  useDispatch,
+} from 'react-redux';
 
 import Box from '@material-ui/core/Box';
 import Card from '@material-ui/core/Card';
@@ -17,9 +20,20 @@ import DeleteTwoToneIcon from '@material-ui/icons/DeleteTwoTone';
 
 import Tooltip from '../../../../../commons/tooltip';
 
+import {
+  setGroupFormData,
+  openGroupForm,
+} from '../../../../../../store/collections';
 
-const CollectionsEditGroupsListItem = ({ group: { id, label, color } }) => {
+const CollectionsEditGroupsListItem = ({ group }) => {
   const { t } = useTranslation();
+  const { id, label, color } = group;
+  const dispatch = useDispatch();
+
+  const handleEditClick = useCallback(() => {
+    dispatch(setGroupFormData(group));
+    dispatch(openGroupForm());
+  }, [dispatch, group]);
 
   return (
     <Box key={id} mb={2}>
@@ -49,7 +63,7 @@ const CollectionsEditGroupsListItem = ({ group: { id, label, color } }) => {
             </IconButton>
           </Tooltip>
           <Tooltip title={t('common::edit')}>
-            <IconButton>
+            <IconButton onClick={handleEditClick}>
               <EditTwoToneIcon fontSize="small" color="secondary" />
             </IconButton>
           </Tooltip>

@@ -1,7 +1,10 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
-import { useDispatch } from 'react-redux';
+import {
+  useDispatch,
+  useSelector,
+} from 'react-redux';
 
 import Box from '@material-ui/core/Box';
 import Dialog from '@material-ui/core/Dialog';
@@ -10,13 +13,16 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 
-
 import Form from '../../../../../commons/form';
 import FormText from '../../../../../commons/form-text';
 import FormSelect from '../../../../../commons/form-select';
 import FormButton from '../../../../../commons/form-button';
 
-import { addNewCollectionGroup } from '../../../../../../store/collections';
+import {
+  getGroupFormData,
+  addNewCollectionGroup,
+  updateCollectionGroup,
+} from '../../../../../../store/collections';
 import useForm from '../../../../../../hooks/useForm';
 import { GROUP_COLORS } from '../../../../../../constants/config';
 import {
@@ -25,16 +31,30 @@ import {
 } from './constants';
 
 const CollectionsEditGroupsFormDialog = ({ open, onClose, type }) => {
-  const dispatch = useDispatch();
   const { t } = useTranslation();
-  const { state, handleChange, handleSubmit } = useForm({
+  const dispatch = useDispatch();
+  const formData = useSelector(getGroupFormData);
+  const { state, handleChange, handleSubmit, updateState } = useForm({
     stateSchema,
     validationSchema,
-    callback: details => dispatch(addNewCollectionGroup({
-      ...details,
-      type,
-    })),
+    callback: details => (formData
+      ? dispatch(updateCollectionGroup(formData.id, details))
+      : dispatch(addNewCollectionGroup(details, type))
+    ),
+    resetState: true,
   });
+
+  // Update the form default values in case of incoming edit flow or add.
+  useEffect(() => {
+    if (formData) {
+      updateState({
+        label: formData?.label || '',
+        color: formData?.color || '',
+      });
+    } else if (open) {
+      updateState(stateSchema);
+    }
+  }, [updateState, formData, open]);
 
   const { label, color } = state;
 
