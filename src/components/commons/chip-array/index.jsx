@@ -5,6 +5,8 @@ import Box from '@material-ui/core/Box';
 import Chip from '@material-ui/core/Chip';
 import Avatar from '@material-ui/core/Avatar';
 
+import ColorIndicator from '../color-indicator';
+
 import { getFirstLetter } from '../../../utils/text';
 
 import useStyles from './styles';
@@ -23,7 +25,14 @@ const ChipArray = ({ items, size, variant, selected, onClick, breakpoint }) => {
           key={item.id}
           avatar={(
             <Avatar>
-              {getFirstLetter(item.label, index + 1)}
+              {item?.color ? (
+                <ColorIndicator
+                  size={size}
+                  color={item.color}
+                />
+              ) : (
+                getFirstLetter(item.label, index + 1)
+              )}
             </Avatar>
           )}
           label={item.label}
@@ -33,7 +42,7 @@ const ChipArray = ({ items, size, variant, selected, onClick, breakpoint }) => {
           size={size}
           variant={variant}
           color={selected === item.id
-            ? 'secondary'
+            ? 'primary'
             : 'default'}
           className={classes.chip}
           classes={{
