@@ -7,6 +7,7 @@ import { MAXIMUM_NUMBER_OF_GROUPS } from '../../constants/config';
 
 // Initial state
 export const initialState = {
+  inProgress: false,
   selectedGroup: {
     tv: null,
     movie: null,
@@ -16,12 +17,18 @@ export const initialState = {
 };
 
 // Action types
+export const SET_COLLECTIONS_PROGRESS = 'SET_COLLECTIONS_PROGRESS';
 export const COLLECTION_SELECT_GROUP = 'COLLECTION_SELECT_GROUP';
 export const OPEN_GROUP_FORM = 'OPEN_GROUP_FORM';
 export const CLOSE_GROUP_FORM = 'CLOSE_GROUP_FORM';
 export const SET_GROUP_FORM_DATA = 'SET_GROUP_FORM_DATA';
 
 // Actions
+export const setCollectionsProgress = createAction(
+  SET_COLLECTIONS_PROGRESS,
+  inProgress => inProgress,
+);
+
 export const collectionSelectGroup = createAction(
   COLLECTION_SELECT_GROUP,
   (type, group) => ({ type, group }),
@@ -41,6 +48,7 @@ export const setGroupFormData = createAction(
 );
 
 // Selectors
+export const getCollectionInProgress = state => state.collections.inProgress;
 export const getSelectedGroup = state => state.collections.selectedGroup;
 export const getSelectedGroupTv = state => state.collections.selectedGroup.tv;
 export const getSelectedGroupMovie = state => state.collections.selectedGroup.movie;
@@ -78,6 +86,7 @@ export const getGroupFormData = state => state.collections.groupFormData;
 // Reducer
 export const reducer = handleActions(
   {
+    [setCollectionsProgress]: (state, { payload: inProgress }) => ({ ...state, inProgress }),
     [collectionSelectGroup]: (state, { payload: { type, group } }) => ({
       ...state,
       selectedGroup: {
@@ -143,7 +152,7 @@ export const removeFromCollection = id => async (dispatch, getState, { getFirest
 };
 
 export const addNewCollectionGroup = (details, type) => async (dispatch, getState, { getFirestore }) => {
-  dispatch(setAppWaiting(true));
+  dispatch(setCollectionsProgress(true));
   try {
     const firestore = getFirestore();
     const { id: profileID } = getProfile(getState());
@@ -157,6 +166,7 @@ export const addNewCollectionGroup = (details, type) => async (dispatch, getStat
       }],
     }, {
       ...details,
+      type,
       order: highestGroupOrderByType + 1,
     });
 
@@ -165,12 +175,12 @@ export const addNewCollectionGroup = (details, type) => async (dispatch, getStat
   } catch (error) {
     dispatch(addAlert('alert::add-failure', 'error', { title: 'collection-group' }));
   } finally {
-    dispatch(setAppWaiting(false));
+    dispatch(setCollectionsProgress(false));
   }
 };
 
 export const updateCollectionGroup = (id, details) => async (dispatch, getState, { getFirestore }) => {
-  dispatch(setAppWaiting(true));
+  dispatch(setCollectionsProgress(true));
   try {
     const firestore = getFirestore();
     const { id: profileID } = getProfile(getState());
@@ -190,6 +200,6 @@ export const updateCollectionGroup = (id, details) => async (dispatch, getState,
   } catch (error) {
     dispatch(addAlert('alert::update-failure', 'error', { title: 'collection-group' }));
   } finally {
-    dispatch(setAppWaiting(false));
+    dispatch(setCollectionsProgress(false));
   }
 };

@@ -14,11 +14,13 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 
 import Form from '../../../../../commons/form';
+import FormHeader from '../../../../../commons/form-header';
 import FormText from '../../../../../commons/form-text';
 import FormSelect from '../../../../../commons/form-select';
 import FormButton from '../../../../../commons/form-button';
 
 import {
+  getCollectionInProgress,
   getGroupFormData,
   addNewCollectionGroup,
   updateCollectionGroup,
@@ -33,6 +35,7 @@ import {
 const CollectionsEditGroupsFormDialog = ({ open, onClose, type }) => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
+  const inProgress = useSelector(getCollectionInProgress);
   const formData = useSelector(getGroupFormData);
   const { state, handleChange, handleSubmit, updateState } = useForm({
     stateSchema,
@@ -67,10 +70,14 @@ const CollectionsEditGroupsFormDialog = ({ open, onClose, type }) => {
       disableEscapeKeyDown
       fullWidth
     >
+
       <DialogTitle>
-        {formData
-          ? t('page.collections.edit.groups.edit')
-          : t('page.collections.edit.groups.add')}
+        <FormHeader
+          align="left"
+          title={formData
+            ? t('page.collections.edit.groups.edit')
+            : t('page.collections.edit.groups.add')}
+        />
       </DialogTitle>
 
       <Form
@@ -89,6 +96,7 @@ const CollectionsEditGroupsFormDialog = ({ open, onClose, type }) => {
             value={label.value}
             error={label.error}
             onChange={handleChange}
+            disabled={inProgress}
             required
           />
           <FormSelect
@@ -99,6 +107,7 @@ const CollectionsEditGroupsFormDialog = ({ open, onClose, type }) => {
             onChange={handleChange}
             options={GROUP_COLORS}
             translateOptions
+            disabled={inProgress}
             required
           />
         </DialogContent>
@@ -109,12 +118,14 @@ const CollectionsEditGroupsFormDialog = ({ open, onClose, type }) => {
               color="primary"
               label={t('common::cancel')}
               onClick={onClose}
+              disabled={inProgress}
             />
             <FormButton
               submit
               variant="text"
               color="secondary"
               label={t('common::submit')}
+              disabled={inProgress}
             />
           </Box>
         </DialogActions>
