@@ -11,7 +11,6 @@ import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
-import Grid from '@material-ui/core/Grid';
 
 import KeyboardArrowUpTwoToneIcon from '@material-ui/icons/KeyboardArrowUpTwoTone';
 import KeyboardArrowDownTwoToneIcon from '@material-ui/icons/KeyboardArrowDownTwoTone';
@@ -19,6 +18,7 @@ import EditTwoToneIcon from '@material-ui/icons/EditTwoTone';
 import DeleteTwoToneIcon from '@material-ui/icons/DeleteTwoTone';
 
 import Tooltip from '../../../../../commons/tooltip';
+import ColorIndicator from '../../../../../commons/color-indicator';
 
 import {
   setGroupFormData,
@@ -39,16 +39,12 @@ const CollectionsEditGroupsListItem = ({ group }) => {
     <Box key={id} mb={2}>
       <Card>
         <CardContent>
-          <Grid container spacing={1}>
-            <Grid item xs={12} md={6}>
-              <Typography>
-                {label || t('common::unknown')}
-              </Typography>
-            </Grid>
-            <Grid item xs={12} md={6}>
-              {t(color ? `colors.${color}` : 'common::unknown')}
-            </Grid>
-          </Grid>
+          <Box display="flex">
+            <ColorIndicator color={color} size="small" mr />
+            <Typography>
+              {label || t('common::unknown')}
+            </Typography>
+          </Box>
         </CardContent>
         <CardActions>
           <Box ml="auto" />
