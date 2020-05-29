@@ -68,7 +68,9 @@ const CollectionsEditGroupsFormDialog = ({ open, onClose, type }) => {
       fullWidth
     >
       <DialogTitle>
-        {t('page.collections.edit.groups.add')}
+        {formData
+          ? t('page.collections.edit.groups.edit')
+          : t('page.collections.edit.groups.add')}
       </DialogTitle>
 
       <Form
@@ -77,7 +79,9 @@ const CollectionsEditGroupsFormDialog = ({ open, onClose, type }) => {
       >
         <DialogContent>
           <DialogContentText>
-            {t('page.collections.edit.groups.addDescription')}
+            {formData
+              ? t('page.collections.edit.groups.editDescription')
+              : t('page.collections.edit.groups.addDescription')}
           </DialogContentText>
           <FormText
             id="label"

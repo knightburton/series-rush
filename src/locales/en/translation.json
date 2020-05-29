@@ -91,6 +91,11 @@
             "The new group will be available in your collection and you will be able to add new items to it.",
             "Simply give it a name as you wish and pick a color that helps you to identify the group."
           ],
+          "edit": "Edit group details",
+          "editDescription": [
+            "You can change the display name of your group and you can change the associated color as well.",
+            "The order of your group will be the same and the collected items in the group won't be affected at all."
+          ],
           "label": "Group name",
           "color": "Group color"
         }
