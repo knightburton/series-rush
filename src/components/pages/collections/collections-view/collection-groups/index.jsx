@@ -58,7 +58,7 @@ const CollectionGroups = () => {
         <IconButton onClick={handleEditClick}>
           <EditTwoToneIcon
             fontSize="small"
-            color="secondary"
+            color="primary"
           />
         </IconButton>
       </Tooltip>

@@ -20,4 +20,7 @@ export default makeStyles(theme => ({
       display: 'none',
     },
   }),
+  clickable: {
+    backgroundColor: theme.palette.action.selected,
+  },
 }));

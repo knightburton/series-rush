@@ -47,6 +47,7 @@ const ChipArray = ({ items, size, variant, selected, onClick, breakpoint }) => {
           className={classes.chip}
           classes={{
             label: classes.label,
+            clickable: classes.clickable,
           }}
         />
       ))}
