@@ -12,12 +12,14 @@ export const initialState = {
     movie: null,
   },
   groupForm: false,
+  groupFormData: null,
 };
 
 // Action types
 export const COLLECTION_SELECT_GROUP = 'COLLECTION_SELECT_GROUP';
 export const OPEN_GROUP_FORM = 'OPEN_GROUP_FORM';
 export const CLOSE_GROUP_FORM = 'CLOSE_GROUP_FORM';
+export const SET_GROUP_FORM_DATA = 'SET_GROUP_FORM_DATA';
 
 // Actions
 export const collectionSelectGroup = createAction(
@@ -31,6 +33,11 @@ export const openGroupForm = createAction(
 
 export const closeGroupForm = createAction(
   CLOSE_GROUP_FORM,
+);
+
+export const setGroupFormData = createAction(
+  SET_GROUP_FORM_DATA,
+  groupFormData => groupFormData,
 );
 
 // Selectors
@@ -66,6 +73,7 @@ export const getIsNumberOfGroupsByTypeFull = type => createSelector(
   numberOfGroups => numberOfGroups < MAXIMUM_NUMBER_OF_GROUPS,
 );
 export const getIsGroupFormOpen = state => state.collections.groupForm;
+export const getGroupFormData = state => state.collections.groupFormData;
 
 // Reducer
 export const reducer = handleActions(
@@ -79,6 +87,7 @@ export const reducer = handleActions(
     }),
     [openGroupForm]: state => ({ ...state, groupForm: true }),
     [closeGroupForm]: state => ({ ...state, groupForm: false }),
+    [setGroupFormData]: (state, { payload: groupFormData }) => ({ ...state, groupFormData }),
   },
   initialState,
 );
@@ -133,12 +142,12 @@ export const removeFromCollection = id => async (dispatch, getState, { getFirest
   }
 };
 
-export const addNewCollectionGroup = details => async (dispatch, getState, { getFirestore }) => {
+export const addNewCollectionGroup = (details, type) => async (dispatch, getState, { getFirestore }) => {
   dispatch(setAppWaiting(true));
   try {
     const firestore = getFirestore();
     const { id: profileID } = getProfile(getState());
-    const highestGroupOrderByType = getHighestGroupOrderByType(details?.type)(getState());
+    const highestGroupOrderByType = getHighestGroupOrderByType(type)(getState());
 
     await firestore.add({
       collection: 'profiles',
@@ -155,6 +164,31 @@ export const addNewCollectionGroup = details => async (dispatch, getState, { get
     dispatch(addAlert('alert::add-success', 'success', { title: 'collection-group' }));
   } catch (error) {
     dispatch(addAlert('alert::add-failure', 'error', { title: 'collection-group' }));
+  } finally {
+    dispatch(setAppWaiting(false));
+  }
+};
+
+export const updateCollectionGroup = (id, details) => async (dispatch, getState, { getFirestore }) => {
+  dispatch(setAppWaiting(true));
+  try {
+    const firestore = getFirestore();
+    const { id: profileID } = getProfile(getState());
+
+    await firestore.update({
+      collection: 'profiles',
+      doc: profileID,
+      subcollections: [{
+        collection: 'groups',
+        doc: `${id}`,
+      }],
+    }, details);
+
+    dispatch(closeGroupForm());
+    dispatch(setGroupFormData(null));
+    dispatch(addAlert('alert::update-success', 'success', { title: 'collection-group' }));
+  } catch (error) {
+    dispatch(addAlert('alert::update-failure', 'error', { title: 'collection-group' }));
   } finally {
     dispatch(setAppWaiting(false));
   }

@@ -33,11 +33,13 @@
   "api/tmdb-search-without-query-info": "You have tried to search without any keyword.",
 
   "fetch-success": "The $t(alert::{{title}}) fetch has been successfully completed.",
-  "fetch-failure": "There was a problem fetching the $t(alert::{{title}}). Try again later, please.",
+  "fetch-failure": "There was a problem fetching $t(alert::{{title}}). Try again later, please.",
   "add-success": "The $t(alert::{{title}}) add has been successfully completed.",
-  "add-failure": "There was a problem adding data to the $t(alert::{{title}}). Try again later, please.",
+  "add-failure": "There was a problem adding data to $t(alert::{{title}}). Try again later, please.",
   "delete-success": "The $t(alert::{{title}}) delete has been successfully completed.",
-  "delete-failure": "There was a problem deleting data from the $t(alert::{{title}}). Try again later, please.",
+  "delete-failure": "There was a problem deleting data from $t(alert::{{title}}). Try again later, please.",
+  "update-success": "The $t(alert::{{title}}) update has been successfully completed.",
+  "update-failure": "There was a problem updating data in $t(alert::{{title}}). Try again later, please.",
 
   "collection-groups": "colletion groups",
   "collection-group": "colletion group",
