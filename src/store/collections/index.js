@@ -11,10 +11,13 @@ export const initialState = {
     tv: null,
     movie: null,
   },
+  groupForm: false,
 };
 
 // Action types
 export const COLLECTION_SELECT_GROUP = 'COLLECTION_SELECT_GROUP';
+export const OPEN_GROUP_FORM = 'OPEN_GROUP_FORM';
+export const CLOSE_GROUP_FORM = 'CLOSE_GROUP_FORM';
 
 // Actions
 export const collectionSelectGroup = createAction(
@@ -22,18 +25,12 @@ export const collectionSelectGroup = createAction(
   (type, group) => ({ type, group }),
 );
 
-// Reducer
-export const reducer = handleActions(
-  {
-    [collectionSelectGroup]: (state, { payload: { type, group } }) => ({
-      ...state,
-      selectedGroup: {
-        ...state.selectedGroup,
-        [type]: group,
-      },
-    }),
-  },
-  initialState,
+export const openGroupForm = createAction(
+  OPEN_GROUP_FORM,
+);
+
+export const closeGroupForm = createAction(
+  CLOSE_GROUP_FORM,
 );
 
 // Selectors
@@ -67,6 +64,23 @@ export const getNumberOfGroupsByType = type => createSelector(
 export const getIsNumberOfGroupsByTypeFull = type => createSelector(
   getNumberOfGroupsByType(type),
   numberOfGroups => numberOfGroups < MAXIMUM_NUMBER_OF_GROUPS,
+);
+export const getIsGroupFormOpen = state => state.collections.groupForm;
+
+// Reducer
+export const reducer = handleActions(
+  {
+    [collectionSelectGroup]: (state, { payload: { type, group } }) => ({
+      ...state,
+      selectedGroup: {
+        ...state.selectedGroup,
+        [type]: group,
+      },
+    }),
+    [openGroupForm]: state => ({ ...state, groupForm: true }),
+    [closeGroupForm]: state => ({ ...state, groupForm: false }),
+  },
+  initialState,
 );
 
 // Thunks
@@ -137,6 +151,7 @@ export const addNewCollectionGroup = details => async (dispatch, getState, { get
       order: highestGroupOrderByType + 1,
     });
 
+    dispatch(closeGroupForm());
     dispatch(addAlert('alert::add-success', 'success', { title: 'collection-group' }));
   } catch (error) {
     dispatch(addAlert('alert::add-failure', 'error', { title: 'collection-group' }));

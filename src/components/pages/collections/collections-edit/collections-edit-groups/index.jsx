@@ -1,7 +1,10 @@
-import React, { useState, useCallback } from 'react';
+import React, { useCallback } from 'react';
 import { useParams } from 'react-router';
 import { useTranslation } from 'react-i18next';
-import { useSelector } from 'react-redux';
+import {
+  useDispatch,
+  useSelector,
+} from 'react-redux';
 
 import Box from '@material-ui/core/Box';
 import Container from '@material-ui/core/Container';
@@ -15,21 +18,27 @@ import Tooltip from '../../../../commons/tooltip';
 import CollectionsEditGroupsFormDialog from './collections-edit-groups-form-dialog';
 import CollectionsEditGroupsList from './collections-edit-groups-list';
 
-import { getIsNumberOfGroupsByTypeFull } from '../../../../../store/collections';
+import {
+  getIsNumberOfGroupsByTypeFull,
+  getIsGroupFormOpen,
+  openGroupForm,
+  closeGroupForm,
+} from '../../../../../store/collections';
 
 const CollectionsEditGroups = () => {
   const { t } = useTranslation();
   const { type } = useParams();
-  const [formOpen, setFormOpen] = useState(false);
+  const dispatch = useDispatch();
+  const isGroupFormOpen = useSelector(getIsGroupFormOpen);
   const isNumberOfGroupsByTypeFull = useSelector(getIsNumberOfGroupsByTypeFull(type));
 
   const handleAddGroupClick = useCallback(() => {
-    setFormOpen(true);
-  }, []);
+    dispatch(openGroupForm());
+  }, [dispatch]);
 
   const handleFormClose = useCallback(() => {
-    setFormOpen(false);
-  }, []);
+    dispatch(closeGroupForm());
+  }, [dispatch]);
 
   return (
     <Container maxWidth="lg">
@@ -57,7 +66,7 @@ const CollectionsEditGroups = () => {
       <CollectionsEditGroupsList />
 
       <CollectionsEditGroupsFormDialog
-        open={formOpen}
+        open={isGroupFormOpen}
         onClose={handleFormClose}
         type={type}
       />
