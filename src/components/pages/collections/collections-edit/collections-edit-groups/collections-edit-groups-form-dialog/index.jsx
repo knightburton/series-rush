@@ -44,7 +44,6 @@ const CollectionsEditGroupsFormDialog = ({ open, onClose, type }) => {
       ? dispatch(updateCollectionGroup(formData.id, details))
       : dispatch(addNewCollectionGroup(details, type))
     ),
-    resetState: true,
   });
 
   // Update the form default values in case of incoming edit flow or add.

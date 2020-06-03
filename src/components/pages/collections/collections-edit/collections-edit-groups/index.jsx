@@ -35,12 +35,12 @@ const CollectionsEditGroups = () => {
   const isNumberOfGroupsByTypeFull = useSelector(getIsNumberOfGroupsByTypeFull(type));
 
   const handleAddGroupClick = useCallback(() => {
+    dispatch(setGroupFormData(null));
     dispatch(openGroupForm());
   }, [dispatch]);
 
   const handleFormClose = useCallback(() => {
     dispatch(closeGroupForm());
-    dispatch(setGroupFormData(null));
   }, [dispatch]);
 
   return (
