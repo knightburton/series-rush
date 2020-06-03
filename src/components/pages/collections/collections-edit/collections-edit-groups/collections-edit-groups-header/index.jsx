@@ -8,7 +8,6 @@ import {
 
 import Box from '@material-ui/core/Box';
 import IconButton from '@material-ui/core/IconButton';
-import Typography from '@material-ui/core/Typography';
 
 import AddCircleTwoToneIcon from '@material-ui/icons/AddCircleTwoTone';
 
@@ -16,7 +15,7 @@ import PageTitle from '../../../../../commons/page-title';
 import Tooltip from '../../../../../commons/tooltip';
 
 import {
-  getIsNumberOfGroupsByTypeFull,
+  getIsGroupAddEnabled,
   openCollectionsDialog,
   setCollectionsDialogData,
 } from '../../../../../../store/collections';
@@ -25,7 +24,7 @@ const CollectionsEditGroupsHeader = () => {
   const { t } = useTranslation();
   const { type } = useParams();
   const dispatch = useDispatch();
-  const isNumberOfGroupsByTypeFull = useSelector(getIsNumberOfGroupsByTypeFull(type));
+  const isGroupAddEnabled = useSelector(getIsGroupAddEnabled(type));
 
   const handleAddGroupClick = useCallback(() => {
     dispatch(setCollectionsDialogData(null));
@@ -47,21 +46,15 @@ const CollectionsEditGroupsHeader = () => {
         alignContent="center"
         alignItems="center"
       >
-        {isNumberOfGroupsByTypeFull && (
-          <Typography variant="caption" align="right">
-            {t('page.collections.edit.groups.full')}
-          </Typography>
+        {isGroupAddEnabled && (
+          <Tooltip title={t('page.collections.edit.groups.add')}>
+            <Box>
+              <IconButton onClick={handleAddGroupClick}>
+                <AddCircleTwoToneIcon color="secondary" />
+              </IconButton>
+            </Box>
+          </Tooltip>
         )}
-        <Tooltip title={t('page.collections.edit.groups.add')}>
-          <Box>
-            <IconButton
-              onClick={handleAddGroupClick}
-              disabled={isNumberOfGroupsByTypeFull}
-            >
-              <AddCircleTwoToneIcon color="secondary" />
-            </IconButton>
-          </Box>
-        </Tooltip>
       </Box>
     </Box>
   );

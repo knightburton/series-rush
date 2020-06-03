@@ -89,7 +89,8 @@
           "add": "Add new group",
           "addDescription": [
             "The new group will be available in your collection and you will be able to add new items to it.",
-            "Simply give it a name as you wish and pick a color that helps you to identify the group."
+            "Simply give it a name as you wish and pick a color that helps you to identify the group.",
+            "You can have only six group at a time."
           ],
           "edit": "Edit group details",
           "editDescription": [
@@ -97,8 +98,7 @@
             "The order of your group will be the same and the collected items in the group won't be affected at all."
           ],
           "label": "Group name",
-          "color": "Group color",
-          "full": "You can have only six groups."
+          "color": "Group color"
         }
       }
     },

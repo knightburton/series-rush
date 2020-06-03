@@ -77,9 +77,9 @@ export const getNumberOfGroupsByType = type => createSelector(
   getGroupsByType(type),
   groups => groups?.length || 0,
 );
-export const getIsNumberOfGroupsByTypeFull = type => createSelector(
+export const getIsGroupAddEnabled = type => createSelector(
   getNumberOfGroupsByType(type),
-  numberOfGroups => numberOfGroups === MAXIMUM_NUMBER_OF_GROUPS,
+  numberOfGroups => numberOfGroups > 0 && numberOfGroups < MAXIMUM_NUMBER_OF_GROUPS,
 );
 export const getDialogOpen = state => state.collections.dialogOpen;
 export const getIsDialogOpen = type => createSelector(
