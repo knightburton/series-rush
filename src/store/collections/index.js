@@ -14,6 +14,8 @@ export const initialState = {
   },
   groupForm: false,
   groupFormData: null,
+  groupDelete: false,
+  groupDeleteData: null,
 };
 
 // Action types
@@ -22,6 +24,9 @@ export const COLLECTION_SELECT_GROUP = 'COLLECTION_SELECT_GROUP';
 export const OPEN_GROUP_FORM = 'OPEN_GROUP_FORM';
 export const CLOSE_GROUP_FORM = 'CLOSE_GROUP_FORM';
 export const SET_GROUP_FORM_DATA = 'SET_GROUP_FORM_DATA';
+export const OPEN_GROUP_DELETE = 'OPEN_GROUP_DELETE';
+export const CLOSE_GROUP_DELETE = 'CLOSE_GROUP_DELETE';
+export const SET_GROUP_DELETE_DATA = 'SET_GROUP_DELETE_DATA';
 
 // Actions
 export const setCollectionsProgress = createAction(
@@ -45,6 +50,19 @@ export const closeGroupForm = createAction(
 export const setGroupFormData = createAction(
   SET_GROUP_FORM_DATA,
   groupFormData => groupFormData,
+);
+
+export const openGroupDelete = createAction(
+  OPEN_GROUP_DELETE,
+);
+
+export const closeGroupDelete = createAction(
+  CLOSE_GROUP_DELETE,
+);
+
+export const setGroupDeleteData = createAction(
+  SET_GROUP_DELETE_DATA,
+  groupDeleteData => groupDeleteData,
 );
 
 // Selectors
@@ -97,6 +115,9 @@ export const reducer = handleActions(
     [openGroupForm]: state => ({ ...state, groupForm: true }),
     [closeGroupForm]: state => ({ ...state, groupForm: false }),
     [setGroupFormData]: (state, { payload: groupFormData }) => ({ ...state, groupFormData }),
+    [openGroupDelete]: state => ({ ...state, groupDelete: true }),
+    [closeGroupDelete]: state => ({ ...state, groupDelete: false }),
+    [setGroupDeleteData]: (state, { payload: groupDeleteData }) => ({ ...state, groupDeleteData }),
   },
   initialState,
 );
