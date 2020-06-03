@@ -21,7 +21,7 @@ import FormButton from '../../../../../commons/form-button';
 
 import {
   getCollectionInProgress,
-  getGroupFormData,
+  getDialogData,
   addNewCollectionGroup,
   updateCollectionGroup,
 } from '../../../../../../store/collections';
@@ -36,7 +36,7 @@ const CollectionsEditGroupsFormDialog = ({ open, onClose, type }) => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const inProgress = useSelector(getCollectionInProgress);
-  const formData = useSelector(getGroupFormData);
+  const formData = useSelector(getDialogData);
   const { state, handleChange, handleSubmit, updateState } = useForm({
     stateSchema,
     validationSchema,

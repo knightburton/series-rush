@@ -21,26 +21,26 @@ import CollectionsEditGroupsList from './collections-edit-groups-list';
 
 import {
   getIsNumberOfGroupsByTypeFull,
-  getIsGroupFormOpen,
-  openGroupForm,
-  closeGroupForm,
-  setGroupFormData,
+  getIsDialogOpen,
+  openCollectionsDialog,
+  closeCollectionsDialog,
+  setCollectionsDialogData,
 } from '../../../../../store/collections';
 
 const CollectionsEditGroups = () => {
   const { t } = useTranslation();
   const { type } = useParams();
   const dispatch = useDispatch();
-  const isGroupFormOpen = useSelector(getIsGroupFormOpen);
+  const isDialogOpen = useSelector(getIsDialogOpen('form'));
   const isNumberOfGroupsByTypeFull = useSelector(getIsNumberOfGroupsByTypeFull(type));
 
   const handleAddGroupClick = useCallback(() => {
-    dispatch(setGroupFormData(null));
-    dispatch(openGroupForm());
+    dispatch(setCollectionsDialogData(null));
+    dispatch(openCollectionsDialog('form'));
   }, [dispatch]);
 
   const handleFormClose = useCallback(() => {
-    dispatch(closeGroupForm());
+    dispatch(closeCollectionsDialog());
   }, [dispatch]);
 
   return (
@@ -80,7 +80,7 @@ const CollectionsEditGroups = () => {
       <CollectionsEditGroupsList />
 
       <CollectionsEditGroupsFormDialog
-        open={isGroupFormOpen}
+        open={isDialogOpen}
         onClose={handleFormClose}
         type={type}
       />

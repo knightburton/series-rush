@@ -21,8 +21,8 @@ import Tooltip from '../../../../../commons/tooltip';
 import ColorIndicator from '../../../../../commons/color-indicator';
 
 import {
-  setGroupFormData,
-  openGroupForm,
+  setCollectionsDialogData,
+  openCollectionsDialog,
 } from '../../../../../../store/collections';
 
 const CollectionsEditGroupsListItem = ({ group }) => {
@@ -31,8 +31,8 @@ const CollectionsEditGroupsListItem = ({ group }) => {
   const dispatch = useDispatch();
 
   const handleEditClick = useCallback(() => {
-    dispatch(setGroupFormData(group));
-    dispatch(openGroupForm());
+    dispatch(setCollectionsDialogData(group));
+    dispatch(openCollectionsDialog('form'));
   }, [dispatch, group]);
 
   return (
