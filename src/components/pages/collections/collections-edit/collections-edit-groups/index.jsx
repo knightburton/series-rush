@@ -9,6 +9,7 @@ import {
 import Box from '@material-ui/core/Box';
 import Container from '@material-ui/core/Container';
 import IconButton from '@material-ui/core/IconButton';
+import Typography from '@material-ui/core/Typography';
 
 import AddCircleTwoToneIcon from '@material-ui/icons/AddCircleTwoTone';
 
@@ -53,16 +54,27 @@ const CollectionsEditGroups = () => {
         <Box pt={1}>
           <PageTitle title={t('page.collections.edit.groups.typeTitle', { type })} />
         </Box>
-        <Tooltip title={t('page.collections.edit.groups.add')}>
-          <Box>
-            <IconButton
-              onClick={handleAddGroupClick}
-              disabled={!isNumberOfGroupsByTypeFull}
-            >
-              <AddCircleTwoToneIcon color="secondary" />
-            </IconButton>
-          </Box>
-        </Tooltip>
+        <Box
+          display="flex"
+          alignContent="center"
+          alignItems="center"
+        >
+          {isNumberOfGroupsByTypeFull && (
+            <Typography variant="caption" align="right">
+              {t('page.collections.edit.groups.full')}
+            </Typography>
+          )}
+          <Tooltip title={t('page.collections.edit.groups.add')}>
+            <Box>
+              <IconButton
+                onClick={handleAddGroupClick}
+                disabled={isNumberOfGroupsByTypeFull}
+              >
+                <AddCircleTwoToneIcon color="secondary" />
+              </IconButton>
+            </Box>
+          </Tooltip>
+        </Box>
       </Box>
 
       <CollectionsEditGroupsList />

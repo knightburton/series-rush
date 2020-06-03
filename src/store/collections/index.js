@@ -78,7 +78,7 @@ export const getNumberOfGroupsByType = type => createSelector(
 );
 export const getIsNumberOfGroupsByTypeFull = type => createSelector(
   getNumberOfGroupsByType(type),
-  numberOfGroups => numberOfGroups < MAXIMUM_NUMBER_OF_GROUPS,
+  numberOfGroups => numberOfGroups === MAXIMUM_NUMBER_OF_GROUPS,
 );
 export const getIsGroupFormOpen = state => state.collections.groupForm;
 export const getGroupFormData = state => state.collections.groupFormData;

@@ -97,7 +97,8 @@
             "The order of your group will be the same and the collected items in the group won't be affected at all."
           ],
           "label": "Group name",
-          "color": "Group color"
+          "color": "Group color",
+          "full": "You can have only six groups."
         }
       }
     },
