@@ -12,8 +12,6 @@ import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 
-import KeyboardArrowUpTwoToneIcon from '@material-ui/icons/KeyboardArrowUpTwoTone';
-import KeyboardArrowDownTwoToneIcon from '@material-ui/icons/KeyboardArrowDownTwoTone';
 import EditTwoToneIcon from '@material-ui/icons/EditTwoTone';
 import DeleteTwoToneIcon from '@material-ui/icons/DeleteTwoTone';
 
@@ -52,16 +50,6 @@ const CollectionsEditGroupsListItem = ({ group, onDelete }) => {
         </CardContent>
         <CardActions>
           <Box ml="auto" />
-          <Tooltip title={t('page.collections.edit.groups.moveUp')}>
-            <IconButton>
-              <KeyboardArrowUpTwoToneIcon fontSize="small" />
-            </IconButton>
-          </Tooltip>
-          <Tooltip title={t('page.collections.edit.groups.moveDown')}>
-            <IconButton>
-              <KeyboardArrowDownTwoToneIcon fontSize="small" />
-            </IconButton>
-          </Tooltip>
           <Tooltip title={t('common::edit')}>
             <IconButton onClick={handleEditClick}>
               <EditTwoToneIcon fontSize="small" color="secondary" />

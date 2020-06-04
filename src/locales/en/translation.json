@@ -84,8 +84,6 @@
         "groups": {
           "title": "Edit collection groups",
           "typeTitle": "Edit $t(page.collections.item.type.{{type}}) Groups",
-          "moveUp": "Move up",
-          "moveDown": "Move down",
           "add": "Add new group",
           "addDescription": [
             "The new group will be available in your collection and you will be able to add new items to it.",
