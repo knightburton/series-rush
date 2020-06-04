@@ -97,6 +97,11 @@
             "You can change the display name of your group and you can change the associated color as well.",
             "The order of your group will be the same and the collected items in the group won't be affected at all."
           ],
+          "delete": "Delete group",
+          "deleteDescription": [
+            "The selected group ({{label}}) will be removed from your collection.",
+            "The group will not be available for further interactions."
+          ],
           "label": "Group name",
           "color": "Group color"
         }

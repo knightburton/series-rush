@@ -25,7 +25,7 @@ import {
   openCollectionsDialog,
 } from '../../../../../../store/collections';
 
-const CollectionsEditGroupsListItem = ({ group }) => {
+const CollectionsEditGroupsListItem = ({ group, onDelete }) => {
   const { t } = useTranslation();
   const { id, label, color } = group;
   const dispatch = useDispatch();
@@ -34,6 +34,10 @@ const CollectionsEditGroupsListItem = ({ group }) => {
     dispatch(setCollectionsDialogData(group));
     dispatch(openCollectionsDialog('form'));
   }, [dispatch, group]);
+
+  const handleDeleteClick = useCallback(() => {
+    onDelete(group);
+  }, [onDelete, group]);
 
   return (
     <Box key={id} mb={2}>
@@ -64,7 +68,7 @@ const CollectionsEditGroupsListItem = ({ group }) => {
             </IconButton>
           </Tooltip>
           <Tooltip title={t('common::delete')}>
-            <IconButton>
+            <IconButton onClick={handleDeleteClick}>
               <DeleteTwoToneIcon fontSize="small" color="error" />
             </IconButton>
           </Tooltip>
@@ -83,6 +87,7 @@ CollectionsEditGroupsListItem.propTypes = {
     label: PropTypes.string,
     color: PropTypes.string,
   }).isRequired,
+  onDelete: PropTypes.func.isRequired,
 };
 
 export default CollectionsEditGroupsListItem;
