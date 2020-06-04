@@ -28,7 +28,7 @@ export const getProfileGroupsByTypeQuery = (profileID, type) => ({
   subcollections: [{
     collection: 'groups',
     where: ['type', '==', type],
-    orderBy: ['order', 'asc'],
+    orderBy: ['createdAt', 'asc'],
   }],
   storeAs: `${type}Groups`,
 });

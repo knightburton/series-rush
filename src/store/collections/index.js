@@ -69,10 +69,6 @@ export const getCollectionByTypeAndGroup = (type, group) => createSelector(
   getCollectionByType(type),
   collection => collection.filter(item => item.groupID === group),
 );
-export const getHighestGroupOrderByType = type => createSelector(
-  getGroupsByType(type),
-  groups => Math.max(...groups.map(group => group?.order), 0),
-);
 export const getNumberOfGroupsByType = type => createSelector(
   getGroupsByType(type),
   groups => groups?.length || 0,
@@ -161,7 +157,6 @@ export const addCollectionGroup = (details, type) => async (dispatch, getState, 
   try {
     const firestore = getFirestore();
     const { id: profileID } = getProfile(getState());
-    const highestGroupOrderByType = getHighestGroupOrderByType(type)(getState());
 
     await firestore.add({
       collection: 'profiles',
@@ -172,7 +167,7 @@ export const addCollectionGroup = (details, type) => async (dispatch, getState, 
     }, {
       ...details,
       type,
-      order: highestGroupOrderByType + 1,
+      createdAt: firestore.FieldValue.serverTimestamp(),
     });
 
     dispatch(closeCollectionsDialog());
