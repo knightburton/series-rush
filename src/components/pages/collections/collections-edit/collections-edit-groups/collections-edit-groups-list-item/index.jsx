@@ -2,6 +2,7 @@ import React, { useCallback } from 'react';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 import {
+  useSelector,
   useDispatch,
 } from 'react-redux';
 
@@ -19,14 +20,16 @@ import Tooltip from '../../../../../commons/tooltip';
 import ColorIndicator from '../../../../../commons/color-indicator';
 
 import {
+  getIsGroupDeleteEnabled,
   setCollectionsDialogData,
   openCollectionsDialog,
 } from '../../../../../../store/collections';
 
 const CollectionsEditGroupsListItem = ({ group, onDelete }) => {
   const { t } = useTranslation();
-  const { id, label, color } = group;
+  const { id, label, color, type } = group;
   const dispatch = useDispatch();
+  const isDeleteEnabled = useSelector(getIsGroupDeleteEnabled(type));
 
   const handleEditClick = useCallback(() => {
     dispatch(setCollectionsDialogData(group));
@@ -55,11 +58,13 @@ const CollectionsEditGroupsListItem = ({ group, onDelete }) => {
               <EditTwoToneIcon fontSize="small" color="secondary" />
             </IconButton>
           </Tooltip>
-          <Tooltip title={t('common::delete')}>
-            <IconButton onClick={handleDeleteClick}>
-              <DeleteTwoToneIcon fontSize="small" color="error" />
-            </IconButton>
-          </Tooltip>
+          {isDeleteEnabled && (
+            <Tooltip title={t('common::delete')}>
+              <IconButton onClick={handleDeleteClick}>
+                <DeleteTwoToneIcon fontSize="small" color="error" />
+              </IconButton>
+            </Tooltip>
+          )}
         </CardActions>
       </Card>
     </Box>
@@ -74,6 +79,7 @@ CollectionsEditGroupsListItem.propTypes = {
     ]).isRequired,
     label: PropTypes.string,
     color: PropTypes.string,
+    type: PropTypes.string,
   }).isRequired,
   onDelete: PropTypes.func.isRequired,
 };
