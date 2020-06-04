@@ -15,7 +15,7 @@ import {
   getGroupsByType,
   getSelectedGroupByType,
   getCollectionByTypeAndGroup,
-  removeFromCollection,
+  removeCollectionItem,
 } from '../../../../../store/collections';
 
 const CollectionListContainer = () => {
@@ -39,7 +39,7 @@ const CollectionListContainer = () => {
 
   const handleDeleteAgree = useCallback(() => {
     setDeleteOpen(false);
-    dispatch(removeFromCollection(deleteItem?.id));
+    dispatch(removeCollectionItem(deleteItem?.id));
   }, [dispatch, deleteItem]);
 
   const handleDeleteDisagree = useCallback(() => {

@@ -22,7 +22,7 @@ import FormButton from '../../../../../commons/form-button';
 import {
   getCollectionInProgress,
   getDialogData,
-  addNewCollectionGroup,
+  addCollectionGroup,
   updateCollectionGroup,
 } from '../../../../../../store/collections';
 import useForm from '../../../../../../hooks/useForm';
@@ -42,7 +42,7 @@ const CollectionsEditGroupsFormDialog = ({ open, onClose, type }) => {
     validationSchema,
     callback: details => (formData
       ? dispatch(updateCollectionGroup(formData.id, details))
-      : dispatch(addNewCollectionGroup(details, type))
+      : dispatch(addCollectionGroup(details, type))
     ),
   });
 

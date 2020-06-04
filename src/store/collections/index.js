@@ -107,7 +107,7 @@ export const reducer = handleActions(
 );
 
 // Thunks
-export const addToCollection = (id, type, group) => async (dispatch, getState, { getFirestore }) => {
+export const addCollectionItem = (id, type, group) => async (dispatch, getState, { getFirestore }) => {
   dispatch(setAppWaiting(true));
   try {
     const firestore = getFirestore();
@@ -133,7 +133,7 @@ export const addToCollection = (id, type, group) => async (dispatch, getState, {
   }
 };
 
-export const removeFromCollection = id => async (dispatch, getState, { getFirestore }) => {
+export const removeCollectionItem = id => async (dispatch, getState, { getFirestore }) => {
   dispatch(setAppWaiting(true));
   try {
     const firestore = getFirestore();
@@ -156,7 +156,7 @@ export const removeFromCollection = id => async (dispatch, getState, { getFirest
   }
 };
 
-export const addNewCollectionGroup = (details, type) => async (dispatch, getState, { getFirestore }) => {
+export const addCollectionGroup = (details, type) => async (dispatch, getState, { getFirestore }) => {
   dispatch(setCollectionsProgress(true));
   try {
     const firestore = getFirestore();
@@ -208,3 +208,5 @@ export const updateCollectionGroup = (id, details) => async (dispatch, getState,
     dispatch(setCollectionsProgress(false));
   }
 };
+
+export const deleteCollectionGroup = () => async () => {};

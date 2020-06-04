@@ -19,7 +19,7 @@ import PopupMenuButton from '../../../commons/popup-menu-button';
 
 import {
   getGroupsByType,
-  addToCollection,
+  addCollectionItem,
 } from '../../../../store/collections';
 import { getEllipsisText } from '../../../../utils/text';
 import { ELLIPSIS_LENGTHS } from '../../../../constants/config';
@@ -33,7 +33,7 @@ const SearchResultItem = ({ result }) => {
   const groups = useSelector(getGroupsByType(type));
 
   const handleAdd = useCallback(group => {
-    dispatch(addToCollection(result.id, result.type, group));
+    dispatch(addCollectionItem(result.id, result.type, group));
   }, [dispatch, result]);
 
   return (
