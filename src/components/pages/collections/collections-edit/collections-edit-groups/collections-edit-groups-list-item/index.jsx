@@ -8,9 +8,8 @@ import {
 
 import Box from '@material-ui/core/Box';
 import Card from '@material-ui/core/Card';
+import CardHeader from '@material-ui/core/CardHeader';
 import CardActions from '@material-ui/core/CardActions';
-import CardContent from '@material-ui/core/CardContent';
-import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 
 import EditTwoToneIcon from '@material-ui/icons/EditTwoTone';
@@ -21,6 +20,7 @@ import ColorIndicator from '../../../../../commons/color-indicator';
 
 import {
   getIsGroupDeleteEnabled,
+  getNumberOfItemsByTypeAndGroup,
   setCollectionsDialogData,
   openCollectionsDialog,
 } from '../../../../../../store/collections';
@@ -30,6 +30,7 @@ const CollectionsEditGroupsListItem = ({ group, onDelete }) => {
   const { id, label, color, type } = group;
   const dispatch = useDispatch();
   const isDeleteEnabled = useSelector(getIsGroupDeleteEnabled(type));
+  const numberOfItems = useSelector(getNumberOfItemsByTypeAndGroup(type, id));
 
   const handleEditClick = useCallback(() => {
     dispatch(setCollectionsDialogData(group));
@@ -43,15 +44,21 @@ const CollectionsEditGroupsListItem = ({ group, onDelete }) => {
   return (
     <Box key={id} mb={2}>
       <Card>
-        <CardContent>
-          <Box display="flex">
-            <ColorIndicator color={color} size="small" mr />
-            <Typography>
-              {label || t('common::unknown')}
-            </Typography>
-          </Box>
-        </CardContent>
-        <CardActions>
+        <CardHeader
+          avatar={(
+            <ColorIndicator
+              color={color}
+              size="small"
+              mr
+            />
+          )}
+          title={label || t('common::unknown')}
+          subheader={t('page.collections.edit.groups.numberOfItems', { type, numberOfItems })}
+          titleTypographyProps={{
+            variant: 'h5',
+          }}
+        />
+        <CardActions disableSpacing>
           <Box ml="auto" />
           <Tooltip title={t('common::edit')}>
             <IconButton onClick={handleEditClick}>

@@ -84,6 +84,9 @@
         "groups": {
           "title": "Edit collection groups",
           "typeTitle": "Edit $t(page.collections.item.type.{{type}}) Groups",
+          "label": "Group name",
+          "color": "Group color",
+          "numberOfItems": "Number of $t(page.collections.menu.{{type}}): {{numberOfItems}}",
           "add": "Add new group",
           "addDescription": [
             "The new group will be available in your collection and you will be able to add new items to it.",
@@ -99,9 +102,7 @@
           "deleteDescription": [
             "The selected group will be removed from your collection.",
             "The group will not be available for further interactions."
-          ],
-          "label": "Group name",
-          "color": "Group color"
+          ]
         }
       }
     },
