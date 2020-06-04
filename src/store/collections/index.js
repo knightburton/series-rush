@@ -204,4 +204,32 @@ export const updateCollectionGroup = (id, details) => async (dispatch, getState,
   }
 };
 
-export const deleteCollectionGroup = () => async () => {};
+export const deleteCollectionGroup = () => async (dispatch, getState, { getFirestore }) => {
+  dispatch(setCollectionsProgress(true));
+  try {
+    const firestore = getFirestore();
+    const { id: profileID } = getProfile(getState());
+    const dialogData = getDialogData(getState());
+
+    if (!dialogData?.id) {
+      dispatch(addAlert('alert::missingCollectionGroupData', 'error'));
+    } else {
+      await firestore.delete({
+        collection: 'profiles',
+        doc: profileID,
+        subcollections: [{
+          collection: 'groups',
+          doc: `${dialogData.id}`,
+        }],
+      });
+
+      dispatch(closeCollectionsDialog());
+      dispatch(setCollectionsDialogData(null));
+      dispatch(addAlert('alert::delete-success', 'success', { title: 'collection-group' }));
+    }
+  } catch (error) {
+    dispatch(addAlert('alert::delete-failure', 'error', { title: 'collection-group' }));
+  } finally {
+    dispatch(setCollectionsProgress(false));
+  }
+};

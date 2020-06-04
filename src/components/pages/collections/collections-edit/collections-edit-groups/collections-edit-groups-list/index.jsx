@@ -15,7 +15,6 @@ import CollectionsEditGroupsListItem from '../collections-edit-groups-list-item'
 import {
   getGroupsByType,
   getIsDialogOpen,
-  getDialogData,
   openCollectionsDialog,
   closeCollectionsDialog,
   setCollectionsDialogData,
@@ -28,7 +27,6 @@ const CollectionsEditGroupsList = () => {
   const dispatch = useDispatch();
   const groups = useSelector(getGroupsByType(type));
   const isDialogOpen = useSelector(getIsDialogOpen('deleteGroup'));
-  const dialogData = useSelector(getDialogData);
 
   const handleDeleteAgree = useCallback(() => {
     dispatch(deleteCollectionGroup());
@@ -55,7 +53,7 @@ const CollectionsEditGroupsList = () => {
       <Confirmation
         id="collections-edit-groups-list-item-delete-confirmation"
         title={t('page.collections.edit.groups.delete')}
-        description={t('page.collections.edit.groups.deleteDescription', { label: dialogData?.label || t('common::unknown') })}
+        description={t('page.collections.edit.groups.deleteDescription')}
         onAgree={handleDeleteAgree}
         onDisagree={handleDeleteDisagree}
         open={isDialogOpen}

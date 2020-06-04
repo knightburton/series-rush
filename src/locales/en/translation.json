@@ -97,7 +97,7 @@
           ],
           "delete": "Delete group",
           "deleteDescription": [
-            "The selected group ({{label}}) will be removed from your collection.",
+            "The selected group will be removed from your collection.",
             "The group will not be available for further interactions."
           ],
           "label": "Group name",
