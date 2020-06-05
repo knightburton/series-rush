@@ -104,6 +104,18 @@ export const APP_PATHS = {
     title: 'page.collections.edit.groups.title',
     icon: EditTwoToneIcon,
   },
+  COLLECTIONS_EDIT_TV_GROUPS: {
+    key: 'collectionsEditTvGroups',
+    path: '/collections/tv/edit/groups',
+    title: 'page.collections.menu.tv',
+    icon: EditTwoToneIcon,
+  },
+  COLLECTIONS_EDIT_MOVIE_GROUPS: {
+    key: 'collectionsEditMovieGroups',
+    path: '/collections/movie/edit/groups',
+    title: 'page.collections.menu.movie',
+    icon: EditTwoToneIcon,
+  },
   SEARCH: {
     key: 'search',
     path: '/search',

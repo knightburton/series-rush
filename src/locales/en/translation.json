@@ -82,8 +82,8 @@
       "edit": {
         "title": "Collections Edit",
         "groups": {
-          "title": "Edit collection groups",
-          "typeTitle": "Edit $t(page.collections.item.type.{{type}}) Groups",
+          "title": "Edit groups",
+          "finish": "Finish editing",
           "label": "Group name",
           "color": "Group color",
           "numberOfItems": "Number of $t(page.collections.menu.{{type}}): {{numberOfItems}}",

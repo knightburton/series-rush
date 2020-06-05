@@ -6,6 +6,9 @@ import {
 } from 'react-redux';
 
 import Container from '@material-ui/core/Container';
+import Box from '@material-ui/core/Box';
+
+import NavigationTabsGrid from '../../../../commons/navigation-tabs-grid';
 
 import CollectionsEditGroupsHeader from './collections-edit-groups-header';
 import CollectionsEditGroupsFormDialog from './collections-edit-groups-form-dialog';
@@ -15,6 +18,8 @@ import {
   getIsDialogOpen,
   closeCollectionsDialog,
 } from '../../../../../store/collections';
+import { COLLECTIONS_EDIT_MENU } from '../../../../../constants/navigation';
+import { APP_PATHS } from '../../../../../constants/paths';
 
 const CollectionsEditGroups = () => {
   const { type } = useParams();
@@ -27,13 +32,20 @@ const CollectionsEditGroups = () => {
 
   return (
     <Container maxWidth="lg">
-      <CollectionsEditGroupsHeader />
-      <CollectionsEditGroupsList />
-      <CollectionsEditGroupsFormDialog
-        open={isDialogOpen}
-        onClose={handleFormClose}
-        type={type}
-      />
+      <Box position="relative" height="100%">
+        <NavigationTabsGrid
+          tabs={COLLECTIONS_EDIT_MENU}
+          defaultTab={APP_PATHS.COLLECTIONS_EDIT_TV_GROUPS.path}
+        >
+          <CollectionsEditGroupsHeader />
+          <CollectionsEditGroupsList />
+          <CollectionsEditGroupsFormDialog
+            open={isDialogOpen}
+            onClose={handleFormClose}
+            type={type}
+          />
+        </NavigationTabsGrid>
+      </Box>
     </Container>
   );
 };
