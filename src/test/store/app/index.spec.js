@@ -16,6 +16,12 @@ const mockAlert = {
     title: 'random',
   },
 };
+const mockEmptyAlert = {
+  key: mockTimestamp,
+  message: '',
+  variant: 'info',
+  props: {},
+};
 const mockAlertTheSecond = {
   key: mockTimestamp + 1,
   message: 'Mock alert message #2',
@@ -137,6 +143,17 @@ const mockError = new Error('There is an API error.');
 
 // Action creator unit tests
 describe('App Action Creators', () => {
+  test(app.ADD_ALERT, () => {
+    expect(app.addAlert()).toEqual({
+      type: app.ADD_ALERT,
+      payload: {
+        message: undefined,
+        variant: undefined,
+        props: undefined,
+      },
+    });
+  });
+
   test(app.ADD_ALERT, () => {
     expect(app.addAlert(mockAlert.message, mockAlert.variant, mockAlert.props)).toEqual({
       type: app.ADD_ALERT,
@@ -284,6 +301,20 @@ describe('App reducer', () => {
       variant: 'info',
       props: {},
     }]);
+  });
+
+  test(`${app.ADD_ALERT} (empty version)`, () => {
+    const expected = expect(
+      app.reducer(state, {
+        type: app.ADD_ALERT,
+        payload: {
+          message: undefined,
+          variant: undefined,
+          props: undefined,
+        },
+      }),
+    );
+    expected.toHaveProperty('alerts', [mockEmptyAlert]);
   });
 
   test(`${app.REMOVE_ALERT} (with valid key)`, () => {
