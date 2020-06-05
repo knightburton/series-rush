@@ -28,7 +28,7 @@ export const TMDB_CONFIGURATION_FINISH = 'TMDB_CONFIGURATION_FINISH';
 // Action creators
 export const addAlert = createAction(
   ADD_ALERT,
-  (message, variant) => ({ message, variant }),
+  (message, variant, props) => ({ message, variant, props }),
 );
 export const removeAlert = createAction(
   REMOVE_ALERT,
@@ -70,11 +70,16 @@ export const getTmdbConfigurationDone = state => state.app.tmdbConfigurationDone
 // Reducer
 export const reducer = handleActions(
   {
-    [addAlert]: (state, { payload: { message, variant = 'info' } }) => ({
+    [addAlert]: (state, { payload: { message = '', variant = 'info', props = {} } }) => ({
       ...state,
       alerts: [
         ...state.alerts,
-        { key: getTimestamp(), message, variant },
+        {
+          key: getTimestamp(),
+          message,
+          variant,
+          props,
+        },
       ],
     }),
     [removeAlert]: (state, { payload: key }) => ({

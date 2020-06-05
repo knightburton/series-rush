@@ -26,5 +26,6 @@
   "close": "Close",
   "quickSearch": "Quick search",
   "unknown": "Unknown",
-  "selectFile": "Select file"
+  "selectFile": "Select file",
+  "goBack": "Go Back"
 }

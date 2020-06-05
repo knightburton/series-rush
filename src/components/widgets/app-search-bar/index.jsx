@@ -4,7 +4,8 @@ import { useLocation } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 
 import InputBase from '@material-ui/core/InputBase';
-import NativeSelect from '@material-ui/core/NativeSelect';
+import Select from '@material-ui/core/Select';
+import MenuItem from '@material-ui/core/MenuItem';
 
 import SearchTwoToneIcon from '@material-ui/icons/SearchTwoTone';
 
@@ -12,7 +13,7 @@ import { search } from '../../../store/search';
 import useForm from '../../../hooks/useForm';
 
 import { getSearchFromQueryString } from '../../../utils/query';
-import { COLLECTION_TYPE } from '../../../constants/config';
+import { SEARCH_TYPES } from '../../../constants/config';
 import { APP_PATHS } from '../../../constants/paths';
 
 import useStyles from './styles';
@@ -26,7 +27,7 @@ const AppSearchBar = () => {
   const { state, handleChange, handleSubmit } = useForm({
     stateSchema: {
       query: '',
-      type: COLLECTION_TYPE.TV,
+      type: SEARCH_TYPES.TV,
     },
     callback: ({ query, type }) => query && dispatch(search({ query, type })),
   });
@@ -38,7 +39,7 @@ const AppSearchBar = () => {
 
   const resetAllInput = useCallback(() => {
     handleChange({ target: { name: 'query', value: '' } });
-    handleChange({ target: { name: 'type', value: COLLECTION_TYPE.TV } });
+    handleChange({ target: { name: 'type', value: SEARCH_TYPES.TV } });
   }, [handleChange]);
 
   useEffect(() => {
@@ -74,7 +75,7 @@ const AppSearchBar = () => {
         name="query"
         type="search"
       />
-      <NativeSelect
+      <Select
         id="type"
         name="type"
         classes={{
@@ -84,12 +85,12 @@ const AppSearchBar = () => {
         onChange={handleChange}
         disableUnderline
       >
-        {Object.values(COLLECTION_TYPE).map(key => (
-          <option key={key} value={key}>
+        {Object.values(SEARCH_TYPES).map(key => (
+          <MenuItem key={key} value={key}>
             {t(`quickSearch.${key}`)}
-          </option>
+          </MenuItem>
         ))}
-      </NativeSelect>
+      </Select>
     </form>
   );
 };

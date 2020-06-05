@@ -19,9 +19,9 @@ const ContentWrapper = ({ children }) => {
     <Box className={classes.base}>
       <Box className={classes.toolbar} />
       {signedIn && (
-        <Box className={classes.searchWrapper}>
-          <Box className={classes.toolbar} />
+        <Box className={`${classes.searchWrapper} mui-fixed`}>
           <Container maxWidth="lg">
+            <Box className={classes.toolbar} />
             <AppSearchBar />
           </Container>
           <Divider />

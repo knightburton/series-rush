@@ -69,7 +69,7 @@ const AppAlert = () => {
             className={classes.message}
           >
             <Icon className={classes.messageIcon} />
-            {t(alert?.message || '')}
+            {t(alert?.message, alert?.props)}
           </span>
         )}
         action={(

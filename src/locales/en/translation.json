@@ -62,11 +62,48 @@
     "dashboard": {
       "title": "Dashboard"
     },
-    "collection": {
-      "title": "Collection",
+    "collections": {
+      "title": "Collections",
       "menu": {
         "tv": "TV Shows",
         "movie": "Movies"
+      },
+      "item": {
+        "type": {
+          "tv": "TV Show",
+          "movie": "Movie"
+        },
+        "deleteTitle": "Delete from Collection",
+        "deleteDescription": [
+          "{{name}} $t(page.collections.item.type.{{type}}) will be removed from {{group}} collection group.",
+          "The remove will be permanently and your profile will be updated."
+        ]
+      },
+      "edit": {
+        "title": "Collections Edit",
+        "groups": {
+          "title": "Edit collection groups",
+          "typeTitle": "Edit $t(page.collections.item.type.{{type}}) Groups",
+          "label": "Group name",
+          "color": "Group color",
+          "numberOfItems": "Number of $t(page.collections.menu.{{type}}): {{numberOfItems}}",
+          "add": "Add new group",
+          "addDescription": [
+            "The new group will be available in your collection and you will be able to add new items to it.",
+            "Simply give it a name as you wish and pick a color that helps you to identify the group.",
+            "You can have only six group at a time."
+          ],
+          "edit": "Edit group details",
+          "editDescription": [
+            "You can change the display name of your group and you can change the associated color as well.",
+            "The order of your group will be the same and the collected items in the group won't be affected at all."
+          ],
+          "delete": "Delete group",
+          "deleteDescription": [
+            "The selected group will be removed from your collection.",
+            "The group will not be available for further interactions."
+          ]
+        }
       }
     },
     "search": {
@@ -77,5 +114,15 @@
       "emptyResult": "There is no result for the given search query.",
       "addTo": "Add to collection"
     }
+  },
+  "colors": {
+    "red": "Red",
+    "pink": "Pink",
+    "purple": "Purple",
+    "blue": "Blue",
+    "cyan": "Cyan",
+    "green": "Green",
+    "yellow": "Yellow",
+    "orange": "Orange"
   }
 }

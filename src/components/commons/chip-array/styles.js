@@ -6,6 +6,7 @@ export default makeStyles(theme => ({
     marginBottom: theme.spacing(props.size === 'small' ? 1.5 : 1),
   }),
   chip: props => ({
+    marginBottom: theme.spacing(1),
     '&:not(:last-child)': {
       marginRight: theme.spacing(1),
     },
@@ -14,8 +15,12 @@ export default makeStyles(theme => ({
     },
   }),
   label: props => ({
+    fontWeight: theme.typography.fontWeightBold,
     [theme.breakpoints.down(props.breakpoint)]: {
       display: 'none',
     },
   }),
+  clickable: {
+    backgroundColor: theme.palette.action.selected,
+  },
 }));

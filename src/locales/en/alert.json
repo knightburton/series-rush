@@ -12,7 +12,7 @@
   "form/email": "This field must be a valid email address",
   "form/fileMaxSize": "The selected file must be {{size}}MB maximum",
   "form/fileImageType": "The selected file must be a jpeg or a png image",
-  "form/match": "{{a}} and {{b}} fields do not match",
+  "form/match": "'$t({{a}})' and '$t({{b}})' fields do not match",
 
   "auth/invalid-email": "The given email address is not valid.",
   "auth/user-disabled": "The user corresponding to the given email has been disabled.",
@@ -32,7 +32,18 @@
   "api/tmdb-search-page-failed": "The page load has failed, try to select a new page.",
   "api/tmdb-search-without-query-info": "You have tried to search without any keyword.",
 
-  "collection/fetch-collection-group-failure": "There was a problem fetching the colletion groups.",
-  "collection/add-to-collection-success": "The selected item has been added to your collection.",
-  "collection/add-to-collection-failure": "There was a problem adding the selected item to your collection, please try again."
+  "fetch-success": "The $t(alert::{{title}}) fetch has been successfully completed.",
+  "fetch-failure": "There was a problem fetching $t(alert::{{title}}). Try again later, please.",
+  "add-success": "The $t(alert::{{title}}) add has been successfully completed.",
+  "add-failure": "There was a problem adding data to $t(alert::{{title}}). Try again later, please.",
+  "delete-success": "The $t(alert::{{title}}) delete has been successfully completed.",
+  "delete-failure": "There was a problem deleting data from $t(alert::{{title}}). Try again later, please.",
+  "update-success": "The $t(alert::{{title}}) update has been successfully completed.",
+  "update-failure": "There was a problem updating data in $t(alert::{{title}}). Try again later, please.",
+
+  "collection-groups": "colletion groups",
+  "collection-group": "colletion group",
+  "collections": "collections",
+
+  "missingCollectionGroupData": "The selected action could not be executed, because the collection group data are missing."
 }

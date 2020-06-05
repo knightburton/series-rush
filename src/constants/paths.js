@@ -9,6 +9,7 @@ import AccountCircleTwoToneIcon from '@material-ui/icons/AccountCircleTwoTone';
 import ReportProblemTwoToneIcon from '@material-ui/icons/ReportProblemTwoTone';
 import TvTwoToneIcon from '@material-ui/icons/TvTwoTone';
 import MovieTwoToneIcon from '@material-ui/icons/MovieTwoTone';
+import EditTwoToneIcon from '@material-ui/icons/EditTwoTone';
 
 export const MAIN_PATHS = {};
 
@@ -67,29 +68,41 @@ export const APP_PATHS = {
     title: 'page.profile.dangerZone.title',
     icon: ReportProblemTwoToneIcon,
   },
-  COLLECTION: {
-    key: 'collection',
-    path: '/collection',
-    title: 'page.collection.title',
+  COLLECTIONS: {
+    key: 'collections',
+    path: '/collections',
+    title: 'page.collections.title',
     icon: LibraryBooksTwoToneIcon,
   },
-  COLLECTION_LIST: {
-    key: 'collectionList',
-    path: '/collection/:type',
-    title: 'page.collection.title',
+  COLLECTIONS_VIEW: {
+    key: 'collectionsType',
+    path: '/collections/:type',
+    title: 'page.collections.title',
     icon: LibraryBooksTwoToneIcon,
   },
-  COLLECTION_LIST_TV: {
-    key: 'collectionListTv',
-    path: '/collection/tv',
-    title: 'page.collection.menu.tv',
+  COLLECTIONS_TV: {
+    key: 'collectionsTv',
+    path: '/collections/tv',
+    title: 'page.collections.menu.tv',
     icon: TvTwoToneIcon,
   },
-  COLLECTION_LIST_MOVIE: {
-    key: 'collectionListMovie',
-    path: '/collection/movie',
-    title: 'page.collection.menu.movie',
+  COLLECTIONS_MOVIE: {
+    key: 'collectionsMovie',
+    path: '/collections/movie',
+    title: 'page.collections.menu.movie',
     icon: MovieTwoToneIcon,
+  },
+  COLLECTIONS_EDIT: {
+    key: 'collectionsEdit',
+    path: '/collections/:type/edit',
+    title: 'page.collections.edit.title',
+    icon: EditTwoToneIcon,
+  },
+  COLLECTIONS_EDIT_GROUPS: {
+    key: 'collectionsEditGroups',
+    path: '/collections/:type/edit/groups',
+    title: 'page.collections.edit.groups.title',
+    icon: EditTwoToneIcon,
   },
   SEARCH: {
     key: 'search',
