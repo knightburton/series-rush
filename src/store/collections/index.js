@@ -1,7 +1,7 @@
 import { handleActions, createAction } from 'redux-actions';
 import { createSelector } from 'reselect';
 import { setAppWaiting, addAlert } from '../app';
-import { getProfile } from '../auth';
+import { getProfileID } from '../auth';
 import { getFirestoreOrderedData } from '../firestore';
 import { MAXIMUM_NUMBER_OF_GROUPS } from '../../constants/config';
 
@@ -115,7 +115,7 @@ export const addCollectionItem = (id, type, group) => async (dispatch, getState,
   dispatch(setAppWaiting(true));
   try {
     const firestore = getFirestore();
-    const { id: profileID } = getProfile(getState());
+    const profileID = getProfileID(getState());
 
     await firestore.set({
       collection: 'profiles',
@@ -141,7 +141,7 @@ export const removeCollectionItem = id => async (dispatch, getState, { getFirest
   dispatch(setAppWaiting(true));
   try {
     const firestore = getFirestore();
-    const { id: profileID } = getProfile(getState());
+    const profileID = getProfileID(getState());
 
     await firestore.delete({
       collection: 'profiles',
@@ -164,7 +164,7 @@ export const addCollectionGroup = (details, type) => async (dispatch, getState, 
   dispatch(setCollectionsProgress(true));
   try {
     const firestore = getFirestore();
-    const { id: profileID } = getProfile(getState());
+    const profileID = getProfileID(getState());
 
     await firestore.add({
       collection: 'profiles',
@@ -191,7 +191,7 @@ export const updateCollectionGroup = (id, details) => async (dispatch, getState,
   dispatch(setCollectionsProgress(true));
   try {
     const firestore = getFirestore();
-    const { id: profileID } = getProfile(getState());
+    const profileID = getProfileID(getState());
 
     await firestore.update({
       collection: 'profiles',
@@ -216,7 +216,7 @@ export const deleteCollectionGroup = () => async (dispatch, getState, { getFires
   dispatch(setCollectionsProgress(true));
   try {
     const firestore = getFirestore();
-    const { id: profileID } = getProfile(getState());
+    const profileID = getProfileID(getState());
     const dialogOpen = getIsDialogOpen('deleteGroup')(getState());
     const dialogData = getDialogData(getState());
 
@@ -245,7 +245,7 @@ export const deleteCollectionGroupItems = () => async (dispatch, getState, { get
   dispatch(setCollectionsProgress(false));
   try {
     const firestore = getFirestore();
-    const { id: profileID } = getProfile(getState());
+    const profileID = getProfileID(getState());
     const dialogOpen = getIsDialogOpen('deleteGroupItems')(getState());
     const dialogData = getDialogData(getState());
 
