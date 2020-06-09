@@ -217,26 +217,25 @@ export const deleteCollectionGroup = () => async (dispatch, getState, { getFires
   try {
     const firestore = getFirestore();
     const { id: profileID } = getProfile(getState());
+    const dialogOpen = getIsDialogOpen('deleteGroup')(getState());
     const dialogData = getDialogData(getState());
 
-    if (!dialogData?.id) {
-      dispatch(addAlert('alert::missingCollectionGroupData', 'error'));
-    } else {
-      await firestore.delete({
-        collection: 'profiles',
-        doc: profileID,
-        subcollections: [{
-          collection: 'groups',
-          doc: `${dialogData.id}`,
-        }],
-      });
+    if (!dialogOpen || !dialogData?.id) throw new Error('missingData');
+    await firestore.delete({
+      collection: 'profiles',
+      doc: profileID,
+      subcollections: [{
+        collection: 'groups',
+        doc: `${dialogData.id}`,
+      }],
+    });
 
-      dispatch(closeCollectionsDialog());
-      dispatch(setCollectionsDialogData(null));
-      dispatch(addAlert('alert::delete-success', 'success', { title: 'collection-group' }));
-    }
+    dispatch(closeCollectionsDialog());
+    dispatch(setCollectionsDialogData(null));
+    dispatch(addAlert('alert::delete-success', 'success', { title: 'collection-group' }));
   } catch (error) {
-    dispatch(addAlert('alert::delete-failure', 'error', { title: 'collection-group' }));
+    if (error?.message === 'missingData') dispatch(addAlert('alert::missingCollectionGroupData', 'error'));
+    else dispatch(addAlert('alert::delete-failure', 'error', { title: 'collection-group' }));
   } finally {
     dispatch(setCollectionsProgress(false));
   }
