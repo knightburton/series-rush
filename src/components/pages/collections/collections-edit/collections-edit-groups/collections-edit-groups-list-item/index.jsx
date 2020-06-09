@@ -24,6 +24,7 @@ import {
   setCollectionsDialogData,
   openCollectionsDialog,
 } from '../../../../../../store/collections';
+import { addAlert } from '../../../../../../store/app';
 
 const CollectionsEditGroupsListItem = ({ group, onDelete }) => {
   const { t } = useTranslation();
@@ -38,8 +39,9 @@ const CollectionsEditGroupsListItem = ({ group, onDelete }) => {
   }, [dispatch, group]);
 
   const handleDeleteClick = useCallback(() => {
-    onDelete(group);
-  }, [onDelete, group]);
+    if (numberOfItems !== 0) dispatch(addAlert('page.collections.edit.groups.deleteWarning', 'warning'));
+    else onDelete(group);
+  }, [onDelete, group, dispatch, numberOfItems]);
 
   return (
     <Box key={id} mb={2}>

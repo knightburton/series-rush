@@ -102,6 +102,10 @@
           "deleteDescription": [
             "The selected group will be removed from your collection.",
             "The group will not be available for further interactions."
+          ],
+          "deleteWarning": [
+            "The selected group is not empty.",
+            "You have to move or delete all of the items from the group before delete."
           ]
         }
       }
