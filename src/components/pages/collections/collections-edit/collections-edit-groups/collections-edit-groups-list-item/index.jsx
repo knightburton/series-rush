@@ -28,7 +28,7 @@ import {
 } from '../../../../../../store/collections';
 import { addAlert } from '../../../../../../store/app';
 
-const CollectionsEditGroupsListItem = ({ group, onDelete }) => {
+const CollectionsEditGroupsListItem = ({ group, onGroupDelete, onAllItemsDelete }) => {
   const { t } = useTranslation();
   const { id, label, color, type } = group;
   const dispatch = useDispatch();
@@ -43,10 +43,12 @@ const CollectionsEditGroupsListItem = ({ group, onDelete }) => {
 
   const handleDeleteClick = useCallback(() => {
     if (numberOfItems !== 0) dispatch(addAlert('page.collections.edit.groups.deleteWarning', 'warning'));
-    else onDelete(group);
-  }, [onDelete, group, dispatch, numberOfItems]);
+    else onGroupDelete(group);
+  }, [onGroupDelete, group, dispatch, numberOfItems]);
 
-  const handleDeleteAllItemsClick = useCallback(() => {}, []);
+  const handleDeleteAllItemsClick = useCallback(() => {
+    onAllItemsDelete(group);
+  }, [onAllItemsDelete, group]);
 
   const handleMoveAllItemsClick = useCallback(() => {}, []);
 
@@ -111,7 +113,8 @@ CollectionsEditGroupsListItem.propTypes = {
     color: PropTypes.string,
     type: PropTypes.string,
   }).isRequired,
-  onDelete: PropTypes.func.isRequired,
+  onGroupDelete: PropTypes.func.isRequired,
+  onAllItemsDelete: PropTypes.func.isRequired,
 };
 
 export default CollectionsEditGroupsListItem;
