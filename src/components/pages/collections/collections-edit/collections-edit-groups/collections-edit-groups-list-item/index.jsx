@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 import {
@@ -14,6 +14,8 @@ import IconButton from '@material-ui/core/IconButton';
 
 import EditTwoToneIcon from '@material-ui/icons/EditTwoTone';
 import DeleteTwoToneIcon from '@material-ui/icons/DeleteTwoTone';
+import DeleteSweepTwoToneIcon from '@material-ui/icons/DeleteSweepTwoTone';
+import AllOutTwoToneIcon from '@material-ui/icons/AllOutTwoTone';
 
 import Tooltip from '../../../../../commons/tooltip';
 import ColorIndicator from '../../../../../commons/color-indicator';
@@ -32,6 +34,7 @@ const CollectionsEditGroupsListItem = ({ group, onDelete }) => {
   const dispatch = useDispatch();
   const isDeleteEnabled = useSelector(getIsGroupDeleteEnabled(type));
   const numberOfItems = useSelector(getNumberOfItemsByTypeAndGroup(type, id));
+  const isDamEnabled = useMemo(() => (numberOfItems > 0), [numberOfItems]);
 
   const handleEditClick = useCallback(() => {
     dispatch(setCollectionsDialogData(group));
@@ -42,6 +45,10 @@ const CollectionsEditGroupsListItem = ({ group, onDelete }) => {
     if (numberOfItems !== 0) dispatch(addAlert('page.collections.edit.groups.deleteWarning', 'warning'));
     else onDelete(group);
   }, [onDelete, group, dispatch, numberOfItems]);
+
+  const handleDeleteAllItemsClick = useCallback(() => {}, []);
+
+  const handleMoveAllItemsClick = useCallback(() => {}, []);
 
   return (
     <Box key={id} mb={2}>
@@ -62,6 +69,20 @@ const CollectionsEditGroupsListItem = ({ group, onDelete }) => {
         />
         <CardActions disableSpacing>
           <Box ml="auto" />
+          {isDamEnabled && (
+            <>
+              <Tooltip title={t('page.collections.edit.groups.deleteAllItems')}>
+                <IconButton onClick={handleDeleteAllItemsClick}>
+                  <DeleteSweepTwoToneIcon fontSize="small" color="primary" />
+                </IconButton>
+              </Tooltip>
+              <Tooltip title={t('page.collections.edit.groups.moveAllItems')}>
+                <IconButton onClick={handleMoveAllItemsClick}>
+                  <AllOutTwoToneIcon fontSize="small" color="primary" />
+                </IconButton>
+              </Tooltip>
+            </>
+          )}
           <Tooltip title={t('common::edit')}>
             <IconButton onClick={handleEditClick}>
               <EditTwoToneIcon fontSize="small" color="secondary" />

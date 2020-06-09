@@ -106,7 +106,9 @@
           "deleteWarning": [
             "The selected group is not empty.",
             "You have to move or delete all of the items from the group before delete."
-          ]
+          ],
+          "deleteAllItems": "Delete all items",
+          "moveAllItems": "Move all items"
         }
       }
     },
