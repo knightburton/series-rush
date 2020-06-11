@@ -8,8 +8,9 @@ import Paper from '@material-ui/core/Paper';
 import Popper from '@material-ui/core/Popper';
 import MenuItem from '@material-ui/core/MenuItem';
 import MenuList from '@material-ui/core/MenuList';
+import ListSubheader from '@material-ui/core/ListSubheader';
 
-const PopupMenuButton = ({ icon, color, size, disabled, menu }) => {
+const PopupMenuButton = ({ icon, color, size, disabled, menu, title }) => {
   const anchorRef = useRef(null);
   const [open, setOpen] = useState(false);
 
@@ -48,7 +49,13 @@ const PopupMenuButton = ({ icon, color, size, disabled, menu }) => {
       >
         <Paper>
           <ClickAwayListener onClickAway={handleClose}>
-            <MenuList>
+            <MenuList
+              subheader={title && (
+                <ListSubheader disableSticky>
+                  {title}
+                </ListSubheader>
+              )}
+            >
               {menu.options.map(option => (
                 <MenuItem
                   key={option.id}
@@ -80,12 +87,14 @@ PopupMenuButton.propTypes = {
     })),
     itemOnClick: PropTypes.func.isRequired,
   }).isRequired,
+  title: PropTypes.string,
 };
 
 PopupMenuButton.defaultProps = {
   color: 'default',
   size: 'medium',
   disabled: false,
+  title: '',
 };
 
 export default PopupMenuButton;
