@@ -113,7 +113,12 @@
             "Your profile will be updated based on this and all data about the group items will be deleted as well.",
             "You have to be sure before agree!"
           ],
-          "moveAllItems": "Move all items"
+          "moveAllItemsTo": "Move all items to",
+          "moveAllItems": "Move all items",
+          "moveAllItemsDescription": [
+            "All items inside the group will be moved to the selected group.",
+            "Your items will remain in your collection and all of your profile data will be untouched."
+          ]
         }
       }
     },

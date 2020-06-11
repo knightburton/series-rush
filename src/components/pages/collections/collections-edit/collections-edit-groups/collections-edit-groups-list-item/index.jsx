@@ -19,8 +19,11 @@ import AllOutTwoToneIcon from '@material-ui/icons/AllOutTwoTone';
 
 import Tooltip from '../../../../../commons/tooltip';
 import ColorIndicator from '../../../../../commons/color-indicator';
+import PopupMenuButton from '../../../../../commons/popup-menu-button';
+
 
 import {
+  getGroupsByTypeExceptID,
   getIsGroupDeleteEnabled,
   getNumberOfItemsByTypeAndGroup,
   setCollectionsDialogData,
@@ -28,10 +31,11 @@ import {
 } from '../../../../../../store/collections';
 import { addAlert } from '../../../../../../store/app';
 
-const CollectionsEditGroupsListItem = ({ group, onGroupDelete, onAllItemsDelete }) => {
+const CollectionsEditGroupsListItem = ({ group, onGroupDelete, onAllItemsDelete, onAllItemsMove }) => {
   const { t } = useTranslation();
   const { id, label, color, type } = group;
   const dispatch = useDispatch();
+  const groups = useSelector(getGroupsByTypeExceptID(type, id));
   const isDeleteEnabled = useSelector(getIsGroupDeleteEnabled(type));
   const numberOfItems = useSelector(getNumberOfItemsByTypeAndGroup(type, id));
   const isDamEnabled = useMemo(() => (numberOfItems > 0), [numberOfItems]);
@@ -50,7 +54,12 @@ const CollectionsEditGroupsListItem = ({ group, onGroupDelete, onAllItemsDelete 
     onAllItemsDelete(group);
   }, [onAllItemsDelete, group]);
 
-  const handleMoveAllItemsClick = useCallback(() => {}, []);
+  const handleMoveAllItemsToClick = useCallback(targetGroupID => {
+    onAllItemsMove({
+      ...group,
+      targetGroupID,
+    });
+  }, [onAllItemsMove, group]);
 
   return (
     <Box key={id} mb={2}>
@@ -78,11 +87,14 @@ const CollectionsEditGroupsListItem = ({ group, onGroupDelete, onAllItemsDelete 
                   <DeleteSweepTwoToneIcon fontSize="small" color="primary" />
                 </IconButton>
               </Tooltip>
-              <Tooltip title={t('page.collections.edit.groups.moveAllItems')}>
-                <IconButton onClick={handleMoveAllItemsClick}>
-                  <AllOutTwoToneIcon fontSize="small" color="primary" />
-                </IconButton>
-              </Tooltip>
+              <PopupMenuButton
+                title={t('page.collections.edit.groups.moveAllItemsTo')}
+                icon={<AllOutTwoToneIcon fontSize="small" color="primary" />}
+                menu={{
+                  options: groups,
+                  itemOnClick: handleMoveAllItemsToClick,
+                }}
+              />
             </>
           )}
           <Tooltip title={t('common::edit')}>
@@ -115,6 +127,7 @@ CollectionsEditGroupsListItem.propTypes = {
   }).isRequired,
   onGroupDelete: PropTypes.func.isRequired,
   onAllItemsDelete: PropTypes.func.isRequired,
+  onAllItemsMove: PropTypes.func.isRequired,
 };
 
 export default CollectionsEditGroupsListItem;
