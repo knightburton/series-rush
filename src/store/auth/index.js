@@ -69,6 +69,10 @@ export const getProfile = createSelector(
     createdAt: auth.createdAt || null,
   }),
 );
+export const getProfileID = createSelector(
+  getProfile,
+  profile => profile?.id,
+);
 
 // Reducer
 export const reducer = handleActions(

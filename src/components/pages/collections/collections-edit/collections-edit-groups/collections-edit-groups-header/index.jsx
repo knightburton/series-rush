@@ -13,7 +13,7 @@ import Box from '@material-ui/core/Box';
 import IconButton from '@material-ui/core/IconButton';
 
 import AddCircleTwoToneIcon from '@material-ui/icons/AddCircleTwoTone';
-import ArrowBackTwoToneIcon from '@material-ui/icons/ArrowBackTwoTone';
+import CheckCircleTwoToneIcon from '@material-ui/icons/CheckCircleTwoTone';
 
 import PageTitle from '../../../../../commons/page-title';
 import Tooltip from '../../../../../commons/tooltip';
@@ -52,17 +52,8 @@ const CollectionsEditGroupsHeader = () => {
       alignContent="center"
       alignItems="center"
     >
-      <Box display="flex">
-        <Box mr={1}>
-          <Tooltip title={t('common::goBack')}>
-            <IconButton onClick={handleGoBackClick}>
-              <ArrowBackTwoToneIcon />
-            </IconButton>
-          </Tooltip>
-        </Box>
-        <Box pt={1}>
-          <PageTitle title={t('page.collections.edit.groups.typeTitle', { type })} />
-        </Box>
+      <Box display="flex" pt={1}>
+        <PageTitle title={t('page.collections.edit.groups.title')} />
       </Box>
       <Box
         display="flex"
@@ -78,6 +69,11 @@ const CollectionsEditGroupsHeader = () => {
             </Box>
           </Tooltip>
         )}
+        <Tooltip title={t('page.collections.edit.groups.finish')}>
+          <IconButton onClick={handleGoBackClick}>
+            <CheckCircleTwoToneIcon color="primary" />
+          </IconButton>
+        </Tooltip>
       </Box>
     </Box>
   );

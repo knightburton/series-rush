@@ -82,8 +82,8 @@
       "edit": {
         "title": "Collections Edit",
         "groups": {
-          "title": "Edit collection groups",
-          "typeTitle": "Edit $t(page.collections.item.type.{{type}}) Groups",
+          "title": "Edit groups",
+          "finish": "Finish editing",
           "label": "Group name",
           "color": "Group color",
           "numberOfItems": "Number of $t(page.collections.menu.{{type}}): {{numberOfItems}}",
@@ -102,6 +102,22 @@
           "deleteDescription": [
             "The selected group will be removed from your collection.",
             "The group will not be available for further interactions."
+          ],
+          "deleteWarning": [
+            "The selected group is not empty.",
+            "You have to move or delete all of the items from the group before delete."
+          ],
+          "deleteAllItems": "Delete all items",
+          "deleteAllItemsDescription": [
+            "All items inside the group will be deleted from your collection.",
+            "Your profile will be updated based on this and all data about the group items will be deleted as well.",
+            "You have to be sure before agree!"
+          ],
+          "moveAllItemsTo": "Move all items to",
+          "moveAllItems": "Move all items",
+          "moveAllItemsDescription": [
+            "All items inside the group will be moved to the selected group.",
+            "Your items will remain in your collection and all of your profile data will be untouched."
           ]
         }
       }

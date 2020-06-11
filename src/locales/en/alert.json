@@ -43,6 +43,7 @@
 
   "collection-groups": "colletion groups",
   "collection-group": "colletion group",
+  "collection-group-items": "collection group items",
   "collections": "collections",
 
   "missingCollectionGroupData": "The selected action could not be executed, because the collection group data are missing."

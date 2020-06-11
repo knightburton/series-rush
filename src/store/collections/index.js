@@ -1,7 +1,7 @@
 import { handleActions, createAction } from 'redux-actions';
 import { createSelector } from 'reselect';
 import { setAppWaiting, addAlert } from '../app';
-import { getProfile } from '../auth';
+import { getProfileID } from '../auth';
 import { getFirestoreOrderedData } from '../firestore';
 import { MAXIMUM_NUMBER_OF_GROUPS } from '../../constants/config';
 
@@ -61,6 +61,10 @@ export const getGroupsByType = type => createSelector(
   getFirestoreOrderedData,
   data => data?.[`${type}Groups`] || [],
 );
+export const getGroupsByTypeExceptID = (type, id) => createSelector(
+  getGroupsByType(type),
+  groups => groups.filter(group => group.id !== id),
+);
 export const getCollectionByType = type => createSelector(
   getFirestoreOrderedData,
   data => data?.[`${type}Collection`] || [],
@@ -115,7 +119,7 @@ export const addCollectionItem = (id, type, group) => async (dispatch, getState,
   dispatch(setAppWaiting(true));
   try {
     const firestore = getFirestore();
-    const { id: profileID } = getProfile(getState());
+    const profileID = getProfileID(getState());
 
     await firestore.set({
       collection: 'profiles',
@@ -141,7 +145,7 @@ export const removeCollectionItem = id => async (dispatch, getState, { getFirest
   dispatch(setAppWaiting(true));
   try {
     const firestore = getFirestore();
-    const { id: profileID } = getProfile(getState());
+    const profileID = getProfileID(getState());
 
     await firestore.delete({
       collection: 'profiles',
@@ -164,7 +168,7 @@ export const addCollectionGroup = (details, type) => async (dispatch, getState, 
   dispatch(setCollectionsProgress(true));
   try {
     const firestore = getFirestore();
-    const { id: profileID } = getProfile(getState());
+    const profileID = getProfileID(getState());
 
     await firestore.add({
       collection: 'profiles',
@@ -191,7 +195,7 @@ export const updateCollectionGroup = (id, details) => async (dispatch, getState,
   dispatch(setCollectionsProgress(true));
   try {
     const firestore = getFirestore();
-    const { id: profileID } = getProfile(getState());
+    const profileID = getProfileID(getState());
 
     await firestore.update({
       collection: 'profiles',
@@ -216,27 +220,88 @@ export const deleteCollectionGroup = () => async (dispatch, getState, { getFires
   dispatch(setCollectionsProgress(true));
   try {
     const firestore = getFirestore();
-    const { id: profileID } = getProfile(getState());
+    const profileID = getProfileID(getState());
+    const dialogOpen = getIsDialogOpen('deleteGroup')(getState());
     const dialogData = getDialogData(getState());
 
-    if (!dialogData?.id) {
-      dispatch(addAlert('alert::missingCollectionGroupData', 'error'));
-    } else {
-      await firestore.delete({
-        collection: 'profiles',
-        doc: profileID,
-        subcollections: [{
-          collection: 'groups',
-          doc: `${dialogData.id}`,
-        }],
-      });
+    if (!dialogOpen || !dialogData?.id) throw new Error('missingData');
+    await firestore.delete({
+      collection: 'profiles',
+      doc: profileID,
+      subcollections: [{
+        collection: 'groups',
+        doc: `${dialogData.id}`,
+      }],
+    });
 
-      dispatch(closeCollectionsDialog());
-      dispatch(setCollectionsDialogData(null));
-      dispatch(addAlert('alert::delete-success', 'success', { title: 'collection-group' }));
-    }
+    dispatch(closeCollectionsDialog());
+    dispatch(setCollectionsDialogData(null));
+    dispatch(addAlert('alert::delete-success', 'success', { title: 'collection-group' }));
   } catch (error) {
-    dispatch(addAlert('alert::delete-failure', 'error', { title: 'collection-group' }));
+    if (error?.message === 'missingData') dispatch(addAlert('alert::missingCollectionGroupData', 'error'));
+    else dispatch(addAlert('alert::delete-failure', 'error', { title: 'collection-group' }));
+  } finally {
+    dispatch(setCollectionsProgress(false));
+  }
+};
+
+export const deleteCollectionGroupItems = () => async (dispatch, getState, { getFirestore }) => {
+  dispatch(setCollectionsProgress(false));
+  try {
+    const firestore = getFirestore();
+    const profileID = getProfileID(getState());
+    const dialogOpen = getIsDialogOpen('deleteGroupItems')(getState());
+    const dialogData = getDialogData(getState());
+
+    if (!dialogOpen || !dialogData?.id || !dialogData?.type) throw new Error('missingData');
+
+    const items = getCollectionByTypeAndGroup(dialogData.type, dialogData.id)(getState());
+    // Init the original firestore batch.
+    const batch = firestore.batch();
+    // Use the original firestore path to add each item id to the batch for delete.
+    items.forEach(item => {
+      const itemRef = firestore.collection('profiles').doc(profileID).collection('collection').doc(item.id);
+      batch.delete(itemRef);
+    });
+    // Finish the batch delete.
+    await batch.commit();
+
+    dispatch(closeCollectionsDialog());
+    dispatch(setCollectionsDialogData(null));
+  } catch (error) {
+    if (error?.message === 'missingData') dispatch(addAlert('alert::missingCollectionGroupData', 'error'));
+    else dispatch(addAlert('alert::delete-failure', 'error', { title: 'collection-group-items' }));
+  } finally {
+    dispatch(setCollectionsProgress(false));
+  }
+};
+
+export const moveCollectionGroupItems = () => async (dispatch, getState, { getFirestore }) => {
+  dispatch(setCollectionsProgress(false));
+  try {
+    const firestore = getFirestore();
+    const profileID = getProfileID(getState());
+    const dialogOpen = getIsDialogOpen('moveGroupItems')(getState());
+    const dialogData = getDialogData(getState());
+
+    if (!dialogOpen || !dialogData?.targetGroupID || !dialogData?.id || !dialogData?.type) throw new Error('missingData');
+
+    const items = getCollectionByTypeAndGroup(dialogData.type, dialogData.id)(getState());
+    // Init the original firestoe batch.
+    const batch = firestore.batch();
+    // Use the original firestore path to add each item to the batch for update.
+    items.forEach(item => {
+      const itemRef = firestore.collection('profiles').doc(profileID).collection('collection').doc(item.id);
+      batch.update(itemRef, { groupID: dialogData.targetGroupID });
+    });
+    // Finish the batch update.
+    await batch.commit();
+
+    dispatch(closeCollectionsDialog());
+    dispatch(setCollectionsDialogData(null));
+  } catch (error) {
+    if (error?.message === 'missingData') dispatch(addAlert('alert::missingCollectionGroupData', 'error'));
+    else dispatch(addAlert('alert::delete-failure', 'error', { title: 'collection-group-items' }));
   } finally {
     dispatch(setCollectionsProgress(false));
   }

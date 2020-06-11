@@ -19,6 +19,8 @@ import {
   closeCollectionsDialog,
   setCollectionsDialogData,
   deleteCollectionGroup,
+  deleteCollectionGroupItems,
+  moveCollectionGroupItems,
 } from '../../../../../../store/collections';
 
 const CollectionsEditGroupsList = () => {
@@ -26,19 +28,29 @@ const CollectionsEditGroupsList = () => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const groups = useSelector(getGroupsByType(type));
-  const isDialogOpen = useSelector(getIsDialogOpen('deleteGroup'));
+  const isDeleteOpen = useSelector(getIsDialogOpen('deleteGroup'));
+  const isDeleteItemsOpen = useSelector(getIsDialogOpen('deleteGroupItems'));
+  const isMoveItemsOpen = useSelector(getIsDialogOpen('moveGroupItems'));
 
-  const handleDeleteAgree = useCallback(() => {
+  const handleDeleteGroupAgree = useCallback(() => {
     dispatch(deleteCollectionGroup());
   }, [dispatch]);
 
-  const handleDeleteDisagree = useCallback(() => {
+  const handleDeleteGroupItemsAgree = useCallback(() => {
+    dispatch(deleteCollectionGroupItems());
+  }, [dispatch]);
+
+  const handleMoveGroupItemsAgree = useCallback(() => {
+    dispatch(moveCollectionGroupItems());
+  }, [dispatch]);
+
+  const handleDisagree = useCallback(() => {
     dispatch(closeCollectionsDialog());
   }, [dispatch]);
 
-  const handleDeleteClick = useCallback(data => {
+  const handleItemAction = useCallback(dialog => data => {
     dispatch(setCollectionsDialogData(data));
-    dispatch(openCollectionsDialog('deleteGroup'));
+    dispatch(openCollectionsDialog(dialog));
   }, [dispatch]);
 
   return (
@@ -47,16 +59,34 @@ const CollectionsEditGroupsList = () => {
         <CollectionsEditGroupsListItem
           key={group.id}
           group={group}
-          onDelete={handleDeleteClick}
+          onGroupDelete={handleItemAction('deleteGroup')}
+          onAllItemsDelete={handleItemAction('deleteGroupItems')}
+          onAllItemsMove={handleItemAction('moveGroupItems')}
         />
       ))}
       <Confirmation
-        id="collections-edit-groups-list-item-delete-confirmation"
+        id="collections-edit-groups-item-delete-confirmation"
         title={t('page.collections.edit.groups.delete')}
         description={t('page.collections.edit.groups.deleteDescription')}
-        onAgree={handleDeleteAgree}
-        onDisagree={handleDeleteDisagree}
-        open={isDialogOpen}
+        onAgree={handleDeleteGroupAgree}
+        onDisagree={handleDisagree}
+        open={isDeleteOpen}
+      />
+      <Confirmation
+        id="collections-edit-groups-all-item-delete-confirmation"
+        title={t('page.collections.edit.groups.deleteAllItems')}
+        description={t('page.collections.edit.groups.deleteAllItemsDescription')}
+        onAgree={handleDeleteGroupItemsAgree}
+        onDisagree={handleDisagree}
+        open={isDeleteItemsOpen}
+      />
+      <Confirmation
+        id="collections-edit-groups-all-item-move-confirmation"
+        title={t('page.collections.edit.groups.moveAllItems')}
+        description={t('page.collections.edit.groups.moveAllItemsDescription')}
+        onAgree={handleMoveGroupItemsAgree}
+        onDisagree={handleDisagree}
+        open={isMoveItemsOpen}
       />
     </Box>
   );
