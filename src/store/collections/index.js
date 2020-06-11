@@ -61,6 +61,10 @@ export const getGroupsByType = type => createSelector(
   getFirestoreOrderedData,
   data => data?.[`${type}Groups`] || [],
 );
+export const getGroupsByTypeExceptID = (type, id) => createSelector(
+  getGroupsByType(type),
+  groups => groups.filter(group => group.id !== id),
+);
 export const getCollectionByType = type => createSelector(
   getFirestoreOrderedData,
   data => data?.[`${type}Collection`] || [],
@@ -260,6 +264,37 @@ export const deleteCollectionGroupItems = () => async (dispatch, getState, { get
       batch.delete(itemRef);
     });
     // Finish the batch delete.
+    await batch.commit();
+
+    dispatch(closeCollectionsDialog());
+    dispatch(setCollectionsDialogData(null));
+  } catch (error) {
+    if (error?.message === 'missingData') dispatch(addAlert('alert::missingCollectionGroupData', 'error'));
+    else dispatch(addAlert('alert::delete-failure', 'error', { title: 'collection-group-items' }));
+  } finally {
+    dispatch(setCollectionsProgress(false));
+  }
+};
+
+export const moveCollectionGroupItems = () => async (dispatch, getState, { getFirestore }) => {
+  dispatch(setCollectionsProgress(false));
+  try {
+    const firestore = getFirestore();
+    const profileID = getProfileID(getState());
+    const dialogOpen = getIsDialogOpen('moveGroupItems')(getState());
+    const dialogData = getDialogData(getState());
+
+    if (!dialogOpen || !dialogData?.targetGroupID || !dialogData?.id || !dialogData?.type) throw new Error('missingData');
+
+    const items = getCollectionByTypeAndGroup(dialogData.type, dialogData.id)(getState());
+    // Init the original firestoe batch.
+    const batch = firestore.batch();
+    // Use the original firestore path to add each item to the batch for update.
+    items.forEach(item => {
+      const itemRef = firestore.collection('profiles').doc(profileID).collection('collection').doc(item.id);
+      batch.update(itemRef, { groupID: dialogData.targetGroupID });
+    });
+    // Finish the batch update.
     await batch.commit();
 
     dispatch(closeCollectionsDialog());
