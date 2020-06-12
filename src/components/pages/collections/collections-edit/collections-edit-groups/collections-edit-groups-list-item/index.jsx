@@ -87,14 +87,16 @@ const CollectionsEditGroupsListItem = ({ group, onGroupDelete, onAllItemsDelete,
                   <DeleteSweepTwoToneIcon fontSize="small" color="primary" />
                 </IconButton>
               </Tooltip>
-              <PopupMenuButton
-                title={t('page.collections.edit.groups.moveAllItemsTo')}
-                icon={<AllOutTwoToneIcon fontSize="small" color="primary" />}
-                menu={{
-                  options: groups,
-                  itemOnClick: handleMoveAllItemsToClick,
-                }}
-              />
+              {groups?.length > 0 && (
+                <PopupMenuButton
+                  title={t('page.collections.edit.groups.moveAllItemsTo')}
+                  icon={<AllOutTwoToneIcon fontSize="small" color="primary" />}
+                  menu={{
+                    options: groups,
+                    itemOnClick: handleMoveAllItemsToClick,
+                  }}
+                />
+              )}
             </>
           )}
           <Tooltip title={t('common::edit')}>
