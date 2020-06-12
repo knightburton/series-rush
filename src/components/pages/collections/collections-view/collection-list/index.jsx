@@ -1,4 +1,4 @@
-import React, { useCallback, useState, useMemo } from 'react';
+import React, { useCallback, useMemo } from 'react';
 import { useParams } from 'react-router';
 import { useTranslation } from 'react-i18next';
 import {
@@ -15,15 +15,20 @@ import {
   getGroupsByType,
   getSelectedGroupByType,
   getCollectionByTypeAndGroup,
+  getDialogData,
+  getIsDialogOpen,
+  setCollectionsDialogData,
+  openCollectionsDialog,
+  closeCollectionsDialog,
   removeCollectionItem,
 } from '../../../../../store/collections';
 
 const CollectionListContainer = () => {
   const { t } = useTranslation();
   const { type } = useParams();
-  const [deleteItem, setDeleteItem] = useState(null);
-  const [deleteOpen, setDeleteOpen] = useState(false);
   const dispatch = useDispatch();
+  const dialogData = useSelector(getDialogData);
+  const isDeleteOpen = useSelector(getIsDialogOpen('deleteItem'));
   const groups = useSelector(getGroupsByType(type));
   const selectedGroup = useSelector(getSelectedGroupByType(type));
   const list = useSelector(getCollectionByTypeAndGroup(type, selectedGroup));
@@ -32,20 +37,18 @@ const CollectionListContainer = () => {
     groups?.find(group => group.id === selectedGroup)?.label || t('common::unknown')
   ), [groups, selectedGroup, t]);
 
-  const handleItemDeleteClick = useCallback(item => {
-    setDeleteItem(item);
-    setDeleteOpen(true);
-  }, []);
-
   const handleDeleteAgree = useCallback(() => {
-    setDeleteOpen(false);
-    dispatch(removeCollectionItem(deleteItem?.id));
-  }, [dispatch, deleteItem]);
+    dispatch(removeCollectionItem());
+  }, [dispatch]);
 
-  const handleDeleteDisagree = useCallback(() => {
-    setDeleteOpen(false);
-    setDeleteItem(null);
-  }, []);
+  const handleDisagree = useCallback(() => {
+    dispatch(closeCollectionsDialog());
+  }, [dispatch]);
+
+  const handleItemAction = useCallback(dialog => data => {
+    dispatch(setCollectionsDialogData(data));
+    dispatch(openCollectionsDialog(dialog));
+  }, [dispatch]);
 
   return (
     <Box>
@@ -53,16 +56,16 @@ const CollectionListContainer = () => {
         <CollectionListItem
           key={item.id}
           item={item}
-          onDeleteClick={handleItemDeleteClick}
+          onDeleteClick={handleItemAction('deleteItem')}
         />
       ))}
       <Confirmation
         id="collection-list-item-delete-confirmation"
         title={t('page.collections.item.deleteTitle')}
-        description={t('page.collections.item.deleteDescription', { type, group: selectedGroupName, name: deleteItem?.title || t('common::unknown') })}
+        description={t('page.collections.item.deleteDescription', { type, group: selectedGroupName, name: dialogData?.title || t('common::unknown') })}
         onAgree={handleDeleteAgree}
-        onDisagree={handleDeleteDisagree}
-        open={deleteOpen}
+        onDisagree={handleDisagree}
+        open={isDeleteOpen}
       />
     </Box>
   );
