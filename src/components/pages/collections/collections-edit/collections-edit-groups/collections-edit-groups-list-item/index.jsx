@@ -9,8 +9,10 @@ import {
 import Box from '@material-ui/core/Box';
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
+import CardContent from '@material-ui/core/CardContent';
 import CardActions from '@material-ui/core/CardActions';
 import IconButton from '@material-ui/core/IconButton';
+import Typography from '@material-ui/core/Typography';
 
 import EditTwoToneIcon from '@material-ui/icons/EditTwoTone';
 import DeleteTwoToneIcon from '@material-ui/icons/DeleteTwoTone';
@@ -29,10 +31,11 @@ import {
   openCollectionsDialog,
 } from '../../../../../../store/collections';
 import { addAlert } from '../../../../../../store/app';
+import { getLocalizedDate } from '../../../../../../utils/date';
 
 const CollectionsEditGroupsListItem = ({ group, onGroupDelete, onAllItemsDelete, onAllItemsMove }) => {
   const { t } = useTranslation();
-  const { id, label, color, type } = group;
+  const { id, label, color, type, createdAt } = group;
   const dispatch = useDispatch();
   const groups = useSelector(getGroupsByTypeExceptID(type, id));
   const isDeleteEnabled = useSelector(getIsGroupDeleteEnabled(type));
@@ -72,11 +75,16 @@ const CollectionsEditGroupsListItem = ({ group, onGroupDelete, onAllItemsDelete,
             />
           )}
           title={label || t('common::unknown')}
-          subheader={t('page.collections.edit.groups.numberOfItems', { type, numberOfItems })}
+          subheader={`${t('common::createdAt')}: ${getLocalizedDate(createdAt.toDate())}`}
           titleTypographyProps={{
             variant: 'h5',
           }}
         />
+        <CardContent>
+          <Typography variant="body2" color="textSecondary" component="p">
+            {t('page.collections.edit.groups.numberOfItems', { type, numberOfItems })}
+          </Typography>
+        </CardContent>
         <CardActions disableSpacing>
           <Box ml="auto" />
           {isDamEnabled && (
@@ -125,6 +133,7 @@ CollectionsEditGroupsListItem.propTypes = {
     label: PropTypes.string,
     color: PropTypes.string,
     type: PropTypes.string,
+    createdAt: PropTypes.object,
   }).isRequired,
   onGroupDelete: PropTypes.func.isRequired,
   onAllItemsDelete: PropTypes.func.isRequired,

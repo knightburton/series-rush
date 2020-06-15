@@ -27,5 +27,6 @@
   "quickSearch": "Quick search",
   "unknown": "Unknown",
   "selectFile": "Select file",
-  "goBack": "Go Back"
+  "goBack": "Go Back",
+  "createdAt": "Created at"
 }
