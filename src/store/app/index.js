@@ -4,7 +4,7 @@ import { parseTmdbConfiguration } from '../../utils/parser';
 import {
   getTimestamp,
   getDayDifferenceLessThan,
-} from '../../utils/time';
+} from '../../utils/date';
 
 // Initial state
 export const initialState = {

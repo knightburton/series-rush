@@ -21,7 +21,6 @@ import Tooltip from '../../../../../commons/tooltip';
 import ColorIndicator from '../../../../../commons/color-indicator';
 import PopupMenuButton from '../../../../../commons/popup-menu-button';
 
-
 import {
   getGroupsByTypeExceptID,
   getIsGroupDeleteEnabled,
