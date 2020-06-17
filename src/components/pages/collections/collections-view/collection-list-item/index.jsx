@@ -1,9 +1,9 @@
 import React, { useCallback } from 'react';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
-// import {
-//   useDispatch,
-// } from 'react-redux';
+import {
+  useSelector,
+} from 'react-redux';
 
 import Box from '@material-ui/core/Box';
 import Card from '@material-ui/core/Card';
@@ -13,16 +13,20 @@ import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 
 import DeleteTwoToneIcon from '@material-ui/icons/DeleteTwoTone';
+import AllOutTwoToneIcon from '@material-ui/icons/AllOutTwoTone';
 
 import Tooltip from '../../../../commons/tooltip';
+import PopupMenuButton from '../../../../commons/popup-menu-button';
 
-// import {
-//   removeFromCollection,
-// } from '../../../../../store/collections';
+import {
+  getGroupsByTypeExceptID,
+} from '../../../../../store/collections';
 
-const CollectionListItem = ({ item: { id }, onDeleteClick }) => {
+const CollectionListItem = ({ item: { id, type, groupID }, onDeleteClick }) => {
   const { t } = useTranslation();
-  // const dispatch = useDispatch();
+  const groups = useSelector(getGroupsByTypeExceptID(type, groupID));
+
+  const handleMoveClick = useCallback(() => {}, []);
 
   const handleDeleteClick = useCallback(() => {
     onDeleteClick({ id });
@@ -38,6 +42,14 @@ const CollectionListItem = ({ item: { id }, onDeleteClick }) => {
         </CardContent>
         <CardActions>
           <Box ml="auto" />
+          <PopupMenuButton
+            title={t('page.collections.item.moveTo')}
+            icon={<AllOutTwoToneIcon fontSize="small" color="primary" />}
+            menu={{
+              options: groups,
+              itemOnClick: handleMoveClick,
+            }}
+          />
           <Tooltip title={t('common::delete')}>
             <IconButton onClick={handleDeleteClick}>
               <DeleteTwoToneIcon
@@ -58,6 +70,8 @@ CollectionListItem.propTypes = {
       PropTypes.number,
       PropTypes.string,
     ]).isRequired,
+    type: PropTypes.string,
+    groupID: PropTypes.string,
   }).isRequired,
   onDeleteClick: PropTypes.func.isRequired,
 };

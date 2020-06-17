@@ -77,7 +77,8 @@
         "deleteDescription": [
           "{{name}} $t(page.collections.item.type.{{type}}) will be removed from {{group}} collection group.",
           "The remove will be permanently and your profile will be updated."
-        ]
+        ],
+        "moveTo": "Move item to"
       },
       "edit": {
         "title": "Collections Edit",
