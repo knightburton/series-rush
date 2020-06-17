@@ -171,6 +171,38 @@ export const removeCollectionItem = () => async (dispatch, getState, { getFirest
   }
 };
 
+export const moveCollectionItem = () => async (dispatch, getState, { getFirestore }) => {
+  dispatch(setCollectionsProgress(true));
+  try {
+    const firestore = getFirestore();
+    const profileID = getProfileID(getState());
+    const dialogOpen = getIsDialogOpen('moveItem')(getState());
+    const dialogData = getDialogData(getState());
+
+    if (!dialogOpen || !dialogData?.targetGroupID || !dialogData?.id) throw new Error('missingData');
+
+    await firestore.update({
+      collection: 'profiles',
+      doc: profileID,
+      subcollections: [{
+        collection: 'collection',
+        doc: `${dialogData.id}`,
+      }],
+    }, {
+      groupID: dialogData.targetGroupID,
+    });
+
+    dispatch(closeCollectionsDialog());
+    dispatch(setCollectionsDialogData(null));
+    dispatch(addAlert('alert::update-success', 'success', { title: 'collections' }));
+  } catch (error) {
+    if (error?.message === 'missingData') dispatch(addAlert('alert::missingCollectionData', 'error'));
+    else dispatch(addAlert('alert::update-failure', 'error', { title: 'collections' }));
+  } finally {
+    dispatch(setCollectionsProgress(false));
+  }
+};
+
 export const addCollectionGroup = (details, type) => async (dispatch, getState, { getFirestore }) => {
   dispatch(setCollectionsProgress(true));
   try {
