@@ -37,7 +37,6 @@ const userCleanup = functions.auth.user().onDelete(async user => {
       recursive: true,
       yes: true,
     });
-
   } catch (error) {
     console.error('[userCleanup]: Failed with error: ', error);
   }
@@ -60,7 +59,7 @@ const userCreate = functions.auth.user().onCreate(async user => {
       return baseRef.add({
         label: 'My group',
         color: 'green',
-        type: type,
+        type,
         createdAt: admin.firestore.FieldValue.serverTimestamp(),
       });
     });

@@ -1,6 +1,6 @@
 const request = require('request');
 
-const invoke = ({ baseURL, method, defaultQuery = {} }) => ( path, { headers = {}, query = {}, body } = {}) => new Promise((resolve, reject) => {
+const invoke = ({ baseURL, method, defaultQuery = {} }) => (path, { headers = {}, query = {}, body } = {}) => new Promise((resolve, reject) => {
   const requestOptions = {
     method,
     baseURL,

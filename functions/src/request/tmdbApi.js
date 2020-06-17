@@ -15,10 +15,10 @@ const api = {
 
 const getDetailsByTypeAndId = (type, id) => api.get(`${type}/${id}`, {
   query: {
-    append_to_response: 'external_ids,'
-  }
+    append_to_response: 'external_ids,',
+  },
 });
 
-module.exports= {
+module.exports = {
   getDetailsByTypeAndId,
 };
