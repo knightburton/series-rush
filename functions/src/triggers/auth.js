@@ -58,10 +58,10 @@ const userCreate = functions.auth.user().onCreate(async user => {
     const promises = Object.values(GROUP_TYPES).map(type => {
       console.log(`[userCreate]: Create the default ${type} group...`);
       return baseRef.add({
-        label: 'Default',
-        color: '',
+        label: 'My group',
+        color: 'green',
         type: type,
-        order: 0,
+        createdAt: admin.firestore.FieldValue.serverTimestamp(),
       });
     });
 
