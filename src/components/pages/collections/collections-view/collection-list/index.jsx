@@ -21,6 +21,7 @@ import {
   openCollectionsDialog,
   closeCollectionsDialog,
   removeCollectionItem,
+  moveCollectionItem,
 } from '../../../../../store/collections';
 
 const CollectionListContainer = () => {
@@ -29,6 +30,7 @@ const CollectionListContainer = () => {
   const dispatch = useDispatch();
   const dialogData = useSelector(getDialogData);
   const isDeleteOpen = useSelector(getIsDialogOpen('deleteItem'));
+  const isMoveOpen = useSelector(getIsDialogOpen('moveItem'));
   const groups = useSelector(getGroupsByType(type));
   const selectedGroup = useSelector(getSelectedGroupByType(type));
   const list = useSelector(getCollectionByTypeAndGroup(type, selectedGroup));
@@ -36,6 +38,10 @@ const CollectionListContainer = () => {
   const selectedGroupName = useMemo(() => (
     groups?.find(group => group.id === selectedGroup)?.label || t('common::unknown')
   ), [groups, selectedGroup, t]);
+
+  const handleMoveAgree = useCallback(() => {
+    dispatch(moveCollectionItem());
+  }, [dispatch]);
 
   const handleDeleteAgree = useCallback(() => {
     dispatch(removeCollectionItem());
@@ -56,9 +62,18 @@ const CollectionListContainer = () => {
         <CollectionListItem
           key={item.id}
           item={item}
-          onDeleteClick={handleItemAction('deleteItem')}
+          onDelete={handleItemAction('deleteItem')}
+          onMove={handleItemAction('moveItem')}
         />
       ))}
+      <Confirmation
+        id="collection-list-item-move-confirmation"
+        title={t('page.collections.item.moveTo')}
+        description={t('page.collections.item.moveToDescription')}
+        onAgree={handleMoveAgree}
+        onDisagree={handleDisagree}
+        open={isMoveOpen}
+      />
       <Confirmation
         id="collection-list-item-delete-confirmation"
         title={t('page.collections.item.deleteTitle')}

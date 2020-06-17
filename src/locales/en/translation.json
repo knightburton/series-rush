@@ -78,7 +78,11 @@
           "{{name}} $t(page.collections.item.type.{{type}}) will be removed from {{group}} collection group.",
           "The remove will be permanently and your profile will be updated."
         ],
-        "moveTo": "Move item to"
+        "moveTo": "Move item to",
+        "moveToDescription": [
+          "The item will be moved to the selected group.",
+          "Your collection and all of your profile data will be updated."
+        ]
       },
       "edit": {
         "title": "Collections Edit",

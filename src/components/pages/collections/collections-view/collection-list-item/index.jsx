@@ -22,15 +22,21 @@ import {
   getGroupsByTypeExceptID,
 } from '../../../../../store/collections';
 
-const CollectionListItem = ({ item: { id, type, groupID }, onDeleteClick }) => {
+const CollectionListItem = ({ item, onDelete, onMove }) => {
   const { t } = useTranslation();
+  const { id, type, groupID } = item;
   const groups = useSelector(getGroupsByTypeExceptID(type, groupID));
 
-  const handleMoveClick = useCallback(() => {}, []);
+  const handleMoveClick = useCallback(targetGroupID => {
+    onMove({
+      ...item,
+      targetGroupID,
+    });
+  }, [onMove, item]);
 
   const handleDeleteClick = useCallback(() => {
-    onDeleteClick({ id });
-  }, [onDeleteClick, id]);
+    onDelete({ id });
+  }, [onDelete, id]);
 
   return (
     <Box mb={2}>
@@ -73,7 +79,8 @@ CollectionListItem.propTypes = {
     type: PropTypes.string,
     groupID: PropTypes.string,
   }).isRequired,
-  onDeleteClick: PropTypes.func.isRequired,
+  onDelete: PropTypes.func.isRequired,
+  onMove: PropTypes.func.isRequired,
 };
 
 export default CollectionListItem;
