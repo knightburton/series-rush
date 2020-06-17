@@ -75,7 +75,7 @@ const CollectionsEditGroupsListItem = ({ group, onGroupDelete, onAllItemsDelete,
             />
           )}
           title={label || t('common::unknown')}
-          subheader={`${t('common::createdAt')}: ${getLocalizedDate(createdAt.toDate())}`}
+          subheader={`${t('common::createdAt')}: ${getLocalizedDate(createdAt?.toDate())}`}
           titleTypographyProps={{
             variant: 'h5',
           }}
