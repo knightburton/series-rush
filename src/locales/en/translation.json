@@ -133,7 +133,8 @@
       "premiered": "Premiered",
       "status": "Status",
       "emptyResult": "There is no result for the given search query.",
-      "addTo": "Add to collection",
+      "details": "Details",
+      "addTo": "Add to",
       "inCollection": "Already in the collection"
     }
   },

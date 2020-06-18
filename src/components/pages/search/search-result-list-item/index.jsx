@@ -13,9 +13,11 @@ import CardContent from '@material-ui/core/CardContent';
 import CardActions from '@material-ui/core/CardActions';
 import Typography from '@material-ui/core/Typography';
 import Hidden from '@material-ui/core/Hidden';
+import IconButton from '@material-ui/core/IconButton';
 
 import AddCircleTwoToneIcon from '@material-ui/icons/AddCircleTwoTone';
 import CheckCircleTwoToneIcon from '@material-ui/icons/CheckCircleTwoTone';
+import InfoTwoToneIcon from '@material-ui/icons/InfoTwoTone';
 
 import PopupMenuButton from '../../../commons/popup-menu-button';
 import Tooltip from '../../../commons/tooltip';
@@ -86,16 +88,24 @@ const SearchResultListItem = ({ result }) => {
           </Typography>
         </CardContent>
         <CardActions className={classes.actions}>
+          <Tooltip title={t('page.search.details')}>
+            <IconButton>
+              <InfoTwoToneIcon color="secondary" />
+            </IconButton>
+          </Tooltip>
           <Box className={classes.grow} />
           {isItemInCollection ? (
             <Tooltip title={t('page.search.inCollection')}>
-              <Box mr={1.5} mb={0.9}>
-                <CheckCircleTwoToneIcon color="disabled" />
+              <Box>
+                <IconButton disabled>
+                  <CheckCircleTwoToneIcon color="disabled" />
+                </IconButton>
               </Box>
             </Tooltip>
           ) : groups.length > 0 && (
             <PopupMenuButton
               icon={<AddCircleTwoToneIcon />}
+              title={t('page.search.addTo')}
               menu={{
                 options: groups,
                 itemOnClick: handleAdd,
