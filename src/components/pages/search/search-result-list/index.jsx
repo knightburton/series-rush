@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
 
-import SearchResultItem from '../search-result-item';
+import SearchResultListItem from '../search-result-list-item';
 
 import { getSearchResults } from '../../../../store/search';
 
@@ -16,7 +16,7 @@ const SearchResultList = () => {
       <Grid container spacing={3}>
         {results.map(result => (
           <Grid key={result.id} item xs={12} md={6}>
-            <SearchResultItem result={result} />
+            <SearchResultListItem result={result} />
           </Grid>
         ))}
       </Grid>

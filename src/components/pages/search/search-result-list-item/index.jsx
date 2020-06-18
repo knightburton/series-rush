@@ -26,7 +26,7 @@ import { ELLIPSIS_LENGTHS } from '../../../../constants/config';
 
 import useStyles from './styles';
 
-const SearchResultItem = ({ result }) => {
+const SearchResultListItem = ({ result }) => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const type = result?.type;
@@ -95,7 +95,7 @@ const SearchResultItem = ({ result }) => {
   );
 };
 
-SearchResultItem.propTypes = {
+SearchResultListItem.propTypes = {
   result: PropTypes.shape({
     id: PropTypes.number,
     type: PropTypes.string,
@@ -108,4 +108,4 @@ SearchResultItem.propTypes = {
   }).isRequired,
 };
 
-export default SearchResultItem;
+export default SearchResultListItem;
