@@ -1,5 +1,6 @@
 import React, { useCallback } from 'react';
 import PropTypes from 'prop-types';
+import { useTranslation } from 'react-i18next';
 import {
   useDispatch,
   useSelector,
@@ -14,11 +15,14 @@ import Typography from '@material-ui/core/Typography';
 import Hidden from '@material-ui/core/Hidden';
 
 import AddCircleTwoToneIcon from '@material-ui/icons/AddCircleTwoTone';
+import CheckCircleTwoToneIcon from '@material-ui/icons/CheckCircleTwoTone';
 
 import PopupMenuButton from '../../../commons/popup-menu-button';
+import Tooltip from '../../../commons/tooltip';
 
 import {
   getGroupsByType,
+  getIsItemInCollection,
   addCollectionItem,
 } from '../../../../store/collections';
 import { getEllipsisText } from '../../../../utils/text';
@@ -27,14 +31,17 @@ import { ELLIPSIS_LENGTHS } from '../../../../constants/config';
 import useStyles from './styles';
 
 const SearchResultListItem = ({ result }) => {
+  const { t } = useTranslation();
   const classes = useStyles();
   const dispatch = useDispatch();
+  const id = result?.id;
   const type = result?.type;
   const groups = useSelector(getGroupsByType(type));
+  const isItemInCollection = useSelector(getIsItemInCollection(id, type));
 
   const handleAdd = useCallback(group => {
-    dispatch(addCollectionItem(result.id, result.type, group));
-  }, [dispatch, result]);
+    dispatch(addCollectionItem(id, type, group));
+  }, [dispatch, id, type]);
 
   return (
     <Card className={classes.card}>
@@ -80,7 +87,13 @@ const SearchResultListItem = ({ result }) => {
         </CardContent>
         <CardActions className={classes.actions}>
           <Box className={classes.grow} />
-          {groups.length > 0 && (
+          {isItemInCollection ? (
+            <Tooltip title={t('page.search.inCollection')}>
+              <Box mr={1.5} mb={0.9}>
+                <CheckCircleTwoToneIcon color="disabled" />
+              </Box>
+            </Tooltip>
+          ) : groups.length > 0 && (
             <PopupMenuButton
               icon={<AddCircleTwoToneIcon />}
               menu={{

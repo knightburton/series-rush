@@ -81,6 +81,10 @@ export const getNumberOfItemsByTypeAndGroup = (type, group) => createSelector(
   getCollectionByTypeAndGroup(type, group),
   collection => collection.length || 0,
 );
+export const getIsItemInCollection = (id, type) => createSelector(
+  getCollectionByType(type),
+  collection => !!collection.find(item => item.id === `${id}`),
+);
 export const getIsGroupAddEnabled = type => createSelector(
   getNumberOfGroupsByType(type),
   numberOfGroups => numberOfGroups > 0 && numberOfGroups < MAXIMUM_NUMBER_OF_GROUPS,
