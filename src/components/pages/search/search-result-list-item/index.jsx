@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 import {
@@ -21,6 +21,7 @@ import InfoTwoToneIcon from '@material-ui/icons/InfoTwoTone';
 
 import PopupMenuButton from '../../../commons/popup-menu-button';
 import Tooltip from '../../../commons/tooltip';
+import ProgressCircle from '../../../commons/progess-circle';
 
 import {
   getGroupsByType,
@@ -36,10 +37,11 @@ const SearchResultListItem = ({ result }) => {
   const { t } = useTranslation();
   const classes = useStyles();
   const dispatch = useDispatch();
-  const id = result?.id;
-  const type = result?.type;
+  const { id, type, vote } = result;
   const groups = useSelector(getGroupsByType(type));
   const isItemInCollection = useSelector(getIsItemInCollection(id, type));
+
+  const progressValue = useMemo(() => (vote && vote * 10) || 0, [vote]);
 
   const handleAdd = useCallback(group => {
     dispatch(addCollectionItem(id, type, group));
@@ -62,6 +64,15 @@ const SearchResultListItem = ({ result }) => {
             variant: 'h6',
           }}
           subheader={result.premiere}
+          avatar={(
+            <ProgressCircle
+              value={progressValue}
+              mt={1}
+              center={{
+                text: vote,
+              }}
+            />
+          )}
         />
         <Hidden smUp>
           <img
