@@ -1,10 +1,9 @@
 const request = require('request');
 
 const invoke = ({ baseURL, method, defaultQuery = {} }) => (path, { headers = {}, query = {}, body } = {}) => new Promise((resolve, reject) => {
+  const uri = `${baseURL}${path}`;
   const requestOptions = {
     method,
-    baseURL,
-    url: path,
     headers: {
       'Content-Type': 'application/json',
       ...headers,
@@ -17,7 +16,7 @@ const invoke = ({ baseURL, method, defaultQuery = {} }) => (path, { headers = {}
     json: true,
   };
 
-  request(requestOptions, (error, response) => {
+  request(uri, requestOptions, (error, response) => {
     if (error || response.statusCode >= 300) {
       console.log('[Request error]', error, response);
       return reject(error || response);
