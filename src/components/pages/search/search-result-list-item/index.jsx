@@ -1,5 +1,6 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useMemo } from 'react';
 import PropTypes from 'prop-types';
+import { useTranslation } from 'react-i18next';
 import {
   useDispatch,
   useSelector,
@@ -12,13 +13,19 @@ import CardContent from '@material-ui/core/CardContent';
 import CardActions from '@material-ui/core/CardActions';
 import Typography from '@material-ui/core/Typography';
 import Hidden from '@material-ui/core/Hidden';
+import IconButton from '@material-ui/core/IconButton';
 
 import AddCircleTwoToneIcon from '@material-ui/icons/AddCircleTwoTone';
+import CheckCircleTwoToneIcon from '@material-ui/icons/CheckCircleTwoTone';
+import InfoTwoToneIcon from '@material-ui/icons/InfoTwoTone';
 
 import PopupMenuButton from '../../../commons/popup-menu-button';
+import Tooltip from '../../../commons/tooltip';
+import ProgressCircle from '../../../commons/progess-circle';
 
 import {
   getGroupsByType,
+  getIsItemInCollection,
   addCollectionItem,
 } from '../../../../store/collections';
 import { getEllipsisText } from '../../../../utils/text';
@@ -26,15 +33,19 @@ import { ELLIPSIS_LENGTHS } from '../../../../constants/config';
 
 import useStyles from './styles';
 
-const SearchResultItem = ({ result }) => {
+const SearchResultListItem = ({ result }) => {
+  const { t } = useTranslation();
   const classes = useStyles();
   const dispatch = useDispatch();
-  const type = result?.type;
+  const { id, type, vote } = result;
   const groups = useSelector(getGroupsByType(type));
+  const isItemInCollection = useSelector(getIsItemInCollection(id, type));
+
+  const progressValue = useMemo(() => (vote && vote * 10) || 0, [vote]);
 
   const handleAdd = useCallback(group => {
-    dispatch(addCollectionItem(result.id, result.type, group));
-  }, [dispatch, result]);
+    dispatch(addCollectionItem(id, type, group));
+  }, [dispatch, id, type]);
 
   return (
     <Card className={classes.card}>
@@ -53,6 +64,15 @@ const SearchResultItem = ({ result }) => {
             variant: 'h6',
           }}
           subheader={result.premiere}
+          avatar={(
+            <ProgressCircle
+              value={progressValue}
+              mt={1}
+              center={{
+                text: vote,
+              }}
+            />
+          )}
         />
         <Hidden smUp>
           <img
@@ -79,10 +99,24 @@ const SearchResultItem = ({ result }) => {
           </Typography>
         </CardContent>
         <CardActions className={classes.actions}>
+          <Tooltip title={t('page.search.details')}>
+            <IconButton>
+              <InfoTwoToneIcon color="secondary" />
+            </IconButton>
+          </Tooltip>
           <Box className={classes.grow} />
-          {groups.length > 0 && (
+          {isItemInCollection ? (
+            <Tooltip title={t('page.search.inCollection')}>
+              <Box>
+                <IconButton disabled>
+                  <CheckCircleTwoToneIcon color="disabled" />
+                </IconButton>
+              </Box>
+            </Tooltip>
+          ) : groups.length > 0 && (
             <PopupMenuButton
               icon={<AddCircleTwoToneIcon />}
+              title={t('page.search.addTo')}
               menu={{
                 options: groups,
                 itemOnClick: handleAdd,
@@ -95,7 +129,7 @@ const SearchResultItem = ({ result }) => {
   );
 };
 
-SearchResultItem.propTypes = {
+SearchResultListItem.propTypes = {
   result: PropTypes.shape({
     id: PropTypes.number,
     type: PropTypes.string,
@@ -108,4 +142,4 @@ SearchResultItem.propTypes = {
   }).isRequired,
 };
 
-export default SearchResultItem;
+export default SearchResultListItem;

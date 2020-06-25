@@ -1,9 +1,9 @@
 import * as app from '../../../store/app';
 import mockStore from '../../mock-store';
 
-jest.mock('../../../utils/time');
+jest.mock('../../../utils/date');
 jest.mock('../../../utils/parser');
-const time = require('../../../utils/time');
+const time = require('../../../utils/date');
 const parser = require('../../../utils/parser');
 
 // Mock data
@@ -265,7 +265,7 @@ describe('App reducer', () => {
   });
 
   afterAll(() => {
-    jest.unmock('../../../utils/time');
+    jest.unmock('../../../utils/date');
     jest.unmock('../../../utils/parser');
   });
 
@@ -450,7 +450,7 @@ describe('App reducer', () => {
 // Thunk action unit tests
 describe('App Thunk Actions', () => {
   afterAll(() => {
-    jest.unmock('../../../utils/time');
+    jest.unmock('../../../utils/date');
     jest.unmock('../../../utils/parser');
   });
 

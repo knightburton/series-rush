@@ -81,6 +81,10 @@ export const getNumberOfItemsByTypeAndGroup = (type, group) => createSelector(
   getCollectionByTypeAndGroup(type, group),
   collection => collection.length || 0,
 );
+export const getIsItemInCollection = (id, type) => createSelector(
+  getCollectionByType(type),
+  collection => !!collection.find(item => item.id === `${id}`),
+);
 export const getIsGroupAddEnabled = type => createSelector(
   getNumberOfGroupsByType(type),
   numberOfGroups => numberOfGroups > 0 && numberOfGroups < MAXIMUM_NUMBER_OF_GROUPS,
@@ -141,26 +145,65 @@ export const addCollectionItem = (id, type, group) => async (dispatch, getState,
   }
 };
 
-export const removeCollectionItem = id => async (dispatch, getState, { getFirestore }) => {
+export const removeCollectionItem = () => async (dispatch, getState, { getFirestore }) => {
   dispatch(setAppWaiting(true));
   try {
     const firestore = getFirestore();
     const profileID = getProfileID(getState());
+    const dialogOpen = getIsDialogOpen('deleteItem')(getState());
+    const dialogData = getDialogData(getState());
+
+    if (!dialogOpen || !dialogData?.id) throw new Error('missingData');
 
     await firestore.delete({
       collection: 'profiles',
       doc: profileID,
       subcollections: [{
         collection: 'collection',
-        doc: `${id}`,
+        doc: `${dialogData.id}`,
       }],
     });
 
+    dispatch(closeCollectionsDialog());
+    dispatch(setCollectionsDialogData(null));
     dispatch(addAlert('alert::delete-success', 'success', { title: 'collections' }));
   } catch (error) {
-    dispatch(addAlert('alert::delete-failure', 'error', { title: 'collections' }));
+    if (error?.message === 'missingData') dispatch(addAlert('alert::missingCollectionData', 'error'));
+    else dispatch(addAlert('alert::delete-failure', 'error', { title: 'collections' }));
   } finally {
     dispatch(setAppWaiting(false));
+  }
+};
+
+export const moveCollectionItem = () => async (dispatch, getState, { getFirestore }) => {
+  dispatch(setCollectionsProgress(true));
+  try {
+    const firestore = getFirestore();
+    const profileID = getProfileID(getState());
+    const dialogOpen = getIsDialogOpen('moveItem')(getState());
+    const dialogData = getDialogData(getState());
+
+    if (!dialogOpen || !dialogData?.targetGroupID || !dialogData?.id) throw new Error('missingData');
+
+    await firestore.update({
+      collection: 'profiles',
+      doc: profileID,
+      subcollections: [{
+        collection: 'collection',
+        doc: `${dialogData.id}`,
+      }],
+    }, {
+      groupID: dialogData.targetGroupID,
+    });
+
+    dispatch(closeCollectionsDialog());
+    dispatch(setCollectionsDialogData(null));
+    dispatch(addAlert('alert::update-success', 'success', { title: 'collections' }));
+  } catch (error) {
+    if (error?.message === 'missingData') dispatch(addAlert('alert::missingCollectionData', 'error'));
+    else dispatch(addAlert('alert::update-failure', 'error', { title: 'collections' }));
+  } finally {
+    dispatch(setCollectionsProgress(false));
   }
 };
 
@@ -238,7 +281,7 @@ export const deleteCollectionGroup = () => async (dispatch, getState, { getFires
     dispatch(setCollectionsDialogData(null));
     dispatch(addAlert('alert::delete-success', 'success', { title: 'collection-group' }));
   } catch (error) {
-    if (error?.message === 'missingData') dispatch(addAlert('alert::missingCollectionGroupData', 'error'));
+    if (error?.message === 'missingData') dispatch(addAlert('alert::missingCollectionData', 'error'));
     else dispatch(addAlert('alert::delete-failure', 'error', { title: 'collection-group' }));
   } finally {
     dispatch(setCollectionsProgress(false));
@@ -269,7 +312,7 @@ export const deleteCollectionGroupItems = () => async (dispatch, getState, { get
     dispatch(closeCollectionsDialog());
     dispatch(setCollectionsDialogData(null));
   } catch (error) {
-    if (error?.message === 'missingData') dispatch(addAlert('alert::missingCollectionGroupData', 'error'));
+    if (error?.message === 'missingData') dispatch(addAlert('alert::missingCollectionData', 'error'));
     else dispatch(addAlert('alert::delete-failure', 'error', { title: 'collection-group-items' }));
   } finally {
     dispatch(setCollectionsProgress(false));
@@ -300,7 +343,7 @@ export const moveCollectionGroupItems = () => async (dispatch, getState, { getFi
     dispatch(closeCollectionsDialog());
     dispatch(setCollectionsDialogData(null));
   } catch (error) {
-    if (error?.message === 'missingData') dispatch(addAlert('alert::missingCollectionGroupData', 'error'));
+    if (error?.message === 'missingData') dispatch(addAlert('alert::missingCollectionData', 'error'));
     else dispatch(addAlert('alert::delete-failure', 'error', { title: 'collection-group-items' }));
   } finally {
     dispatch(setCollectionsProgress(false));

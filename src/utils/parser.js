@@ -1,4 +1,4 @@
-import { getLocalizedDate } from './time';
+import { getLocalizedDate } from './date';
 import { SEARCH_TYPES } from '../constants/config';
 
 export const parseTmdbConfiguration = data => {

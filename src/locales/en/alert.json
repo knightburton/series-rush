@@ -46,5 +46,5 @@
   "collection-group-items": "collection group items",
   "collections": "collections",
 
-  "missingCollectionGroupData": "The selected action could not be executed, because the collection group data are missing."
+  "missingCollectionData": "The selected action could not be executed, because the collection itemn or group data are missing."
 }
