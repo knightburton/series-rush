@@ -3,7 +3,7 @@ const admin = require('firebase-admin');
 const firebaseTools = require('firebase-tools');
 
 const {
-  GROUP_TYPES,
+  ITEM_TYPES,
 } = require('../constants');
 
 /**
@@ -54,7 +54,7 @@ const userCreate = functions.auth.user().onCreate(async user => {
     const baseRef = admin.firestore().collection('profiles').doc(uid).collection('groups');
 
     console.log('[userCreate]: Start to create the default collection groups for the user...');
-    const promises = Object.values(GROUP_TYPES).map(type => {
+    const promises = Object.values(ITEM_TYPES).map(type => {
       console.log(`[userCreate]: Create the default ${type} group...`);
       return baseRef.add({
         label: 'My group',
