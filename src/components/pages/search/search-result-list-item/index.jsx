@@ -21,7 +21,7 @@ import InfoTwoToneIcon from '@material-ui/icons/InfoTwoTone';
 
 import PopupMenuButton from '../../../commons/popup-menu-button';
 import Tooltip from '../../../commons/tooltip';
-import ProgressCircle from '../../../commons/progess-circle';
+import ProgressCircle from '../../../commons/progress-circle';
 import ProgressIconButton from '../../../commons/progress-icon-button';
 
 import {
