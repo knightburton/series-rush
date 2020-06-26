@@ -10,24 +10,32 @@ import { APP_PATHS } from '../../constants/paths';
 
 // Initial state
 export const initialState = {
-  searchInProgress: false,
+  inProggress: false,
+  queryInProgress: false,
   query: '',
   type: '',
   page: null,
   numberOfPages: null,
   numberOfResults: null,
   results: [],
+  resultDetails: null,
 };
 
 // Action types
+export const SET_SEARCH_IN_PROGRESS = 'SET_SEARCH_IN_PROGRESS';
 export const SEARCH_REQUEST = 'SEARCH_REQUEST';
 export const SEARCH_SUCCESS = 'SEARCH_SUCCESS';
 export const SEARCH_FAILURE = 'SEARCH_FAILURE';
 export const STORE_SEARCH_PROPS = 'STORE_SEARCH_PROPS';
 export const CLEAR_SEARCH_PROPS = 'CLEAR_SEARCH_PROPS';
 export const CLEAR_SEARCH_RESULTS = 'CLEAR_SEARCH_RESULTS';
+export const SET_SEARCH_RESULT_DETAILS = 'SET_SEARCH_RESULT_DETAILS';
 
 // Action creators
+export const setSearchInProgress = createAction(
+  SET_SEARCH_IN_PROGRESS,
+  inProggress => inProggress,
+);
 export const searchRequest = createAction(
   SEARCH_REQUEST,
 );
@@ -48,9 +56,14 @@ export const clearSearchProps = createAction(
 export const clearSearchResults = createAction(
   CLEAR_SEARCH_RESULTS,
 );
+export const setSearchResultDetails = createAction(
+  SET_SEARCH_RESULT_DETAILS,
+  resultDetails => resultDetails,
+);
 
 // Selectors
-export const getSearchInProgress = state => state.search.searchInProgress;
+export const getSearchInProgress = state => state.search.inProgress;
+export const getSearchQueryInProgress = state => state.search.queryInProgress;
 export const getSearchQuery = state => state.search.query;
 export const getSearchType = state => state.search.type;
 export const getSearchPage = state => state.search.page;
@@ -65,19 +78,21 @@ export const getSearchResults = state => state.search.results;
 // Reducer
 export const reducer = handleActions(
   {
-    [searchRequest]: state => ({ ...state, searchInProgress: true }),
+    [setSearchInProgress]: (state, { payload: inProggress }) => ({ ...state, inProggress }),
+    [searchRequest]: state => ({ ...state, queryInProgress: true }),
     [searchSuccess]: (state, { payload: { numberOfPage, numberOfPages, numberOfResults, results } }) => ({
       ...state,
-      searchInProgress: false,
+      queryInProgress: false,
       numberOfPage,
       numberOfPages,
       numberOfResults,
       results,
     }),
-    [searchFailure]: state => ({ ...state, searchInProgress: false }),
+    [searchFailure]: state => ({ ...state, queryInProgress: false }),
     [storeSearchProps]: (state, { payload: props }) => ({ ...state, ...props }),
     [clearSearchProps]: state => ({ ...state, query: '', type: '', page: null }),
     [clearSearchResults]: state => ({ ...state, result: [] }),
+    [setSearchResultDetails]: (state, { payload: resultDetails }) => ({ ...state, resultDetails }),
   },
   initialState,
 );
@@ -132,4 +147,17 @@ export const checkSearch = () => (dispatch, getState, { history }) => {
   const locationQuryString = location.search.replace(/^\?/g, '');
 
   if (stateQueryString !== locationQuryString) dispatch(search());
+};
+
+export const fetchResultDetails = (type, id) => async (dispatch, getState, { tmdbApi }) => {
+  dispatch(setSearchInProgress(true));
+
+  try {
+    const details = await tmdbApi.getDetails(type, id);
+    dispatch(setSearchResultDetails(details));
+  } catch (error) {
+    dispatch(addAlert('alert::api/tmdb-details-failed', 'error'));
+  } finally {
+    dispatch(setSearchInProgress(false));
+  }
 };

@@ -31,6 +31,7 @@
   "api/tmdb-search-failed": "The search has failed, try to search again later.",
   "api/tmdb-search-page-failed": "The page load has failed, try to select a new page.",
   "api/tmdb-search-without-query-info": "You have tried to search without any keyword.",
+  "api/tmdb-details-failed": "The requested details could not be loaded, please try again later.",
 
   "fetch-success": "The $t(alert::{{title}}) fetch has been successfully completed.",
   "fetch-failure": "There was a problem fetching $t(alert::{{title}}). Try again later, please.",
