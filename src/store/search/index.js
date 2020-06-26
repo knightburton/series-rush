@@ -18,7 +18,7 @@ export const initialState = {
   numberOfPages: null,
   numberOfResults: null,
   results: [],
-  resultDetails: null,
+  resultDetails: {},
 };
 
 // Action types
@@ -59,7 +59,7 @@ export const clearSearchResults = createAction(
 );
 export const setSearchResultDetails = createAction(
   SET_SEARCH_RESULT_DETAILS,
-  resultDetails => resultDetails,
+  (id, details) => ({ id, details }),
 );
 export const clearSearchStore = createAction(
   CLEAR_SEARCH_STORE,
@@ -78,6 +78,11 @@ export const getSearchProps = createSelector(
 export const getSearchNumberOfPages = state => state.search.numberOfPages;
 export const getSearchNumberOfResults = state => state.search.numberOfResults;
 export const getSearchResults = state => state.search.results;
+export const getSearchResultDetails = state => state.search.resultDetails;
+export const getSearchResultDetailsByID = id => createSelector(
+  getSearchResultDetails,
+  details => details?.[id],
+);
 
 // Reducer
 export const reducer = handleActions(
@@ -96,7 +101,13 @@ export const reducer = handleActions(
     [storeSearchProps]: (state, { payload: props }) => ({ ...state, ...props }),
     [clearSearchProps]: state => ({ ...state, query: '', type: '', page: null }),
     [clearSearchResults]: state => ({ ...state, result: [] }),
-    [setSearchResultDetails]: (state, { payload: resultDetails }) => ({ ...state, resultDetails }),
+    [setSearchResultDetails]: (state, { payload: { id, details } }) => ({
+      ...state,
+      resultDetails: {
+        ...state.resultDetails,
+        [id]: details,
+      },
+    }),
     [clearSearchStore]: () => initialState,
   },
   initialState,
@@ -158,8 +169,11 @@ export const fetchResultDetails = (type, id) => async (dispatch, getState, { tmd
   dispatch(setSearchInProgress(true));
 
   try {
-    const details = await tmdbApi.getDetails(type, id);
-    dispatch(setSearchResultDetails(details));
+    const storedDetails = getSearchResultDetailsByID(id)(getState());
+    if (!storedDetails) {
+      const details = await tmdbApi.getDetails(type, id);
+      dispatch(setSearchResultDetails(id, details));
+    }
   } catch (error) {
     dispatch(addAlert('alert::api/tmdb-details-failed', 'error'));
   } finally {
