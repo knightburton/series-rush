@@ -10,7 +10,7 @@ import { APP_PATHS } from '../../constants/paths';
 
 // Initial state
 export const initialState = {
-  inProggress: false,
+  inProgress: false,
   queryInProgress: false,
   query: '',
   type: '',
@@ -35,7 +35,7 @@ export const CLEAR_SEARCH_STORE = 'CLEAR_SEARCH_STORE';
 // Action creators
 export const setSearchInProgress = createAction(
   SET_SEARCH_IN_PROGRESS,
-  inProggress => inProggress,
+  inProgress => inProgress,
 );
 export const searchRequest = createAction(
   SEARCH_REQUEST,
@@ -87,7 +87,7 @@ export const getSearchResultDetailsByID = id => createSelector(
 // Reducer
 export const reducer = handleActions(
   {
-    [setSearchInProgress]: (state, { payload: inProggress }) => ({ ...state, inProggress }),
+    [setSearchInProgress]: (state, { payload: inProgress }) => ({ ...state, inProgress }),
     [searchRequest]: state => ({ ...state, queryInProgress: true }),
     [searchSuccess]: (state, { payload: { numberOfPage, numberOfPages, numberOfResults, results } }) => ({
       ...state,
