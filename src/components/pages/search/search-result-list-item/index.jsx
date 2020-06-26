@@ -22,12 +22,18 @@ import InfoTwoToneIcon from '@material-ui/icons/InfoTwoTone';
 import PopupMenuButton from '../../../commons/popup-menu-button';
 import Tooltip from '../../../commons/tooltip';
 import ProgressCircle from '../../../commons/progess-circle';
+import ProgressIconButton from '../../../commons/progress-icon-button';
 
 import {
   getGroupsByType,
   getIsItemInCollection,
   addCollectionItem,
 } from '../../../../store/collections';
+import {
+  getSearchInProgress,
+  getSearchResultDetailsByID,
+  fetchResultDetails,
+} from '../../../../store/search';
 import { getEllipsisText } from '../../../../utils/text';
 import { ELLIPSIS_LENGTHS } from '../../../../constants/config';
 
@@ -40,12 +46,23 @@ const SearchResultListItem = ({ result }) => {
   const { id, type, vote } = result;
   const groups = useSelector(getGroupsByType(type));
   const isItemInCollection = useSelector(getIsItemInCollection(id, type));
+  const searchInProgress = useSelector(getSearchInProgress);
+  const details = useSelector(getSearchResultDetailsByID(id));
 
   const progressValue = useMemo(() => (vote && vote * 10) || 0, [vote]);
 
-  const handleAdd = useCallback(group => {
+  const isDetailsInProggress = useMemo(
+    () => searchInProgress && !details,
+    [searchInProgress, details],
+  );
+
+  const handleAddClick = useCallback(group => {
     dispatch(addCollectionItem(id, type, group));
   }, [dispatch, id, type]);
+
+  const handleDetailsClick = useCallback(() => {
+    dispatch(fetchResultDetails(type, id));
+  }, [dispatch, type, id]);
 
   return (
     <Card className={classes.card}>
@@ -99,11 +116,14 @@ const SearchResultListItem = ({ result }) => {
           </Typography>
         </CardContent>
         <CardActions className={classes.actions}>
-          <Tooltip title={t('page.search.details')}>
-            <IconButton>
+          <ProgressIconButton
+            tooltip={t('page.search.details')}
+            inProgress={isDetailsInProggress}
+            onClick={handleDetailsClick}
+            icon={(
               <InfoTwoToneIcon color="secondary" />
-            </IconButton>
-          </Tooltip>
+            )}
+          />
           <Box className={classes.grow} />
           {isItemInCollection ? (
             <Tooltip title={t('page.search.inCollection')}>
@@ -119,7 +139,7 @@ const SearchResultListItem = ({ result }) => {
               title={t('page.search.addTo')}
               menu={{
                 options: groups,
-                itemOnClick: handleAdd,
+                itemOnClick: handleAddClick,
               }}
             />
           )}
