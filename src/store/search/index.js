@@ -30,6 +30,7 @@ export const STORE_SEARCH_PROPS = 'STORE_SEARCH_PROPS';
 export const CLEAR_SEARCH_PROPS = 'CLEAR_SEARCH_PROPS';
 export const CLEAR_SEARCH_RESULTS = 'CLEAR_SEARCH_RESULTS';
 export const SET_SEARCH_RESULT_DETAILS = 'SET_SEARCH_RESULT_DETAILS';
+export const CLEAR_SEARCH_STORE = 'CLEAR_SEARCH_STORE';
 
 // Action creators
 export const setSearchInProgress = createAction(
@@ -59,6 +60,9 @@ export const clearSearchResults = createAction(
 export const setSearchResultDetails = createAction(
   SET_SEARCH_RESULT_DETAILS,
   resultDetails => resultDetails,
+);
+export const clearSearchStore = createAction(
+  CLEAR_SEARCH_STORE,
 );
 
 // Selectors
@@ -93,6 +97,7 @@ export const reducer = handleActions(
     [clearSearchProps]: state => ({ ...state, query: '', type: '', page: null }),
     [clearSearchResults]: state => ({ ...state, result: [] }),
     [setSearchResultDetails]: (state, { payload: resultDetails }) => ({ ...state, resultDetails }),
+    [clearSearchStore]: () => initialState,
   },
   initialState,
 );
