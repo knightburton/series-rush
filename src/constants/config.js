@@ -9,6 +9,11 @@ export const ITEM_TYPES = {
   MULTI: 'multi',
 };
 
+export const PARSABLE_ITEM_TYPES = [
+  ITEM_TYPES.TV,
+  ITEM_TYPES.MOVIE,
+];
+
 export const ELLIPSIS_LENGTHS = {
   XS: 80,
   SM: 140,
