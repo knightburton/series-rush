@@ -8,7 +8,7 @@ import Tooltip from '@material-ui/core/Tooltip';
 
 import useStyles from './styles';
 
-const ProgressIconButton = ({ icon, onClick, tooltip, inProgress }) => {
+const ProgressIconButton = ({ icon, onClick, tooltip, inProgress, disabled }) => {
   const classes = useStyles();
 
   const handleClick = useCallback(() => {
@@ -26,7 +26,7 @@ const ProgressIconButton = ({ icon, onClick, tooltip, inProgress }) => {
         )}
         <IconButton
           onClick={handleClick}
-          disabled={inProgress}
+          disabled={disabled}
         >
           {icon}
         </IconButton>
@@ -40,12 +40,14 @@ ProgressIconButton.propTypes = {
   onClick: PropTypes.func,
   tooltip: PropTypes.string,
   inProgress: PropTypes.bool,
+  disabled: PropTypes.bool,
 };
 
 ProgressIconButton.defaultProps = {
   onClick: undefined,
-  inProgress: false,
   tooltip: '',
+  inProgress: false,
+  disabled: false,
 };
 
 export default ProgressIconButton;
