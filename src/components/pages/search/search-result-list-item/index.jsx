@@ -30,8 +30,8 @@ import {
   addCollectionItem,
 } from '../../../../store/collections';
 import {
-  getSearchInProgress,
-  getSearchResultDetailsByID,
+  getSearchResultDetailsInProgress,
+  getSearchResultDetailsInProgressByID,
   fetchResultDetails,
 } from '../../../../store/search';
 import { getEllipsisText } from '../../../../utils/text';
@@ -46,15 +46,10 @@ const SearchResultListItem = ({ result }) => {
   const { id, type, vote } = result;
   const groups = useSelector(getGroupsByType(type));
   const isItemInCollection = useSelector(getIsItemInCollection(id, type));
-  const searchInProgress = useSelector(getSearchInProgress);
-  const details = useSelector(getSearchResultDetailsByID(id));
+  const detailsInProgress = !!useSelector(getSearchResultDetailsInProgress);
+  const detailsInProgressByID = useSelector(getSearchResultDetailsInProgressByID(id));
 
   const progressValue = useMemo(() => (vote && vote * 10) || 0, [vote]);
-
-  const isDetailsInProggress = useMemo(
-    () => searchInProgress && !details,
-    [searchInProgress, details],
-  );
 
   const handleAddClick = useCallback(group => {
     dispatch(addCollectionItem(id, type, group));
@@ -118,7 +113,8 @@ const SearchResultListItem = ({ result }) => {
         <CardActions className={classes.actions}>
           <ProgressIconButton
             tooltip={t('page.search.details')}
-            inProgress={isDetailsInProggress}
+            inProgress={detailsInProgressByID}
+            disabled={detailsInProgress}
             onClick={handleDetailsClick}
             icon={(
               <InfoTwoToneIcon color="secondary" />
