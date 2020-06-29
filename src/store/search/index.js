@@ -12,13 +12,14 @@ import { APP_PATHS } from '../../constants/paths';
 export const initialState = {
   inProgress: false,
   queryInProgress: false,
+  resultDetailsInProgress: null,
   query: '',
   type: '',
   page: null,
   numberOfPages: null,
   numberOfResults: null,
   results: [],
-  resultDetails: {},
+  resultDetails: null,
 };
 
 // Action types
@@ -29,6 +30,7 @@ export const SEARCH_FAILURE = 'SEARCH_FAILURE';
 export const STORE_SEARCH_PROPS = 'STORE_SEARCH_PROPS';
 export const CLEAR_SEARCH_PROPS = 'CLEAR_SEARCH_PROPS';
 export const CLEAR_SEARCH_RESULTS = 'CLEAR_SEARCH_RESULTS';
+export const SET_SEARCH_RESULT_DETAILS_IN_PROGRESS = 'SET_SEARCH_RESULT_DETAILS_IN_PROGRESS';
 export const SET_SEARCH_RESULT_DETAILS = 'SET_SEARCH_RESULT_DETAILS';
 export const CLEAR_SEARCH_STORE = 'CLEAR_SEARCH_STORE';
 
@@ -57,9 +59,13 @@ export const clearSearchProps = createAction(
 export const clearSearchResults = createAction(
   CLEAR_SEARCH_RESULTS,
 );
+export const setSearchResultDetailsInProggress = createAction(
+  SET_SEARCH_RESULT_DETAILS_IN_PROGRESS,
+  id => id,
+);
 export const setSearchResultDetails = createAction(
   SET_SEARCH_RESULT_DETAILS,
-  (id, details) => ({ id, details }),
+  resultDetails => resultDetails,
 );
 export const clearSearchStore = createAction(
   CLEAR_SEARCH_STORE,
@@ -68,6 +74,11 @@ export const clearSearchStore = createAction(
 // Selectors
 export const getSearchInProgress = state => state.search.inProgress;
 export const getSearchQueryInProgress = state => state.search.queryInProgress;
+export const getSearchResultDetailsInProgress = state => state.search.resultDetailsInProgress;
+export const getSearchResultDetailsInProgressByID = id => createSelector(
+  getSearchResultDetailsInProgress,
+  resultDetailsInProgress => resultDetailsInProgress === id,
+);
 export const getSearchQuery = state => state.search.query;
 export const getSearchType = state => state.search.type;
 export const getSearchPage = state => state.search.page;
@@ -79,15 +90,12 @@ export const getSearchNumberOfPages = state => state.search.numberOfPages;
 export const getSearchNumberOfResults = state => state.search.numberOfResults;
 export const getSearchResults = state => state.search.results;
 export const getSearchResultDetails = state => state.search.resultDetails;
-export const getSearchResultDetailsByID = id => createSelector(
-  getSearchResultDetails,
-  details => details?.[id],
-);
 
 // Reducer
 export const reducer = handleActions(
   {
     [setSearchInProgress]: (state, { payload: inProgress }) => ({ ...state, inProgress }),
+    [setSearchResultDetailsInProggress]: (state, { payload: id = null }) => ({ ...state, resultDetailsInProgress: id }),
     [searchRequest]: state => ({ ...state, queryInProgress: true }),
     [searchSuccess]: (state, { payload: { numberOfPage, numberOfPages, numberOfResults, results } }) => ({
       ...state,
@@ -101,13 +109,7 @@ export const reducer = handleActions(
     [storeSearchProps]: (state, { payload: props }) => ({ ...state, ...props }),
     [clearSearchProps]: state => ({ ...state, query: '', type: '', page: null }),
     [clearSearchResults]: state => ({ ...state, result: [] }),
-    [setSearchResultDetails]: (state, { payload: { id, details } }) => ({
-      ...state,
-      resultDetails: {
-        ...state.resultDetails,
-        [id]: details,
-      },
-    }),
+    [setSearchResultDetails]: (state, { payload: resultDetails }) => ({ ...state, resultDetails }),
     [clearSearchStore]: () => initialState,
   },
   initialState,
@@ -166,17 +168,14 @@ export const checkSearch = () => (dispatch, getState, { history }) => {
 };
 
 export const fetchResultDetails = (type, id) => async (dispatch, getState, { tmdbApi }) => {
-  dispatch(setSearchInProgress(true));
+  dispatch(setSearchResultDetailsInProggress(id));
 
   try {
-    const storedDetails = getSearchResultDetailsByID(id)(getState());
-    if (!storedDetails) {
-      const details = await tmdbApi.getDetails(type, id);
-      dispatch(setSearchResultDetails(id, details));
-    }
+    const details = await tmdbApi.getDetails(type, id);
+    dispatch(setSearchResultDetails(details));
   } catch (error) {
     dispatch(addAlert('alert::api/tmdb-details-failed', 'error'));
   } finally {
-    dispatch(setSearchInProgress(false));
+    dispatch(setSearchResultDetailsInProggress(null));
   }
 };
