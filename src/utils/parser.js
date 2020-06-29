@@ -1,5 +1,9 @@
+/* eslint-disable camelcase */
 import { getLocalizedDate } from './date';
-import { PARSABLE_ITEM_TYPES } from '../constants/config';
+import {
+  ITEM_TYPES,
+  PARSABLE_ITEM_TYPES,
+} from '../constants/config';
 
 export const parseTmdbConfiguration = data => {
   if (data && data.images) {
@@ -7,11 +11,16 @@ export const parseTmdbConfiguration = data => {
       imageBaseURL: data.images.secure_base_url,
       backdropSizes: data.images.backdrop_sizes,
       posterSizes: data.images.poster_sizes,
+      logoSizes: data.images.logo_sizes,
     };
   }
 
   return {};
 };
+
+const getLogoPath = (logo, configuration) => (configuration && logo && configuration?.logoSizes?.includes('w92')
+  ? `${configuration.imageBaseURL}w92${logo}`
+  : '/no-logo.jpg');
 
 const getImagePaths = (poster, backdrop, configuration) => {
   const posterPath = configuration && poster && configuration?.posterSizes?.includes('w185')
@@ -27,17 +36,76 @@ const getImagePaths = (poster, backdrop, configuration) => {
   };
 };
 
+const getSpecialAttributes = (item, type, configuration) => {
+  // Attributes that are available only on tv shows.
+  if (type === ITEM_TYPES.TV) {
+    return {
+      epidoseRunTimes: item?.episode_run_time || [],
+      inProduction: item?.in_producation,
+      lastEpisode: {
+        date: getLocalizedDate(item?.last_episode_to_air?.air_date),
+        seasonNumber: item?.last_episode_to_air?.season_number,
+        episodeNumber: item?.last_episode_to_air?.episode_number,
+        name: item?.last_episode_to_air?.name,
+        overview: item?.last_episode_to_air?.overview,
+      },
+      networks: item?.networks?.map(network => ({
+        name: network?.name || '',
+        logo: getLogoPath(network?.logo_path, configuration),
+      })),
+      nextEpisode: {
+        date: getLocalizedDate(item?.next_episode_to_air?.air_date),
+        seasonNumber: item?.next_episode_to_air?.season_number,
+        episodeNumber: item?.next_episode_to_air?.episode_number,
+        name: item?.next_episode_to_air?.name,
+        overview: item?.next_episode_to_air?.overview,
+      },
+      numberOfEpisode: item?.number_of_episodes,
+      numberOfSeasons: item?.number_of_seasons,
+      seasons: item?.seasons?.map(season => ({
+        date: getLocalizedDate(season?.air_date),
+        numberOfEpisodes: season?.episode_count || 0,
+        name: season?.name,
+        overview: season?.overview,
+        index: season?.season_number,
+      })),
+    };
+  }
+
+  // Attributes that are available only on movies.
+  if (type === ITEM_TYPES.MOVIE) {
+    return {
+      productionCountries: item?.production_countries?.map(country => country?.name || ''),
+      runtime: item?.runtime,
+      spokenLanguages: item?.spoken_languages?.map(lanugage => lanugage?.name || ''),
+    };
+  }
+
+  // Return an empty string since we do not support any other type.
+  return {};
+};
+
 const parseItemSummary = (item, type, configuration) => ({
   id: item.id,
   type,
-  name: item.name,
-  premiere: getLocalizedDate(item.first_air_date),
-  overview: item.overview,
-  vote: item.vote_average,
-  ...getImagePaths(item.poster_path, item.backdrop_path, configuration),
+  name: item?.name,
+  premiere: getLocalizedDate(item?.first_air_date),
+  overview: item?.overview,
+  vote: item?.vote_average,
+  ...getImagePaths(item?.poster_path, item?.backdrop_path, configuration),
 });
 
-const parseItemDetails = () => ({});
+const parseItemDetails = (item, type, configuration) => ({
+  createdBy: item?.created_by?.map(creator => creator?.name || ''),
+  genres: item?.genres?.map(genre => genre?.name || ''),
+  homepage: item?.homepage || '',
+  productionCompanies: item?.production_companies?.map(company => ({
+    name: company?.name,
+    logo: getLogoPath(company?.logo_path, configuration),
+  })),
+  status: item?.status || '',
+  ...getSpecialAttributes(item, type, configuration),
+});
 
 export const parseSearchItems = (data, type, configuration) => {
   // Collect those items that are accepted for us.
