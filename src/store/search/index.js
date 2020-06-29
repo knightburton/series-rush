@@ -20,6 +20,7 @@ export const initialState = {
   numberOfResults: null,
   results: [],
   resultDetails: null,
+  resultDetailsDialogOpen: false,
 };
 
 // Action types
@@ -32,6 +33,8 @@ export const CLEAR_SEARCH_PROPS = 'CLEAR_SEARCH_PROPS';
 export const CLEAR_SEARCH_RESULTS = 'CLEAR_SEARCH_RESULTS';
 export const SET_SEARCH_RESULT_DETAILS_IN_PROGRESS = 'SET_SEARCH_RESULT_DETAILS_IN_PROGRESS';
 export const SET_SEARCH_RESULT_DETAILS = 'SET_SEARCH_RESULT_DETAILS';
+export const OPEN_SERACH_RESULT_DETAILS_DIALOG = 'OPEN_SERACH_RESULT_DETAILS_DIALOG';
+export const CLOSE_SERACH_RESULT_DETAILS_DIALOG = 'CLOSE_SERACH_RESULT_DETAILS_DIALOG';
 export const CLEAR_SEARCH_STORE = 'CLEAR_SEARCH_STORE';
 
 // Action creators
@@ -39,34 +42,51 @@ export const setSearchInProgress = createAction(
   SET_SEARCH_IN_PROGRESS,
   inProgress => inProgress,
 );
+
 export const searchRequest = createAction(
   SEARCH_REQUEST,
 );
+
 export const searchSuccess = createAction(
   SEARCH_SUCCESS,
   ({ numberOfPage, numberOfPages, numberOfResults, results }) => ({ numberOfPage, numberOfPages, numberOfResults, results }),
 );
+
 export const searchFailure = createAction(
   SEARCH_FAILURE,
 );
+
 export const storeSearchProps = createAction(
   STORE_SEARCH_PROPS,
   props => props,
 );
+
 export const clearSearchProps = createAction(
   CLEAR_SEARCH_PROPS,
 );
+
 export const clearSearchResults = createAction(
   CLEAR_SEARCH_RESULTS,
 );
+
 export const setSearchResultDetailsInProggress = createAction(
   SET_SEARCH_RESULT_DETAILS_IN_PROGRESS,
   id => id,
 );
+
 export const setSearchResultDetails = createAction(
   SET_SEARCH_RESULT_DETAILS,
   resultDetails => resultDetails,
 );
+
+export const openSearchResultDetailsDialog = createAction(
+  OPEN_SERACH_RESULT_DETAILS_DIALOG,
+);
+
+export const closeSearchResultDetailsDialog = createAction(
+  CLOSE_SERACH_RESULT_DETAILS_DIALOG,
+);
+
 export const clearSearchStore = createAction(
   CLEAR_SEARCH_STORE,
 );
@@ -90,6 +110,7 @@ export const getSearchNumberOfPages = state => state.search.numberOfPages;
 export const getSearchNumberOfResults = state => state.search.numberOfResults;
 export const getSearchResults = state => state.search.results;
 export const getSearchResultDetails = state => state.search.resultDetails;
+export const getSerachResultDetailsDialogOpen = state => state.search.resultDetailsDialogOpen;
 
 // Reducer
 export const reducer = handleActions(
@@ -110,6 +131,12 @@ export const reducer = handleActions(
     [clearSearchProps]: state => ({ ...state, query: '', type: '', page: null }),
     [clearSearchResults]: state => ({ ...state, result: [] }),
     [setSearchResultDetails]: (state, { payload: resultDetails }) => ({ ...state, resultDetails }),
+    [openSearchResultDetailsDialog]: state => ({ ...state, resultDetailsDialogOpen: true }),
+    [closeSearchResultDetailsDialog]: state => ({
+      ...state,
+      resultDetails: null,
+      resultDetailsDialogOpen: false,
+    }),
     [clearSearchStore]: () => initialState,
   },
   initialState,
@@ -173,6 +200,7 @@ export const fetchResultDetails = (type, id) => async (dispatch, getState, { tmd
   try {
     const details = await tmdbApi.getDetails(type, id);
     dispatch(setSearchResultDetails(details));
+    dispatch(openSearchResultDetailsDialog());
   } catch (error) {
     dispatch(addAlert('alert::api/tmdb-details-failed', 'error'));
   } finally {
