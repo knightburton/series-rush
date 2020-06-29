@@ -10,6 +10,7 @@ import {
 import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
 
+import SearchResultListItemDetailsDialog from './search-result-list-item-details-dialog';
 import Waiting from '../../widgets/waiting';
 import SearchResultList from './search-result-list';
 
@@ -77,6 +78,8 @@ const Search = () => {
               }}
             />
           )}
+
+          <SearchResultListItemDetailsDialog />
         </>
       )}
     </Container>
