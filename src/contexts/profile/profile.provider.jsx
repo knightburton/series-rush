@@ -15,7 +15,7 @@ import {
   getProfileGroupsByTypeQuery,
   getProfileCollectionByTypeQuery,
 } from '../../utils/firebase';
-import { SEARCH_TYPES } from '../../constants/config';
+import { ITEM_TYPES } from '../../constants/config';
 
 const ProfileProvider = ({ children }) => {
   const authIsLoaded = useSelector(getFirebaseAuthIsLoaded);
@@ -23,10 +23,10 @@ const ProfileProvider = ({ children }) => {
   const { id } = profile;
 
   useFirestoreConnect(id && [
-    getProfileGroupsByTypeQuery(id, SEARCH_TYPES.TV),
-    getProfileGroupsByTypeQuery(id, SEARCH_TYPES.MOVIE),
-    getProfileCollectionByTypeQuery(id, SEARCH_TYPES.TV),
-    getProfileCollectionByTypeQuery(id, SEARCH_TYPES.MOVIE),
+    getProfileGroupsByTypeQuery(id, ITEM_TYPES.TV),
+    getProfileGroupsByTypeQuery(id, ITEM_TYPES.MOVIE),
+    getProfileCollectionByTypeQuery(id, ITEM_TYPES.TV),
+    getProfileCollectionByTypeQuery(id, ITEM_TYPES.MOVIE),
   ]);
 
   if (!authIsLoaded) return <Waiting type="screen" />;

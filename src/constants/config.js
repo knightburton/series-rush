@@ -3,7 +3,7 @@ export const TMDB_API_ENDPOINT = 'https://api.themoviedb.org/3';
 
 export const DRAWER_WIDTH = 240;
 
-export const SEARCH_TYPES = {
+export const ITEM_TYPES = {
   TV: 'tv',
   MOVIE: 'movie',
   MULTI: 'multi',
@@ -35,5 +35,5 @@ export default {
     TMDB_API_ENDPOINT,
   },
   DRAWER_WIDTH,
-  SEARCH_TYPES,
+  ITEM_TYPES,
 };

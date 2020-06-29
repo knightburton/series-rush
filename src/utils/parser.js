@@ -1,5 +1,5 @@
 import { getLocalizedDate } from './date';
-import { SEARCH_TYPES } from '../constants/config';
+import { ITEM_TYPES } from '../constants/config';
 
 export const parseTmdbConfiguration = data => {
   if (data && data.images) {
@@ -29,7 +29,7 @@ const getImagePaths = (poster, backdrop, configuration) => {
 
 const parseTVShow = (show, configuration) => ({
   id: show.id,
-  type: SEARCH_TYPES.TV,
+  type: ITEM_TYPES.TV,
   name: show.name,
   premiere: getLocalizedDate(show.first_air_date),
   overview: show.overview,
@@ -39,7 +39,7 @@ const parseTVShow = (show, configuration) => ({
 
 const parseMovie = (movie, configuration) => ({
   id: movie.id,
-  type: SEARCH_TYPES.MOVIE,
+  type: ITEM_TYPES.MOVIE,
   name: movie.title,
   premiere: getLocalizedDate(movie.release_date),
   overview: movie.overview,
@@ -48,8 +48,8 @@ const parseMovie = (movie, configuration) => ({
 });
 
 const parseResult = (data, type, configuration) => {
-  if (type === SEARCH_TYPES.TV) return parseTVShow(data, configuration);
-  if (type === SEARCH_TYPES.MOVIE) return parseMovie(data, configuration);
+  if (type === ITEM_TYPES.TV) return parseTVShow(data, configuration);
+  if (type === ITEM_TYPES.MOVIE) return parseMovie(data, configuration);
   return null;
 };
 
