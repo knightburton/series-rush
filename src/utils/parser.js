@@ -27,7 +27,7 @@ const getImagePaths = (poster, backdrop, configuration) => {
   };
 };
 
-const parseTVShow = (show, configuration) => ({
+const parseTVShowSummary = (show, configuration) => ({
   id: show.id,
   type: ITEM_TYPES.TV,
   name: show.name,
@@ -37,7 +37,9 @@ const parseTVShow = (show, configuration) => ({
   ...getImagePaths(show.poster_path, show.backdrop_path, configuration),
 });
 
-const parseMovie = (movie, configuration) => ({
+const parseTVShowDetails = () => ({});
+
+const parseMovieSummary = (movie, configuration) => ({
   id: movie.id,
   type: ITEM_TYPES.MOVIE,
   name: movie.title,
@@ -47,16 +49,24 @@ const parseMovie = (movie, configuration) => ({
   ...getImagePaths(movie.poster_path, movie.backdrop_path, configuration),
 });
 
-const parseResult = (data, type, configuration) => {
-  if (type === ITEM_TYPES.TV) return parseTVShow(data, configuration);
-  if (type === ITEM_TYPES.MOVIE) return parseMovie(data, configuration);
-  return null;
+const parseMovieDetails = () => ({});
+
+const parseItemSummary = (data, type, configuration) => {
+  if (type === ITEM_TYPES.TV) return parseTVShowSummary(data, configuration);
+  if (type === ITEM_TYPES.MOVIE) return parseMovieSummary(data, configuration);
+  return {};
 };
 
-export const parseSearchData = (data, type, configuration) => {
+const parseItemDetails = (data, type, configuration) => {
+  if (type === ITEM_TYPES.TV) return parseTVShowDetails(data, configuration);
+  if (type === ITEM_TYPES.MOVIE) return parseMovieDetails(data, configuration);
+  return {};
+};
+
+export const parseSearchItems = (data, type, configuration) => {
   const results = data.results.reduce((a, result) => {
-    const parsedResult = parseResult(result, result.media_type || type, configuration);
-    if (parsedResult) return [...a, parsedResult];
+    const parsedResult = parseItemSummary(result, result.media_type || type, configuration);
+    if (parsedResult?.id) return [...a, parsedResult];
     return a;
   }, []);
 
@@ -65,5 +75,15 @@ export const parseSearchData = (data, type, configuration) => {
     numberOfPages: data.total_pages,
     numberOfResults: data.total_results,
     results,
+  };
+};
+
+export const parseSearchItemDetails = (data, type, configuration) => {
+  const summary = parseItemSummary(data, data.media_type || type, configuration);
+  const details = parseItemDetails(data, data.media_type || type, configuration);
+
+  return {
+    ...summary,
+    ...details,
   };
 };

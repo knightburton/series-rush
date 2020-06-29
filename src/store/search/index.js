@@ -1,7 +1,10 @@
 import { createAction, handleActions } from 'redux-actions';
 import { createSelector } from 'reselect';
 import { addAlert, getTmdbConfiguration } from '../app';
-import { parseSearchData } from '../../utils/parser';
+import {
+  parseSearchItems,
+  parseSearchItemDetails,
+} from '../../utils/parser';
 import {
   getSearchFromQueryString,
   createSearchQueryString,
@@ -178,7 +181,8 @@ export const search = (props = {}) => async (dispatch, getState, { tmdbApi }) =>
 
   try {
     const data = await tmdbApi.searchWithType(query, type, page);
-    dispatch(searchSuccess(parseSearchData(data, type, tmdbConfiguration)));
+    const parsedData = parseSearchItems(data, type, tmdbConfiguration);
+    dispatch(searchSuccess(parsedData));
   } catch (error) {
     dispatch(searchFailure());
     dispatch(addAlert('alert::api/tmdb-search-failed', 'error'));
@@ -196,10 +200,12 @@ export const checkSearch = () => (dispatch, getState, { history }) => {
 
 export const fetchResultDetails = (type, id) => async (dispatch, getState, { tmdbApi }) => {
   dispatch(setSearchResultDetailsInProggress(id));
+  const tmdbConfiguration = getTmdbConfiguration(getState());
 
   try {
     const details = await tmdbApi.getDetails(type, id);
-    dispatch(setSearchResultDetails(details));
+    const parsedDetails = parseSearchItemDetails(details, type, tmdbConfiguration);
+    dispatch(setSearchResultDetails(parsedDetails));
     dispatch(openSearchResultDetailsDialog());
   } catch (error) {
     dispatch(addAlert('alert::api/tmdb-details-failed', 'error'));
