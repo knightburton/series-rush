@@ -1,4 +1,4 @@
-name: master PR
+name: Development
 
 on:
   pull_request:
@@ -7,7 +7,7 @@ on:
 
 jobs:
   test:
-    name: Test
+    name: PR Test
     runs-on: ubuntu-latest
 
     strategy:
