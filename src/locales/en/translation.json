@@ -135,7 +135,10 @@
       "emptyResult": "There is no result for the given search query.",
       "details": "Details",
       "addTo": "Add to",
-      "inCollection": "Already in the collection"
+      "inCollection": "Already in the collection",
+      "item": {
+        "premiere": "Premiere date"
+      }
     }
   },
   "colors": {

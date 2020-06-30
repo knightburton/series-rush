@@ -112,12 +112,11 @@ const SearchResultListItem = ({ result }) => {
         </CardContent>
         <CardActions className={classes.actions}>
           <ProgressIconButton
-            tooltip={t('page.search.details')}
             inProgress={detailsInProgressByID}
             disabled={detailsInProgress}
             onClick={handleDetailsClick}
             icon={(
-              <InfoTwoToneIcon color="secondary" />
+              <InfoTwoToneIcon color="primary" />
             )}
           />
           <Box className={classes.grow} />
