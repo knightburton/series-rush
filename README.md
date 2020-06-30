@@ -1,5 +1,7 @@
 # Series-Rush
 
+![Development](https://github.com/knightburton/series-rush/workflows/Development/badge.svg)
+
 Track all your series and movies in one place on multiple platform.
 
 ### Run the project locally
