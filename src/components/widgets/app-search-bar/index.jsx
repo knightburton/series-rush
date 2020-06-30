@@ -13,7 +13,7 @@ import { search } from '../../../store/search';
 import useForm from '../../../hooks/useForm';
 
 import { getSearchFromQueryString } from '../../../utils/query';
-import { SEARCH_TYPES } from '../../../constants/config';
+import { ITEM_TYPES } from '../../../constants/config';
 import { APP_PATHS } from '../../../constants/paths';
 
 import useStyles from './styles';
@@ -27,7 +27,7 @@ const AppSearchBar = () => {
   const { state, handleChange, handleSubmit } = useForm({
     stateSchema: {
       query: '',
-      type: SEARCH_TYPES.TV,
+      type: ITEM_TYPES.TV,
     },
     callback: ({ query, type }) => query && dispatch(search({ query, type })),
   });
@@ -39,7 +39,7 @@ const AppSearchBar = () => {
 
   const resetAllInput = useCallback(() => {
     handleChange({ target: { name: 'query', value: '' } });
-    handleChange({ target: { name: 'type', value: SEARCH_TYPES.TV } });
+    handleChange({ target: { name: 'type', value: ITEM_TYPES.TV } });
   }, [handleChange]);
 
   useEffect(() => {
@@ -85,7 +85,7 @@ const AppSearchBar = () => {
         onChange={handleChange}
         disableUnderline
       >
-        {Object.values(SEARCH_TYPES).map(key => (
+        {Object.values(ITEM_TYPES).map(key => (
           <MenuItem key={key} value={key}>
             {t(`quickSearch.${key}`)}
           </MenuItem>

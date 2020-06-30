@@ -5,8 +5,19 @@ import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
 import Dialog from '@material-ui/core/Dialog';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import LinearProgress from '@material-ui/core/LinearProgress';
 
 import useStyles from './styles';
+
+const BlockWaiting = () => {
+  const classes = useStyles();
+
+  return (
+    <Box className={classes.block}>
+      <LinearProgress color="primary" className={classes.blockProgress} />
+    </Box>
+  );
+};
 
 const ContetWaiting = () => {
   const classes = useStyles();
@@ -63,11 +74,12 @@ const Waiting = ({ type }) => {
   if (type === 'app') return <AppWaiting />;
   if (type === 'screen') return <ScreenWaiting />;
   if (type === 'content') return <ContetWaiting />;
+  if (type === 'block') return <BlockWaiting />;
   return null;
 };
 
 Waiting.propTypes = {
-  type: PropTypes.oneOf(['app', 'screen', 'content']),
+  type: PropTypes.oneOf(['app', 'screen', 'content', 'block']),
 };
 
 Waiting.defaultProps = {

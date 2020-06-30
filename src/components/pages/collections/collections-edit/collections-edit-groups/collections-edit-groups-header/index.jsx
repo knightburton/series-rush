@@ -24,7 +24,7 @@ import {
   setCollectionsDialogData,
 } from '../../../../../../store/collections';
 import { APP_PATHS } from '../../../../../../constants/paths';
-import { SEARCH_TYPES } from '../../../../../../constants/config';
+import { ITEM_TYPES } from '../../../../../../constants/config';
 
 const CollectionsEditGroupsHeader = () => {
   const { t } = useTranslation();
@@ -39,7 +39,7 @@ const CollectionsEditGroupsHeader = () => {
   }, [dispatch]);
 
   const handleGoBackClick = useCallback(() => {
-    const route = type === SEARCH_TYPES.TV
+    const route = type === ITEM_TYPES.TV
       ? APP_PATHS.COLLECTIONS_TV.path
       : APP_PATHS.COLLECTIONS_MOVIE.path;
     push(route);

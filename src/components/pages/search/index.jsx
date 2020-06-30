@@ -10,6 +10,7 @@ import {
 import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
 
+import SearchResultListItemDetailsDialog from './search-result-list-item-details-dialog';
 import Waiting from '../../widgets/waiting';
 import SearchResultList from './search-result-list';
 
@@ -18,10 +19,10 @@ import {
   getSearchNumberOfPages,
   getSearchPage,
   getSearchQuery,
-  getSearchInProgress,
+  getSearchQueryInProgress,
   search,
   checkSearch,
-  clearSearchProps,
+  clearSearchStore,
 } from '../../../store/search';
 
 import useStyles from './styles';
@@ -34,7 +35,7 @@ const Search = () => {
   const numberOfPages = useSelector(getSearchNumberOfPages);
   const page = useSelector(getSearchPage);
   const query = useSelector(getSearchQuery);
-  const searchInProgress = useSelector(getSearchInProgress);
+  const searchQueryInProgress = useSelector(getSearchQueryInProgress);
   const location = useLocation();
   const [selectedPage, selectPage] = useState(null);
 
@@ -46,14 +47,16 @@ const Search = () => {
   useEffect(() => {
     selectPage(page - 1);
   }, [page]);
+
   useEffect(() => {
     dispatch(checkSearch());
   }, [location, dispatch]);
-  useEffect(() => () => dispatch(clearSearchProps()), [dispatch]);
+
+  useEffect(() => () => dispatch(clearSearchStore()), [dispatch]);
 
   return (
     <Container maxWidth="lg">
-      {searchInProgress ? (
+      {searchQueryInProgress ? (
         <Waiting type="content" />
       ) : (
         <>
@@ -75,6 +78,8 @@ const Search = () => {
               }}
             />
           )}
+
+          <SearchResultListItemDetailsDialog />
         </>
       )}
     </Container>

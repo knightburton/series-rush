@@ -8,18 +8,30 @@ const api = {
 // Configuration
 export const getConfiguration = () => api.get('/configuration');
 
-// TV Show related
+// Search: TV Show related
 export const searchTV = (query, page = 1) => api.get('/search/tv', { query: { query, page } });
 
-// Movie related
+// Search: Movie related
 export const searchMovie = (query, page = 1) => api.get('/search/movie', { query: { query, page } });
 
-// Other
+// Search: Other
 export const searchWithType = (query, type, page = 1) => api.get(`/search/${type}`, { query: { query, page } });
+
+// Details: TV
+export const getTVDetails = id => api.get(`/tv/${id}`);
+
+// Details: Movie
+export const getMovieDetails = id => api.get(`/movie/${id}`);
+
+// Details: dynamic
+export const getDetails = (type, id) => api.get(`/${type}/${id}`);
 
 export default {
   getConfiguration,
   searchTV,
   searchMovie,
   searchWithType,
+  getTVDetails,
+  getMovieDetails,
+  getDetails,
 };

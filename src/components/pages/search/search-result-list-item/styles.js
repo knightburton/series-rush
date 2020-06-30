@@ -2,6 +2,7 @@ import { makeStyles } from '@material-ui/core/styles';
 
 export default makeStyles(theme => ({
   card: {
+    position: 'relative',
     display: 'flex',
     [theme.breakpoints.up('sm')]: {
       maxHeight: 278,
