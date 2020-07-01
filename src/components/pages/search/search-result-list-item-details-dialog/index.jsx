@@ -25,6 +25,10 @@ import {
   getSearchResultDetails,
   closeSearchResultDetailsDialog,
 } from '../../../../store/search';
+import {
+  ITEM_TYPES,
+  PARSABLE_ITEM_TYPES,
+} from '../../../../constants/config';
 
 import useStyles from './styles';
 
@@ -83,14 +87,16 @@ const SearchResultListItemDetailsDialog = () => {
                 {details?.premiere || t('common::unknown')}
               </Typography>
             </Box>
-            <Box mt={1}>
-              <Typography color="textSecondary" variant="subtitle2">
-                {`${t('page.search.item.createdBy')}: `}
-              </Typography>
-              <Typography>
-                {details?.createdBy?.join(', ') || t('common::unknown')}
-              </Typography>
-            </Box>
+            {PARSABLE_ITEM_TYPES.includes(details?.type) && (
+              <Box mt={1}>
+                <Typography color="textSecondary" variant="subtitle2">
+                  {`${t(`page.search.item.${details.type === ITEM_TYPES.TV ? 'createdBy' : 'directedBy'}`)}: `}
+                </Typography>
+                <Typography>
+                  {details?.[details.type === ITEM_TYPES.TV ? 'createdBy' : 'directedBy']?.join(', ') || t('common::unknown')}
+                </Typography>
+              </Box>
+            )}
             <Box mt={1}>
               <Typography color="textSecondary" variant="subtitle2">
                 {`${t('page.search.item.genres')}: `}
