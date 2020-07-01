@@ -48,6 +48,14 @@ const SearchResultListItemDetailsDialog = () => {
       open={open}
       maxWidth="md"
       onClose={handleClose}
+      classes={{
+        paperFullWidth: classes.dialog,
+      }}
+      PaperProps={{
+        classes: {
+          root: classes.dialogPaper,
+        },
+      }}
       fullWidth
     >
       <DialogTitle>
@@ -115,10 +123,11 @@ const SearchResultListItemDetailsDialog = () => {
               >
                 <Rating
                   name="userScore"
+                  size="small"
                   defaultValue={details?.vote || 0}
                   precision={0.1}
                   max={10}
-                  emptyIcon={<StarBorderTwoToneIcon />}
+                  emptyIcon={<StarBorderTwoToneIcon fontSize="inherit" />}
                   readOnly
                 />
                 <Box ml={1}>
@@ -138,6 +147,7 @@ const SearchResultListItemDetailsDialog = () => {
                     href={details.homepage}
                     target="_blank"
                     color="secondary"
+                    className={classes.homepageLink}
                   >
                     {details.homepage}
                   </Link>
