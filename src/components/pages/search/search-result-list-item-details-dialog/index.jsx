@@ -10,14 +10,14 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
-import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import Hidden from '@material-ui/core/Hidden';
 import Grid from '@material-ui/core/Grid';
+import Link from '@material-ui/core/Link';
+import Rating from '@material-ui/lab/Rating';
 
-import HighlightOffTwoToneIcon from '@material-ui/icons/HighlightOffTwoTone';
+import StarBorderTwoToneIcon from '@material-ui/icons/StarBorderTwoTone';
 
-import Tooltip from '../../../commons/tooltip';
 import FormButton from '../../../commons/form-button';
 
 import {
@@ -44,22 +44,14 @@ const SearchResultListItemDetailsDialog = () => {
       open={open}
       maxWidth="md"
       onClose={handleClose}
-      disableBackdropClick
-      disableEscapeKeyDown
       fullWidth
     >
       <DialogTitle>
-        {details?.name || t('common::unknown')}
         <Box
-          position="absolute"
-          top={1}
-          right={1}
+          display="flex"
+          alignItems="center"
         >
-          <Tooltip title={t('common::close')}>
-            <IconButton onClick={handleClose}>
-              <HighlightOffTwoToneIcon />
-            </IconButton>
-          </Tooltip>
+          {details?.name || t('common::unknown')}
         </Box>
       </DialogTitle>
       <DialogContent>
@@ -70,6 +62,7 @@ const SearchResultListItemDetailsDialog = () => {
                 src={details?.posterPath}
                 alt={details?.name}
                 draggable={false}
+                className={classes.poster}
               />
             </Hidden>
             <Hidden smUp>
@@ -90,6 +83,71 @@ const SearchResultListItemDetailsDialog = () => {
                 {details?.premiere || t('common::unknown')}
               </Typography>
             </Box>
+            <Box mt={1}>
+              <Typography color="textSecondary" variant="subtitle2">
+                {`${t('page.search.item.createdBy')}: `}
+              </Typography>
+              <Typography>
+                {details?.createdBy?.join(', ') || t('common::unknown')}
+              </Typography>
+            </Box>
+            <Box mt={1}>
+              <Typography color="textSecondary" variant="subtitle2">
+                {`${t('page.search.item.genres')}: `}
+              </Typography>
+              <Typography>
+                {details?.genres?.join(', ') || t('common::unknown')}
+              </Typography>
+            </Box>
+            <Box mt={1}>
+              <Typography color="textSecondary" variant="subtitle2">
+                {`${t('page.search.item.userScore')}: `}
+              </Typography>
+              <Box
+                display="flex"
+                alignItems="center"
+              >
+                <Rating
+                  name="userScore"
+                  defaultValue={details?.vote || 0}
+                  precision={0.5}
+                  max={10}
+                  emptyIcon={<StarBorderTwoToneIcon />}
+                  readOnly
+                />
+                <Box ml={1}>
+                  <Typography component="span">
+                    {details?.vote || ''}
+                  </Typography>
+                </Box>
+              </Box>
+            </Box>
+            <Box mt={1}>
+              <Typography color="textSecondary" variant="subtitle2">
+                {`${t('page.search.item.homepage')}: `}
+              </Typography>
+              <Typography>
+                {details?.homepage ? (
+                  <Link
+                    href={details.homepage}
+                    target="_blank"
+                    color="secondary"
+                  >
+                    {details.homepage}
+                  </Link>
+                ) : (
+                  t('common::unknown')
+                )}
+              </Typography>
+            </Box>
+          </Grid>
+          <Grid item xs={12}>
+            <Typography color="textSecondary" variant="subtitle2">
+              {`${t('page.search.item.overview')}: `}
+            </Typography>
+            <Typography>
+              {details?.overview || t('common::unknown')}
+            </Typography>
           </Grid>
         </Grid>
       </DialogContent>

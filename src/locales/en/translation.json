@@ -137,7 +137,12 @@
       "addTo": "Add to",
       "inCollection": "Already in the collection",
       "item": {
-        "premiere": "Premiere date"
+        "premiere": "Premiere date",
+        "createdBy": "Created by",
+        "genres": "Genres",
+        "userScore": "User Score",
+        "homepage": "Homepage",
+        "overview": "Overview"
       }
     }
   },
