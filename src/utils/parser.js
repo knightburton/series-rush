@@ -113,7 +113,7 @@ const parseItemDetails = (item, type, configuration) => ({
   genres: item?.genres?.map(genre => genre?.name || ''),
   homepage: item?.homepage || '',
   productionCompanies: item?.production_companies?.map(company => ({
-    name: company?.name,
+    name: company?.name || '',
     logo: getLogoPath(company?.logo_path, configuration),
   })),
   status: item?.status || '',

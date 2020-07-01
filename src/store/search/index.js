@@ -205,6 +205,9 @@ export const fetchResultDetails = (type, id) => async (dispatch, getState, { tmd
   try {
     const details = await tmdbApi.getDetails(type, id);
     const parsedDetails = parseSearchItemDetails(details, type, tmdbConfiguration);
+
+    if (!parsedDetails) throw new Error('missingData');
+
     dispatch(setSearchResultDetails(parsedDetails));
     dispatch(openSearchResultDetailsDialog());
   } catch (error) {
