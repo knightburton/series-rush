@@ -18,6 +18,12 @@ export const parseTmdbConfiguration = data => {
   return {};
 };
 
+const getItemName = (item, type) => {
+  if (type === ITEM_TYPES.TV) return item?.name || '';
+  if (type === ITEM_TYPES.MOVIE) return item?.title || '';
+  return '';
+};
+
 const getLogoPath = (logo, configuration) => (configuration && logo && configuration?.logoSizes?.includes('w92')
   ? `${configuration.imageBaseURL}w92${logo}`
   : '/no-logo.jpg');
@@ -88,7 +94,7 @@ const getSpecialAttributes = (item, type, configuration) => {
 const parseItemSummary = (item, type, configuration) => ({
   id: item.id,
   type,
-  name: item?.name,
+  name: getItemName(item, type),
   premiere: getLocalizedDate(item?.first_air_date),
   overview: item?.overview,
   vote: item?.vote_average,
