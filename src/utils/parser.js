@@ -52,6 +52,7 @@ const getSpecialAttributes = (item, type, configuration) => {
   // Attributes that are available only on tv shows.
   if (type === ITEM_TYPES.TV) {
     return {
+      createdBy: item?.created_by?.map(creator => creator?.name || '') || [],
       epidoseRunTimes: item?.episode_run_time || [],
       inProduction: item?.in_producation,
       lastEpisode: {
@@ -87,6 +88,7 @@ const getSpecialAttributes = (item, type, configuration) => {
   // Attributes that are available only on movies.
   if (type === ITEM_TYPES.MOVIE) {
     return {
+      directedBy: item?.credits?.crew?.filter(member => member?.job === 'Director')?.map(director => director?.name || '') || [],
       productionCountries: item?.production_countries?.map(country => country?.name || ''),
       runtime: item?.runtime,
       spokenLanguages: item?.spoken_languages?.map(lanugage => lanugage?.name || ''),
@@ -108,7 +110,6 @@ const parseItemSummary = (item, type, configuration) => ({
 });
 
 const parseItemDetails = (item, type, configuration) => ({
-  createdBy: item?.created_by?.map(creator => creator?.name || ''),
   genres: item?.genres?.map(genre => genre?.name || ''),
   homepage: item?.homepage || '',
   productionCompanies: item?.production_companies?.map(company => ({
