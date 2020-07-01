@@ -5,6 +5,10 @@ const api = {
   get: invoke(TMDB_API_ENDPOINT, 'GET', { api_key: process.env.REACT_APP_TMDB_API_KEY }),
 };
 
+const detailsQuery = {
+  append_to_response: 'credits',
+};
+
 // Configuration
 export const getConfiguration = () => api.get('/configuration');
 
@@ -18,13 +22,13 @@ export const searchMovie = (query, page = 1) => api.get('/search/movie', { query
 export const searchWithType = (query, type, page = 1) => api.get(`/search/${type}`, { query: { query, page } });
 
 // Details: TV
-export const getTVDetails = id => api.get(`/tv/${id}`);
+export const getTVDetails = id => api.get(`/tv/${id}`, { query: detailsQuery });
 
 // Details: Movie
-export const getMovieDetails = id => api.get(`/movie/${id}`);
+export const getMovieDetails = id => api.get(`/movie/${id}`, { query: detailsQuery });
 
 // Details: dynamic
-export const getDetails = (type, id) => api.get(`/${type}/${id}`);
+export const getDetails = (type, id) => api.get(`/${type}/${id}`, { query: detailsQuery });
 
 export default {
   getConfiguration,

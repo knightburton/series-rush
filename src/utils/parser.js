@@ -18,6 +18,18 @@ export const parseTmdbConfiguration = data => {
   return {};
 };
 
+const getItemName = (item, type) => {
+  if (type === ITEM_TYPES.TV) return item?.name || '';
+  if (type === ITEM_TYPES.MOVIE) return item?.title || '';
+  return '';
+};
+
+const getItemPremiere = (item, type) => {
+  if (type === ITEM_TYPES.TV) return getLocalizedDate(item?.first_air_date);
+  if (type === ITEM_TYPES.MOVIE) return getLocalizedDate(item?.release_date);
+  return '';
+};
+
 const getLogoPath = (logo, configuration) => (configuration && logo && configuration?.logoSizes?.includes('w92')
   ? `${configuration.imageBaseURL}w92${logo}`
   : '/no-logo.jpg');
@@ -40,6 +52,7 @@ const getSpecialAttributes = (item, type, configuration) => {
   // Attributes that are available only on tv shows.
   if (type === ITEM_TYPES.TV) {
     return {
+      createdBy: item?.created_by?.map(creator => creator?.name || '') || [],
       epidoseRunTimes: item?.episode_run_time || [],
       inProduction: item?.in_producation,
       lastEpisode: {
@@ -75,6 +88,7 @@ const getSpecialAttributes = (item, type, configuration) => {
   // Attributes that are available only on movies.
   if (type === ITEM_TYPES.MOVIE) {
     return {
+      directedBy: item?.credits?.crew?.filter(member => member?.job === 'Director')?.map(director => director?.name || '') || [],
       productionCountries: item?.production_countries?.map(country => country?.name || ''),
       runtime: item?.runtime,
       spokenLanguages: item?.spoken_languages?.map(lanugage => lanugage?.name || ''),
@@ -88,19 +102,18 @@ const getSpecialAttributes = (item, type, configuration) => {
 const parseItemSummary = (item, type, configuration) => ({
   id: item.id,
   type,
-  name: item?.name,
-  premiere: getLocalizedDate(item?.first_air_date),
+  name: getItemName(item, type),
+  premiere: getItemPremiere(item, type),
   overview: item?.overview,
   vote: item?.vote_average,
   ...getImagePaths(item?.poster_path, item?.backdrop_path, configuration),
 });
 
 const parseItemDetails = (item, type, configuration) => ({
-  createdBy: item?.created_by?.map(creator => creator?.name || ''),
   genres: item?.genres?.map(genre => genre?.name || ''),
   homepage: item?.homepage || '',
   productionCompanies: item?.production_companies?.map(company => ({
-    name: company?.name,
+    name: company?.name || '',
     logo: getLogoPath(company?.logo_path, configuration),
   })),
   status: item?.status || '',
