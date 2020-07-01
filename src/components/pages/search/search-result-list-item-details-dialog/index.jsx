@@ -116,7 +116,7 @@ const SearchResultListItemDetailsDialog = () => {
                 <Rating
                   name="userScore"
                   defaultValue={details?.vote || 0}
-                  precision={0.5}
+                  precision={0.1}
                   max={10}
                   emptyIcon={<StarBorderTwoToneIcon />}
                   readOnly
