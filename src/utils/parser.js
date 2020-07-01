@@ -24,6 +24,12 @@ const getItemName = (item, type) => {
   return '';
 };
 
+const getItemPremiere = (item, type) => {
+  if (type === ITEM_TYPES.TV) return getLocalizedDate(item?.first_air_date);
+  if (type === ITEM_TYPES.MOVIE) return getLocalizedDate(item?.release_date);
+  return '';
+};
+
 const getLogoPath = (logo, configuration) => (configuration && logo && configuration?.logoSizes?.includes('w92')
   ? `${configuration.imageBaseURL}w92${logo}`
   : '/no-logo.jpg');
@@ -95,7 +101,7 @@ const parseItemSummary = (item, type, configuration) => ({
   id: item.id,
   type,
   name: getItemName(item, type),
-  premiere: getLocalizedDate(item?.first_air_date),
+  premiere: getItemPremiere(item, type),
   overview: item?.overview,
   vote: item?.vote_average,
   ...getImagePaths(item?.poster_path, item?.backdrop_path, configuration),
