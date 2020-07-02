@@ -143,6 +143,10 @@
         "genres": "Genres",
         "userScore": "User Score",
         "homepage": "Homepage",
+        "status": "Status",
+        "numberOfSeasons": "Number of seasons",
+        "numberOfEpisodes": "Number of episodes",
+        "epidoseRunTimes": "Episode run times",
         "overview": "Overview",
         "seasons": "Seasons",
         "episodes": "Episodes"
