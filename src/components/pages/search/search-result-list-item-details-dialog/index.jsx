@@ -14,6 +14,8 @@ import Typography from '@material-ui/core/Typography';
 import Hidden from '@material-ui/core/Hidden';
 import Grid from '@material-ui/core/Grid';
 import Link from '@material-ui/core/Link';
+import Card from '@material-ui/core/Card';
+import CardContent from '@material-ui/core/CardContent';
 import Rating from '@material-ui/lab/Rating';
 
 import StarBorderTwoToneIcon from '@material-ui/icons/StarBorderTwoTone';
@@ -43,6 +45,7 @@ const SearchResultListItemDetailsDialog = () => {
     dispatch(closeSearchResultDetailsDialog());
   }, [dispatch]);
 
+  if (!details) return null;
   return (
     <Dialog
       open={open}
@@ -165,6 +168,43 @@ const SearchResultListItemDetailsDialog = () => {
               {details?.overview || t('common::unknown')}
             </Typography>
           </Grid>
+          {details.type === ITEM_TYPES.TV && (
+            <Grid item xs={12}>
+              <Typography color="textSecondary" variant="subtitle2">
+                {`${t('page.search.item.seasons')}: `}
+              </Typography>
+              {details?.seasons?.length > 0 ? (
+                details.seasons.map((season, index) => (
+                  <Box mb={1} key={season.index}>
+                    <Card variant="outlined">
+                      <CardContent>
+                        <Typography color="textSecondary">
+                          {season?.name || index + 1}
+                          {` (${t('page.search.item.episodes')}: ${season?.numberOfEpisodes || 0})`}
+                        </Typography>
+                        {season?.date && (
+                          <Typography>
+                            {season.date}
+                          </Typography>
+                        )}
+                        {season?.overview && (
+                          <Box mt={1}>
+                            <Typography>
+                              {season.overview}
+                            </Typography>
+                          </Box>
+                        )}
+                      </CardContent>
+                    </Card>
+                  </Box>
+                ))
+              ) : (
+                <Typography>
+                  {t('common::unknown')}
+                </Typography>
+              )}
+            </Grid>
+          )}
         </Grid>
       </DialogContent>
       <DialogActions>

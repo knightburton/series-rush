@@ -143,7 +143,9 @@
         "genres": "Genres",
         "userScore": "User Score",
         "homepage": "Homepage",
-        "overview": "Overview"
+        "overview": "Overview",
+        "seasons": "Seasons",
+        "episodes": "Episodes"
       }
     }
   },
