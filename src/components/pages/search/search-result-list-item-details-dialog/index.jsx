@@ -162,38 +162,42 @@ const SearchResultListItemDetailsDialog = () => {
               </Box>
             </Grid>
           </Grid>
-          <Grid item>
-            <Typography color="textSecondary" variant="subtitle2">
-              {`${t('page.search.item.status')}: `}
-            </Typography>
-            <Typography>
-              {details?.status || t('common::unknown')}
-            </Typography>
-          </Grid>
-          <Grid item>
-            <Typography color="textSecondary" variant="subtitle2">
-              {`${t('page.search.item.numberOfSeasons')}: `}
-            </Typography>
-            <Typography>
-              {details?.numberOfSeasons || t('common::unknown')}
-            </Typography>
-          </Grid>
-          <Grid item>
-            <Typography color="textSecondary" variant="subtitle2">
-              {`${t('page.search.item.numberOfEpisodes')}: `}
-            </Typography>
-            <Typography>
-              {details?.numberOfEpisodes || t('common::unknown')}
-            </Typography>
-          </Grid>
-          <Grid item>
-            <Typography color="textSecondary" variant="subtitle2">
-              {`${t('page.search.item.epidoseRunTimes')}: `}
-            </Typography>
-            <Typography>
-              {details?.epidoseRunTimes?.[0] || t('common::unknown')}
-            </Typography>
-          </Grid>
+          {details.type === ITEM_TYPES.TV && (
+            <>
+              <Grid item>
+                <Typography color="textSecondary" variant="subtitle2">
+                  {`${t('page.search.item.status')}: `}
+                </Typography>
+                <Typography>
+                  {details?.status || t('common::unknown')}
+                </Typography>
+              </Grid>
+              <Grid item>
+                <Typography color="textSecondary" variant="subtitle2">
+                  {`${t('page.search.item.numberOfSeasons')}: `}
+                </Typography>
+                <Typography>
+                  {details?.numberOfSeasons || t('common::unknown')}
+                </Typography>
+              </Grid>
+              <Grid item>
+                <Typography color="textSecondary" variant="subtitle2">
+                  {`${t('page.search.item.numberOfEpisodes')}: `}
+                </Typography>
+                <Typography>
+                  {details?.numberOfEpisodes || t('common::unknown')}
+                </Typography>
+              </Grid>
+              <Grid item>
+                <Typography color="textSecondary" variant="subtitle2">
+                  {`${t('page.search.item.epidoseRunTimes')}: `}
+                </Typography>
+                <Typography>
+                  {details?.epidoseRunTimes?.[0] || t('common::unknown')}
+                </Typography>
+              </Grid>
+            </>
+          )}
           <Grid item xs={12}>
             <Typography color="textSecondary" variant="subtitle2">
               {`${t('page.search.item.overview')}: `}
