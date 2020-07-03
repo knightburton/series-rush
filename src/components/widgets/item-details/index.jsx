@@ -6,12 +6,14 @@ import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import Hidden from '@material-ui/core/Hidden';
-import Card from '@material-ui/core/Card';
-import CardContent from '@material-ui/core/CardContent';
+import Accordion from '@material-ui/core/Accordion';
+import AccordionSummary from '@material-ui/core/AccordionSummary';
+import AccordionDetails from '@material-ui/core/AccordionDetails';
 
 import Rating from '@material-ui/lab/Rating';
 
 import StarBorderTwoToneIcon from '@material-ui/icons/StarBorderTwoTone';
+import ExpandMoreTwoToneIcon from '@material-ui/icons/ExpandMoreTwoTone';
 
 import ItemDetailsProp from './item-details-prop';
 
@@ -146,28 +148,29 @@ const ItemDetails = ({ details, disableName }) => {
             </Typography>
             {details?.seasons?.length > 0 ? (
               details.seasons.map((season, index) => (
-                <Box mb={1} key={season.index}>
-                  <Card variant="outlined">
-                    <CardContent>
-                      <Typography color="textSecondary">
-                        {season?.name || index + 1}
-                        {` (${t('page.search.item.episodes')}: ${season?.numberOfEpisodes || 0})`}
-                      </Typography>
-                      {season?.date && (
-                        <Typography>
-                          {season.date}
+                <Accordion key={season.index}>
+                  <AccordionSummary
+                    expandIcon={<ExpandMoreTwoToneIcon />}
+                  >
+                    <Grid container spacing={1}>
+                      <Grid item xs={5}>
+                        <Typography display="inline">
+                          {season?.name || index + 1}
                         </Typography>
-                      )}
-                      {season?.overview && (
-                        <Box mt={1}>
-                          <Typography>
-                            {season.overview}
-                          </Typography>
-                        </Box>
-                      )}
-                    </CardContent>
-                  </Card>
-                </Box>
+                      </Grid>
+                      <Grid item xs={7}>
+                        <Typography color="textSecondary" align="right">
+                          {season?.date || ''}
+                        </Typography>
+                      </Grid>
+                    </Grid>
+                  </AccordionSummary>
+                  <AccordionDetails>
+                    <Typography>
+                      {season.overview || ''}
+                    </Typography>
+                  </AccordionDetails>
+                </Accordion>
               ))
             ) : (
               <Typography>
