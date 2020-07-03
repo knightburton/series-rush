@@ -123,8 +123,8 @@ const ItemDetails = ({ details, disableName }) => {
             </Grid>
             <Grid item xs={12} sm={4}>
               <ItemDetailsProp
-                label={t('page.search.item.epidoseRunTimes')}
-                render={details?.epidoseRunTimes?.[0] ? `${details?.epidoseRunTimes?.[0]}${t('common::minutesShort')}` : ''}
+                label={t('page.search.item.episodeRunTimes')}
+                render={details?.episodeRunTimes?.[0] ? `${details?.episodeRunTimes?.[0]}${t('common::minutesShort')}` : ''}
               />
               <ItemDetailsProp
                 label={t('page.search.item.inProduction')}
@@ -196,7 +196,7 @@ ItemDetails.propTypes = {
     status: PropTypes.string,
     numberOfSeasons: PropTypes.number,
     numberOfEpisodes: PropTypes.number,
-    epidoseRunTimes: PropTypes.arrayOf(PropTypes.number),
+    episodeRunTimes: PropTypes.arrayOf(PropTypes.number),
     inProduction: PropTypes.bool,
     overview: PropTypes.string,
     seasons: PropTypes.arrayOf(PropTypes.shape({

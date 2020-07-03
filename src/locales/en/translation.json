@@ -146,7 +146,7 @@
         "status": "Status",
         "numberOfSeasons": "Number of seasons",
         "numberOfEpisodes": "Number of episodes",
-        "epidoseRunTimes": "Episode run times",
+        "episodeRunTimes": "Episode run times",
         "inProduction": "In production",
         "showType": "Type",
         "overview": "Overview",

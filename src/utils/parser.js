@@ -53,7 +53,7 @@ const getTypeBasedAttributes = (item, type, configuration) => {
   if (type === ITEM_TYPES.TV) {
     return {
       createdBy: item?.created_by?.map(creator => creator?.name || '') || [],
-      epidoseRunTimes: item?.episode_run_time || [],
+      episodeRunTimes: item?.episode_run_time || [],
       inProduction: item?.in_producation,
       showType: item?.type || '',
       lastEpisode: {
