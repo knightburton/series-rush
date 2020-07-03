@@ -28,5 +28,9 @@
   "unknown": "Unknown",
   "selectFile": "Select file",
   "goBack": "Go Back",
-  "createdAt": "Created at"
+  "createdAt": "Created at",
+  "minutes": "minutes",
+  "minutesShort": "m",
+  "true": "Yes",
+  "false": "No"
 }
