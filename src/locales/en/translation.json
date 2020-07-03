@@ -147,6 +147,8 @@
         "numberOfSeasons": "Number of seasons",
         "numberOfEpisodes": "Number of episodes",
         "epidoseRunTimes": "Episode run times",
+        "inProduction": "In production",
+        "showType": "Type",
         "overview": "Overview",
         "seasons": "Seasons",
         "episodes": "Episodes"
