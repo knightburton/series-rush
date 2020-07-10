@@ -48,13 +48,14 @@ const getImagePaths = (poster, backdrop, configuration) => {
   };
 };
 
-const getSpecialAttributes = (item, type, configuration) => {
+const getTypeBasedAttributes = (item, type, configuration) => {
   // Attributes that are available only on tv shows.
   if (type === ITEM_TYPES.TV) {
     return {
       createdBy: item?.created_by?.map(creator => creator?.name || '') || [],
-      epidoseRunTimes: item?.episode_run_time || [],
+      episodeRunTimes: item?.episode_run_time || [],
       inProduction: item?.in_producation,
+      showType: item?.type || '',
       lastEpisode: {
         date: getLocalizedDate(item?.last_episode_to_air?.air_date),
         seasonNumber: item?.last_episode_to_air?.season_number,
@@ -73,7 +74,7 @@ const getSpecialAttributes = (item, type, configuration) => {
         name: item?.next_episode_to_air?.name,
         overview: item?.next_episode_to_air?.overview,
       },
-      numberOfEpisode: item?.number_of_episodes,
+      numberOfEpisodes: item?.number_of_episodes,
       numberOfSeasons: item?.number_of_seasons,
       seasons: item?.seasons?.map(season => ({
         date: getLocalizedDate(season?.air_date),
@@ -117,7 +118,7 @@ const parseItemDetails = (item, type, configuration) => ({
     logo: getLogoPath(company?.logo_path, configuration),
   })),
   status: item?.status || '',
-  ...getSpecialAttributes(item, type, configuration),
+  ...getTypeBasedAttributes(item, type, configuration),
 });
 
 export const parseSearchItems = (data, type, configuration) => {

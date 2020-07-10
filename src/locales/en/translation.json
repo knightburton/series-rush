@@ -143,7 +143,15 @@
         "genres": "Genres",
         "userScore": "User Score",
         "homepage": "Homepage",
-        "overview": "Overview"
+        "status": "Status",
+        "numberOfSeasons": "Number of seasons",
+        "numberOfEpisodes": "Number of episodes",
+        "episodeRunTimes": "Episode run times",
+        "inProduction": "In production",
+        "showType": "Type",
+        "overview": "Overview",
+        "seasons": "Seasons",
+        "episodes": "episodes"
       }
     }
   },

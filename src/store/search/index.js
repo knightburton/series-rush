@@ -192,9 +192,11 @@ export const search = (props = {}) => async (dispatch, getState, { tmdbApi }) =>
 export const checkSearch = () => (dispatch, getState, { history }) => {
   const { location } = history;
   const props = getSearchProps(getState());
+  const resultDetailsDialogOpen = getSerachResultDetailsDialogOpen(getState());
   const stateQueryString = createSearchQueryString(props);
   const locationQuryString = location.search.replace(/^\?/g, '');
 
+  if (resultDetailsDialogOpen) dispatch(closeSearchResultDetailsDialog());
   if (stateQueryString !== locationQuryString) dispatch(search());
 };
 
