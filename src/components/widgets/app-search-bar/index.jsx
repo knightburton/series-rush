@@ -6,6 +6,7 @@ import { useDispatch } from 'react-redux';
 import InputBase from '@material-ui/core/InputBase';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
+import Button from '@material-ui/core/Button';
 
 import SearchTwoToneIcon from '@material-ui/icons/SearchTwoTone';
 
@@ -91,6 +92,7 @@ const AppSearchBar = () => {
           </MenuItem>
         ))}
       </Select>
+      <Button type="submit" className={classes.submit} />
     </form>
   );
 };

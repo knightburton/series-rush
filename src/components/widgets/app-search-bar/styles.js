@@ -37,4 +37,7 @@ export default makeStyles(theme => ({
     minWidth: theme.spacing(14),
     ...theme.typography.caption,
   },
+  submit: {
+    display: 'none',
+  },
 }));
