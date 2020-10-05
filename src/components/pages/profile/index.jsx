@@ -1,7 +1,6 @@
 import React from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 
-
 import Container from '@material-ui/core/Container';
 import NavigationTabsGrid from '../../commons/navigation-tabs-grid';
 

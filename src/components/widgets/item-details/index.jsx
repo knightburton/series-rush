@@ -197,6 +197,7 @@ ItemDetails.propTypes = {
     vote: PropTypes.number,
     homepage: PropTypes.string,
     status: PropTypes.string,
+    showType: PropTypes.string,
     numberOfSeasons: PropTypes.number,
     numberOfEpisodes: PropTypes.number,
     episodeRunTimes: PropTypes.arrayOf(PropTypes.number),
