@@ -1,4 +1,4 @@
-import React, { useState, useRef, useCallback } from 'react';
+import React, { useState, useRef, useCallback, memo } from 'react';
 import PropTypes from 'prop-types';
 
 import Box from '@material-ui/core/Box';
@@ -95,4 +95,4 @@ PopupMenuButton.defaultProps = {
   title: '',
 };
 
-export default PopupMenuButton;
+export default memo(PopupMenuButton);

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, memo } from 'react';
 import PropTypes from 'prop-types';
 
 import Box from '@material-ui/core/Box';
@@ -75,4 +75,4 @@ ChipArray.defaultProps = {
   breakpoint: '',
 };
 
-export default ChipArray;
+export default memo(ChipArray);

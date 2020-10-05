@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import PropTyes from 'prop-types';
 
 import Button from '@material-ui/core/Button';
@@ -48,4 +48,4 @@ FormButton.defaultProps = {
   onClick: undefined,
 };
 
-export default FormButton;
+export default memo(FormButton);

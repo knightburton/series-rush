@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import PropTypes from 'prop-types';
 
 import useStyles from './styles';
@@ -27,4 +27,4 @@ FormButtonContainer.defaultProps = {
   align: 'left',
 };
 
-export default FormButtonContainer;
+export default memo(FormButtonContainer);

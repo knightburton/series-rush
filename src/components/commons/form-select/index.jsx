@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState, memo } from 'react';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 
@@ -116,4 +116,4 @@ FormSelect.defaultProps = {
   emptyOption: undefined,
 };
 
-export default FormSelect;
+export default memo(FormSelect);

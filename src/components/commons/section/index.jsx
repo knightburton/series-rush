@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import PropTypes from 'prop-types';
 
 import Paper from '@material-ui/core/Paper';
@@ -76,4 +76,4 @@ Section.defaultProps = {
   inProgress: false,
 };
 
-export default Section;
+export default memo(Section);

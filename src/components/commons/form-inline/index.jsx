@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useMemo, useEffect } from 'react';
+import React, { useState, useCallback, useMemo, useEffect, memo } from 'react';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 
@@ -116,4 +116,4 @@ FormInline.defaultProps = {
   actionButton: null,
 };
 
-export default FormInline;
+export default memo(FormInline);

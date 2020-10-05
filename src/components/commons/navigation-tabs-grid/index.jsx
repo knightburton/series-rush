@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, memo } from 'react';
 import PropTypes from 'prop-types';
 import { useLocation } from 'react-router-dom';
 
@@ -47,4 +47,4 @@ NavigationTabsGrid.propTypes = {
   children: PropTypes.node.isRequired,
 };
 
-export default NavigationTabsGrid;
+export default memo(NavigationTabsGrid);

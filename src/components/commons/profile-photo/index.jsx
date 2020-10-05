@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, memo } from 'react';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 
@@ -44,4 +44,4 @@ ProfilePhoto.defaultProps = {
   withDisabledColor: false,
 };
 
-export default ProfilePhoto;
+export default memo(ProfilePhoto);

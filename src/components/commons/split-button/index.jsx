@@ -1,4 +1,4 @@
-import React, { useState, useRef, useCallback } from 'react';
+import React, { useState, useRef, useCallback, memo } from 'react';
 import PropTypes from 'prop-types';
 
 import Box from '@material-ui/core/Box';
@@ -102,4 +102,4 @@ SplitButton.defaultProps = {
   disabled: false,
 };
 
-export default SplitButton;
+export default memo(SplitButton);

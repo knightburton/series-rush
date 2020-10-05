@@ -1,4 +1,4 @@
-import React, { useRef, useCallback } from 'react';
+import React, { useRef, useCallback, memo } from 'react';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 
@@ -92,4 +92,4 @@ FormFile.defaultProps = {
   required: false,
 };
 
-export default FormFile;
+export default memo(FormFile);

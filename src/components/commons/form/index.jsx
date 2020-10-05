@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import PropTypes from 'prop-types';
 
 import Box from '@material-ui/core/Box';
@@ -24,4 +24,4 @@ Form.defaultProps = {
   withoutGutters: false,
 };
 
-export default Form;
+export default memo(Form);
