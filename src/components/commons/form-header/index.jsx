@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import PropTypes from 'prop-types';
 
 import Avatar from '@material-ui/core/Avatar';
@@ -53,4 +53,4 @@ FormHeader.defaultProps = {
   inProgress: false,
 };
 
-export default FormHeader;
+export default memo(FormHeader);

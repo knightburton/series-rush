@@ -1,4 +1,4 @@
-import React, { useState, useRef, useCallback } from 'react';
+import React, { useState, useRef, useCallback, memo } from 'react';
 import PropTypes from 'prop-types';
 
 import Box from '@material-ui/core/Box';
@@ -19,9 +19,7 @@ const PopupMenuButton = ({ icon, color, size, disabled, menu, title }) => {
     setOpen(false);
   }, [menu]);
 
-  const handleToggleClick = useCallback(() => {
-    setOpen(prevOpen => !prevOpen);
-  }, []);
+  const handleToggleClick = useCallback(() => setOpen(prevOpen => !prevOpen), []);
 
   const handleClose = useCallback(event => {
     if (anchorRef.current && anchorRef.current.contains(event.target)) return;
@@ -97,4 +95,4 @@ PopupMenuButton.defaultProps = {
   title: '',
 };
 
-export default PopupMenuButton;
+export default memo(PopupMenuButton);

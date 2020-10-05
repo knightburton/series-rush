@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, memo } from 'react';
 import PropTypes from 'prop-types';
 
 import MuiTooltip from '@material-ui/core/Tooltip';
@@ -22,4 +22,4 @@ Tooltip.propTypes = {
   children: PropTypes.node.isRequired,
 };
 
-export default Tooltip;
+export default memo(Tooltip);

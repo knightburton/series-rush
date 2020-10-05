@@ -22,9 +22,7 @@ const AppBarNavigation = () => {
   const { pathname } = useLocation();
   const [selected, updateSelected] = useState(defaultSelected(pathname));
 
-  const handleTabChange = useCallback((e, value) => {
-    updateSelected(value);
-  }, []);
+  const handleTabChange = useCallback((e, value) => updateSelected(value), []);
 
   useEffect(() => {
     if (!pathname.includes(selected)) updateSelected(false);

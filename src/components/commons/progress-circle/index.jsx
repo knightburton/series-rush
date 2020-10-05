@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import PropTypes from 'prop-types';
 
 import Box from '@material-ui/core/Box';
@@ -63,4 +63,4 @@ ProgressCircle.defaultProps = {
   mt: 0,
 };
 
-export default ProgressCircle;
+export default memo(ProgressCircle);

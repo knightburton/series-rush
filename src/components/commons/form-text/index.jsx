@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, memo } from 'react';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 
@@ -105,4 +105,4 @@ FormText.defaultProps = {
   endAdornment: null,
 };
 
-export default FormText;
+export default memo(FormText);

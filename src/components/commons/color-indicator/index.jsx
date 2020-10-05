@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import PropTypes from 'prop-types';
 
 import Box from '@material-ui/core/Box';
@@ -31,4 +31,4 @@ ColorIndicator.defaultProps = {
   mr: false,
 };
 
-export default ColorIndicator;
+export default memo(ColorIndicator);

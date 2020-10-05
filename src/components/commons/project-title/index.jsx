@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 
@@ -35,4 +35,4 @@ ProjectTitle.defaultProps = {
   withLogo: false,
 };
 
-export default ProjectTitle;
+export default memo(ProjectTitle);

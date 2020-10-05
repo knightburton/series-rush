@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import PropTypes from 'prop-types';
 
 import Typography from '@material-ui/core/Typography';
@@ -21,4 +21,4 @@ PageTitle.defaultProps = {
   align: 'left',
 };
 
-export default PageTitle;
+export default memo(PageTitle);

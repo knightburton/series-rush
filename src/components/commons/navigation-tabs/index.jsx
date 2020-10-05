@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
@@ -83,4 +83,4 @@ NavigationTabs.propTypes = {
   onChange: PropTypes.func.isRequired,
 };
 
-export default NavigationTabs;
+export default memo(NavigationTabs);

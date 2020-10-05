@@ -1,4 +1,4 @@
-import React, { useState, useRef, useCallback } from 'react';
+import React, { useState, useRef, useCallback, memo } from 'react';
 import PropTypes from 'prop-types';
 
 import Box from '@material-ui/core/Box';
@@ -27,9 +27,7 @@ const SplitButton = ({ options, variant, color, size, disabled, onClick }) => {
     setOpen(false);
   }, []);
 
-  const handleToggle = useCallback(() => {
-    setOpen(prevOpen => !prevOpen);
-  }, []);
+  const handleToggle = useCallback(() => setOpen(prevOpen => !prevOpen), []);
 
   const handleClose = useCallback(event => {
     if (anchorRef.current && anchorRef.current.contains(event.target)) return;
@@ -104,4 +102,4 @@ SplitButton.defaultProps = {
   disabled: false,
 };
 
-export default SplitButton;
+export default memo(SplitButton);

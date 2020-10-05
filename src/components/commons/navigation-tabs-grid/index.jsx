@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, memo } from 'react';
 import PropTypes from 'prop-types';
 import { useLocation } from 'react-router-dom';
 
@@ -19,9 +19,7 @@ const NavigationTabsGrid = ({ tabs, defaultTab, children }) => {
     if (pathname !== selected) updateSelected(getPathnameFromPaths(pathname, tabs.map(({ path }) => path), defaultTab));
   }, [selected, pathname, tabs, defaultTab]);
 
-  const handleChange = useCallback((e, newSelected) => {
-    updateSelected(newSelected);
-  }, []);
+  const handleChange = useCallback((e, newSelected) => updateSelected(newSelected), []);
 
   return (
     <Grid container spacing={3}>
@@ -49,4 +47,4 @@ NavigationTabsGrid.propTypes = {
   children: PropTypes.node.isRequired,
 };
 
-export default NavigationTabsGrid;
+export default memo(NavigationTabsGrid);

@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useMemo, useEffect } from 'react';
+import React, { useState, useCallback, useMemo, useEffect, memo } from 'react';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 
@@ -28,13 +28,9 @@ const FormInline = ({ type, id, value, label, helperText, disabled, required, va
     },
   });
 
-  const handleEditClick = useCallback(() => {
-    setEdit(true);
-  }, []);
+  const handleEditClick = useCallback(() => setEdit(true), []);
 
-  const handleCancelClick = useCallback(() => {
-    setEdit(false);
-  }, []);
+  const handleCancelClick = useCallback(() => setEdit(false), []);
 
   const FormControl = useMemo(() => {
     if (type === 'text') return FormText;
@@ -120,4 +116,4 @@ FormInline.defaultProps = {
   actionButton: null,
 };
 
-export default FormInline;
+export default memo(FormInline);

@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, memo } from 'react';
 import PropTypes from 'prop-types';
 
 import Box from '@material-ui/core/Box';
@@ -50,4 +50,4 @@ ProgressIconButton.defaultProps = {
   disabled: false,
 };
 
-export default ProgressIconButton;
+export default memo(ProgressIconButton);
