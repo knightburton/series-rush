@@ -23,7 +23,6 @@ import ProfileContext from '../../../../contexts/profile';
 import { signOut } from '../../../../store/auth';
 import { APP_PATHS } from '../../../../constants/paths';
 
-
 const AppBarProfileMenu = ({ anchor, setAnchor }) => {
   const dispatch = useDispatch();
   const { t } = useTranslation();

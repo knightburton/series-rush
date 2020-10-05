@@ -39,7 +39,6 @@ const NavigationTabsGrid = ({ tabs, defaultTab, children }) => {
   );
 };
 
-
 NavigationTabsGrid.propTypes = {
   tabs: PropTypes.arrayOf(PropTypes.shape({
     key: PropTypes.string.isRequired,

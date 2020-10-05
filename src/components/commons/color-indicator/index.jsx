@@ -31,5 +31,4 @@ ColorIndicator.defaultProps = {
   mr: false,
 };
 
-
 export default ColorIndicator;
