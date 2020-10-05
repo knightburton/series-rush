@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { Provider } from 'react-redux';
-import { Router } from 'react-router-dom';
+import { BrowserRouter } from 'react-router-dom';
 import { MuiThemeProvider } from '@material-ui/core/styles';
 import { ReactReduxFirebaseProvider } from 'react-redux-firebase';
 import { createFirestoreInstance } from 'redux-firestore';
@@ -32,9 +32,9 @@ ReactDOM.render(
         <CssBaseline />
         <ProfileProvider>
           <ConfigurationProvider>
-            <Router history={history}>
+            <BrowserRouter history={history}>
               <MainRoutes />
-            </Router>
+            </BrowserRouter>
           </ConfigurationProvider>
         </ProfileProvider>
       </MuiThemeProvider>
