@@ -13,13 +13,9 @@ const Confirmation = ({ id, title, description, onAgree, onDisagree, agreeLabel,
   const { t } = useTranslation();
   const [isShown, setIsShown] = useState(false);
 
-  const hide = useCallback(() => {
-    setIsShown(false);
-  }, []);
+  const hide = useCallback(() => setIsShown(false), []);
 
-  const show = useCallback(() => {
-    setIsShown(true);
-  }, []);
+  const show = useCallback(() => setIsShown(true), []);
 
   const handleDisagree = useCallback(() => {
     hide();

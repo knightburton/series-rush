@@ -27,9 +27,7 @@ const SplitButton = ({ options, variant, color, size, disabled, onClick }) => {
     setOpen(false);
   }, []);
 
-  const handleToggle = useCallback(() => {
-    setOpen(prevOpen => !prevOpen);
-  }, []);
+  const handleToggle = useCallback(() => setOpen(prevOpen => !prevOpen), []);
 
   const handleClose = useCallback(event => {
     if (anchorRef.current && anchorRef.current.contains(event.target)) return;

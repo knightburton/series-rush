@@ -19,9 +19,7 @@ const PopupMenuButton = ({ icon, color, size, disabled, menu, title }) => {
     setOpen(false);
   }, [menu]);
 
-  const handleToggleClick = useCallback(() => {
-    setOpen(prevOpen => !prevOpen);
-  }, []);
+  const handleToggleClick = useCallback(() => setOpen(prevOpen => !prevOpen), []);
 
   const handleClose = useCallback(event => {
     if (anchorRef.current && anchorRef.current.contains(event.target)) return;

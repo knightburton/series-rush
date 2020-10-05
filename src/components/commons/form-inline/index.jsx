@@ -28,13 +28,9 @@ const FormInline = ({ type, id, value, label, helperText, disabled, required, va
     },
   });
 
-  const handleEditClick = useCallback(() => {
-    setEdit(true);
-  }, []);
+  const handleEditClick = useCallback(() => setEdit(true), []);
 
-  const handleCancelClick = useCallback(() => {
-    setEdit(false);
-  }, []);
+  const handleCancelClick = useCallback(() => setEdit(false), []);
 
   const FormControl = useMemo(() => {
     if (type === 'text') return FormText;
