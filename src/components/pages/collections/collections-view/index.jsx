@@ -16,7 +16,7 @@ const CollectionsView = () => (
     <Box position="relative" height="100%">
       <NavigationTabsGrid
         tabs={COLLECTIONS_MENU}
-        defaultTab={APP_PATHS.COLLECTIONS_TV.path}
+        defaultTab={APP_PATHS.COLLECTIONS_TV.to}
       >
         <CollectionGroups />
         <CollectionList />

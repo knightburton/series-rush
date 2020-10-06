@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useParams } from 'react-router';
+import { useParams } from 'react-router-dom';
 import {
   useSelector,
   useDispatch,
@@ -8,9 +8,9 @@ import {
 
 import Box from '@material-ui/core/Box';
 
-import Confirmation from '../../../../../widgets/confirmation';
+import Confirmation from '../../../../widgets/confirmation';
 
-import CollectionsEditGroupsListItem from '../collections-edit-groups-list-item';
+import CollectionsEditListItem from '../collections-edit-list-item';
 
 import {
   getGroupsByType,
@@ -21,9 +21,9 @@ import {
   deleteCollectionGroup,
   deleteCollectionGroupItems,
   moveCollectionGroupItems,
-} from '../../../../../../store/collections';
+} from '../../../../../store/collections';
 
-const CollectionsEditGroupsList = () => {
+const CollectionsEditList = () => {
   const { type } = useParams();
   const { t } = useTranslation();
   const dispatch = useDispatch();
@@ -56,7 +56,7 @@ const CollectionsEditGroupsList = () => {
   return (
     <Box>
       {groups.map(group => (
-        <CollectionsEditGroupsListItem
+        <CollectionsEditListItem
           key={group.id}
           group={group}
           onGroupDelete={handleItemAction('deleteGroup')}
@@ -92,4 +92,4 @@ const CollectionsEditGroupsList = () => {
   );
 };
 
-export default CollectionsEditGroupsList;
+export default CollectionsEditList;

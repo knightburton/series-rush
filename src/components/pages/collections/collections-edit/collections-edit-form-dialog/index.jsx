@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
+import { useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import {
   useDispatch,
@@ -13,27 +14,28 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 
-import Form from '../../../../../commons/form';
-import FormHeader from '../../../../../commons/form-header';
-import FormText from '../../../../../commons/form-text';
-import FormSelect from '../../../../../commons/form-select';
-import FormButton from '../../../../../commons/form-button';
+import Form from '../../../../commons/form';
+import FormHeader from '../../../../commons/form-header';
+import FormText from '../../../../commons/form-text';
+import FormSelect from '../../../../commons/form-select';
+import FormButton from '../../../../commons/form-button';
 
 import {
   getCollectionInProgress,
   getDialogData,
   addCollectionGroup,
   updateCollectionGroup,
-} from '../../../../../../store/collections';
-import useForm from '../../../../../../hooks/useForm';
-import { GROUP_COLORS } from '../../../../../../constants/config';
+} from '../../../../../store/collections';
+import useForm from '../../../../../hooks/useForm';
+import { GROUP_COLORS } from '../../../../../constants/config';
 import {
   stateSchema,
   validationSchema,
 } from './constants';
 
-const CollectionsEditGroupsFormDialog = ({ open, onClose, type }) => {
+const CollectionsEditFormDialog = ({ open, onClose }) => {
   const { t } = useTranslation();
+  const { type } = useParams();
   const dispatch = useDispatch();
   const inProgress = useSelector(getCollectionInProgress);
   const formData = useSelector(getDialogData);
@@ -134,14 +136,9 @@ const CollectionsEditGroupsFormDialog = ({ open, onClose, type }) => {
   );
 };
 
-CollectionsEditGroupsFormDialog.propTypes = {
+CollectionsEditFormDialog.propTypes = {
   open: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
-  type: PropTypes.string,
 };
 
-CollectionsEditGroupsFormDialog.defaultProps = {
-  type: '',
-};
-
-export default CollectionsEditGroupsFormDialog;
+export default CollectionsEditFormDialog;

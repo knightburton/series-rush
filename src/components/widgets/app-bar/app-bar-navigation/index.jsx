@@ -10,8 +10,7 @@ import { MAIN_MENU } from '../../../../constants/navigation';
 import useStyles from './styles';
 
 const defaultSelected = pathname => {
-  const paths = MAIN_MENU.map(({ path }) => path);
-  const selected = paths.find(path => pathname.includes(path));
+  const selected = MAIN_MENU.map(({ to }) => to).find(to => pathname.includes(to));
 
   return selected || false;
 };
@@ -39,14 +38,14 @@ const AppBarNavigation = () => {
       {MAIN_MENU.map(item => (
         <Tab
           key={item.key}
-          value={item.path}
+          value={item.to}
           label={t(item.title)}
           className={classes.tab}
           classes={{
             selected: classes.selected,
           }}
           component={Link}
-          to={item.path}
+          to={item.to}
           disableRipple
         />
       ))}

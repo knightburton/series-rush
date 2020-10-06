@@ -1,6 +1,7 @@
 import React, { useContext, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
@@ -14,11 +15,13 @@ import {
   requestEmailVerification,
   deleteProfile,
 } from '../../../../store/auth';
+import { APP_PATHS } from '../../../../constants/paths';
 
 const DangerZone = () => {
   const { t } = useTranslation();
   const { emailVerified } = useContext(ProfileContext);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const handleRequestVerificationClick = useCallback(() => {
     dispatch(requestEmailVerification());
@@ -26,7 +29,8 @@ const DangerZone = () => {
 
   const handleDeleteClick = useCallback(() => {
     dispatch(deleteProfile());
-  }, [dispatch]);
+    navigate(APP_PATHS.LANDING.to);
+  }, [dispatch, navigate]);
 
   return (
     <Section

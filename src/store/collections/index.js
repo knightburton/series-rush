@@ -61,7 +61,7 @@ export const getGroupsByType = type => createSelector(
   getFirestoreOrderedData,
   data => {
     const path = (type && `${type}Groups`) || '';
-    return data?.[path];
+    return data?.[path] || [];
   },
 );
 export const getGroupsByTypeExceptID = (type, id) => createSelector(
@@ -72,7 +72,7 @@ export const getCollectionByType = type => createSelector(
   getFirestoreOrderedData,
   data => {
     const path = (type && `${type}Collection`) || '';
-    return data?.[path];
+    return data?.[path] || [];
   },
 );
 export const getCollectionByTypeAndGroup = (type, group) => createSelector(

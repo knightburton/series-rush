@@ -2,8 +2,8 @@ import React, { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
   useParams,
-  useHistory,
-} from 'react-router';
+  useNavigate,
+} from 'react-router-dom';
 import {
   useDispatch,
   useSelector,
@@ -15,21 +15,21 @@ import IconButton from '@material-ui/core/IconButton';
 import AddCircleTwoToneIcon from '@material-ui/icons/AddCircleTwoTone';
 import CheckCircleTwoToneIcon from '@material-ui/icons/CheckCircleTwoTone';
 
-import PageTitle from '../../../../../commons/page-title';
-import Tooltip from '../../../../../commons/tooltip';
+import PageTitle from '../../../../commons/page-title';
+import Tooltip from '../../../../commons/tooltip';
 
 import {
   getIsGroupAddEnabled,
   openCollectionsDialog,
   setCollectionsDialogData,
-} from '../../../../../../store/collections';
-import { APP_PATHS } from '../../../../../../constants/paths';
-import { ITEM_TYPES } from '../../../../../../constants/config';
+} from '../../../../../store/collections';
+import { APP_PATHS } from '../../../../../constants/paths';
+import { ITEM_TYPES } from '../../../../../constants/config';
 
-const CollectionsEditGroupsHeader = () => {
+const CollectionsEditHeader = () => {
   const { t } = useTranslation();
   const { type } = useParams();
-  const { push } = useHistory();
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const isGroupAddEnabled = useSelector(getIsGroupAddEnabled(type));
 
@@ -40,10 +40,10 @@ const CollectionsEditGroupsHeader = () => {
 
   const handleGoBackClick = useCallback(() => {
     const route = type === ITEM_TYPES.TV
-      ? APP_PATHS.COLLECTIONS_TV.path
-      : APP_PATHS.COLLECTIONS_MOVIE.path;
-    push(route);
-  }, [push, type]);
+      ? APP_PATHS.COLLECTIONS_TV.to
+      : APP_PATHS.COLLECTIONS_MOVIE.to;
+    navigate(route);
+  }, [navigate, type]);
 
   return (
     <Box
@@ -79,4 +79,4 @@ const CollectionsEditGroupsHeader = () => {
   );
 };
 
-export default CollectionsEditGroupsHeader;
+export default CollectionsEditHeader;

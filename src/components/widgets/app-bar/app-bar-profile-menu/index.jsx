@@ -2,7 +2,7 @@ import React, { useContext, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
-import { useHistory } from 'react-router';
+import { useNavigate } from 'react-router-dom';
 
 import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
@@ -25,14 +25,15 @@ import { APP_PATHS } from '../../../../constants/paths';
 
 const AppBarProfileMenu = ({ anchor, setAnchor }) => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { t } = useTranslation();
-  const { push } = useHistory();
   const { displayName } = useContext(ProfileContext);
 
   const handleSignOut = useCallback(() => {
     dispatch(signOut());
     setAnchor(null);
-  }, [dispatch, setAnchor]);
+    navigate(APP_PATHS.LANDING.to);
+  }, [dispatch, setAnchor, navigate]);
 
   const handleMenuCLick = useCallback(e => {
     setAnchor(e.currentTarget);
@@ -43,9 +44,9 @@ const AppBarProfileMenu = ({ anchor, setAnchor }) => {
   }, [setAnchor]);
 
   const handleProfileClick = useCallback(() => {
-    push(APP_PATHS.PROFILE.path);
+    navigate(APP_PATHS.PROFILE.to);
     handleMenuClose();
-  }, [push, handleMenuClose]);
+  }, [navigate, handleMenuClose]);
 
   return (
     <>
