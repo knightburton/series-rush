@@ -1,4 +1,4 @@
-import { VALIDATORS, ERRORS } from '../../../../../../hooks/useForm';
+import { VALIDATORS, ERRORS } from '../../../../../hooks/useForm';
 
 export const stateSchema = {
   label: '',

@@ -28,8 +28,8 @@ const NavigationTabs = ({ tabs, selected, onChange }) => {
               key={item.key}
               label={t(item.title)}
               component={Link}
-              to={item.path}
-              value={item.path}
+              to={item.to}
+              value={item.to}
               classes={{
                 wrapper: classes.wrapper,
                 selected: classes.selected,
@@ -54,8 +54,8 @@ const NavigationTabs = ({ tabs, selected, onChange }) => {
               key={item.key}
               label={t(item.title)}
               component={Link}
-              to={item.path}
-              value={item.path}
+              to={item.to}
+              value={item.to}
               classes={{
                 wrapper: classes.wrapper,
                 selected: classes.selected,
@@ -73,7 +73,7 @@ const NavigationTabs = ({ tabs, selected, onChange }) => {
 NavigationTabs.propTypes = {
   tabs: PropTypes.arrayOf(PropTypes.shape({
     key: PropTypes.string.isRequired,
-    path: PropTypes.string.isRequired,
+    to: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
   })).isRequired,
   selected: PropTypes.oneOfType([

@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useHistory } from 'react-router';
+import { useNavigate } from 'react-router-dom';
 import {
   useDispatch,
   useSelector,
@@ -28,7 +28,7 @@ import {
 
 const SignUp = () => {
   const { t } = useTranslation();
-  const { push } = useHistory();
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const inProgress = useSelector(getInProgress);
   const { state, handleChange, handleSubmit } = useForm({
@@ -39,8 +39,8 @@ const SignUp = () => {
   const { firstName, lastName, email, password, confirmPassword } = state;
 
   const handleAlreadyHaveClick = useCallback(() => {
-    push(APP_PATHS.SIGN_IN.path);
-  }, [push]);
+    navigate(APP_PATHS.SIGN_IN.path);
+  }, [navigate]);
 
   return (
     <Container maxWidth="xs">

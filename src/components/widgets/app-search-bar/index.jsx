@@ -1,6 +1,9 @@
 import React, { useEffect, useCallback, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useLocation } from 'react-router-dom';
+import {
+  useLocation,
+  useNavigate,
+} from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 
 import InputBase from '@material-ui/core/InputBase';
@@ -22,15 +25,16 @@ import useStyles from './styles';
 const AppSearchBar = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const inputRef = useRef(null);
   const { t } = useTranslation();
-  const { search: searchLocation, pathname } = useLocation();
+  const location = useLocation();
   const { state, handleChange, handleSubmit } = useForm({
     stateSchema: {
       query: '',
       type: ITEM_TYPES.TV,
     },
-    callback: ({ query, type }) => query && dispatch(search({ query, type })),
+    callback: ({ query, type }) => query && dispatch(search({ query, type, navigate, location })),
   });
 
   const updateAllInput = useCallback((query, type) => {
@@ -44,13 +48,13 @@ const AppSearchBar = () => {
   }, [handleChange]);
 
   useEffect(() => {
-    if (pathname === APP_PATHS.SEARCH.path) {
-      const { query, type } = getSearchFromQueryString(searchLocation);
+    if (location.pathname === APP_PATHS.SEARCH.path) {
+      const { query, type } = getSearchFromQueryString(location.search);
       updateAllInput(query, type);
     } else {
       resetAllInput();
     }
-  }, [searchLocation, pathname, updateAllInput, resetAllInput]);
+  }, [location, updateAllInput, resetAllInput]);
 
   useEffect(() => {
     inputRef.current.focus();

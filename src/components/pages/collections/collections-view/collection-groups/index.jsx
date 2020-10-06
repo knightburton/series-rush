@@ -2,8 +2,8 @@ import React, { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
   useParams,
-  useHistory,
-} from 'react-router';
+  useNavigate,
+} from 'react-router-dom';
 import {
   useDispatch,
   useSelector,
@@ -27,7 +27,7 @@ import { APP_PATHS } from '../../../../../constants/paths';
 const CollectionGroups = () => {
   const { t } = useTranslation();
   const { type } = useParams();
-  const { push } = useHistory();
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const groups = useSelector(getGroupsByType(type));
   const selectedGroup = useSelector(getSelectedGroupByType(type));
@@ -37,8 +37,8 @@ const CollectionGroups = () => {
   }, [dispatch, type]);
 
   const handleEditClick = useCallback(() => {
-    push(APP_PATHS.COLLECTIONS_EDIT_GROUPS.path.replace(':type', type));
-  }, [push, type]);
+    navigate(APP_PATHS.COLLECTIONS_EDIT.to.replace(':type', type));
+  }, [navigate, type]);
 
   return (
     <Box

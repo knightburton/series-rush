@@ -5,7 +5,6 @@ import { getFirestore, reduxFirestore } from 'redux-firestore';
 import thunk from 'redux-thunk';
 import tvmazeApi from '../api/tvmaze-api';
 import tmdbApi from '../api/tmdb-api';
-import history from '../side-effects/history';
 import firebase from '../side-effects/firebase';
 import storage from '../side-effects/locale-storage';
 import rootReducer from './root-reducer';
@@ -14,7 +13,6 @@ const isDevelopment = process.env.NODE_ENV === 'development';
 
 const middlewares = applyMiddleware(
   thunk.withExtraArgument({
-    history,
     getFirebase,
     getFirestore,
     storage,

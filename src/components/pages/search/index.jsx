@@ -1,7 +1,10 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import Pagination from 'material-ui-flat-pagination';
 import { useTranslation } from 'react-i18next';
-import { useLocation } from 'react-router-dom';
+import {
+  useLocation,
+  useNavigate,
+} from 'react-router-dom';
 import {
   useDispatch,
   useSelector,
@@ -37,6 +40,7 @@ const Search = () => {
   const query = useSelector(getSearchQuery);
   const searchQueryInProgress = useSelector(getSearchQueryInProgress);
   const location = useLocation();
+  const navigate = useNavigate();
   const [selectedPage, selectPage] = useState(null);
 
   const handlePageSelect = useCallback((e, offset) => {
@@ -49,8 +53,8 @@ const Search = () => {
   }, [page]);
 
   useEffect(() => {
-    dispatch(checkSearch());
-  }, [location, dispatch]);
+    dispatch(checkSearch(location, navigate));
+  }, [location, navigate, dispatch]);
 
   useEffect(() => () => dispatch(clearSearchStore()), [dispatch]);
 

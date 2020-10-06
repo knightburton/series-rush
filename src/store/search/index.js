@@ -146,18 +146,18 @@ export const reducer = handleActions(
 );
 
 // Thunk actions
-export const prepareSearch = props => (dispatch, getState, { history }) => {
-  const { location } = history;
+export const prepareSearch = props => dispatch => {
+  const { navigate, location, ...restProps } = props;
   const queryString = getSearchFromQueryString(location.search, { parseNumbers: true });
   const validProps = {
     ...queryString, // That is important to get the query first
-    ...props, // Then overrides the data with the new values from the current search props
-    page: Object.keys(props).length && !!queryString.page && queryString.page !== props.page ? props.page : props.page || queryString.page,
+    ...restProps, // Then overrides the data with the new values from the current search props
+    page: Object.keys(restProps).length && !!queryString.page && queryString.page !== restProps.page ? restProps.page : restProps.page || queryString.page,
   };
   const newQueryString = createSearchQueryString(validProps);
 
   if (location.pathname !== APP_PATHS.SEARCH.path || newQueryString !== location.search.replace(/^\?/g, '')) {
-    history.push(`${APP_PATHS.SEARCH.path}?${newQueryString}`);
+    navigate(`${APP_PATHS.SEARCH.path}?${newQueryString}`);
   }
 
   dispatch(storeSearchProps(validProps));
@@ -185,15 +185,14 @@ export const search = (props = {}) => async (dispatch, getState, { tmdbApi }) =>
   }
 };
 
-export const checkSearch = () => (dispatch, getState, { history }) => {
-  const { location } = history;
+export const checkSearch = (location, navigate) => (dispatch, getState) => {
   const props = getSearchProps(getState());
   const resultDetailsDialogOpen = getSerachResultDetailsDialogOpen(getState());
   const stateQueryString = createSearchQueryString(props);
   const locationQuryString = location.search.replace(/^\?/g, '');
 
   if (resultDetailsDialogOpen) dispatch(closeSearchResultDetailsDialog());
-  if (stateQueryString !== locationQuryString) dispatch(search());
+  if (stateQueryString !== locationQuryString) dispatch(search({ location, navigate }));
 };
 
 export const fetchResultDetails = (type, id) => async (dispatch, getState, { tmdbApi }) => {

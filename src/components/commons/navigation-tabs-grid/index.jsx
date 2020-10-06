@@ -13,10 +13,10 @@ import useStyles from './styles';
 const NavigationTabsGrid = ({ tabs, defaultTab, children }) => {
   const classes = useStyles();
   const { pathname } = useLocation();
-  const [selected, updateSelected] = useState(getPathnameFromPaths(pathname, tabs.map(({ path }) => path), defaultTab));
+  const [selected, updateSelected] = useState(getPathnameFromPaths(pathname, tabs.map(({ to }) => to), defaultTab));
 
   useEffect(() => {
-    if (pathname !== selected) updateSelected(getPathnameFromPaths(pathname, tabs.map(({ path }) => path), defaultTab));
+    if (pathname !== selected) updateSelected(getPathnameFromPaths(pathname, tabs.map(({ to }) => to), defaultTab));
   }, [selected, pathname, tabs, defaultTab]);
 
   const handleChange = useCallback((e, newSelected) => updateSelected(newSelected), []);
@@ -40,7 +40,7 @@ const NavigationTabsGrid = ({ tabs, defaultTab, children }) => {
 NavigationTabsGrid.propTypes = {
   tabs: PropTypes.arrayOf(PropTypes.shape({
     key: PropTypes.string.isRequired,
-    path: PropTypes.string.isRequired,
+    to: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
   })).isRequired,
   defaultTab: PropTypes.string.isRequired,

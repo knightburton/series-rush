@@ -10,7 +10,6 @@ import { createFirestoreInstance } from 'redux-firestore';
 import './side-effects/console';
 import { ProfileProvider } from './contexts/profile';
 import { ConfigurationProvider } from './contexts/configuration';
-import history from './side-effects/history';
 import configureStore from './store/configure-store';
 import firebase, { rfConfig } from './side-effects/firebase';
 import theme from './theme';
@@ -32,7 +31,7 @@ ReactDOM.render(
         <CssBaseline />
         <ProfileProvider>
           <ConfigurationProvider>
-            <BrowserRouter history={history}>
+            <BrowserRouter>
               <MainRoutes />
             </BrowserRouter>
           </ConfigurationProvider>

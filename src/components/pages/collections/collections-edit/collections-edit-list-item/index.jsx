@@ -19,9 +19,9 @@ import DeleteTwoToneIcon from '@material-ui/icons/DeleteTwoTone';
 import DeleteSweepTwoToneIcon from '@material-ui/icons/DeleteSweepTwoTone';
 import AllOutTwoToneIcon from '@material-ui/icons/AllOutTwoTone';
 
-import Tooltip from '../../../../../commons/tooltip';
-import ColorIndicator from '../../../../../commons/color-indicator';
-import PopupMenuButton from '../../../../../commons/popup-menu-button';
+import Tooltip from '../../../../commons/tooltip';
+import ColorIndicator from '../../../../commons/color-indicator';
+import PopupMenuButton from '../../../../commons/popup-menu-button';
 
 import {
   getGroupsByTypeExceptID,
@@ -29,11 +29,11 @@ import {
   getNumberOfItemsByTypeAndGroup,
   setCollectionsDialogData,
   openCollectionsDialog,
-} from '../../../../../../store/collections';
-import { addAlert } from '../../../../../../store/app';
-import { getLocalizedDate } from '../../../../../../utils/date';
+} from '../../../../../store/collections';
+import { addAlert } from '../../../../../store/app';
+import { getLocalizedDate } from '../../../../../utils/date';
 
-const CollectionsEditGroupsListItem = ({ group, onGroupDelete, onAllItemsDelete, onAllItemsMove }) => {
+const CollectionsEditListItem = ({ group, onGroupDelete, onAllItemsDelete, onAllItemsMove }) => {
   const { t } = useTranslation();
   const { id, label, color, type, createdAt } = group;
   const dispatch = useDispatch();
@@ -124,7 +124,7 @@ const CollectionsEditGroupsListItem = ({ group, onGroupDelete, onAllItemsDelete,
   );
 };
 
-CollectionsEditGroupsListItem.propTypes = {
+CollectionsEditListItem.propTypes = {
   group: PropTypes.shape({
     id: PropTypes.oneOfType([
       PropTypes.number,
@@ -140,4 +140,4 @@ CollectionsEditGroupsListItem.propTypes = {
   onAllItemsMove: PropTypes.func.isRequired,
 };
 
-export default CollectionsEditGroupsListItem;
+export default CollectionsEditListItem;
