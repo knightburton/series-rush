@@ -21,17 +21,6 @@ export const ELLIPSIS_LENGTHS = {
   LG: 220,
 };
 
-export const GROUP_COLORS = [
-  { id: 'red', label: 'colors.red' },
-  { id: 'pink', label: 'colors.pink' },
-  { id: 'purple', label: 'colors.purple' },
-  { id: 'blue', label: 'colors.blue' },
-  { id: 'cyan', label: 'colors.cyan' },
-  { id: 'green', label: 'colors.green' },
-  { id: 'yellow', label: 'colors.yellow' },
-  { id: 'orange', label: 'colors.orange' },
-];
-
 export const MAXIMUM_NUMBER_OF_GROUPS = 6;
 
 export default {

@@ -17,8 +17,8 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import Form from '../../../../commons/form';
 import FormHeader from '../../../../commons/form-header';
 import FormText from '../../../../commons/form-text';
-import FormSelect from '../../../../commons/form-select';
 import FormButton from '../../../../commons/form-button';
+import FormColorSelect from '../../../../commons/form-color-select';
 
 import {
   getCollectionInProgress,
@@ -27,7 +27,6 @@ import {
   updateCollectionGroup,
 } from '../../../../../store/collections';
 import useForm from '../../../../../hooks/useForm';
-import { GROUP_COLORS } from '../../../../../constants/config';
 import {
   stateSchema,
   validationSchema,
@@ -59,8 +58,6 @@ const CollectionsEditFormDialog = ({ open, onClose }) => {
       updateState(stateSchema);
     }
   }, [updateState, formData, open]);
-
-  const { label, color } = state;
 
   return (
     <Dialog
@@ -94,20 +91,18 @@ const CollectionsEditFormDialog = ({ open, onClose }) => {
           <FormText
             id="label"
             label={t('page.collections.edit.groups.label')}
-            value={label.value}
-            error={label.error}
+            value={state.label.value}
+            error={state.label.error}
             onChange={handleChange}
             disabled={inProgress}
             required
           />
-          <FormSelect
+          <FormColorSelect
             id="color"
             label={t('page.collections.edit.groups.color')}
-            value={color.value}
-            error={color.error}
+            value={state.color.value}
+            error={state.color.error}
             onChange={handleChange}
-            options={GROUP_COLORS}
-            translateOptions
             disabled={inProgress}
             required
           />
