@@ -1,5 +1,4 @@
 import { makeStyles } from '@material-ui/core/styles';
-import * as colors from '@material-ui/core/colors';
 
 const sizeValue = size => ({
   small: 3,
@@ -18,6 +17,6 @@ export default makeStyles(theme => ({
     width: theme.spacing(sizeValue(size)),
     height: theme.spacing(sizeValue(size)),
     borderRadius: theme.spacing(sizeRadius(size)),
-    backgroundColor: colors[color][500],
+    backgroundColor: color,
   }),
 }));

@@ -159,10 +159,20 @@
     "red": "Red",
     "pink": "Pink",
     "purple": "Purple",
+    "deepPurple": "Deep Purple",
+    "indigo": "Indio",
     "blue": "Blue",
-    "cyan": "Cyan",
+    "lightBlue": "Light Blue",
+    "cyan": "cyan",
     "green": "Green",
+    "lightGreen": "Light Green",
+    "lime": "Lime",
     "yellow": "Yellow",
-    "orange": "Orange"
+    "amber": "Amber",
+    "orange": "Orange",
+    "deepOrange": "Deep Orange",
+    "brown": "Brown",
+    "grey": "Grey",
+    "blueGrey": "Blue Grey"
   }
 }
