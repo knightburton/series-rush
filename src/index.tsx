@@ -5,6 +5,7 @@ import { CustomThemeProvider } from './contexts/customTheme';
 import { store } from './store/configureStore';
 import App from './components/App';
 import reportWebVitals from './reportWebVitals';
+import './localization/i18n';
 
 ReactDOM.render(
   <StrictMode>
