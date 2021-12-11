@@ -1,4 +1,3 @@
-import React from 'react';
 import { PaletteMode } from '@mui/material';
 
 export interface CustomThemeContextInterface {
