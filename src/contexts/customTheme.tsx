@@ -3,7 +3,7 @@ import { ThemeProvider, createTheme } from '@mui/material/styles';
 import { PaletteMode, Theme } from '@mui/material';
 import CssBaseline from '@mui/material/CssBaseline';
 import localStorage from '../sideEffects/localStorage';
-import { CustomThemeContextInterface, CustomThemeProviderProps } from '../interfaces';
+import { CustomThemeContextInterface, CustomThemeProviderProps } from '../interfaces/contexts';
 import { LOCAL_STORAGE_KEYS } from '../constants/core';
 import '@fontsource/roboto/300.css';
 import '@fontsource/roboto/400.css';

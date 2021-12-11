@@ -1,5 +1,5 @@
-import { PaletteMode } from '@mui/material';
 import React from 'react';
+import { PaletteMode } from '@mui/material';
 
 export interface CustomThemeContextInterface {
   colorMode: PaletteMode;
