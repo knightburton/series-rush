@@ -1,3 +1,6 @@
 {
-  "project": "Series Rush"
+  "project": "Series Rush",
+  "signIn": {
+    "title": "Sign In"
+  }
 }
