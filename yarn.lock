@@ -1395,6 +1395,11 @@
     "@types/yargs" "^16.0.0"
     "chalk" "^4.0.0"
 
+"@knightburton/react-use-form@^1.0.0":
+  "integrity" "sha512-X5iNRjLI1hdFhYwMsX3mc495ENBazlU/+UE/AP6nPtw/4pJl+bi+OaQOqENIhiZWykWY1hJVzubnsmY4hl3Gpw=="
+  "resolved" "https://registry.npmjs.org/@knightburton/react-use-form/-/react-use-form-1.0.0.tgz"
+  "version" "1.0.0"
+
 "@mui/base@5.0.0-alpha.59":
   "integrity" "sha512-rPgN2FW0FAjQ9+LQ+XBsq3DFcuiiMFhf8uoLJAWnnzft27IJvJqbrhfpCZ68G6l+umJLbbl5RIIbpt8ALZDDNQ=="
   "resolved" "https://registry.npmjs.org/@mui/base/-/base-5.0.0-alpha.59.tgz"
