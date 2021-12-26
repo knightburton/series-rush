@@ -1,6 +1,5 @@
-import Container from '@mui/material/Container';
 import { AppContentProps } from '../../../interfaces/components';
 
-const AppContent = ({ children }: AppContentProps): JSX.Element => <Container maxWidth="lg">{children}</Container>;
+const AppContent = ({ children }: AppContentProps): JSX.Element => <div>{children}</div>;
 
 export default AppContent;
