@@ -1,4 +1,6 @@
 {
   "agree": "Agree",
-  "disagree": "Disagree"
+  "disagree": "Disagree",
+  "email": "Email",
+  "password": "Password"
 }

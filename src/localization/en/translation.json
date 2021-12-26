@@ -2,5 +2,8 @@
   "project": "Series Rush",
   "signIn": {
     "title": "Sign In"
+  },
+  "forgotPassword": {
+    "title": "Forgot Password"
   }
 }
