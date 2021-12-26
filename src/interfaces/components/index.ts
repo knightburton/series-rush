@@ -1,3 +1,10 @@
+export interface ButtonContainerProps {
+  children: React.ReactNode | React.ReactNode[];
+  direction?: 'row' | 'column';
+  justify?: 'flex-start' | 'center' | 'flex-end' | 'space-between';
+  align?: 'flex-start' | 'center' | 'flex-end' | 'baseline';
+}
+
 export interface FormProps {
   onSubmit: (event: React.FormEvent<HTMLFormElement>) => void;
   children?: React.ReactNode;
@@ -13,6 +20,7 @@ export interface FormTextProps {
   autoComplete?: string;
   disabled?: boolean;
   required?: boolean;
+  type?: 'text' | 'password';
 }
 
 export interface TitleProps {
