@@ -15,6 +15,10 @@ export interface FormTextProps {
   required?: boolean;
 }
 
+export interface TitleProps {
+  children: string;
+}
+
 export interface AppContentProps {
   children?: React.ReactNode;
 }
