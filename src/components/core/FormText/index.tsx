@@ -12,6 +12,7 @@ const FormText = ({
   autoComplete = 'off',
   disabled = false,
   required = false,
+  type = 'text',
 }: FormTextProps): JSX.Element => (
   <TextField
     fullWidth
@@ -27,6 +28,7 @@ const FormText = ({
     onChange={onChange}
     disabled={disabled}
     required={required}
+    type={type}
   />
 );
 
