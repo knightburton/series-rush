@@ -3,45 +3,40 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@material-ui/core": "^4.11.0",
-    "@material-ui/icons": "^4.9.1",
-    "@material-ui/lab": "^4.0.0-alpha.56",
-    "@material-ui/styles": "^4.10.0",
-    "axios": "^0.20.0",
-    "date-fns": "^2.16.1",
-    "firebase": "^7.22.1",
-    "history": "^5.0.0",
-    "i18next": "^19.8.1",
-    "material-ui-flat-pagination": "^4.1.1",
-    "prop-types": "^15.7.2",
-    "query-string": "^6.13.5",
-    "react": "^16.13.1",
-    "react-dom": "^16.13.1",
-    "react-helmet": "^6.1.0",
-    "react-i18next": "^11.7.3",
-    "react-redux": "^7.2.1",
-    "react-redux-firebase": "^3.7.0",
-    "react-router": "^6.0.0-beta.0",
-    "react-router-dom": "^6.0.0-beta.0",
-    "react-scripts": "^3.4.3",
-    "redux": "^4.0.5",
-    "redux-actions": "^2.6.5",
-    "redux-devtools-extension": "^2.13.8",
-    "redux-firestore": "^0.14.0",
-    "redux-thunk": "^2.3.0",
-    "reselect": "^4.0.0",
-    "webfontloader": "^1.6.28"
+    "@emotion/react": "^11.7.0",
+    "@emotion/styled": "^11.6.0",
+    "@fontsource/roboto": "^4.5.1",
+    "@knightburton/react-use-form": "^1.0.0",
+    "@mui/icons-material": "^5.2.1",
+    "@mui/material": "^5.2.3",
+    "@mui/types": "^7.1.0",
+    "@reduxjs/toolkit": "^1.7.1",
+    "@testing-library/jest-dom": "^5.11.4",
+    "@testing-library/react": "^11.1.0",
+    "@testing-library/user-event": "^12.1.10",
+    "@types/jest": "^26.0.15",
+    "@types/node": "^12.0.0",
+    "@types/react": "^17.0.0",
+    "@types/react-dom": "^17.0.0",
+    "@types/react-redux": "^7.1.20",
+    "i18next": "^21.6.0",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-i18next": "^11.15.0",
+    "react-redux": "^7.2.6",
+    "react-router-dom": "^6.0.2",
+    "react-scripts": "5.0.0",
+    "typescript": "^4.1.2",
+    "web-vitals": "^1.0.1"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "lint": "eslint --ext .jsx,.js src",
-    "test-coverage": "react-scripts test --coverage --watchAll=false"
-  },
-  "eslintConfig": {
-    "extends": "react-app"
+    "eslint": "eslint ./src ./test --ext .ts",
+    "prettier-fix": "prettier --write \"src/**/*.{ts,tsx,json,js,jsx}\"",
+    "prettier": "prettier --check \"src/**/*.{ts,tsx,json,js,jsx}\""
   },
   "browserslist": {
     "production": [
@@ -56,36 +51,17 @@
     ]
   },
   "devDependencies": {
-    "eslint": "^6.6.0",
-    "eslint-config-airbnb": "^18.2.0",
-    "eslint-plugin-import": "^2.22.1",
-    "eslint-plugin-jsx-a11y": "^6.3.1",
-    "eslint-plugin-react": "^7.21.3",
-    "eslint-plugin-react-hooks": "^4.0.0",
-    "redux-mock-store": "^1.5.4"
-  },
-  "jest": {
-    "coverageReporters": [
-      "text"
-    ],
-    "collectCoverageFrom": [
-      "src/store/app/*.js",
-      "!**/node_modules/**",
-      "!**/vendor/**"
-    ],
-    "coverageThreshold": {
-      "global": {
-        "branches": 80,
-        "functions": 80,
-        "lines": 80,
-        "statements": 80
-      },
-      "src/store/app/*.js": {
-        "branches": 100,
-        "functions": 100,
-        "lines": 100,
-        "statements": 100
-      }
-    }
+    "@typescript-eslint/eslint-plugin": "^5.6.0",
+    "@typescript-eslint/parser": "^5.6.0",
+    "eslint": "^8.4.1",
+    "eslint-config-airbnb": "^19.0.2",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-import-resolver-typescript": "^2.5.0",
+    "eslint-plugin-import": "^2.25.3",
+    "eslint-plugin-jsx-a11y": "^6.5.1",
+    "eslint-plugin-prettier": "^4.0.0",
+    "eslint-plugin-react": "^7.27.1",
+    "eslint-plugin-react-hooks": "^4.3.0",
+    "prettier": "2.5.1"
   }
 }

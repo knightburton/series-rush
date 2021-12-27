@@ -2,12 +2,12 @@
 
 ![Development](https://github.com/knightburton/series-rush/workflows/Development/badge.svg)
 
-Track all your series and movies in one place on multiple platform.
+Track all your series in one place on multiple platform.
 
 ### Run the project locally
 
 **Prerequisites**
-* This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+* This project was bootstrapped with [Create React App](https://create-react-app.dev/).
 In order to be able to run on your local machine install [node.js](https://nodejs.org). We encourage you to use [nvm](https://github.com/nvm-sh/nvm) to get the proper node version.
 * Also, the project runs with the power of [firebase](https://firebase.google.com/). To run the project, you have to acquire the proper firebase configs and provide them as environment variables. We suggest that to create your own firebase project, configure it for your needs and use that to run the project.
 

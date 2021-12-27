@@ -1,6 +1,6 @@
 {
-  "short_name": "Series Rush",
-  "name": "TV Series and Movies tracker",
+  "short_name": "React App",
+  "name": "Create React App Sample",
   "icons": [
     {
       "src": "favicon.ico",
