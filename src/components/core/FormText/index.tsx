@@ -1,6 +1,18 @@
 import React, { memo } from 'react';
 import TextField from '@mui/material/TextField';
-import { FormTextProps } from '../../../interfaces/components';
+
+export interface FormTextProps {
+  id: string;
+  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  value: string;
+  error?: string;
+  label?: string;
+  helperText?: string;
+  autoComplete?: string;
+  disabled?: boolean;
+  required?: boolean;
+  type?: 'text' | 'password';
+}
 
 const FormText = ({
   id,

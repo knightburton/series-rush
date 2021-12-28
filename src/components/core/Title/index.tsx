@@ -1,7 +1,10 @@
 import { memo } from 'react';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
-import { TitleProps } from '../../../interfaces/components';
+
+export interface TitleProps {
+  children: string;
+}
 
 const Title = ({ children }: TitleProps): JSX.Element => (
   <Box sx={{ my: 2 }}>

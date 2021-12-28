@@ -1,4 +1,6 @@
-import { AppContentProps } from '../../../interfaces/components';
+export interface AppContentProps {
+  children?: React.ReactNode;
+}
 
 const AppContent = ({ children }: AppContentProps): JSX.Element => <div>{children}</div>;
 
