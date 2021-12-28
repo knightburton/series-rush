@@ -39,7 +39,7 @@ export const parseFirebaseUser = (user: FirebaseUser): User => ({
   uid: user.uid,
 });
 
-export const signIn = createAsyncThunk<User | null, SignInCredentials, { rejectValue: Error }>('SIGN_IN', async ({ email, password }, { rejectWithValue }) => {
+export const signIn = createAsyncThunk<User | null, SignInCredentials, { rejectValue: Error }>('auth/signIn', async ({ email, password }, { rejectWithValue }) => {
   try {
     const auth = getAuth();
     const response = await signInWithEmailAndPassword(auth, email, password);
@@ -50,7 +50,7 @@ export const signIn = createAsyncThunk<User | null, SignInCredentials, { rejectV
   }
 });
 
-export const signOut = createAsyncThunk<null, void, { rejectValue: Error }>('SIGN_OUT', async (_, { rejectWithValue }) => {
+export const signOut = createAsyncThunk<null, void, { rejectValue: Error }>('auth/signOut', async (_, { rejectWithValue }) => {
   try {
     const auth = getAuth();
     await firebaseSignOut(auth);
