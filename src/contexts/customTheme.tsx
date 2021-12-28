@@ -3,12 +3,20 @@ import { ThemeProvider, createTheme } from '@mui/material/styles';
 import { PaletteMode, Theme } from '@mui/material';
 import CssBaseline from '@mui/material/CssBaseline';
 import localStorage from '../sideEffects/localStorage';
-import { CustomThemeContextInterface, CustomThemeProviderProps } from '../interfaces/contexts';
 import { LOCAL_STORAGE_KEYS } from '../constants/core';
 import '@fontsource/roboto/300.css';
 import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
+
+export interface CustomThemeContextInterface {
+  colorMode: PaletteMode;
+  toggleColorMode?: () => void;
+}
+
+export interface CustomThemeProviderProps {
+  children?: React.ReactNode;
+}
 
 const CustomThemeContext = React.createContext<CustomThemeContextInterface>({
   colorMode: 'light',
