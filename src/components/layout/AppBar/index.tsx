@@ -1,4 +1,4 @@
-import { useCallback } from 'react';
+import { useCallback, useContext, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import MuiAppBar from '@mui/material/AppBar';
@@ -8,6 +8,7 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Button from '../../core/Button';
 import ThemeSelector from './ThemeSelector';
+import CustomThemeContext from '../../../contexts/customTheme';
 import { useSelector, useDispatch } from '../../../hooks/redux';
 import { getIsAuthenticated, signOut } from '../../../store/auth';
 
@@ -15,14 +16,16 @@ const AppBar = (): JSX.Element => {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const { colorMode } = useContext(CustomThemeContext);
   const isAuthenticated = useSelector<boolean>(getIsAuthenticated);
+  const bgcolor = useMemo(() => (colorMode === 'light' ? 'primary.main' : 'background.default'), [colorMode]);
 
   const handleSignOut = useCallback<() => void>(() => dispatch(signOut()), [dispatch]);
   const handleSignIn = useCallback<() => void>(() => navigate('/sign-in'), [navigate]);
 
   return (
     <Box>
-      <MuiAppBar position="sticky" elevation={0} enableColorOnDark>
+      <MuiAppBar position="sticky" elevation={0} sx={{ bgcolor }}>
         <Container maxWidth="lg">
           <Toolbar disableGutters>
             <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>

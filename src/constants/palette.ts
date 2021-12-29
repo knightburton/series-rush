@@ -1,17 +1,18 @@
 import { PaletteOptions } from '@mui/material';
 
+// https://colorhunt.co/palette/f9f7f7dbe2ef3f72af112d4e
 const light: PaletteOptions = {
   mode: 'light',
   primary: {
-    light: '#658ebf',
-    main: '#3f72af',
-    dark: '#2c4f7a',
-    contrastText: '#ffffff',
-  },
-  secondary: {
     light: '#405771',
     main: '#112d4e',
     dark: '#0b1f36',
+    contrastText: '#ffffff',
+  },
+  secondary: {
+    light: '#658ebf',
+    main: '#3f72af',
+    dark: '#2c4f7a',
     contrastText: '#ffffff',
   },
   background: {
@@ -20,12 +21,13 @@ const light: PaletteOptions = {
   },
 };
 
+// https://colorhunt.co/palette/222831393e4600adb5eeeeee
 const dark: PaletteOptions = {
   mode: 'dark',
   primary: {
-    light: '#4e535a',
-    main: '#222831',
-    dark: '#171c22',
+    light: '#8f97a3',
+    main: '#737d8c',
+    dark: '#505762',
     contrastText: '#ffffff',
   },
   secondary: {
@@ -36,7 +38,7 @@ const dark: PaletteOptions = {
   },
   background: {
     paper: '#393e46',
-    default: '#272b31',
+    default: '#222831',
   },
 };
 
