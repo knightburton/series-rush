@@ -15,11 +15,11 @@ initializeApp(FIREBASE_CONFIG);
 ReactDOM.render(
   <StrictMode>
     <Provider store={store}>
-      <FirebaseProvider>
-        <CustomThemeProvider>
+      <CustomThemeProvider>
+        <FirebaseProvider>
           <App />
-        </CustomThemeProvider>
-      </FirebaseProvider>
+        </FirebaseProvider>
+      </CustomThemeProvider>
     </Provider>
   </StrictMode>,
   document.getElementById('root'),
