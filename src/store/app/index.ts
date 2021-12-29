@@ -1,6 +1,9 @@
 import { createSlice, createSelector, PayloadAction } from '@reduxjs/toolkit';
-import { AppState } from '../../interfaces/store';
-import { RootState } from '../configureStore';
+import type { RootState } from '../configureStore';
+
+export interface AppState {
+  waiting: number;
+}
 
 export const initialState: AppState = {
   waiting: 0,

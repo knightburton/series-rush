@@ -2,22 +2,23 @@ import { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import useForm from '@knightburton/react-use-form';
 import Container from '@mui/material/Container';
+import { SignInCredentials } from '../../../interfaces';
 import Button from '../../core/Button';
 import ButtonContainer from '../../core/ButtonContainer';
 import Form from '../../core/Form';
 import FormText from '../../core/FormText';
 import Title from '../../core/Title';
+import { signIn } from '../../../store/auth';
+import { useDispatch } from '../../../hooks/redux';
 import { EMAIL, TEXT_MIN, TEXT_MAX } from '../../../constants/validation';
 
-interface SignInForm {
-  email: string;
-  password: string;
-}
+type OnSubmitCallback = (credentials: SignInCredentials) => void;
 
 const SignIn = (): JSX.Element => {
   const { t } = useTranslation();
-  const onSubmit = useCallback(credentials => console.log(credentials), []);
-  const { fields, handleChange, handleSubmit } = useForm<SignInForm>({
+  const dispatch = useDispatch();
+  const onSubmit = useCallback<OnSubmitCallback>(credentials => dispatch(signIn(credentials)), [dispatch]);
+  const { fields, handleChange, handleSubmit } = useForm<SignInCredentials>({
     schema: [
       { field: 'email', value: '', required: true, validators: [{ rule: EMAIL, error: t('error::email') }] },
       {
@@ -31,7 +32,6 @@ const SignIn = (): JSX.Element => {
       },
     ],
     onSubmit,
-    resetOnSubmit: true,
   });
 
   return (
