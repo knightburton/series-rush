@@ -21,7 +21,7 @@ const AppBar = (): JSX.Element => {
 
   return (
     <Box>
-      <MuiAppBar position="sticky" enableColorOnDark>
+      <MuiAppBar position="sticky" elevation={0} enableColorOnDark>
         <Container maxWidth="lg">
           <Toolbar disableGutters>
             <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
