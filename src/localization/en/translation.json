@@ -1,5 +1,8 @@
 {
   "project": "Series Rush",
+  "appBar": {
+    "signOut": "Sign Out"
+  },
   "signIn": {
     "title": "Sign In"
   },
