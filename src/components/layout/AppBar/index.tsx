@@ -7,6 +7,7 @@ import Container from '@mui/material/Container';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Button from '../../core/Button';
+import ThemeSelector from './ThemeSelector';
 import { useSelector, useDispatch } from '../../../hooks/redux';
 import { getIsAuthenticated, signOut } from '../../../store/auth';
 
@@ -27,6 +28,7 @@ const AppBar = (): JSX.Element => {
             <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
               {t('project')}
             </Typography>
+            <ThemeSelector />
             {isAuthenticated ? (
               <Button color="inherit" onClick={handleSignOut}>
                 {t('appBar.signOut')}

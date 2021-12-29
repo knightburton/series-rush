@@ -1,6 +1,8 @@
 {
   "project": "Series Rush",
   "appBar": {
+    "turnOffLight": "Turn off the Light",
+    "turnOnLight": "Turn on the light",
     "signOut": "Sign Out"
   },
   "signIn": {
