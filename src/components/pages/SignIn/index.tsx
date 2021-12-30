@@ -38,8 +38,16 @@ const SignIn = (): JSX.Element => {
     <Container maxWidth="xs">
       <Title>{t('signIn.title')}</Title>
       <Form onSubmit={handleSubmit}>
-        <FormText id="email" label={t('common::email')} onChange={handleChange} value={fields.email.value} error={fields.email.error} />
-        <FormText id="password" label={t('common::password')} onChange={handleChange} value={fields.password.value} error={fields.password.error} type="password" />
+        <FormText id="email" label={t('common::email')} onChange={handleChange} value={fields.email.value} error={fields.email.error} autoComplete="email" />
+        <FormText
+          id="password"
+          label={t('common::password')}
+          onChange={handleChange}
+          value={fields.password.value}
+          error={fields.password.error}
+          type="password"
+          autoComplete="password"
+        />
         <ButtonContainer align="flex-end">
           <Button type="submit" variant="contained">
             {t('signIn.title')}
