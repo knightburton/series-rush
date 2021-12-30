@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk, createSelector, PayloadAction } from '@reduxjs/toolkit';
-import { getAuth, signInWithEmailAndPassword, signOut as firebaseSignOut, User as FirebaseUser } from 'firebase/auth';
+import { getAuth, signInWithEmailAndPassword, signOut as firebaseSignOut, User as FirebaseUser, AuthError } from 'firebase/auth';
+import { addAlert } from '../app';
 import { SignInCredentials } from '../../interfaces';
 import type { RootState } from '../configureStore';
 
@@ -39,24 +40,29 @@ export const parseFirebaseUser = (user: FirebaseUser): User => ({
   uid: user.uid,
 });
 
-export const signIn = createAsyncThunk<User | null, SignInCredentials, { rejectValue: Error }>('auth/signIn', async ({ email, password }, { rejectWithValue }) => {
+const handleError = createAsyncThunk<void, AuthError>('auth/handleError', async (error, { dispatch }) => {
+  if (error instanceof Error) dispatch(addAlert({ message: `error::${error.code}`, messageOptions: { defaultValue: error.message } }));
+  else dispatch(addAlert({ message: 'error::auth/generic-error' }));
+});
+
+export const signIn = createAsyncThunk<User | null, SignInCredentials>('auth/signIn', async ({ email, password }, { dispatch }) => {
   try {
     const auth = getAuth();
     const response = await signInWithEmailAndPassword(auth, email, password);
     const user = parseFirebaseUser(response.user);
     return user;
   } catch (error) {
-    return rejectWithValue(error as Error);
+    dispatch(handleError(error as AuthError));
+    return null;
   }
 });
 
-export const signOut = createAsyncThunk<null, void, { rejectValue: Error }>('auth/signOut', async (_, { rejectWithValue }) => {
+export const signOut = createAsyncThunk<void, void, { rejectValue: Error }>('auth/signOut', async (_, { dispatch }) => {
   try {
     const auth = getAuth();
     await firebaseSignOut(auth);
-    return null;
   } catch (error) {
-    return rejectWithValue(error as Error);
+    dispatch(handleError(error as AuthError));
   }
 });
 

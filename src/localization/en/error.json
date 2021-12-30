@@ -1,4 +1,11 @@
 {
+  "auth/generic-error": "Sorry, something gone wild during the authentication. Please, try again.",
+  "auth/user-not-found": "User not found. Please, check your sign in credentials.",
+  "auth/user-disabled": "User is disabled. Contact with an administrator.",
+  "auth/wrong-password": "Invalid Password. Please, check your sign in credentials.",
+  "auth/invalid-email": "Invalid Email. Please, check your sign in credentials.",
+  "auth/timeout": "Sign In request timed out. Please, try again.",
+
   "email": "This field must be a valid email address",
   "textMin": "This field must be {{min}} characters long at least",
   "textMax": "This field must be {{max}} characters long maximum"
