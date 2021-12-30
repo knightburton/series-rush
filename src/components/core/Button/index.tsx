@@ -6,9 +6,13 @@ export interface ButtonProps extends MuiButtonProps {
   loading?: boolean;
 }
 
-const Button = ({ loading, sx, children, ...rest }: ButtonProps): JSX.Element => (
-  // eslint-disable-next-line react/jsx-props-no-spreading
-  <MuiButton {...rest} sx={{ position: 'relative', textTransform: 'none', '&,&.Mui-disabled': { color: loading ? 'transparent' : undefined }, ...sx }}>
+const Button = ({ loading, sx, disabled, children, ...rest }: ButtonProps): JSX.Element => (
+  <MuiButton
+    // eslint-disable-next-line react/jsx-props-no-spreading
+    {...rest}
+    sx={{ position: 'relative', textTransform: 'none', '&,&.Mui-disabled': { color: loading ? 'transparent' : undefined }, ...sx }}
+    disabled={disabled || loading}
+  >
     {children}
     {loading && (
       <CircularProgress

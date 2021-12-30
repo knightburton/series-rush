@@ -59,7 +59,7 @@ const SignIn = (): JSX.Element => {
           disabled={isLoading}
         />
         <ButtonContainer align="flex-end">
-          <Button type="submit" variant="contained" disabled={isLoading} loading={isLoading}>
+          <Button type="submit" variant="contained" loading={isLoading}>
             {t('signIn.title')}
           </Button>
           <Button color="secondary" disabled={isLoading}>
