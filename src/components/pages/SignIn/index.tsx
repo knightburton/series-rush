@@ -8,8 +8,8 @@ import ButtonContainer from '../../core/ButtonContainer';
 import Form from '../../core/Form';
 import FormText from '../../core/FormText';
 import Title from '../../core/Title';
-import { signIn } from '../../../store/auth';
-import { useDispatch } from '../../../hooks/redux';
+import { getIsLoading, signIn } from '../../../store/auth';
+import { useDispatch, useSelector } from '../../../hooks/redux';
 import { EMAIL, TEXT_MIN, TEXT_MAX } from '../../../constants/validation';
 
 type OnSubmitCallback = (credentials: SignInCredentials) => void;
@@ -17,6 +17,7 @@ type OnSubmitCallback = (credentials: SignInCredentials) => void;
 const SignIn = (): JSX.Element => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
+  const isLoading = useSelector<boolean>(getIsLoading);
   const onSubmit = useCallback<OnSubmitCallback>(credentials => dispatch(signIn(credentials)), [dispatch]);
   const { fields, handleChange, handleSubmit } = useForm<SignInCredentials>({
     schema: [
@@ -38,7 +39,15 @@ const SignIn = (): JSX.Element => {
     <Container maxWidth="xs">
       <Title>{t('signIn.title')}</Title>
       <Form onSubmit={handleSubmit}>
-        <FormText id="email" label={t('common::email')} onChange={handleChange} value={fields.email.value} error={fields.email.error} autoComplete="email" />
+        <FormText
+          id="email"
+          label={t('common::email')}
+          onChange={handleChange}
+          value={fields.email.value}
+          error={fields.email.error}
+          autoComplete="email"
+          disabled={isLoading}
+        />
         <FormText
           id="password"
           label={t('common::password')}
@@ -47,12 +56,15 @@ const SignIn = (): JSX.Element => {
           error={fields.password.error}
           type="password"
           autoComplete="password"
+          disabled={isLoading}
         />
         <ButtonContainer align="flex-end">
-          <Button type="submit" variant="contained">
+          <Button type="submit" variant="contained" disabled={isLoading} loading={isLoading}>
             {t('signIn.title')}
           </Button>
-          <Button color="secondary">{t('forgotPassword.title')}</Button>
+          <Button color="secondary" disabled={isLoading}>
+            {t('forgotPassword.title')}
+          </Button>
         </ButtonContainer>
       </Form>
     </Container>
