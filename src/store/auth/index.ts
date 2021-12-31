@@ -41,8 +41,8 @@ export const parseFirebaseUser = (user: FirebaseUser): User => ({
 });
 
 const handleError = createAsyncThunk<void, AuthError>('auth/handleError', async (error, { dispatch }) => {
-  if (error instanceof Error) dispatch(addAlert({ message: `error::${error.code}`, messageOptions: { defaultValue: error.message } }));
-  else dispatch(addAlert({ message: 'error::auth/generic-error' }));
+  if (error instanceof Error) dispatch(addAlert({ message: `error:${error.code}`, messageOptions: { defaultValue: error.message } }));
+  else dispatch(addAlert({ message: 'error:auth/generic-error' }));
 });
 
 export const signIn = createAsyncThunk<User | null, SignInCredentials>('auth/signIn', async ({ email, password }, { dispatch }) => {
@@ -106,3 +106,5 @@ export const { reducer } = authSlice;
 export const getIsLoading = (state: RootState): boolean => state.auth.isLoading;
 export const getUser = (state: RootState): User | null => state.auth.user;
 export const getIsAuthenticated = createSelector<[typeof getUser], boolean>(getUser, user => !!user);
+export const getUserAvatar = createSelector<[typeof getUser], string>(getUser, user => user?.photoURL || '');
+export const getUserAvatarCharacter = createSelector<[typeof getUser], string>(getUser, user => (user?.displayName || user?.email || '').charAt(0));
