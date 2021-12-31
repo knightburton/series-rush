@@ -15,20 +15,20 @@ import { EMAIL, TEXT_MIN, TEXT_MAX } from '../../../constants/validation';
 type OnSubmitCallback = (credentials: SignInCredentials) => void;
 
 const SignIn = (): JSX.Element => {
-  const { t } = useTranslation();
+  const { t } = useTranslation(['common', 'error', 'translation']);
   const dispatch = useDispatch();
   const isLoading = useSelector<boolean>(getIsLoading);
   const onSubmit = useCallback<OnSubmitCallback>(credentials => dispatch(signIn(credentials)), [dispatch]);
   const { fields, handleChange, handleSubmit } = useForm<SignInCredentials>({
     schema: [
-      { field: 'email', value: '', required: true, validators: [{ rule: EMAIL, error: t('error::email') }] },
+      { field: 'email', value: '', required: true, validators: [{ rule: EMAIL, error: t('error:email') }] },
       {
         field: 'password',
         value: '',
         required: true,
         validators: [
-          { rule: TEXT_MIN(6), error: t('error::textMin', { min: 6 }) },
-          { rule: TEXT_MAX(255), error: t('error::textMax', { max: 255 }) },
+          { rule: TEXT_MIN(6), error: t('error:textMin', { min: 6 }) },
+          { rule: TEXT_MAX(255), error: t('error:textMax', { max: 255 }) },
         ],
       },
     ],
@@ -37,11 +37,11 @@ const SignIn = (): JSX.Element => {
 
   return (
     <Container maxWidth="xs">
-      <Title>{t('signIn.title')}</Title>
+      <Title>{t('translation:signIn.title')}</Title>
       <Form onSubmit={handleSubmit}>
         <FormText
           id="email"
-          label={t('common::email')}
+          label={t('common:email')}
           onChange={handleChange}
           value={fields.email.value}
           error={fields.email.error}
@@ -50,7 +50,7 @@ const SignIn = (): JSX.Element => {
         />
         <FormText
           id="password"
-          label={t('common::password')}
+          label={t('common:password')}
           onChange={handleChange}
           value={fields.password.value}
           error={fields.password.error}
@@ -60,10 +60,10 @@ const SignIn = (): JSX.Element => {
         />
         <ButtonContainer align="flex-end">
           <Button type="submit" variant="contained" loading={isLoading}>
-            {t('signIn.title')}
+            {t('translation:signIn.title')}
           </Button>
           <Button color="secondary" disabled={isLoading}>
-            {t('forgotPassword.title')}
+            {t('translation:forgotPassword.title')}
           </Button>
         </ButtonContainer>
       </Form>
