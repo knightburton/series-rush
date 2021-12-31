@@ -8,6 +8,7 @@ import enTranslation from './en/translation.json';
 const debug = process.env.NODE_ENV === 'development';
 
 i18n.use(initReactI18next).init({
+  defaultNS: 'translation',
   resources: {
     en: {
       common: enCommon,
@@ -15,6 +16,7 @@ i18n.use(initReactI18next).init({
       translation: enTranslation,
     },
   },
+  ns: ['common', 'error', 'translation'],
   fallbackLng: 'en',
   lng: 'en',
   interpolation: {
@@ -25,7 +27,6 @@ i18n.use(initReactI18next).init({
   returnObjects: true,
   debug,
   returnEmptyString: true,
-  nsSeparator: '::',
 });
 
 export default i18n;
