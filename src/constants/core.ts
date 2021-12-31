@@ -13,6 +13,8 @@ export const FIREBASE_CONFIG = {
   measurementId: process.env.REACT_APP_MEASUREMENT_ID,
 };
 
+export const ALERT_AUTOHIDE_DURATION = 10000;
+
 export default {
   LOCAL_STORAGE_KEYS,
   FIREBASE_CONFIG,

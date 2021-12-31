@@ -8,26 +8,27 @@ import ButtonContainer from '../../core/ButtonContainer';
 import Form from '../../core/Form';
 import FormText from '../../core/FormText';
 import Title from '../../core/Title';
-import { signIn } from '../../../store/auth';
-import { useDispatch } from '../../../hooks/redux';
+import { getIsLoading, signIn } from '../../../store/auth';
+import { useDispatch, useSelector } from '../../../hooks/redux';
 import { EMAIL, TEXT_MIN, TEXT_MAX } from '../../../constants/validation';
 
 type OnSubmitCallback = (credentials: SignInCredentials) => void;
 
 const SignIn = (): JSX.Element => {
-  const { t } = useTranslation();
+  const { t } = useTranslation(['common', 'error', 'translation']);
   const dispatch = useDispatch();
+  const isLoading = useSelector<boolean>(getIsLoading);
   const onSubmit = useCallback<OnSubmitCallback>(credentials => dispatch(signIn(credentials)), [dispatch]);
   const { fields, handleChange, handleSubmit } = useForm<SignInCredentials>({
     schema: [
-      { field: 'email', value: '', required: true, validators: [{ rule: EMAIL, error: t('error::email') }] },
+      { field: 'email', value: '', required: true, validators: [{ rule: EMAIL, error: t('error:email') }] },
       {
         field: 'password',
         value: '',
         required: true,
         validators: [
-          { rule: TEXT_MIN(6), error: t('error::textMin', { min: 6 }) },
-          { rule: TEXT_MAX(255), error: t('error::textMax', { max: 255 }) },
+          { rule: TEXT_MIN(6), error: t('error:textMin', { min: 6 }) },
+          { rule: TEXT_MAX(255), error: t('error:textMax', { max: 255 }) },
         ],
       },
     ],
@@ -36,15 +37,34 @@ const SignIn = (): JSX.Element => {
 
   return (
     <Container maxWidth="xs">
-      <Title>{t('signIn.title')}</Title>
+      <Title>{t('translation:signIn.title')}</Title>
       <Form onSubmit={handleSubmit}>
-        <FormText id="email" label={t('common::email')} onChange={handleChange} value={fields.email.value} error={fields.email.error} />
-        <FormText id="password" label={t('common::password')} onChange={handleChange} value={fields.password.value} error={fields.password.error} type="password" />
+        <FormText
+          id="email"
+          label={t('common:email')}
+          onChange={handleChange}
+          value={fields.email.value}
+          error={fields.email.error}
+          autoComplete="email"
+          disabled={isLoading}
+        />
+        <FormText
+          id="password"
+          label={t('common:password')}
+          onChange={handleChange}
+          value={fields.password.value}
+          error={fields.password.error}
+          type="password"
+          autoComplete="password"
+          disabled={isLoading}
+        />
         <ButtonContainer align="flex-end">
-          <Button type="submit" variant="contained">
-            {t('signIn.title')}
+          <Button type="submit" variant="contained" loading={isLoading}>
+            {t('translation:signIn.title')}
           </Button>
-          <Button color="secondary">{t('forgotPassword.title')}</Button>
+          <Button color="secondary" disabled={isLoading}>
+            {t('translation:forgotPassword.title')}
+          </Button>
         </ButtonContainer>
       </Form>
     </Container>

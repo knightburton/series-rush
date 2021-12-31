@@ -1,6 +1,7 @@
 import { Outlet } from 'react-router-dom';
 import AppBar from '../AppBar';
 import AppContent from '../AppContent';
+import AppAlert from '../AppAlert';
 
 const AppLayout = (): JSX.Element => (
   <main>
@@ -8,6 +9,7 @@ const AppLayout = (): JSX.Element => (
     <AppContent>
       <Outlet />
     </AppContent>
+    <AppAlert />
   </main>
 );
 

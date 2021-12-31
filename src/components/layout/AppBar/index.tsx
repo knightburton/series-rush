@@ -1,27 +1,18 @@
-import { useCallback, useContext, useMemo } from 'react';
+import { useContext, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useNavigate } from 'react-router-dom';
 import MuiAppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
-import Button from '../../core/Button';
 import ThemeSelector from './ThemeSelector';
+import AccountMenu from './AccountMenu';
 import CustomThemeContext from '../../../contexts/customTheme';
-import { useSelector, useDispatch } from '../../../hooks/redux';
-import { getIsAuthenticated, signOut } from '../../../store/auth';
 
 const AppBar = (): JSX.Element => {
   const { t } = useTranslation();
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
   const { colorMode } = useContext(CustomThemeContext);
-  const isAuthenticated = useSelector<boolean>(getIsAuthenticated);
   const bgcolor = useMemo(() => (colorMode === 'light' ? 'primary.main' : 'background.default'), [colorMode]);
-
-  const handleSignOut = useCallback<() => void>(() => dispatch(signOut()), [dispatch]);
-  const handleSignIn = useCallback<() => void>(() => navigate('/sign-in'), [navigate]);
 
   return (
     <Box>
@@ -32,15 +23,7 @@ const AppBar = (): JSX.Element => {
               {t('project')}
             </Typography>
             <ThemeSelector />
-            {isAuthenticated ? (
-              <Button color="inherit" onClick={handleSignOut}>
-                {t('appBar.signOut')}
-              </Button>
-            ) : (
-              <Button color="inherit" onClick={handleSignIn}>
-                {t('signIn.title')}
-              </Button>
-            )}
+            <AccountMenu />
           </Toolbar>
         </Container>
       </MuiAppBar>
