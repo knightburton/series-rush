@@ -18,5 +18,8 @@
     "information": "Information",
     "security": "Security",
     "management": "Management"
+  },
+  "search": {
+    "title": "Search"
   }
 }
