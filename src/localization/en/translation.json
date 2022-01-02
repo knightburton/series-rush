@@ -3,7 +3,7 @@
   "appBar": {
     "turnOffLight": "Turn off the light",
     "turnOnLight": "Turn on the light",
-    "accountMenu": "Account",
+    "account": "Account",
     "signOut": "Sign Out"
   },
   "signIn": {
@@ -11,5 +11,12 @@
   },
   "forgotPassword": {
     "title": "Forgot Password"
+  },
+  "account": {
+    "title": "Account Preferences",
+    "description": "Check or update your preferences",
+    "information": "Information",
+    "security": "Security",
+    "management": "Management"
   }
 }
