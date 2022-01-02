@@ -18,8 +18,8 @@ export const FirebaseProvider = ({ children }: FirebaseProviderProps): JSX.Eleme
   useEffect(() => {
     const auth = getAuth();
     const unsubscribe = onAuthStateChanged(auth, user => {
-      setFirstLoading(false);
       dispatch(setUser(user && parseFirebaseUser(user)));
+      setFirstLoading(false);
     });
     return () => unsubscribe();
   }, [dispatch]);

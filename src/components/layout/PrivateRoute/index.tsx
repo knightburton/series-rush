@@ -3,10 +3,10 @@ import { useSelector } from '../../../hooks/redux';
 import { getIsAuthenticated } from '../../../store/auth';
 
 export interface PrivateRouteProps {
-  children: React.ReactNode;
+  children: JSX.Element;
 }
 
-const PrivateRoute = ({ children }: PrivateRouteProps): React.ReactNode => {
+const PrivateRoute = ({ children }: PrivateRouteProps): JSX.Element => {
   const isAuthenticated = useSelector(getIsAuthenticated);
   return isAuthenticated ? children : <Navigate to="/" />;
 };
