@@ -9,7 +9,7 @@ export interface ButtonContainerProps {
 }
 
 const ButtonContainer = ({ children, direction = 'column', justify = 'flex-start', align = 'baseline' }: ButtonContainerProps): JSX.Element => (
-  <Box sx={{ my: 1, display: 'flex', flexDirection: direction, justifyContent: justify, alignItems: align, rowGap: 1, columnGap: 1 }}>{children}</Box>
+  <Box sx={{ mt: 1, display: 'flex', flexDirection: direction, justifyContent: justify, alignItems: align, rowGap: 1, columnGap: 1 }}>{children}</Box>
 );
 
 export default memo(ButtonContainer);
