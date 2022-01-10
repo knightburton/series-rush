@@ -17,7 +17,16 @@
     "description": "Check or update your preferences",
     "information": "Information",
     "security": "Security",
-    "management": "Management"
+    "management": "Management",
+    "updateInformation": "Update account information?",
+    "updateInformationDescription": [
+      "Your account information will change.",
+      "If you have changed your email address, then you have to validate that in the Security panel."
+    ],
+    "imageTypes": "Allowed *.jpeg, *.jpg, *.png, *.gif",
+    "imageSize": "Max size of 3 MB",
+    "imageMissing": "Missing photo",
+    "save": "Save Changes"
   },
   "search": {
     "title": "Search"
