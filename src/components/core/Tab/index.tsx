@@ -13,11 +13,11 @@ const Tab = styled(MuiTab)(({ theme }) => ({
     marginRight: theme.spacing(5),
   },
   '&:hover': {
-    color: theme.palette.secondary.light,
+    color: theme.palette.primary.light,
     opacity: 1,
   },
   '&.Mui-selected': {
-    color: theme.palette.secondary.main,
+    color: theme.palette.primary.main,
     fontWeight: theme.typography.fontWeightMedium,
   },
   '&.Mui-focusVisible': {

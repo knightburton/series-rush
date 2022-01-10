@@ -7,7 +7,7 @@ const Tabs = styled(MuiTabs)(({ theme }) => ({
   // borderBottomWidth: 1,
   // borderBottomStyle: 'solid',
   '& .MuiTabs-indicator': {
-    backgroundColor: theme.palette.secondary.main,
+    backgroundColor: theme.palette.primary.main,
     borderRadius: theme.shape.borderRadius,
     '&:not(:first-of-type)': {
       marginRight: theme.spacing(5),
