@@ -11,7 +11,7 @@ import { getUserAvatar } from '../../../../../store/auth';
 
 const PhotoSelector = (): JSX.Element => {
   const { t } = useTranslation();
-  const [hover, setHover] = useState<boolean>(true);
+  const [hover, setHover] = useState<boolean>(false);
   const [photo, setPhoto] = useState<File>();
   const fileInput = useRef<HTMLInputElement | null>(null);
   const avatar = useSelector(getUserAvatar);
