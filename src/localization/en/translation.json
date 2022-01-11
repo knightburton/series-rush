@@ -26,6 +26,7 @@
     "imageTypes": "Allowed *.jpeg, *.jpg, *.png, *.gif",
     "imageSize": "Max size of 3 MB",
     "imageMissing": "Missing photo",
+    "imageAdd": "Select photo",
     "save": "Save Changes"
   },
   "search": {
