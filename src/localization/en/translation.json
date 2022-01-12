@@ -27,7 +27,11 @@
     "imageSize": "Max size of 3 MB",
     "imageMissing": "Missing photo",
     "imageAdd": "Select photo",
-    "save": "Save Changes"
+    "oldPassword": "Old Password",
+    "newPassword": "New Password",
+    "confirmPassword": "Confirm Password",
+    "save": "Save Changes",
+    "changePassword": "Change Password"
   },
   "search": {
     "title": "Search"
