@@ -7,6 +7,7 @@ import Form from '../../../core/Form';
 import FormText from '../../../core/FormText';
 import ButtonContainer from '../../../core/ButtonContainer';
 import Button from '../../../core/Button';
+import Title from '../../../core/Title';
 import Confirmation from '../../../core/Confirmation';
 import PhotoSelector from './PhotoSelector';
 import { TEXT_MIN, TEXT_MAX, EMAIL } from '../../../../constants/validation';
@@ -65,11 +66,13 @@ const Information = (): JSX.Element => {
         <Grid container spacing={2}>
           <Grid item xs={12} md={4}>
             <Paper>
+              <Title variant="secondary">{t('translation:account.image')}</Title>
               <PhotoSelector />
             </Paper>
           </Grid>
           <Grid item xs={12} md={8}>
             <Paper>
+              <Title variant="secondary">{t('translation:account.personal')}</Title>
               <FormText
                 id="firstName"
                 label={t('common:firstName')}

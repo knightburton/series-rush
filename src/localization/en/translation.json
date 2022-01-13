@@ -23,10 +23,12 @@
       "Your account information will change.",
       "If you have changed your email address, then you have to validate that in the Security panel."
     ],
+    "image": "Profile Photo",
     "imageTypes": "Allowed *.jpeg, *.jpg, *.png, *.gif",
     "imageSize": "Max size of 3 MB",
     "imageMissing": "Missing photo",
     "imageAdd": "Select photo",
+    "personal": "Personal Informations",
     "oldPassword": "Old Password",
     "newPassword": "New Password",
     "confirmPassword": "Confirm Password",

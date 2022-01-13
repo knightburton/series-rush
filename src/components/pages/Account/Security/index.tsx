@@ -5,6 +5,7 @@ import Form from '../../../core/Form';
 import FormText from '../../../core/FormText';
 import ButtonContainer from '../../../core/ButtonContainer';
 import Button from '../../../core/Button';
+import Title from '../../../core/Title';
 import { TEXT_MIN, TEXT_MAX } from '../../../../constants/validation';
 
 export interface SecurityPasswordChangeForm {
@@ -54,6 +55,7 @@ const Security = (): JSX.Element => {
   return (
     <Form onSubmit={handleSubmit}>
       <Paper>
+        <Title variant="secondary">{t('translation:account.changePassword')}</Title>
         <FormText
           id="oldPassword"
           label={t('translation:account.oldPassword')}
