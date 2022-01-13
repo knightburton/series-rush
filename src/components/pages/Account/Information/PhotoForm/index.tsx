@@ -9,7 +9,7 @@ import AddAPhotoIcon from '@mui/icons-material/AddAPhoto';
 import { useSelector } from '../../../../../hooks/redux';
 import { getUserAvatar } from '../../../../../store/auth';
 
-const PhotoSelector = (): JSX.Element => {
+const PhotoForm = (): JSX.Element => {
   const { t } = useTranslation();
   const [hover, setHover] = useState<boolean>(false);
   const [photo, setPhoto] = useState<File>();
@@ -101,4 +101,4 @@ const PhotoSelector = (): JSX.Element => {
   );
 };
 
-export default PhotoSelector;
+export default PhotoForm;

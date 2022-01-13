@@ -9,7 +9,7 @@ import ButtonContainer from '../../../core/ButtonContainer';
 import Button from '../../../core/Button';
 import Title from '../../../core/Title';
 import Confirmation from '../../../core/Confirmation';
-import PhotoSelector from './PhotoSelector';
+import PhotoForm from './PhotoForm';
 import { TEXT_MIN, TEXT_MAX, EMAIL } from '../../../../constants/validation';
 
 export interface InformationForm {
@@ -67,7 +67,7 @@ const Information = (): JSX.Element => {
           <Grid item xs={12} md={4}>
             <Paper>
               <Title variant="secondary">{t('translation:account.image')}</Title>
-              <PhotoSelector />
+              <PhotoForm />
             </Paper>
           </Grid>
           <Grid item xs={12} md={8}>
