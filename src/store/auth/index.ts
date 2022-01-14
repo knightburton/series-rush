@@ -1,5 +1,7 @@
 import { createSlice, createAsyncThunk, createSelector, PayloadAction } from '@reduxjs/toolkit';
 import { getAuth, signInWithEmailAndPassword, signOut as firebaseSignOut, User as FirebaseUser, AuthError } from 'firebase/auth';
+import { getApp } from 'firebase/app';
+import { getStorage, ref, uploadBytes } from 'firebase/storage';
 import { addAlert } from '../app';
 import { SignInCredentials } from '../../interfaces';
 import type { RootState } from '../configureStore';
@@ -26,6 +28,13 @@ export const initialState: AuthState = {
   isLoading: false,
   user: null,
 };
+
+export const getIsLoading = (state: RootState): boolean => state.auth.isLoading;
+export const getUser = (state: RootState): User | null => state.auth.user;
+export const getIsAuthenticated = createSelector<[typeof getUser], boolean>(getUser, user => !!user);
+export const getUserId = createSelector<[typeof getUser], string>(getUser, user => user?.uid || '');
+export const getUserAvatar = createSelector<[typeof getUser], string>(getUser, user => user?.photoURL || '');
+export const getUserAvatarCharacter = createSelector<[typeof getUser], string>(getUser, user => (user?.displayName || user?.email || '').charAt(0));
 
 export const parseFirebaseUser = (user: FirebaseUser): User => ({
   displayName: user.displayName,
@@ -61,6 +70,18 @@ export const signOut = createAsyncThunk<void, void, { rejectValue: Error }>('aut
   try {
     const auth = getAuth();
     await firebaseSignOut(auth);
+  } catch (error) {
+    dispatch(handleError(error as AuthError));
+  }
+});
+
+export const updateProfilePhoto = createAsyncThunk<void, File>('auth/updateProfilePhoto', async (file, { getState, dispatch }) => {
+  try {
+    const userId = getUserId(getState() as RootState);
+    const app = getApp();
+    const storage = getStorage(app);
+    const profilePhotoRef = ref(storage, `users/${userId}/${file.name}`);
+    await uploadBytes(profilePhotoRef, file);
   } catch (error) {
     dispatch(handleError(error as AuthError));
   }
@@ -102,9 +123,3 @@ export const authSlice = createSlice({
 
 export const { setUser } = authSlice.actions;
 export const { reducer } = authSlice;
-
-export const getIsLoading = (state: RootState): boolean => state.auth.isLoading;
-export const getUser = (state: RootState): User | null => state.auth.user;
-export const getIsAuthenticated = createSelector<[typeof getUser], boolean>(getUser, user => !!user);
-export const getUserAvatar = createSelector<[typeof getUser], string>(getUser, user => user?.photoURL || '');
-export const getUserAvatarCharacter = createSelector<[typeof getUser], string>(getUser, user => (user?.displayName || user?.email || '').charAt(0));
