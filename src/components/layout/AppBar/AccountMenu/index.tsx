@@ -13,7 +13,7 @@ import LogoutOutlinedIcon from '@mui/icons-material/LogoutOutlined';
 import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
 import Button from '../../../core/Button';
 import { useSelector, useDispatch } from '../../../../hooks/redux';
-import { getIsAuthenticated, getUserAvatar, getUserAvatarCharacter, signOut } from '../../../../store/auth';
+import { getIsAuthenticated, getUserProfilePhoto, getUserDisplayNameFirstCharacter, signOut } from '../../../../store/auth';
 
 const AccountMenu = (): JSX.Element => {
   const { t } = useTranslation();
@@ -22,8 +22,8 @@ const AccountMenu = (): JSX.Element => {
   const [anchorEl, setAnchorEl] = useState<Element | null>(null);
   const open = useMemo<boolean>(() => Boolean(anchorEl), [anchorEl]);
   const isAuthenticated = useSelector<boolean>(getIsAuthenticated);
-  const avatarSource = useSelector<string>(getUserAvatar);
-  const avatarCharacter = useSelector<string>(getUserAvatarCharacter);
+  const profilePhoto = useSelector<string>(getUserProfilePhoto);
+  const firstCharacter = useSelector<string>(getUserDisplayNameFirstCharacter);
 
   const handleOpen = useCallback((event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
@@ -44,8 +44,8 @@ const AccountMenu = (): JSX.Element => {
           aria-haspopup="true"
           aria-expanded={open ? 'true' : undefined}
         >
-          <Avatar sx={{ width: 32, height: 32 }} src={avatarSource}>
-            {avatarCharacter}
+          <Avatar sx={{ width: 32, height: 32 }} src={profilePhoto}>
+            {firstCharacter}
           </Avatar>
         </IconButton>
       </Tooltip>
