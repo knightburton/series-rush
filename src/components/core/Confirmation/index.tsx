@@ -66,11 +66,11 @@ const Confirmation = ({
             <DialogContentText id={`${id}-confirmation-dialog-description`}>{description}</DialogContentText>
           )}
         </DialogContent>
-        <DialogActions>
-          <Button color={disagreeColor} variant="text" onClick={handleDisagree}>
+        <DialogActions sx={{ px: 2, pb: 2, rowGap: 1, columnGap: 1 }}>
+          <Button color={disagreeColor} variant="contained" onClick={handleDisagree}>
             {disagreeLabel || t('disagree')}
           </Button>
-          <Button color={agreeColor} variant="text" onClick={handleAgree}>
+          <Button color={agreeColor} variant="contained" onClick={handleAgree}>
             {agreeLabel || t('agree')}
           </Button>
         </DialogActions>
