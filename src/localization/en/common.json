@@ -5,5 +5,8 @@
   "password": "Password",
   "firstName": "First Name",
   "lastName": "Last Name",
-  "displayName": "Display Name"
+  "displayName": "Display Name",
+  "delete": "Delete",
+  "upload": "Upload",
+  "cancel": "Cancel"
 }

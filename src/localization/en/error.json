@@ -10,5 +10,6 @@
   "email": "This field must be a valid email address",
   "textMin": "This field must be {{min}} characters long at least",
   "textMax": "This field must be {{max}} characters long maximum",
-  "confirmPassword": "The Confirm Password must match with the New Password"
+  "confirmPassword": "The Confirm Password must match with the New Password",
+  "maxFileSize": "The selected file size cannot be larger than {{limit}} MB"
 }
