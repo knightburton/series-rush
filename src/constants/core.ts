@@ -15,6 +15,9 @@ export const FIREBASE_CONFIG = {
 
 export const ALERT_AUTOHIDE_DURATION = 10000;
 
+export const MAX_FILE_SIZE_IN_MB = 2;
+export const MAX_FILE_SIZE_IN_B = MAX_FILE_SIZE_IN_MB * 1024 * 1024;
+
 export default {
   LOCAL_STORAGE_KEYS,
   FIREBASE_CONFIG,
