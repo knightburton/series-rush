@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk, createSelector, PayloadAction } from '@reduxjs/toolkit';
-import { getAuth, signInWithEmailAndPassword, signOut as firebaseSignOut, User as FirebaseUser, AuthError } from 'firebase/auth';
+import { getAuth, signInWithEmailAndPassword, signOut as firebaseSignOut, updateProfile, User as FirebaseUser, AuthError } from 'firebase/auth';
 import { getApp } from 'firebase/app';
-import { getStorage, ref, uploadBytes } from 'firebase/storage';
+import { getStorage, ref, uploadBytes, getDownloadURL, list, deleteObject } from 'firebase/storage';
 import { addAlert } from '../app';
 import { SignInCredentials } from '../../interfaces';
 import type { RootState } from '../configureStore';
@@ -33,8 +33,8 @@ export const getIsLoading = (state: RootState): boolean => state.auth.isLoading;
 export const getUser = (state: RootState): User | null => state.auth.user;
 export const getIsAuthenticated = createSelector<[typeof getUser], boolean>(getUser, user => !!user);
 export const getUserId = createSelector<[typeof getUser], string>(getUser, user => user?.uid || '');
-export const getUserAvatar = createSelector<[typeof getUser], string>(getUser, user => user?.photoURL || '');
-export const getUserAvatarCharacter = createSelector<[typeof getUser], string>(getUser, user => (user?.displayName || user?.email || '').charAt(0));
+export const getUserProfilePhoto = createSelector<[typeof getUser], string>(getUser, user => user?.photoURL || '');
+export const getUserDisplayNameFirstCharacter = createSelector<[typeof getUser], string>(getUser, user => (user?.displayName || user?.email || '').charAt(0));
 
 export const parseFirebaseUser = (user: FirebaseUser): User => ({
   displayName: user.displayName,
@@ -49,8 +49,9 @@ export const parseFirebaseUser = (user: FirebaseUser): User => ({
   uid: user.uid,
 });
 
-const handleError = createAsyncThunk<void, AuthError>('auth/handleError', async (error, { dispatch }) => {
-  if (error instanceof Error) dispatch(addAlert({ message: `error:${error.code}`, messageOptions: { defaultValue: error.message } }));
+const handleError = createAsyncThunk<void, AuthError | Error>('auth/handleError', async (error, { dispatch }) => {
+  if ('code' in error) dispatch(addAlert({ message: `error:${error.code}`, messageOptions: { defaultValue: error.message } }));
+  else if ('message' in error) dispatch(addAlert({ message: `error:${error.message}`, messageOptions: { defaultValue: error.message } }));
   else dispatch(addAlert({ message: 'error:auth/generic-error' }));
 });
 
@@ -75,15 +76,37 @@ export const signOut = createAsyncThunk<void, void, { rejectValue: Error }>('aut
   }
 });
 
-export const updateProfilePhoto = createAsyncThunk<void, File>('auth/updateProfilePhoto', async (file, { getState, dispatch }) => {
+export const updateProfilePhoto = createAsyncThunk<void, File>('auth/updateProfilePhoto', async (file, { dispatch }) => {
   try {
-    const userId = getUserId(getState() as RootState);
+    const { currentUser } = getAuth();
+    if (!currentUser) throw new Error('error:auth/user-not-found');
     const app = getApp();
     const storage = getStorage(app);
-    const profilePhotoRef = ref(storage, `users/${userId}/${file.name}`);
-    await uploadBytes(profilePhotoRef, file);
+    const fileExtension = file.name.split('.').pop();
+    const profilePhotoRef = ref(storage, `users/${currentUser.uid}/${currentUser.uid}.${fileExtension}`);
+    const snapshot = await uploadBytes(profilePhotoRef, file);
+    const downloadURL = await getDownloadURL(snapshot.ref);
+    await updateProfile(currentUser, { photoURL: downloadURL });
   } catch (error) {
-    dispatch(handleError(error as AuthError));
+    dispatch(addAlert(error as Error));
+  }
+});
+
+export const deleteProfilePhoto = createAsyncThunk('auth/deleteProfilePhoto', async (_, { dispatch }) => {
+  try {
+    const { currentUser } = getAuth();
+    if (!currentUser) throw new Error('error:auth/user-not-found');
+    const app = getApp();
+    const storage = getStorage(app);
+    const userStorageFolderRef = ref(storage, `users/${currentUser.uid}`);
+    const files = await list(userStorageFolderRef);
+    const profilePhotoRef = files.items.find(item => item.name.startsWith(currentUser.uid));
+    if (profilePhotoRef) {
+      await updateProfile(currentUser, { photoURL: null });
+      await deleteObject(profilePhotoRef);
+    }
+  } catch (error) {
+    dispatch(addAlert(error as Error));
   }
 });
 
