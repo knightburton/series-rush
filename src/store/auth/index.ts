@@ -6,6 +6,10 @@ import { addAlert } from '../app';
 import { SignInCredentials } from '../../interfaces';
 import type { RootState } from '../configureStore';
 
+export enum LoadingSections {
+  PhotoDelete = 'PHOTO_DELETE',
+  PhotoUpload = 'PHOTO_UPLOAD',
+}
 export interface User {
   displayName: string | null;
   email: string | null;
@@ -21,15 +25,20 @@ export interface User {
 
 export interface AuthState {
   isLoading: boolean;
+  loadingSection: LoadingSections | null;
   user: User | null;
 }
 
 export const initialState: AuthState = {
   isLoading: false,
+  loadingSection: null,
   user: null,
 };
 
 export const getIsLoading = (state: RootState): boolean => state.auth.isLoading;
+export const getLoadingSection = (state: RootState): LoadingSections | null => state.auth.loadingSection;
+export const getIsSectionLoading = (section: LoadingSections): ((state: RootState) => boolean) =>
+  createSelector<[typeof getLoadingSection], boolean>(getLoadingSection, loadingSection => loadingSection === section);
 export const getUser = (state: RootState): User | null => state.auth.user;
 export const getIsAuthenticated = createSelector<[typeof getUser], boolean>(getUser, user => !!user);
 export const getUserId = createSelector<[typeof getUser], string>(getUser, user => user?.uid || '');
@@ -140,6 +149,24 @@ export const authSlice = createSlice({
       })
       .addCase(signOut.rejected, state => {
         state.isLoading = false;
+      })
+      .addCase(updateProfilePhoto.pending, state => {
+        state.loadingSection = LoadingSections.PhotoUpload;
+      })
+      .addCase(updateProfilePhoto.fulfilled, state => {
+        state.loadingSection = null;
+      })
+      .addCase(updateProfilePhoto.rejected, state => {
+        state.loadingSection = null;
+      })
+      .addCase(deleteProfilePhoto.pending, state => {
+        state.loadingSection = LoadingSections.PhotoDelete;
+      })
+      .addCase(deleteProfilePhoto.fulfilled, state => {
+        state.loadingSection = null;
+      })
+      .addCase(deleteProfilePhoto.rejected, state => {
+        state.loadingSection = null;
       });
   },
 });
