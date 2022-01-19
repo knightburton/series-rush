@@ -6,7 +6,7 @@ import { addAlert } from '../app';
 import { SignInCredentials } from '../../interfaces';
 import type { RootState } from '../configureStore';
 
-export enum LoadingSections {
+export enum ProgressTypes {
   PhotoDelete = 'PHOTO_DELETE',
   PhotoUpload = 'PHOTO_UPLOAD',
 }
@@ -25,20 +25,18 @@ export interface User {
 
 export interface AuthState {
   isLoading: boolean;
-  loadingSection: LoadingSections | null;
+  inProgress: ProgressTypes | null;
   user: User | null;
 }
 
 export const initialState: AuthState = {
   isLoading: false,
-  loadingSection: null,
+  inProgress: null,
   user: null,
 };
 
 export const getIsLoading = (state: RootState): boolean => state.auth.isLoading;
-export const getLoadingSection = (state: RootState): LoadingSections | null => state.auth.loadingSection;
-export const getIsSectionLoading = (section: LoadingSections): ((state: RootState) => boolean) =>
-  createSelector<[typeof getLoadingSection], boolean>(getLoadingSection, loadingSection => loadingSection === section);
+export const getInProgress = (state: RootState): ProgressTypes | null => state.auth.inProgress;
 export const getUser = (state: RootState): User | null => state.auth.user;
 export const getIsAuthenticated = createSelector<[typeof getUser], boolean>(getUser, user => !!user);
 export const getUserId = createSelector<[typeof getUser], string>(getUser, user => user?.uid || '');
@@ -151,22 +149,22 @@ export const authSlice = createSlice({
         state.isLoading = false;
       })
       .addCase(updateProfilePhoto.pending, state => {
-        state.loadingSection = LoadingSections.PhotoUpload;
+        state.inProgress = ProgressTypes.PhotoUpload;
       })
       .addCase(updateProfilePhoto.fulfilled, state => {
-        state.loadingSection = null;
+        state.inProgress = null;
       })
       .addCase(updateProfilePhoto.rejected, state => {
-        state.loadingSection = null;
+        state.inProgress = null;
       })
       .addCase(deleteProfilePhoto.pending, state => {
-        state.loadingSection = LoadingSections.PhotoDelete;
+        state.inProgress = ProgressTypes.PhotoDelete;
       })
       .addCase(deleteProfilePhoto.fulfilled, state => {
-        state.loadingSection = null;
+        state.inProgress = null;
       })
       .addCase(deleteProfilePhoto.rejected, state => {
-        state.loadingSection = null;
+        state.inProgress = null;
       });
   },
 });
