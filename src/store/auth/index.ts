@@ -94,6 +94,7 @@ export const updateProfilePhoto = createAsyncThunk<void, File>('auth/updateProfi
     const snapshot = await uploadBytes(profilePhotoRef, file);
     const downloadURL = await getDownloadURL(snapshot.ref);
     await updateProfile(currentUser, { photoURL: downloadURL });
+    await currentUser.reload();
   } catch (error) {
     dispatch(addAlert(error as Error));
   }
@@ -109,8 +110,9 @@ export const deleteProfilePhoto = createAsyncThunk('auth/deleteProfilePhoto', as
     const files = await list(userStorageFolderRef);
     const profilePhotoRef = files.items.find(item => item.name.startsWith(currentUser.uid));
     if (profilePhotoRef) {
-      await updateProfile(currentUser, { photoURL: null });
+      await updateProfile(currentUser, { photoURL: '' });
       await deleteObject(profilePhotoRef);
+      await currentUser.reload();
     }
   } catch (error) {
     dispatch(addAlert(error as Error));
