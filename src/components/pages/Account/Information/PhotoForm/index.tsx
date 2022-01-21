@@ -1,5 +1,6 @@
-import React, { useCallback, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { usePrevious } from '@knightburton/react-hooks-toolkit';
 import Stack from '@mui/material/Stack';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
@@ -9,7 +10,7 @@ import AddAPhotoIcon from '@mui/icons-material/AddAPhoto';
 import Button from '../../../../core/Button';
 import Confirmation from '../../../../core/Confirmation';
 import { useSelector, useDispatch } from '../../../../../hooks/redux';
-import { getUserProfilePhoto, updateProfilePhoto, deleteProfilePhoto } from '../../../../../store/auth';
+import { getInProgress, getUserProfilePhoto, updateProfilePhoto, deleteProfilePhoto, ProgressTypes } from '../../../../../store/auth';
 import { MAX_FILE_SIZE_IN_B, MAX_FILE_SIZE_IN_MB } from '../../../../../constants/core';
 
 const PhotoForm = (): JSX.Element => {
@@ -20,6 +21,13 @@ const PhotoForm = (): JSX.Element => {
   const dispatch = useDispatch();
   const fileInput = useRef<HTMLInputElement | null>(null);
   const profilePhoto = useSelector<string>(getUserProfilePhoto);
+  const previousProfilePhoto = usePrevious<string>(profilePhoto);
+  const inProgress = useSelector<ProgressTypes | null>(getInProgress);
+
+  const [isInProgress, deleteInProgress, uploadInProgress] = useMemo<[boolean, boolean, boolean]>(
+    () => [!!inProgress, inProgress === ProgressTypes.PhotoDelete, inProgress === ProgressTypes.PhotoUpload],
+    [inProgress],
+  );
 
   const handleAdd = useCallback<() => void>(() => {
     fileInput.current?.click();
@@ -43,12 +51,16 @@ const PhotoForm = (): JSX.Element => {
   }, [dispatch]);
   const confirmationToggle = useCallback<(show: () => void) => JSX.Element>(
     show => (
-      <Button variant="contained" color="error" disabled={!profilePhoto} onClick={() => show()}>
+      <Button variant="contained" color="error" disabled={!profilePhoto || isInProgress} loading={deleteInProgress} onClick={() => show()}>
         {t('common:delete')}
       </Button>
     ),
-    [t, profilePhoto],
+    [t, profilePhoto, deleteInProgress, isInProgress],
   );
+
+  useEffect(() => {
+    if (profilePhoto && !previousProfilePhoto && file) setFile(undefined);
+  }, [profilePhoto, previousProfilePhoto, file]);
 
   return (
     <>
@@ -64,12 +76,12 @@ const PhotoForm = (): JSX.Element => {
             borderRadius: '50%',
             borderStyle: 'dashed',
             borderColor: error ? 'error.main' : 'text.secondary',
-            cursor: hover ? 'pointer' : 'auto',
+            cursor: hover && !isInProgress ? 'pointer' : 'auto',
             overflow: 'hidden',
           })}
           onMouseEnter={() => setHover(true)}
           onMouseLeave={() => setHover(false)}
-          onClick={handleAdd}
+          onClick={isInProgress ? undefined : handleAdd}
         >
           {profilePhoto && !file && <img src={profilePhoto} alt="User avatar" style={{ width: '100%', height: '100%', borderRadius: '50%' }} />}
           {file && <img src={URL.createObjectURL(file)} alt="User temporary avatar" style={{ width: '100%', height: '100%', borderRadius: '50%' }} />}
@@ -86,13 +98,17 @@ const PhotoForm = (): JSX.Element => {
                 borderRadius: '50%',
               }}
             >
-              <NoPhotographyOutlinedIcon color="disabled" />
-              <Typography variant="caption" color="text.secondary">
-                {t('translation:account.imageMissing')}
-              </Typography>
+              {!hover && (
+                <>
+                  <NoPhotographyOutlinedIcon color="disabled" />
+                  <Typography variant="caption" color="text.secondary">
+                    {t('translation:account.imageMissing')}
+                  </Typography>
+                </>
+              )}
             </Box>
           )}
-          {hover && (
+          {hover && !isInProgress && (
             <Box
               sx={({ spacing }) => ({
                 position: 'absolute',
@@ -125,11 +141,11 @@ const PhotoForm = (): JSX.Element => {
         <Typography variant="caption" color="text.secondary">
           {t('translation:account.imageSize', { limit: MAX_FILE_SIZE_IN_MB })}
         </Typography>
-        <Input inputProps={{ ref: fileInput, accept: '.jpeg,.jpg,.png,.gif' }} type="file" sx={{ display: 'none' }} onChange={handleInputChange} />
+        <Input value="" inputProps={{ ref: fileInput, accept: '.jpeg,.jpg,.png,.gif' }} type="file" sx={{ display: 'none' }} onChange={handleInputChange} />
       </Stack>
       <Stack direction="row" justifyContent="flex-end" spacing={2} sx={{ mt: 2 }}>
         {file ? (
-          <Button variant="contained" color="error" onClick={handleCancel}>
+          <Button variant="contained" color="error" onClick={handleCancel} disabled={isInProgress}>
             {t('common:cancel')}
           </Button>
         ) : (
@@ -142,7 +158,7 @@ const PhotoForm = (): JSX.Element => {
           />
         )}
 
-        <Button variant="contained" disabled={!file} onClick={handleUpload}>
+        <Button variant="contained" disabled={!file || isInProgress} loading={uploadInProgress} onClick={handleUpload}>
           {t('common:upload')}
         </Button>
       </Stack>
