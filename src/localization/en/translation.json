@@ -18,11 +18,6 @@
     "information": "Information",
     "security": "Security",
     "management": "Management",
-    "updateInformation": "Update account information?",
-    "updateInformationDescription": [
-      "Your account information will change.",
-      "If you have changed your email address, then you have to validate that in the Security panel."
-    ],
     "image": "Profile Photo",
     "imageTypes": "Allowed *.jpeg, *.jpg, *.png, *.gif",
     "imageSize": "Max size of {{limit}} MB",
@@ -32,6 +27,16 @@
     "imageDeleteDescription": [
       "Your Profile Photo will be deleted form the cloud storage.",
       "It won't be visible any more but you can upload a new one at any time."
+    ],
+    "emailVerified": "Your email address is $t(translation:account.verified_{{verified}})",
+    "verified_true": "verified",
+    "verified_false": "not verified",
+    "cancelEdit": "Cancel Edit",
+    "updateInformation": "Update account information?",
+    "updateInformationDescription": [
+      "Your basic informations will be updated immediately.",
+      "If You have changed your email address,",
+      "you have to verify that later on."
     ],
     "personal": "Personal Informations",
     "oldPassword": "Old Password",
