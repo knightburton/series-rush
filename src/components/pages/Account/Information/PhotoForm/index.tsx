@@ -10,7 +10,7 @@ import AddAPhotoIcon from '@mui/icons-material/AddAPhoto';
 import Button from '../../../../core/Button';
 import Confirmation from '../../../../core/Confirmation';
 import { useSelector, useDispatch } from '../../../../../hooks/redux';
-import { getInProgress, getUserProfilePhoto, updateProfilePhoto, deleteProfilePhoto, ProgressTypes } from '../../../../../store/auth';
+import { getInProgressByType, getUserProfilePhoto, updateProfilePhoto, deleteProfilePhoto, ProgressTypes } from '../../../../../store/auth';
 import { MAX_FILE_SIZE_IN_B, MAX_FILE_SIZE_IN_MB } from '../../../../../constants/core';
 
 const PhotoForm = (): JSX.Element => {
@@ -22,12 +22,10 @@ const PhotoForm = (): JSX.Element => {
   const fileInput = useRef<HTMLInputElement | null>(null);
   const profilePhoto = useSelector<string>(getUserProfilePhoto);
   const previousProfilePhoto = usePrevious<string>(profilePhoto);
-  const inProgress = useSelector<ProgressTypes | null>(getInProgress);
+  const deleteInProgress = useSelector<boolean>(getInProgressByType(ProgressTypes.PhotoDelete));
+  const uploadInProgress = useSelector<boolean>(getInProgressByType(ProgressTypes.PhotoUpload));
 
-  const [isInProgress, deleteInProgress, uploadInProgress] = useMemo<[boolean, boolean, boolean]>(
-    () => [!!inProgress, inProgress === ProgressTypes.PhotoDelete, inProgress === ProgressTypes.PhotoUpload],
-    [inProgress],
-  );
+  const isInProgress = useMemo<boolean>(() => deleteInProgress || uploadInProgress, [deleteInProgress, uploadInProgress]);
 
   const handleAdd = useCallback<() => void>(() => {
     fileInput.current?.click();
@@ -145,7 +143,7 @@ const PhotoForm = (): JSX.Element => {
       </Stack>
       <Stack direction="row" justifyContent="flex-end" spacing={2} sx={{ mt: 2 }}>
         {file ? (
-          <Button variant="contained" color="error" onClick={handleCancel} disabled={isInProgress}>
+          <Button variant="contained" color="warning" onClick={handleCancel} disabled={isInProgress}>
             {t('common:cancel')}
           </Button>
         ) : (
