@@ -1,7 +1,8 @@
 import { createSlice, createAsyncThunk, createSelector, PayloadAction } from '@reduxjs/toolkit';
-import { getAuth, signInWithEmailAndPassword, signOut as firebaseSignOut, updateProfile, User as FirebaseUser, AuthError } from 'firebase/auth';
+import { getAuth, signInWithEmailAndPassword, signOut as firebaseSignOut, updateProfile, updateEmail, User as FirebaseUser, AuthError } from 'firebase/auth';
 import { getApp } from 'firebase/app';
 import { getStorage, ref, uploadBytes, getDownloadURL, list, deleteObject } from 'firebase/storage';
+import { InformationForm } from '../../components/pages/Account/Information/PersonalForm';
 import { addAlert } from '../app';
 import { SignInCredentials } from '../../interfaces';
 import type { RootState } from '../configureStore';
@@ -9,6 +10,7 @@ import type { RootState } from '../configureStore';
 export enum ProgressTypes {
   PhotoDelete = 'PHOTO_DELETE',
   PhotoUpload = 'PHOTO_UPLOAD',
+  BaseUpdate = 'BASE_UPDATE',
 }
 export interface User {
   displayName: string | null;
@@ -25,6 +27,7 @@ export interface User {
 
 export interface AuthState {
   isLoading: boolean;
+  // TODO: convert inProgress into multi thread based tracker
   inProgress: ProgressTypes | null;
   user: User | null;
 }
@@ -37,6 +40,7 @@ export const initialState: AuthState = {
 
 export const getIsLoading = (state: RootState): boolean => state.auth.isLoading;
 export const getInProgress = (state: RootState): ProgressTypes | null => state.auth.inProgress;
+export const getInProgressByType = (type: ProgressTypes) => createSelector<[typeof getInProgress], boolean>(getInProgress, inProgress => inProgress === type);
 export const getUser = (state: RootState): User | null => state.auth.user;
 export const getIsAuthenticated = createSelector<[typeof getUser], boolean>(getUser, user => !!user);
 export const getUserId = createSelector<[typeof getUser], string>(getUser, user => user?.uid || '');
@@ -100,7 +104,7 @@ export const updateProfilePhoto = createAsyncThunk<void, File>('auth/updateProfi
   }
 });
 
-export const deleteProfilePhoto = createAsyncThunk('auth/deleteProfilePhoto', async (_, { dispatch }) => {
+export const deleteProfilePhoto = createAsyncThunk<void, void>('auth/deleteProfilePhoto', async (_, { dispatch }) => {
   try {
     const { currentUser } = getAuth();
     if (!currentUser) throw new Error('error:auth/user-not-found');
@@ -114,6 +118,18 @@ export const deleteProfilePhoto = createAsyncThunk('auth/deleteProfilePhoto', as
       await deleteObject(profilePhotoRef);
       await currentUser.reload();
     }
+  } catch (error) {
+    dispatch(addAlert(error as Error));
+  }
+});
+
+export const updateProfileBase = createAsyncThunk<void, InformationForm>('auth/updateProfileBase', async ({ displayName, email }, { dispatch }) => {
+  try {
+    const { currentUser } = getAuth();
+    if (!currentUser) throw new Error('error:auth/user-not-found');
+    await updateProfile(currentUser, { displayName });
+    await updateEmail(currentUser, email);
+    await currentUser.reload();
   } catch (error) {
     dispatch(addAlert(error as Error));
   }
@@ -166,6 +182,15 @@ export const authSlice = createSlice({
         state.inProgress = null;
       })
       .addCase(deleteProfilePhoto.rejected, state => {
+        state.inProgress = null;
+      })
+      .addCase(updateProfileBase.pending, state => {
+        state.inProgress = ProgressTypes.BaseUpdate;
+      })
+      .addCase(updateProfileBase.fulfilled, state => {
+        state.inProgress = null;
+      })
+      .addCase(updateProfileBase.rejected, state => {
         state.inProgress = null;
       });
   },
