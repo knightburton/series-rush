@@ -1,4 +1,4 @@
-import { useState, useCallback, useMemo } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import DialogTitle from '@mui/material/DialogTitle';
 import DialogContent from '@mui/material/DialogContent';
@@ -37,23 +37,30 @@ const Confirmation = ({
   const { t } = useTranslation('common');
   const [isShown, setIsShown] = useState(false);
 
-  const check = useMemo(() => open || isShown, [open, isShown]);
-
-  const hide = useCallback(() => setIsShown(false), []);
   const show = useCallback(() => setIsShown(true), []);
   const handleDisagree = useCallback(() => {
-    hide();
+    setIsShown(false);
     if (onDisagree) onDisagree();
-  }, [hide, onDisagree]);
+  }, [onDisagree]);
   const handleAgree = useCallback(() => {
-    hide();
+    setIsShown(false);
     onAgree();
-  }, [hide, onAgree]);
+  }, [onAgree]);
+
+  useEffect(() => {
+    if (open !== undefined) setIsShown(open);
+  }, [open]);
 
   return (
     <>
       {open === undefined && toggle?.(show)}
-      <Dialog open={check} onClose={hide} aria-labelledby={`${id}-confirmation-dialog-title`} aria-describedby={`${id}-confirmation-dialog-description`}>
+      <Dialog
+        open={isShown}
+        onClose={handleDisagree}
+        onBackdropClick={handleDisagree}
+        aria-labelledby={`${id}-confirmation-dialog-title`}
+        aria-describedby={`${id}-confirmation-dialog-description`}
+      >
         <DialogTitle id={`${id}-confirmation-dialog-title`}>{title}</DialogTitle>
         <DialogContent>
           {Array.isArray(description) ? (
