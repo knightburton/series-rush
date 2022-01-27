@@ -27,20 +27,19 @@ export interface User {
 
 export interface AuthState {
   isLoading: boolean;
-  // TODO: convert inProgress into multi thread based tracker
-  inProgress: ProgressTypes | null;
+  inProgress: ProgressTypes[];
   user: User | null;
 }
 
 export const initialState: AuthState = {
   isLoading: false,
-  inProgress: null,
+  inProgress: [],
   user: null,
 };
 
 export const getIsLoading = (state: RootState): boolean => state.auth.isLoading;
-export const getInProgress = (state: RootState): ProgressTypes | null => state.auth.inProgress;
-export const getInProgressByType = (type: ProgressTypes) => createSelector<[typeof getInProgress], boolean>(getInProgress, inProgress => inProgress === type);
+export const getInProgress = (state: RootState): ProgressTypes[] => state.auth.inProgress;
+export const getInProgressByType = (type: ProgressTypes) => createSelector<[typeof getInProgress], boolean>(getInProgress, inProgress => inProgress.includes(type));
 export const getUser = (state: RootState): User | null => state.auth.user;
 export const getIsAuthenticated = createSelector<[typeof getUser], boolean>(getUser, user => !!user);
 export const getUserId = createSelector<[typeof getUser], string>(getUser, user => user?.uid || '');
@@ -167,31 +166,31 @@ export const authSlice = createSlice({
         state.isLoading = false;
       })
       .addCase(updateProfilePhoto.pending, state => {
-        state.inProgress = ProgressTypes.PhotoUpload;
+        state.inProgress.push(ProgressTypes.PhotoUpload);
       })
       .addCase(updateProfilePhoto.fulfilled, state => {
-        state.inProgress = null;
+        state.inProgress = state.inProgress.filter(x => x !== ProgressTypes.PhotoUpload);
       })
       .addCase(updateProfilePhoto.rejected, state => {
-        state.inProgress = null;
+        state.inProgress = state.inProgress.filter(x => x !== ProgressTypes.PhotoUpload);
       })
       .addCase(deleteProfilePhoto.pending, state => {
-        state.inProgress = ProgressTypes.PhotoDelete;
+        state.inProgress.push(ProgressTypes.PhotoDelete);
       })
       .addCase(deleteProfilePhoto.fulfilled, state => {
-        state.inProgress = null;
+        state.inProgress = state.inProgress.filter(x => x !== ProgressTypes.PhotoDelete);
       })
       .addCase(deleteProfilePhoto.rejected, state => {
-        state.inProgress = null;
+        state.inProgress = state.inProgress.filter(x => x !== ProgressTypes.PhotoDelete);
       })
       .addCase(updateProfileBase.pending, state => {
-        state.inProgress = ProgressTypes.BaseUpdate;
+        state.inProgress.push(ProgressTypes.BaseUpdate);
       })
       .addCase(updateProfileBase.fulfilled, state => {
-        state.inProgress = null;
+        state.inProgress = state.inProgress.filter(x => x !== ProgressTypes.BaseUpdate);
       })
       .addCase(updateProfileBase.rejected, state => {
-        state.inProgress = null;
+        state.inProgress = state.inProgress.filter(x => x !== ProgressTypes.BaseUpdate);
       });
   },
 });
