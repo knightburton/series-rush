@@ -3,7 +3,7 @@
   "appBar": {
     "turnOffLight": "Turn off the light",
     "turnOnLight": "Turn on the light",
-    "accountMenu": "Account",
+    "account": "Account",
     "signOut": "Sign Out"
   },
   "signIn": {
@@ -11,5 +11,41 @@
   },
   "forgotPassword": {
     "title": "Forgot Password"
+  },
+  "account": {
+    "title": "Account Preferences",
+    "description": "Check or update your preferences",
+    "information": "Information",
+    "security": "Security",
+    "management": "Management",
+    "image": "Profile Photo",
+    "imageTypes": "Allowed *.jpeg, *.jpg, *.png, *.gif",
+    "imageSize": "Max size of {{limit}} MB",
+    "imageMissing": "Missing Photo",
+    "imageAdd": "Select Photo",
+    "imageDelete": "Delete Profile Photo?",
+    "imageDeleteDescription": [
+      "Your Profile Photo will be deleted form the cloud storage.",
+      "It won't be visible any more but you can upload a new one at any time."
+    ],
+    "emailVerified": "Your email address is $t(translation:account.verified_{{verified}})",
+    "verified_true": "verified",
+    "verified_false": "not verified",
+    "cancelEdit": "Cancel Edit",
+    "updateInformation": "Update account information?",
+    "updateInformationDescription": [
+      "Your basic informations will be updated immediately.",
+      "If You have changed your email address,",
+      "you have to verify that later on."
+    ],
+    "personal": "Personal Informations",
+    "oldPassword": "Old Password",
+    "newPassword": "New Password",
+    "confirmPassword": "Confirm Password",
+    "save": "Save Changes",
+    "changePassword": "Change Password"
+  },
+  "search": {
+    "title": "Search"
   }
 }

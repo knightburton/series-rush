@@ -4,7 +4,7 @@ import { PaletteMode, Theme } from '@mui/material';
 import CssBaseline from '@mui/material/CssBaseline';
 import localStorage from '../sideEffects/localStorage';
 import { LOCAL_STORAGE_KEYS } from '../constants/core';
-import PALETTE from '../constants/palette';
+import { PALETTE, LIGHT_PALETTE, DARK_PALETTE, SHAPE } from '../constants/theme';
 import '@fontsource/roboto/300.css';
 import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
@@ -34,7 +34,7 @@ export const CustomThemeProvider = ({ children }: CustomThemeProviderProps): JSX
   }, [mode]);
 
   const value = useMemo<CustomThemeContextInterface>(() => ({ colorMode: mode, toggleColorMode }), [mode, toggleColorMode]);
-  const theme = useMemo<Theme>(() => createTheme({ palette: PALETTE[mode] }), [mode]);
+  const theme = useMemo<Theme>(() => createTheme({ palette: { ...(mode === 'light' ? LIGHT_PALETTE : DARK_PALETTE), ...PALETTE }, shape: SHAPE }), [mode]);
 
   return (
     <CustomThemeContext.Provider value={value}>

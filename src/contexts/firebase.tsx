@@ -1,5 +1,5 @@
 import { createContext, useEffect, useState } from 'react';
-import { getAuth, onAuthStateChanged } from 'firebase/auth';
+import { getAuth, onIdTokenChanged } from 'firebase/auth';
 import { useDispatch } from '../hooks/redux';
 import { setUser, parseFirebaseUser } from '../store/auth';
 import AppLoading from '../components/layout/AppLoading';
@@ -17,11 +17,13 @@ export const FirebaseProvider = ({ children }: FirebaseProviderProps): JSX.Eleme
   // Subscribe to auth changes
   useEffect(() => {
     const auth = getAuth();
-    const unsubscribe = onAuthStateChanged(auth, user => {
-      setFirstLoading(false);
+    const unsubscribeIdToken = onIdTokenChanged(auth, user => {
       dispatch(setUser(user && parseFirebaseUser(user)));
+      setFirstLoading(false);
     });
-    return () => unsubscribe();
+    return () => {
+      unsubscribeIdToken();
+    };
   }, [dispatch]);
 
   if (firstLoading) return <AppLoading />;

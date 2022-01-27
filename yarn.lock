@@ -1774,10 +1774,15 @@
     "@types/yargs" "^16.0.0"
     "chalk" "^4.0.0"
 
-"@knightburton/react-use-form@^1.0.1":
-  "integrity" "sha512-kBV6H6kL0upLT3UCqkCuafv8qsXVSU/+5+o8i3ht290t+TVz+OcnunO3b+aOz58yhkRUMld0YN7fy3G18CqD7w=="
-  "resolved" "https://registry.npmjs.org/@knightburton/react-use-form/-/react-use-form-1.0.1.tgz"
-  "version" "1.0.1"
+"@knightburton/react-hooks-toolkit@^1.0.0":
+  "integrity" "sha512-H1v9kF/6vLJ8GdLyGp40lh7LKX5P3x88DJ7ap7jvK4M36DoKoqDuTtOY2VdbIV9if0fUu6ct7mBFGb5Jt0LzKQ=="
+  "resolved" "https://registry.npmjs.org/@knightburton/react-hooks-toolkit/-/react-hooks-toolkit-1.0.0.tgz"
+  "version" "1.0.0"
+
+"@knightburton/react-use-form@^1.0.3":
+  "integrity" "sha512-THsHAJaonhFROGduuGA7h8FU6PCkSChhRjG4Co153lg+HxC0KBI1Se3hof+h8E5vJeNdiKAWuTzx+XBWqK+hpg=="
+  "resolved" "https://registry.npmjs.org/@knightburton/react-use-form/-/react-use-form-1.0.3.tgz"
+  "version" "1.0.3"
 
 "@mui/base@5.0.0-alpha.59":
   "integrity" "sha512-rPgN2FW0FAjQ9+LQ+XBsq3DFcuiiMFhf8uoLJAWnnzft27IJvJqbrhfpCZ68G6l+umJLbbl5RIIbpt8ALZDDNQ=="
@@ -8215,7 +8220,7 @@
     "loose-envify" "^1.4.0"
     "prop-types" "^15.6.2"
 
-"react@*", "react@^16.8.3 || ^17", "react@^16.9.0 || ^17.0.0 || 18.0.0-beta", "react@^17.0.2", "react@>= 16", "react@>= 16.8.0", "react@>=16.6.0", "react@>=16.8", "react@>=16.8.0", "react@17.0.2":
+"react@*", "react@^16.8.3 || ^17", "react@^16.9.0 || ^17.0.0 || 18.0.0-beta", "react@^17.0.2", "react@>= 16", "react@>= 16.8.0", "react@>=16.6.0", "react@>=16.8", "react@>=16.8.0", "react@>=16.9.0", "react@17.0.2":
   "integrity" "sha512-gnhPt75i/dq/z3/6q/0asP78D0u592D5L1pd7M8P+dck6Fu/jJeL6iVVK23fptSUZj8Vjf++7wXA8UNclGQcbA=="
   "resolved" "https://registry.npmjs.org/react/-/react-17.0.2.tgz"
   "version" "17.0.2"

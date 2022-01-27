@@ -19,6 +19,12 @@ export const initialState: AppState = {
   alerts: [],
 };
 
+export const getWaiting = (state: RootState): number => state.app.waiting;
+export const getIsAppWaiting = createSelector<[typeof getWaiting], boolean>(getWaiting, waiting => waiting > 0);
+export const getAlerts = (state: RootState): Alert[] => state.app.alerts;
+export const getAlertByKey = (key: number) => createSelector<[typeof getAlerts], Alert | undefined>(getAlerts, alerts => alerts.find(alert => alert.key === key));
+export const getMostRecentAlert = createSelector<[typeof getAlerts], Alert | undefined>(getAlerts, alerts => alerts[alerts.length - 1]);
+
 export const appSlice = createSlice({
   name: 'app',
   initialState,
@@ -45,9 +51,3 @@ export const appSlice = createSlice({
 
 export const { setAppWaiting, addAlert, removeAlert, clearAlerts } = appSlice.actions;
 export const { reducer } = appSlice;
-
-export const getWaiting = (state: RootState): number => state.app.waiting;
-export const getIsAppWaiting = createSelector<[typeof getWaiting], boolean>(getWaiting, waiting => waiting > 0);
-export const getAlerts = (state: RootState): Alert[] => state.app.alerts;
-export const getAlertByKey = (key: number) => createSelector<[typeof getAlerts], Alert | undefined>(getAlerts, alerts => alerts.find(alert => alert.key === key));
-export const getMostRecentAlert = createSelector<[typeof getAlerts], Alert | undefined>(getAlerts, alerts => alerts[alerts.length - 1]);

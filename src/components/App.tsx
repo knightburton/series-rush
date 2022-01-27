@@ -1,6 +1,8 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import PublicRoute from './layout/PublicRoute';
+import PrivateRoute from './layout/PrivateRoute';
 import Layout from './layout/AppLayout';
+import Account from './pages/Account';
 import Home from './pages/Home';
 import SignIn from './pages/SignIn';
 
@@ -15,6 +17,14 @@ const App = (): JSX.Element => (
             <PublicRoute>
               <SignIn />
             </PublicRoute>
+          }
+        />
+        <Route
+          path="/account"
+          element={
+            <PrivateRoute>
+              <Account />
+            </PrivateRoute>
           }
         />
       </Route>

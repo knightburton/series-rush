@@ -6,12 +6,14 @@ import IconButton from '@mui/material/IconButton';
 import Avatar from '@mui/material/Avatar';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
+import Divider from '@mui/material/Divider';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import LogoutOutlinedIcon from '@mui/icons-material/LogoutOutlined';
+import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
 import Button from '../../../core/Button';
 import { useSelector, useDispatch } from '../../../../hooks/redux';
-import { getIsAuthenticated, getUserAvatar, getUserAvatarCharacter, signOut } from '../../../../store/auth';
+import { getIsAuthenticated, getUserProfilePhoto, getUserDisplayNameFirstCharacter, signOut } from '../../../../store/auth';
 
 const AccountMenu = (): JSX.Element => {
   const { t } = useTranslation();
@@ -20,19 +22,20 @@ const AccountMenu = (): JSX.Element => {
   const [anchorEl, setAnchorEl] = useState<Element | null>(null);
   const open = useMemo<boolean>(() => Boolean(anchorEl), [anchorEl]);
   const isAuthenticated = useSelector<boolean>(getIsAuthenticated);
-  const avatarSource = useSelector<string>(getUserAvatar);
-  const avatarCharacter = useSelector<string>(getUserAvatarCharacter);
+  const profilePhoto = useSelector<string>(getUserProfilePhoto);
+  const firstCharacter = useSelector<string>(getUserDisplayNameFirstCharacter);
 
   const handleOpen = useCallback((event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
   }, []);
   const handleClose = useCallback(() => setAnchorEl(null), []);
+  const handleAccountClick = useCallback<() => void>(() => navigate('/account'), [navigate]);
   const handleSignOut = useCallback<() => void>(() => dispatch(signOut()), [dispatch]);
   const handleSignIn = useCallback<() => void>(() => navigate('/sign-in'), [navigate]);
 
   return isAuthenticated ? (
     <>
-      <Tooltip title={t('appBar.accountMenu')}>
+      <Tooltip title={t('appBar.account')}>
         <IconButton
           onClick={handleOpen}
           size="small"
@@ -41,8 +44,8 @@ const AccountMenu = (): JSX.Element => {
           aria-haspopup="true"
           aria-expanded={open ? 'true' : undefined}
         >
-          <Avatar sx={{ width: 32, height: 32 }} src={avatarSource}>
-            {avatarCharacter}
+          <Avatar sx={{ width: 32, height: 32 }} src={profilePhoto}>
+            {firstCharacter}
           </Avatar>
         </IconButton>
       </Tooltip>
@@ -86,6 +89,13 @@ const AccountMenu = (): JSX.Element => {
           dense: true,
         }}
       >
+        <MenuItem onClick={handleAccountClick}>
+          <ListItemIcon>
+            <AccountCircleOutlinedIcon fontSize="small" />
+          </ListItemIcon>
+          <ListItemText primary={t('account.title')} secondary={t('account.description')} />
+        </MenuItem>
+        <Divider />
         <MenuItem onClick={handleSignOut}>
           <ListItemIcon>
             <LogoutOutlinedIcon fontSize="small" />
