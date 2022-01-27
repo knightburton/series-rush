@@ -1,8 +1,18 @@
 import { createSlice, createAsyncThunk, createSelector, PayloadAction } from '@reduxjs/toolkit';
-import { getAuth, signInWithEmailAndPassword, signOut as firebaseSignOut, updateProfile, updateEmail, User as FirebaseUser, AuthError } from 'firebase/auth';
+import {
+  getAuth,
+  signInWithEmailAndPassword,
+  signOut as firebaseSignOut,
+  updateProfile,
+  updateEmail,
+  updatePassword,
+  User as FirebaseUser,
+  AuthError,
+} from 'firebase/auth';
 import { getApp } from 'firebase/app';
 import { getStorage, ref, uploadBytes, getDownloadURL, list, deleteObject } from 'firebase/storage';
 import { InformationForm } from '../../components/pages/Account/Information/PersonalForm';
+import { PasswordChangeForm } from '../../components/pages/Account/Security';
 import { addAlert } from '../app';
 import { SignInCredentials } from '../../interfaces';
 import type { RootState } from '../configureStore';
@@ -129,6 +139,16 @@ export const updateProfileBase = createAsyncThunk<void, InformationForm>('auth/u
     await updateProfile(currentUser, { displayName });
     await updateEmail(currentUser, email);
     await currentUser.reload();
+  } catch (error) {
+    dispatch(addAlert(error as Error));
+  }
+});
+
+export const changePassword = createAsyncThunk<void, PasswordChangeForm>('auth/changePassword', async ({ confirmPassword }, { dispatch }) => {
+  try {
+    const { currentUser } = getAuth();
+    if (!currentUser) throw new Error('error:auth/user-not-found');
+    await updatePassword(currentUser, confirmPassword);
   } catch (error) {
     dispatch(addAlert(error as Error));
   }
