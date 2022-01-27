@@ -6,25 +6,16 @@ import FormText from '../../../core/FormText';
 import ButtonContainer from '../../../core/ButtonContainer';
 import Button from '../../../core/Button';
 import Title from '../../../core/Title';
+import { useDispatch } from '../../../../hooks/redux';
+import { changePassword } from '../../../../store/auth';
 import { TEXT_MIN, TEXT_MAX } from '../../../../constants/validation';
 
-export interface SecurityPasswordChangeForm {
-  oldPassword: string;
+export interface PasswordChangeForm {
   newPassword: string;
   confirmPassword: string;
 }
 
-const schema = (t: (key: string, options?: object) => string): Schema<SecurityPasswordChangeForm> => [
-  {
-    field: 'oldPassword',
-    value: '',
-    required: true,
-    requiredError: t('error:required'),
-    validators: [
-      { rule: TEXT_MIN(6), error: t('error:textMin', { min: 6 }) },
-      { rule: TEXT_MAX(255), error: t('error:textMax', { max: 255 }) },
-    ],
-  },
+const schema = (t: (key: string, options?: object) => string): Schema<PasswordChangeForm> => [
   {
     field: 'newPassword',
     value: '',
@@ -46,23 +37,17 @@ const schema = (t: (key: string, options?: object) => string): Schema<SecurityPa
 
 const Security = (): JSX.Element => {
   const { t } = useTranslation(['common', 'translation', 'error']);
+  const dispatch = useDispatch();
 
-  const { fields, handleSubmit, handleChange } = useForm<SecurityPasswordChangeForm>({
+  const { fields, handleSubmit, handleChange } = useForm<PasswordChangeForm>({
     schema: schema(t),
-    onSubmit: data => console.log(data),
+    onSubmit: data => dispatch(changePassword(data)),
   });
 
   return (
     <Form onSubmit={handleSubmit}>
       <Paper>
         <Title variant="secondary">{t('translation:account.changePassword')}</Title>
-        <FormText
-          id="oldPassword"
-          label={t('translation:account.oldPassword')}
-          onChange={handleChange}
-          value={fields.oldPassword.value}
-          error={fields.oldPassword.error}
-        />
         <FormText
           id="newPassword"
           type="password"
