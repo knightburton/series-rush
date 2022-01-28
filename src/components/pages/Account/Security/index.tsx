@@ -1,77 +1,15 @@
-import { useTranslation } from 'react-i18next';
-import useForm, { Schema } from '@knightburton/react-use-form';
-import Paper from '../../../core/Paper';
-import Form from '../../../core/Form';
-import FormText from '../../../core/FormText';
-import ButtonContainer from '../../../core/ButtonContainer';
-import Button from '../../../core/Button';
-import Title from '../../../core/Title';
-import { useDispatch } from '../../../../hooks/redux';
-import { changePassword } from '../../../../store/auth';
-import { TEXT_MIN, TEXT_MAX } from '../../../../constants/validation';
+import Grid from '@mui/material/Grid';
+import ChangePasswordForm from './ChangePasswordForm';
 
-export interface PasswordChangeForm {
-  newPassword: string;
-  confirmPassword: string;
-}
-
-const schema = (t: (key: string, options?: object) => string): Schema<PasswordChangeForm> => [
-  {
-    field: 'newPassword',
-    value: '',
-    required: true,
-    requiredError: t('error:required'),
-    validators: [
-      { rule: TEXT_MIN(6), error: t('error:textMin', { min: 6 }) },
-      { rule: TEXT_MAX(255), error: t('error:textMax', { max: 255 }) },
-    ],
-  },
-  {
-    field: 'confirmPassword',
-    value: '',
-    required: true,
-    requiredError: t('error:required'),
-    validators: [{ rule: (value, state) => value === state.newPassword, error: t('error:confirmPassword') }],
-  },
-];
-
-const Security = (): JSX.Element => {
-  const { t } = useTranslation(['common', 'translation', 'error']);
-  const dispatch = useDispatch();
-
-  const { fields, handleSubmit, handleChange } = useForm<PasswordChangeForm>({
-    schema: schema(t),
-    onSubmit: data => dispatch(changePassword(data)),
-  });
-
-  return (
-    <Form onSubmit={handleSubmit}>
-      <Paper>
-        <Title variant="secondary">{t('translation:account.changePassword')}</Title>
-        <FormText
-          id="newPassword"
-          type="password"
-          label={t('translation:account.newPassword')}
-          onChange={handleChange}
-          value={fields.newPassword.value}
-          error={fields.newPassword.error}
-        />
-        <FormText
-          id="confirmPassword"
-          type="password"
-          label={t('translation:account.confirmPassword')}
-          onChange={handleChange}
-          value={fields.confirmPassword.value}
-          error={fields.confirmPassword.error}
-        />
-        <ButtonContainer align="flex-end">
-          <Button onClick={() => handleSubmit()} variant="contained">
-            {t('translation:account.changePassword')}
-          </Button>
-        </ButtonContainer>
-      </Paper>
-    </Form>
-  );
-};
+const Security = (): JSX.Element => (
+  <Grid container spacing={2}>
+    <Grid item xs={12} md={4}>
+      Empty
+    </Grid>
+    <Grid item xs={12} md={8}>
+      <ChangePasswordForm />
+    </Grid>
+  </Grid>
+);
 
 export default Security;

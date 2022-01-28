@@ -12,7 +12,7 @@ import {
 import { getApp } from 'firebase/app';
 import { getStorage, ref, uploadBytes, getDownloadURL, list, deleteObject } from 'firebase/storage';
 import { InformationForm } from '../../components/pages/Account/Information/PersonalForm';
-import { PasswordChangeForm } from '../../components/pages/Account/Security';
+import { ChangePasswordFormInterface } from '../../components/pages/Account/Security/ChangePasswordForm';
 import { addAlert } from '../app';
 import { SignInCredentials } from '../../interfaces';
 import type { RootState } from '../configureStore';
@@ -144,7 +144,7 @@ export const updateProfileBase = createAsyncThunk<void, InformationForm>('auth/u
   }
 });
 
-export const changePassword = createAsyncThunk<void, PasswordChangeForm>('auth/changePassword', async ({ confirmPassword }, { dispatch }) => {
+export const changePassword = createAsyncThunk<void, ChangePasswordFormInterface>('auth/changePassword', async ({ confirmPassword }, { dispatch }) => {
   try {
     const { currentUser } = getAuth();
     if (!currentUser) throw new Error('error:auth/user-not-found');
