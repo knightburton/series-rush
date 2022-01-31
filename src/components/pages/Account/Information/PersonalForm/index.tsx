@@ -2,6 +2,8 @@ import { useCallback, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import useForm, { Schema } from '@knightburton/react-use-form';
 import Stack from '@mui/material/Stack';
+import Paper from '../../../../core/Paper';
+import Title from '../../../../core/Title';
 import Form from '../../../../core/Form';
 import FormText from '../../../../core/FormText';
 import Button from '../../../../core/Button';
@@ -67,7 +69,8 @@ const PersonalForm = () => {
   }, [fields, user]);
 
   return (
-    <>
+    <Paper>
+      <Title variant="secondary">{t('translation:account.personal')}</Title>
       <Form onSubmit={handleSubmit}>
         <FormText
           id="displayName"
@@ -106,7 +109,7 @@ const PersonalForm = () => {
         onDisagree={handleDisagree}
         open={open}
       />
-    </>
+    </Paper>
   );
 };
 

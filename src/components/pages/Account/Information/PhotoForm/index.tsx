@@ -7,6 +7,8 @@ import Typography from '@mui/material/Typography';
 import Input from '@mui/material/Input';
 import NoPhotographyOutlinedIcon from '@mui/icons-material/NoPhotographyOutlined';
 import AddAPhotoIcon from '@mui/icons-material/AddAPhoto';
+import Paper from '../../../../core/Paper';
+import Title from '../../../../core/Title';
 import Button from '../../../../core/Button';
 import Confirmation from '../../../../core/Confirmation';
 import { useSelector, useDispatch } from '../../../../../hooks/redux';
@@ -61,7 +63,8 @@ const PhotoForm = (): JSX.Element => {
   }, [profilePhoto, previousProfilePhoto, file]);
 
   return (
-    <>
+    <Paper>
+      <Title variant="secondary">{t('translation:account.image')}</Title>
       <Stack direction="column" justifyContent="center" alignItems="center" spacing={2}>
         <Box
           sx={({ spacing }) => ({
@@ -160,7 +163,7 @@ const PhotoForm = (): JSX.Element => {
           {t('common:upload')}
         </Button>
       </Stack>
-    </>
+    </Paper>
   );
 };
 
