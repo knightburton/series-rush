@@ -2,15 +2,15 @@ import { useCallback, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import useForm, { Schema } from '@knightburton/react-use-form';
 import Stack from '@mui/material/Stack';
-import Paper from '../../../../core/Paper';
-import Title from '../../../../core/Title';
-import Form from '../../../../core/Form';
-import FormText from '../../../../core/FormText';
-import Button from '../../../../core/Button';
-import Confirmation from '../../../../core/Confirmation';
-import { useSelector, useDispatch } from '../../../../../hooks/redux';
-import { getUser, getInProgressByType, updateProfileBase, User, ProgressTypes } from '../../../../../store/auth';
-import { TEXT_MIN, TEXT_MAX, EMAIL } from '../../../../../constants/validation';
+import Paper from 'components/core/Paper';
+import Title from 'components/core/Title';
+import Form from 'components/core/Form';
+import FormText from 'components/core/FormText';
+import Button from 'components/core/Button';
+import Confirmation from 'components/core/Confirmation';
+import { useSelector, useDispatch } from 'hooks/redux';
+import { getUser, getInProgressByType, updateProfileBase, User, ProgressTypes } from 'store/auth';
+import { TEXT_MIN, TEXT_MAX, EMAIL } from 'constants/validation';
 
 export interface InformationForm {
   displayName: string;

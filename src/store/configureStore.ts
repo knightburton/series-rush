@@ -1,5 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit';
-import localStorage from '../sideEffects/localStorage';
+import localStorage from 'sideEffects/localStorage';
 import { reducer as app } from './app';
 import { reducer as auth } from './auth';
 

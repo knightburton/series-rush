@@ -11,10 +11,10 @@ import {
 } from 'firebase/auth';
 import { getApp } from 'firebase/app';
 import { getStorage, ref, uploadBytes, getDownloadURL, list, deleteObject } from 'firebase/storage';
-import { InformationForm } from '../../components/pages/Account/Information/PersonalForm';
-import { ChangePasswordFormInterface } from '../../components/pages/Account/Security/ChangePasswordForm';
+import { InformationForm } from 'components/pages/Account/Information/PersonalForm';
+import { ChangePasswordFormInterface } from 'components/pages/Account/Security/ChangePasswordForm';
+import { SignInCredentials } from 'interfaces';
 import { addAlert } from '../app';
-import { SignInCredentials } from '../../interfaces';
 import type { RootState } from '../configureStore';
 
 export enum ProgressTypes {

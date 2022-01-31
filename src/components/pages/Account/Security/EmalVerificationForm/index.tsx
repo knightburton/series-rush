@@ -1,6 +1,6 @@
 import { useTranslation } from 'react-i18next';
-import Paper from '../../../../core/Paper';
-import Title from '../../../../core/Title';
+import Paper from 'components/core/Paper';
+import Title from 'components/core/Title';
 
 const EmailVerificationForm = (): JSX.Element => {
   const { t } = useTranslation();

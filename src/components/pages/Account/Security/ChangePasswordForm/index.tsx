@@ -1,14 +1,14 @@
 import { useTranslation } from 'react-i18next';
 import useForm, { Schema } from '@knightburton/react-use-form';
-import Paper from '../../../../core/Paper';
-import Form from '../../../../core/Form';
-import FormText from '../../../../core/FormText';
-import ButtonContainer from '../../../../core/ButtonContainer';
-import Button from '../../../../core/Button';
-import Title from '../../../../core/Title';
-import { useDispatch } from '../../../../../hooks/redux';
-import { changePassword } from '../../../../../store/auth';
-import { TEXT_MIN, TEXT_MAX } from '../../../../../constants/validation';
+import Paper from 'components/core/Paper';
+import Form from 'components/core/Form';
+import FormText from 'components/core/FormText';
+import ButtonContainer from 'components/core/ButtonContainer';
+import Button from 'components/core/Button';
+import Title from 'components/core/Title';
+import { useDispatch } from 'hooks/redux';
+import { changePassword } from 'store/auth';
+import { TEXT_MIN, TEXT_MAX } from 'constants/validation';
 
 export interface ChangePasswordFormInterface {
   newPassword: string;

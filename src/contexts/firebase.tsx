@@ -1,8 +1,8 @@
 import { createContext, useEffect, useState } from 'react';
 import { getAuth, onIdTokenChanged } from 'firebase/auth';
-import { useDispatch } from '../hooks/redux';
-import { setUser, parseFirebaseUser } from '../store/auth';
-import AppLoading from '../components/layout/AppLoading';
+import { useDispatch } from 'hooks/redux';
+import { setUser, parseFirebaseUser } from 'store/auth';
+import AppLoading from 'components/layout/AppLoading';
 
 export interface FirebaseProviderProps {
   children?: React.ReactNode;

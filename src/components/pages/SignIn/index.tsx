@@ -2,15 +2,15 @@ import { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import useForm from '@knightburton/react-use-form';
 import Container from '@mui/material/Container';
-import { SignInCredentials } from '../../../interfaces';
-import Button from '../../core/Button';
-import ButtonContainer from '../../core/ButtonContainer';
-import Form from '../../core/Form';
-import FormText from '../../core/FormText';
-import Title from '../../core/Title';
-import { getIsLoading, signIn } from '../../../store/auth';
-import { useDispatch, useSelector } from '../../../hooks/redux';
-import { EMAIL, TEXT_MIN, TEXT_MAX } from '../../../constants/validation';
+import { SignInCredentials } from 'interfaces';
+import Button from 'components/core/Button';
+import ButtonContainer from 'components/core/ButtonContainer';
+import Form from 'components/core/Form';
+import FormText from 'components/core/FormText';
+import Title from 'components/core/Title';
+import { getIsLoading, signIn } from 'store/auth';
+import { useDispatch, useSelector } from 'hooks/redux';
+import { EMAIL, TEXT_MIN, TEXT_MAX } from 'constants/validation';
 
 type OnSubmitCallback = (credentials: SignInCredentials) => void;
 

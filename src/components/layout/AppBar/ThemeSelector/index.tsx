@@ -4,7 +4,7 @@ import Tooltip from '@mui/material/Tooltip';
 import IconButton from '@mui/material/IconButton';
 import LightModeOutlinedIcon from '@mui/icons-material/LightModeOutlined';
 import DarkModeOutlinedIcon from '@mui/icons-material/DarkModeOutlined';
-import CustomThemeContext from '../../../../contexts/customTheme';
+import CustomThemeContext from 'contexts/customTheme';
 
 const ThemeSelector = (): JSX.Element => {
   const { t } = useTranslation();
