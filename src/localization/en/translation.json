@@ -28,9 +28,6 @@
       "Your Profile Photo will be deleted form the cloud storage.",
       "It won't be visible any more but you can upload a new one at any time."
     ],
-    "emailVerified": "Your email address is $t(translation:account.verified_{{verified}})",
-    "verified_true": "verified",
-    "verified_false": "not verified",
     "cancelEdit": "Cancel Edit",
     "updateInformation": "Update account information?",
     "updateInformationDescription": [
@@ -39,6 +36,10 @@
       "you have to verify that later on."
     ],
     "personal": "Personal Informations",
+    "emailVerification": "Email Verification",
+    "emailVerified": "Your email address is $t(translation:account.verified_{{verified}})",
+    "verified_true": "verified",
+    "verified_false": "not verified",
     "newPassword": "New Password",
     "confirmPassword": "Confirm Password",
     "save": "Save Changes",
