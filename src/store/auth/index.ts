@@ -6,6 +6,7 @@ import {
   updateProfile,
   updateEmail,
   updatePassword,
+  sendEmailVerification,
   User as FirebaseUser,
   AuthError,
 } from 'firebase/auth';
@@ -138,7 +139,10 @@ export const updateProfileBase = createAsyncThunk<void, InformationForm>('auth/u
     const { currentUser } = getAuth();
     if (!currentUser) throw new Error('error:auth/user-not-found');
     await updateProfile(currentUser, { displayName });
-    await updateEmail(currentUser, email);
+    if (currentUser.email !== email) {
+      await updateEmail(currentUser, email);
+      await sendEmailVerification(currentUser);
+    }
     await currentUser.reload();
   } catch (error) {
     dispatch(addAlert(error as Error));
