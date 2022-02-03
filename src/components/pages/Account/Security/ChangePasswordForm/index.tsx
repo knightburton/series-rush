@@ -20,23 +20,23 @@ const schema = (t: (key: string, options?: object) => string): Schema<ChangePass
     field: 'newPassword',
     value: '',
     required: true,
-    requiredError: t('error:required'),
+    requiredError: t('alert:required'),
     validators: [
-      { rule: TEXT_MIN(6), error: t('error:textMin', { min: 6 }) },
-      { rule: TEXT_MAX(255), error: t('error:textMax', { max: 255 }) },
+      { rule: TEXT_MIN(6), error: t('alert:textMin', { min: 6 }) },
+      { rule: TEXT_MAX(255), error: t('alert:textMax', { max: 255 }) },
     ],
   },
   {
     field: 'confirmPassword',
     value: '',
     required: true,
-    requiredError: t('error:required'),
-    validators: [{ rule: (value, state) => value === state.newPassword, error: t('error:confirmPassword') }],
+    requiredError: t('alert:required'),
+    validators: [{ rule: (value, state) => value === state.newPassword, error: t('alert:confirmPassword') }],
   },
 ];
 
 const ChangePasswordForm = (): JSX.Element => {
-  const { t } = useTranslation(['common', 'translation', 'error']);
+  const { t } = useTranslation(['common', 'translation', 'alert']);
   const dispatch = useDispatch();
 
   const { fields, handleSubmit, handleChange } = useForm<ChangePasswordFormInterface>({

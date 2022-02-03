@@ -15,20 +15,20 @@ import { EMAIL, TEXT_MIN, TEXT_MAX } from 'constants/validation';
 type OnSubmitCallback = (credentials: SignInCredentials) => void;
 
 const SignIn = (): JSX.Element => {
-  const { t } = useTranslation(['common', 'error', 'translation']);
+  const { t } = useTranslation(['common', 'alert', 'translation']);
   const dispatch = useDispatch();
   const isLoading = useSelector<boolean>(getIsLoading);
   const onSubmit = useCallback<OnSubmitCallback>(credentials => dispatch(signIn(credentials)), [dispatch]);
   const { fields, handleChange, handleSubmit } = useForm<SignInCredentials>({
     schema: [
-      { field: 'email', value: '', required: true, validators: [{ rule: EMAIL, error: t('error:email') }] },
+      { field: 'email', value: '', required: true, validators: [{ rule: EMAIL, error: t('alert:email') }] },
       {
         field: 'password',
         value: '',
         required: true,
         validators: [
-          { rule: TEXT_MIN(6), error: t('error:textMin', { min: 6 }) },
-          { rule: TEXT_MAX(255), error: t('error:textMax', { max: 255 }) },
+          { rule: TEXT_MIN(6), error: t('alert:textMin', { min: 6 }) },
+          { rule: TEXT_MAX(255), error: t('alert:textMax', { max: 255 }) },
         ],
       },
     ],

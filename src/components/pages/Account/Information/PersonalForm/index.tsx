@@ -22,23 +22,23 @@ const schema = (t: (key: string, options?: object) => string, user: User | null)
     field: 'displayName',
     value: user?.displayName || '',
     required: true,
-    requiredError: t('error:required'),
+    requiredError: t('alert:required'),
     validators: [
-      { rule: TEXT_MIN(3), error: t('error:textMin', { min: 3 }) },
-      { rule: TEXT_MAX(255), error: t('error:textMax', { max: 255 }) },
+      { rule: TEXT_MIN(3), error: t('alert:textMin', { min: 3 }) },
+      { rule: TEXT_MAX(255), error: t('alert:textMax', { max: 255 }) },
     ],
   },
   {
     field: 'email',
     value: user?.email || '',
     required: true,
-    requiredError: t('error:required'),
-    validators: [{ rule: EMAIL, error: t('error:email') }],
+    requiredError: t('alert:required'),
+    validators: [{ rule: EMAIL, error: t('alert:email') }],
   },
 ];
 
 const PersonalForm = () => {
-  const { t } = useTranslation(['common', 'translation', 'error']);
+  const { t } = useTranslation(['common', 'translation', 'alert']);
   const [open, setOpen] = useState<boolean>(false);
   const [formHasChnaged, setFormHasChanged] = useState<boolean>(false);
   const [data, setData] = useState<InformationForm>({ displayName: '', email: '' });

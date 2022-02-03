@@ -16,7 +16,7 @@ import { getInProgressByType, getUserProfilePhoto, updateProfilePhoto, deletePro
 import { MAX_FILE_SIZE_IN_B, MAX_FILE_SIZE_IN_MB } from '../../../../../constants/core';
 
 const PhotoForm = (): JSX.Element => {
-  const { t } = useTranslation(['translation', 'common', 'error']);
+  const { t } = useTranslation(['translation', 'common', 'alert']);
   const [hover, setHover] = useState<boolean>(false);
   const [error, setError] = useState<boolean>(false);
   const [file, setFile] = useState<File>();
@@ -133,7 +133,7 @@ const PhotoForm = (): JSX.Element => {
         </Box>
         {error && (
           <Typography variant="caption" color="error">
-            {t('error:maxFileSize', { limit: MAX_FILE_SIZE_IN_MB })}
+            {t('alert:maxFileSize', { limit: MAX_FILE_SIZE_IN_MB })}
           </Typography>
         )}
         <Typography variant="caption" color="text.secondary">

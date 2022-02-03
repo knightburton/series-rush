@@ -72,9 +72,9 @@ export const parseFirebaseUser = (user: FirebaseUser): User => ({
 });
 
 const handleError = createAsyncThunk<void, AuthError | Error>('auth/handleError', async (error, { dispatch }) => {
-  if ('code' in error) dispatch(addAlert({ message: `error:${error.code}`, messageOptions: { defaultValue: error.message } }));
-  else if ('message' in error) dispatch(addAlert({ message: `error:${error.message}`, messageOptions: { defaultValue: error.message } }));
-  else dispatch(addAlert({ message: 'error:auth/generic-error' }));
+  if ('code' in error) dispatch(addAlert({ message: `alert:${error.code}`, messageOptions: { defaultValue: error.message } }));
+  else if ('message' in error) dispatch(addAlert({ message: `alert:${error.message}`, messageOptions: { defaultValue: error.message } }));
+  else dispatch(addAlert({ message: 'alert:auth/generic-error' }));
 });
 
 export const signIn = createAsyncThunk<User | null, SignInCredentials>('auth/signIn', async ({ email, password }, { dispatch }) => {
@@ -101,7 +101,7 @@ export const signOut = createAsyncThunk<void, void, { rejectValue: Error }>('aut
 export const updateProfilePhoto = createAsyncThunk<void, File>('auth/updateProfilePhoto', async (file, { dispatch }) => {
   try {
     const { currentUser } = getAuth();
-    if (!currentUser) throw new Error('error:auth/user-not-found');
+    if (!currentUser) throw new Error('alert:auth/user-not-found');
     const app = getApp();
     const storage = getStorage(app);
     const fileExtension = file.name.split('.').pop();
@@ -118,7 +118,7 @@ export const updateProfilePhoto = createAsyncThunk<void, File>('auth/updateProfi
 export const deleteProfilePhoto = createAsyncThunk<void, void>('auth/deleteProfilePhoto', async (_, { dispatch }) => {
   try {
     const { currentUser } = getAuth();
-    if (!currentUser) throw new Error('error:auth/user-not-found');
+    if (!currentUser) throw new Error('alert:auth/user-not-found');
     const app = getApp();
     const storage = getStorage(app);
     const userStorageFolderRef = ref(storage, `users/${currentUser.uid}`);
@@ -137,7 +137,7 @@ export const deleteProfilePhoto = createAsyncThunk<void, void>('auth/deleteProfi
 export const updateProfileBase = createAsyncThunk<void, InformationForm>('auth/updateProfileBase', async ({ displayName, email }, { dispatch }) => {
   try {
     const { currentUser } = getAuth();
-    if (!currentUser) throw new Error('error:auth/user-not-found');
+    if (!currentUser) throw new Error('alert:auth/user-not-found');
     await updateProfile(currentUser, { displayName });
     if (currentUser.email !== email) {
       await updateEmail(currentUser, email);
@@ -152,7 +152,7 @@ export const updateProfileBase = createAsyncThunk<void, InformationForm>('auth/u
 export const changePassword = createAsyncThunk<void, ChangePasswordFormInterface>('auth/changePassword', async ({ confirmPassword }, { dispatch }) => {
   try {
     const { currentUser } = getAuth();
-    if (!currentUser) throw new Error('error:auth/user-not-found');
+    if (!currentUser) throw new Error('alert:auth/user-not-found');
     await updatePassword(currentUser, confirmPassword);
   } catch (error) {
     dispatch(addAlert(error as Error));
