@@ -5,15 +5,15 @@ import Snackbar from '@mui/material/Snackbar';
 import Alert from '@mui/material/Alert';
 import Slide from '@mui/material/Slide';
 import { SlideProps } from '@mui/material';
-import { useDispatch, useSelector } from '../../../hooks/redux';
-import { getMostRecentAlert, removeAlert, Alert as IAlert } from '../../../store/app';
-import { ALERT_AUTOHIDE_DURATION } from '../../../constants/core';
+import { useDispatch, useSelector } from 'hooks/redux';
+import { getMostRecentAlert, removeAlert, Alert as IAlert } from 'store/app';
+import { ALERT_AUTOHIDE_DURATION } from 'constants/core';
 
 // eslint-disable-next-line react/jsx-props-no-spreading
 const Transition = (props: SlideProps): JSX.Element => <Slide {...props} direction="right" />;
 
 const AppAlert = (): JSX.Element => {
-  const { t } = useTranslation(['common', 'error', 'translation']);
+  const { t } = useTranslation(['common', 'alert', 'translation']);
   const dispatch = useDispatch();
   const alert = useSelector<IAlert | undefined>(getMostRecentAlert);
   const [open, setOpen] = useState(false);

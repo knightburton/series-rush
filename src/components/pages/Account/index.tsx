@@ -1,10 +1,10 @@
 import { useCallback, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import Container from '@mui/material/Container';
-import Tabs from '../../core/Tabs';
-import Tab from '../../core/Tab';
-import TabPanel from '../../core/TabPanel';
-import Title from '../../core/Title';
+import Tabs from 'components/core/Tabs';
+import Tab from 'components/core/Tab';
+import TabPanel from 'components/core/TabPanel';
+import Title from 'components/core/Title';
 import Information from './Information';
 import Security from './Security';
 import Management from './Management';

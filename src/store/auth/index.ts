@@ -1,10 +1,21 @@
 import { createSlice, createAsyncThunk, createSelector, PayloadAction } from '@reduxjs/toolkit';
-import { getAuth, signInWithEmailAndPassword, signOut as firebaseSignOut, updateProfile, updateEmail, User as FirebaseUser, AuthError } from 'firebase/auth';
+import {
+  getAuth,
+  signInWithEmailAndPassword,
+  signOut as firebaseSignOut,
+  updateProfile,
+  updateEmail,
+  updatePassword,
+  sendEmailVerification,
+  User as FirebaseUser,
+  AuthError,
+} from 'firebase/auth';
 import { getApp } from 'firebase/app';
 import { getStorage, ref, uploadBytes, getDownloadURL, list, deleteObject } from 'firebase/storage';
-import { InformationForm } from '../../components/pages/Account/Information/PersonalForm';
+import { InformationForm } from 'components/pages/Account/Information/PersonalForm';
+import { ChangePasswordFormInterface } from 'components/pages/Account/Security/ChangePasswordForm';
+import { SignInCredentials } from 'interfaces';
 import { addAlert } from '../app';
-import { SignInCredentials } from '../../interfaces';
 import type { RootState } from '../configureStore';
 
 export enum ProgressTypes {
@@ -45,6 +56,7 @@ export const getIsAuthenticated = createSelector<[typeof getUser], boolean>(getU
 export const getUserId = createSelector<[typeof getUser], string>(getUser, user => user?.uid || '');
 export const getUserProfilePhoto = createSelector<[typeof getUser], string>(getUser, user => user?.photoURL || '');
 export const getUserDisplayNameFirstCharacter = createSelector<[typeof getUser], string>(getUser, user => (user?.displayName || user?.email || '').charAt(0));
+export const getUserEmailIsVerified = createSelector<[typeof getUser], boolean>(getUser, user => !!user?.emailVerified);
 
 export const parseFirebaseUser = (user: FirebaseUser): User => ({
   displayName: user.displayName,
@@ -60,9 +72,9 @@ export const parseFirebaseUser = (user: FirebaseUser): User => ({
 });
 
 const handleError = createAsyncThunk<void, AuthError | Error>('auth/handleError', async (error, { dispatch }) => {
-  if ('code' in error) dispatch(addAlert({ message: `error:${error.code}`, messageOptions: { defaultValue: error.message } }));
-  else if ('message' in error) dispatch(addAlert({ message: `error:${error.message}`, messageOptions: { defaultValue: error.message } }));
-  else dispatch(addAlert({ message: 'error:auth/generic-error' }));
+  if ('code' in error) dispatch(addAlert({ message: `alert:${error.code}`, messageOptions: { defaultValue: error.message } }));
+  else if ('message' in error) dispatch(addAlert({ message: `alert:${error.message}`, messageOptions: { defaultValue: error.message } }));
+  else dispatch(addAlert({ message: 'alert:auth/generic-error' }));
 });
 
 export const signIn = createAsyncThunk<User | null, SignInCredentials>('auth/signIn', async ({ email, password }, { dispatch }) => {
@@ -89,7 +101,7 @@ export const signOut = createAsyncThunk<void, void, { rejectValue: Error }>('aut
 export const updateProfilePhoto = createAsyncThunk<void, File>('auth/updateProfilePhoto', async (file, { dispatch }) => {
   try {
     const { currentUser } = getAuth();
-    if (!currentUser) throw new Error('error:auth/user-not-found');
+    if (!currentUser) throw new Error('alert:auth/user-not-found');
     const app = getApp();
     const storage = getStorage(app);
     const fileExtension = file.name.split('.').pop();
@@ -106,7 +118,7 @@ export const updateProfilePhoto = createAsyncThunk<void, File>('auth/updateProfi
 export const deleteProfilePhoto = createAsyncThunk<void, void>('auth/deleteProfilePhoto', async (_, { dispatch }) => {
   try {
     const { currentUser } = getAuth();
-    if (!currentUser) throw new Error('error:auth/user-not-found');
+    if (!currentUser) throw new Error('alert:auth/user-not-found');
     const app = getApp();
     const storage = getStorage(app);
     const userStorageFolderRef = ref(storage, `users/${currentUser.uid}`);
@@ -122,13 +134,37 @@ export const deleteProfilePhoto = createAsyncThunk<void, void>('auth/deleteProfi
   }
 });
 
+const triggerEmailVerification = createAsyncThunk<void, void>('auth/triggerEmailVerification', async (_, { dispatch }) => {
+  try {
+    const { currentUser } = getAuth();
+    if (!currentUser) throw new Error('alert:auth/user-not-found');
+    await sendEmailVerification(currentUser);
+    dispatch(addAlert({ message: 'alert:auth/emailVerificationSent' }));
+  } catch (error) {
+    dispatch(addAlert(error as Error));
+  }
+});
+
 export const updateProfileBase = createAsyncThunk<void, InformationForm>('auth/updateProfileBase', async ({ displayName, email }, { dispatch }) => {
   try {
     const { currentUser } = getAuth();
-    if (!currentUser) throw new Error('error:auth/user-not-found');
+    if (!currentUser) throw new Error('alert:auth/user-not-found');
     await updateProfile(currentUser, { displayName });
-    await updateEmail(currentUser, email);
+    if (currentUser.email !== email) {
+      await updateEmail(currentUser, email);
+      dispatch(triggerEmailVerification());
+    }
     await currentUser.reload();
+  } catch (error) {
+    dispatch(addAlert(error as Error));
+  }
+});
+
+export const changePassword = createAsyncThunk<void, ChangePasswordFormInterface>('auth/changePassword', async ({ confirmPassword }, { dispatch }) => {
+  try {
+    const { currentUser } = getAuth();
+    if (!currentUser) throw new Error('alert:auth/user-not-found');
+    await updatePassword(currentUser, confirmPassword);
   } catch (error) {
     dispatch(addAlert(error as Error));
   }

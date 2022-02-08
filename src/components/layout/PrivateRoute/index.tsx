@@ -1,6 +1,6 @@
 import { Navigate } from 'react-router-dom';
-import { useSelector } from '../../../hooks/redux';
-import { getIsAuthenticated } from '../../../store/auth';
+import { useSelector } from 'hooks/redux';
+import { getIsAuthenticated } from 'store/auth';
 
 export interface PrivateRouteProps {
   children: JSX.Element;

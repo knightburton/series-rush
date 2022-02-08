@@ -1,5 +1,5 @@
 import { createSlice, createSelector, PayloadAction } from '@reduxjs/toolkit';
-import { getCurrentTimestamp } from '../../utils';
+import { getCurrentTimestamp } from 'utils';
 import type { RootState } from '../configureStore';
 
 export interface Alert {

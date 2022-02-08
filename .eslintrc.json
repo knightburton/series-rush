@@ -16,7 +16,9 @@
   },
   "settings": {
     "import/resolver": {
-      "typescript": {}
+      "typescript": {
+        "extensions": [".js", ".jsx", ".ts", ".tsx"]
+      }
     },
     "react": {
       "version": "17"

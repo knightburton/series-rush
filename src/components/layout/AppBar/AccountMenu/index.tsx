@@ -11,9 +11,9 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import LogoutOutlinedIcon from '@mui/icons-material/LogoutOutlined';
 import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
-import Button from '../../../core/Button';
-import { useSelector, useDispatch } from '../../../../hooks/redux';
-import { getIsAuthenticated, getUserProfilePhoto, getUserDisplayNameFirstCharacter, signOut } from '../../../../store/auth';
+import Button from 'components/core/Button';
+import { useSelector, useDispatch } from 'hooks/redux';
+import { getIsAuthenticated, getUserProfilePhoto, getUserDisplayNameFirstCharacter, signOut } from 'store/auth';
 
 const AccountMenu = (): JSX.Element => {
   const { t } = useTranslation();

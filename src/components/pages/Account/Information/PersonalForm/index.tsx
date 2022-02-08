@@ -2,13 +2,15 @@ import { useCallback, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import useForm, { Schema } from '@knightburton/react-use-form';
 import Stack from '@mui/material/Stack';
-import Form from '../../../../core/Form';
-import FormText from '../../../../core/FormText';
-import Button from '../../../../core/Button';
-import Confirmation from '../../../../core/Confirmation';
-import { useSelector, useDispatch } from '../../../../../hooks/redux';
-import { getUser, getInProgressByType, updateProfileBase, User, ProgressTypes } from '../../../../../store/auth';
-import { TEXT_MIN, TEXT_MAX, EMAIL } from '../../../../../constants/validation';
+import Paper from 'components/core/Paper';
+import Title from 'components/core/Title';
+import Form from 'components/core/Form';
+import FormText from 'components/core/FormText';
+import Button from 'components/core/Button';
+import Confirmation from 'components/core/Confirmation';
+import { useSelector, useDispatch } from 'hooks/redux';
+import { getUser, getInProgressByType, updateProfileBase, User, ProgressTypes } from 'store/auth';
+import { TEXT_MIN, TEXT_MAX, EMAIL } from 'constants/validation';
 
 export interface InformationForm {
   displayName: string;
@@ -20,23 +22,23 @@ const schema = (t: (key: string, options?: object) => string, user: User | null)
     field: 'displayName',
     value: user?.displayName || '',
     required: true,
-    requiredError: t('error:required'),
+    requiredError: t('alert:required'),
     validators: [
-      { rule: TEXT_MIN(3), error: t('error:textMin', { min: 3 }) },
-      { rule: TEXT_MAX(255), error: t('error:textMax', { max: 255 }) },
+      { rule: TEXT_MIN(3), error: t('alert:textMin', { min: 3 }) },
+      { rule: TEXT_MAX(255), error: t('alert:textMax', { max: 255 }) },
     ],
   },
   {
     field: 'email',
     value: user?.email || '',
     required: true,
-    requiredError: t('error:required'),
-    validators: [{ rule: EMAIL, error: t('error:email') }],
+    requiredError: t('alert:required'),
+    validators: [{ rule: EMAIL, error: t('alert:email') }],
   },
 ];
 
 const PersonalForm = () => {
-  const { t } = useTranslation(['common', 'translation', 'error']);
+  const { t } = useTranslation(['common', 'translation', 'alert']);
   const [open, setOpen] = useState<boolean>(false);
   const [formHasChnaged, setFormHasChanged] = useState<boolean>(false);
   const [data, setData] = useState<InformationForm>({ displayName: '', email: '' });
@@ -67,7 +69,8 @@ const PersonalForm = () => {
   }, [fields, user]);
 
   return (
-    <>
+    <Paper>
+      <Title variant="secondary">{t('translation:account.personal')}</Title>
       <Form onSubmit={handleSubmit}>
         <FormText
           id="displayName"
@@ -106,7 +109,7 @@ const PersonalForm = () => {
         onDisagree={handleDisagree}
         open={open}
       />
-    </>
+    </Paper>
   );
 };
 

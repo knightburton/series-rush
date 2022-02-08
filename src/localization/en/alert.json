@@ -5,6 +5,7 @@
   "auth/wrong-password": "Invalid Password. Please, check your sign in credentials.",
   "auth/invalid-email": "Invalid Email. Please, check your sign in credentials.",
   "auth/timeout": "Sign In request timed out. Please, try again.",
+  "auth/emailVerificationSent": "Instructions on how to verify your email address have been sent to you. Please check your emails.",
 
   "required": "This field is required",
   "email": "This field must be a valid email address",

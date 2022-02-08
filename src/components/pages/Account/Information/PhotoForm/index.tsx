@@ -7,6 +7,8 @@ import Typography from '@mui/material/Typography';
 import Input from '@mui/material/Input';
 import NoPhotographyOutlinedIcon from '@mui/icons-material/NoPhotographyOutlined';
 import AddAPhotoIcon from '@mui/icons-material/AddAPhoto';
+import Paper from '../../../../core/Paper';
+import Title from '../../../../core/Title';
 import Button from '../../../../core/Button';
 import Confirmation from '../../../../core/Confirmation';
 import { useSelector, useDispatch } from '../../../../../hooks/redux';
@@ -14,7 +16,7 @@ import { getInProgressByType, getUserProfilePhoto, updateProfilePhoto, deletePro
 import { MAX_FILE_SIZE_IN_B, MAX_FILE_SIZE_IN_MB } from '../../../../../constants/core';
 
 const PhotoForm = (): JSX.Element => {
-  const { t } = useTranslation(['translation', 'common', 'error']);
+  const { t } = useTranslation(['translation', 'common', 'alert']);
   const [hover, setHover] = useState<boolean>(false);
   const [error, setError] = useState<boolean>(false);
   const [file, setFile] = useState<File>();
@@ -61,7 +63,8 @@ const PhotoForm = (): JSX.Element => {
   }, [profilePhoto, previousProfilePhoto, file]);
 
   return (
-    <>
+    <Paper>
+      <Title variant="secondary">{t('translation:account.image')}</Title>
       <Stack direction="column" justifyContent="center" alignItems="center" spacing={2}>
         <Box
           sx={({ spacing }) => ({
@@ -130,7 +133,7 @@ const PhotoForm = (): JSX.Element => {
         </Box>
         {error && (
           <Typography variant="caption" color="error">
-            {t('error:maxFileSize', { limit: MAX_FILE_SIZE_IN_MB })}
+            {t('alert:maxFileSize', { limit: MAX_FILE_SIZE_IN_MB })}
           </Typography>
         )}
         <Typography variant="caption" color="text.secondary">
@@ -160,7 +163,7 @@ const PhotoForm = (): JSX.Element => {
           {t('common:upload')}
         </Button>
       </Stack>
-    </>
+    </Paper>
   );
 };
 
