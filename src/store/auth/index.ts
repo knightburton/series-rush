@@ -134,6 +134,17 @@ export const deleteProfilePhoto = createAsyncThunk<void, void>('auth/deleteProfi
   }
 });
 
+const triggerEmailVerification = createAsyncThunk<void, void>('auth/triggerEmailVerification', async (_, { dispatch }) => {
+  try {
+    const { currentUser } = getAuth();
+    if (!currentUser) throw new Error('alert:auth/user-not-found');
+    await sendEmailVerification(currentUser);
+    dispatch(addAlert({ message: 'alert:auth/emailVerificationSent' }));
+  } catch (error) {
+    dispatch(addAlert(error as Error));
+  }
+});
+
 export const updateProfileBase = createAsyncThunk<void, InformationForm>('auth/updateProfileBase', async ({ displayName, email }, { dispatch }) => {
   try {
     const { currentUser } = getAuth();
@@ -141,7 +152,7 @@ export const updateProfileBase = createAsyncThunk<void, InformationForm>('auth/u
     await updateProfile(currentUser, { displayName });
     if (currentUser.email !== email) {
       await updateEmail(currentUser, email);
-      await sendEmailVerification(currentUser);
+      dispatch(triggerEmailVerification());
     }
     await currentUser.reload();
   } catch (error) {
