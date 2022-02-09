@@ -38,7 +38,7 @@ const schema = (t: (key: string, options?: object) => string, user: User | null)
 ];
 
 const PersonalForm = () => {
-  const { t } = useTranslation(['common', 'translation', 'alert']);
+  const { t } = useTranslation(['common', 'core', 'alert']);
   const [open, setOpen] = useState<boolean>(false);
   const [formHasChnaged, setFormHasChanged] = useState<boolean>(false);
   const [data, setData] = useState<InformationForm>({ displayName: '', email: '' });
@@ -70,7 +70,7 @@ const PersonalForm = () => {
 
   return (
     <Paper>
-      <Title variant="secondary">{t('translation:account.personal')}</Title>
+      <Title variant="secondary">{t('core:account.personal')}</Title>
       <Form onSubmit={handleSubmit}>
         <FormText
           id="displayName"
@@ -93,18 +93,18 @@ const PersonalForm = () => {
         <Stack direction="row" justifyContent="flex-end" spacing={2} sx={{ mt: 2 }}>
           {formHasChnaged && (
             <Button onClick={handleCancelClick} variant="contained" color="warning" disabled={inProgress}>
-              {t('translation:account.cancelEdit')}
+              {t('core:account.cancelEdit')}
             </Button>
           )}
           <Button type="submit" variant="contained" disabled={!formHasChnaged} loading={inProgress}>
-            {t('translation:account.save')}
+            {t('core:account.save')}
           </Button>
         </Stack>
       </Form>
       <Confirmation
         id="update-account"
-        title={t('translation:account.updateInformation')}
-        description={t('translation:account.updateInformationDescription')}
+        title={t('core:account.updateInformation')}
+        description={t('core:account.updateInformationDescription')}
         onAgree={handleAgree}
         onDisagree={handleDisagree}
         open={open}

@@ -36,7 +36,7 @@ const schema = (t: (key: string, options?: object) => string): Schema<ChangePass
 ];
 
 const ChangePasswordForm = (): JSX.Element => {
-  const { t } = useTranslation(['common', 'translation', 'alert']);
+  const { t } = useTranslation(['common', 'core', 'alert']);
   const dispatch = useDispatch();
 
   const { fields, handleSubmit, handleChange } = useForm<ChangePasswordFormInterface>({
@@ -46,12 +46,12 @@ const ChangePasswordForm = (): JSX.Element => {
 
   return (
     <Paper>
-      <Title variant="secondary">{t('translation:account.changePassword')}</Title>
+      <Title variant="secondary">{t('core:account.changePassword')}</Title>
       <Form onSubmit={handleSubmit}>
         <FormText
           id="newPassword"
           type="password"
-          label={t('translation:account.newPassword')}
+          label={t('core:account.newPassword')}
           onChange={handleChange}
           value={fields.newPassword.value}
           error={fields.newPassword.error}
@@ -59,14 +59,14 @@ const ChangePasswordForm = (): JSX.Element => {
         <FormText
           id="confirmPassword"
           type="password"
-          label={t('translation:account.confirmPassword')}
+          label={t('core:account.confirmPassword')}
           onChange={handleChange}
           value={fields.confirmPassword.value}
           error={fields.confirmPassword.error}
         />
         <ButtonContainer align="flex-end">
           <Button onClick={() => handleSubmit()} variant="contained">
-            {t('translation:account.changePassword')}
+            {t('core:account.changePassword')}
           </Button>
         </ButtonContainer>
       </Form>

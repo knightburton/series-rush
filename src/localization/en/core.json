@@ -38,7 +38,7 @@
     ],
     "personal": "Personal Informations",
     "emailVerification": "Email Verification",
-    "emailVerified": "Your email address is $t(translation:account.verified_{{verified}})",
+    "emailVerified": "Your email address is $t(core:account.verified_{{verified}})",
     "verified_true": "verified",
     "verified_false": "not verified",
     "newPassword": "New Password",

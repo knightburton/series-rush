@@ -13,7 +13,7 @@ import { ALERT_AUTOHIDE_DURATION } from 'constants/core';
 const Transition = (props: SlideProps): JSX.Element => <Slide {...props} direction="right" />;
 
 const AppAlert = (): JSX.Element => {
-  const { t } = useTranslation(['common', 'alert', 'translation']);
+  const { t } = useTranslation(['common', 'alert', 'core']);
   const dispatch = useDispatch();
   const alert = useSelector<IAlert | undefined>(getMostRecentAlert);
   const [open, setOpen] = useState(false);

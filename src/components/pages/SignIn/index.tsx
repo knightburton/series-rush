@@ -15,7 +15,7 @@ import { EMAIL, TEXT_MIN, TEXT_MAX } from 'constants/validation';
 type OnSubmitCallback = (credentials: SignInCredentials) => void;
 
 const SignIn = (): JSX.Element => {
-  const { t } = useTranslation(['common', 'alert', 'translation']);
+  const { t } = useTranslation(['common', 'alert', 'core']);
   const dispatch = useDispatch();
   const isLoading = useSelector<boolean>(getIsLoading);
   const onSubmit = useCallback<OnSubmitCallback>(credentials => dispatch(signIn(credentials)), [dispatch]);
@@ -37,7 +37,7 @@ const SignIn = (): JSX.Element => {
 
   return (
     <Container maxWidth="xs">
-      <Title>{t('translation:signIn.title')}</Title>
+      <Title>{t('core:signIn.title')}</Title>
       <Form onSubmit={handleSubmit}>
         <FormText
           id="email"
@@ -60,10 +60,10 @@ const SignIn = (): JSX.Element => {
         />
         <ButtonContainer align="flex-end">
           <Button type="submit" variant="contained" loading={isLoading}>
-            {t('translation:signIn.title')}
+            {t('core:signIn.title')}
           </Button>
           <Button color="secondary" disabled={isLoading}>
-            {t('translation:forgotPassword.title')}
+            {t('core:forgotPassword.title')}
           </Button>
         </ButtonContainer>
       </Form>

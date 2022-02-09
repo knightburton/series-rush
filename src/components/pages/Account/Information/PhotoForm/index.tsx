@@ -16,7 +16,7 @@ import { getInProgressByType, getUserProfilePhoto, updateProfilePhoto, deletePro
 import { MAX_FILE_SIZE_IN_B, MAX_FILE_SIZE_IN_MB } from '../../../../../constants/core';
 
 const PhotoForm = (): JSX.Element => {
-  const { t } = useTranslation(['translation', 'common', 'alert']);
+  const { t } = useTranslation(['core', 'common', 'alert']);
   const [hover, setHover] = useState<boolean>(false);
   const [error, setError] = useState<boolean>(false);
   const [file, setFile] = useState<File>();
@@ -64,7 +64,7 @@ const PhotoForm = (): JSX.Element => {
 
   return (
     <Paper>
-      <Title variant="secondary">{t('translation:account.image')}</Title>
+      <Title variant="secondary">{t('core:account.image')}</Title>
       <Stack direction="column" justifyContent="center" alignItems="center" spacing={2}>
         <Box
           sx={({ spacing }) => ({
@@ -103,7 +103,7 @@ const PhotoForm = (): JSX.Element => {
                 <>
                   <NoPhotographyOutlinedIcon color="disabled" />
                   <Typography variant="caption" color="text.secondary">
-                    {t('translation:account.imageMissing')}
+                    {t('core:account.imageMissing')}
                   </Typography>
                 </>
               )}
@@ -127,7 +127,7 @@ const PhotoForm = (): JSX.Element => {
               })}
             >
               <AddAPhotoIcon />
-              <Typography variant="caption">{t('translation:account.imageAdd')}</Typography>
+              <Typography variant="caption">{t('core:account.imageAdd')}</Typography>
             </Box>
           )}
         </Box>
@@ -137,10 +137,10 @@ const PhotoForm = (): JSX.Element => {
           </Typography>
         )}
         <Typography variant="caption" color="text.secondary">
-          {t('translation:account.imageTypes')}
+          {t('core:account.imageTypes')}
         </Typography>
         <Typography variant="caption" color="text.secondary">
-          {t('translation:account.imageSize', { limit: MAX_FILE_SIZE_IN_MB })}
+          {t('core:account.imageSize', { limit: MAX_FILE_SIZE_IN_MB })}
         </Typography>
         <Input value="" inputProps={{ ref: fileInput, accept: '.jpeg,.jpg,.png,.gif' }} type="file" sx={{ display: 'none' }} onChange={handleInputChange} />
       </Stack>
@@ -152,8 +152,8 @@ const PhotoForm = (): JSX.Element => {
         ) : (
           <Confirmation
             id="delete-profile-photo"
-            title={t('translation:account.imageDelete')}
-            description={t('translation:account.imageDeleteDescription')}
+            title={t('core:account.imageDelete')}
+            description={t('core:account.imageDeleteDescription')}
             onAgree={handleDeleteAgree}
             toggle={confirmationToggle}
           />

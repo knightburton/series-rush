@@ -3,20 +3,20 @@ import { initReactI18next } from 'react-i18next';
 
 import enAlert from './en/alert.json';
 import enCommon from './en/common.json';
-import enTranslation from './en/translation.json';
+import enCore from './en/core.json';
 
 const debug = process.env.NODE_ENV === 'development';
 
 i18n.use(initReactI18next).init({
-  defaultNS: 'translation',
+  defaultNS: 'core',
   resources: {
     en: {
       common: enCommon,
       alert: enAlert,
-      translation: enTranslation,
+      core: enCore,
     },
   },
-  ns: ['alert', 'common', 'translation'],
+  ns: ['alert', 'common', 'core'],
   fallbackLng: 'en',
   lng: 'en',
   interpolation: {
