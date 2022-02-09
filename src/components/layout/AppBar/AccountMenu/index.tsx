@@ -29,7 +29,7 @@ const AccountMenu = (): JSX.Element => {
     setAnchorEl(event.currentTarget);
   }, []);
   const handleClose = useCallback(() => setAnchorEl(null), []);
-  const handleAccountClick = useCallback<() => void>(() => navigate('/account'), [navigate]);
+  const handleAccountClick = useCallback<() => void>(() => navigate('/account/information'), [navigate]);
   const handleSignOut = useCallback<() => void>(() => dispatch(signOut()), [dispatch]);
   const handleSignIn = useCallback<() => void>(() => navigate('/sign-in'), [navigate]);
 
