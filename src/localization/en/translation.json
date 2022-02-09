@@ -4,7 +4,8 @@
     "turnOffLight": "Turn off the light",
     "turnOnLight": "Turn on the light",
     "account": "Account",
-    "signOut": "Sign Out"
+    "signOut": "Sign Out",
+    "signOutDescription": "Finish current session"
   },
   "signIn": {
     "title": "Sign In"
@@ -13,7 +14,7 @@
     "title": "Forgot Password"
   },
   "account": {
-    "title": "Account Preferences",
+    "title": "Account",
     "description": "Check or update your preferences",
     "information": "Information",
     "security": "Security",

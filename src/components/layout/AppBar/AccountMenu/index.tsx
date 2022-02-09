@@ -100,7 +100,7 @@ const AccountMenu = (): JSX.Element => {
           <ListItemIcon>
             <LogoutOutlinedIcon fontSize="small" />
           </ListItemIcon>
-          <ListItemText primary={t('appBar.signOut')} />
+          <ListItemText primary={t('appBar.signOut')} secondary={t('appBar.signOutDescription')} />
         </MenuItem>
       </Menu>
     </>
