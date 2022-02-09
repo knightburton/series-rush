@@ -1,5 +1,7 @@
 import MuiTab from '@mui/material/Tab';
 import { styled } from '@mui/material/styles';
+import type { TabTypeMap } from '@mui/material/Tab';
+import type { ExtendButtonBase } from '@mui/material/ButtonBase';
 
 const Tab = styled(MuiTab)(({ theme }) => ({
   textTransform: 'none',
@@ -23,6 +25,6 @@ const Tab = styled(MuiTab)(({ theme }) => ({
   '&.Mui-focusVisible': {
     backgroundColor: theme.palette.action.focus,
   },
-}));
+})) as ExtendButtonBase<TabTypeMap<unknown, 'div'>>;
 
 export default Tab;
