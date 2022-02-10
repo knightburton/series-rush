@@ -55,6 +55,7 @@ export const getUser = (state: RootState): User | null => state.auth.user;
 export const getIsAuthenticated = createSelector<[typeof getUser], boolean>(getUser, user => !!user);
 export const getUserId = createSelector<[typeof getUser], string>(getUser, user => user?.uid || '');
 export const getUserProfilePhoto = createSelector<[typeof getUser], string>(getUser, user => user?.photoURL || '');
+export const getUserDisplayName = createSelector<[typeof getUser], string>(getUser, user => user?.displayName || '');
 export const getUserDisplayNameFirstCharacter = createSelector<[typeof getUser], string>(getUser, user => (user?.displayName || user?.email || '').charAt(0));
 export const getUserEmailIsVerified = createSelector<[typeof getUser], boolean>(getUser, user => !!user?.emailVerified);
 
