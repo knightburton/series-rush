@@ -13,6 +13,10 @@
   "forgotPassword": {
     "title": "Forgot Password"
   },
+  "profile": {
+    "title": "Profile",
+    "description": "Public informations and stats"
+  },
   "account": {
     "title": "Account",
     "description": "Check or update your preferences",
