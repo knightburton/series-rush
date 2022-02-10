@@ -11,6 +11,7 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import LogoutOutlinedIcon from '@mui/icons-material/LogoutOutlined';
 import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
+import ManageAccountsOutlinedIcon from '@mui/icons-material/ManageAccountsOutlined';
 import Button from 'components/core/Button';
 import { useSelector, useDispatch } from 'hooks/redux';
 import { getIsAuthenticated, getUserProfilePhoto, getUserDisplayNameFirstCharacter, signOut } from 'store/auth';
@@ -29,6 +30,7 @@ const AccountMenu = (): JSX.Element => {
     setAnchorEl(event.currentTarget);
   }, []);
   const handleClose = useCallback(() => setAnchorEl(null), []);
+  const handleProfileClick = useCallback<() => void>(() => navigate('/profile'), [navigate]);
   const handleAccountClick = useCallback<() => void>(() => navigate('/account/information'), [navigate]);
   const handleSignOut = useCallback<() => void>(() => dispatch(signOut()), [dispatch]);
   const handleSignIn = useCallback<() => void>(() => navigate('/sign-in'), [navigate]);
@@ -89,9 +91,15 @@ const AccountMenu = (): JSX.Element => {
           dense: true,
         }}
       >
-        <MenuItem onClick={handleAccountClick}>
+        <MenuItem onClick={handleProfileClick}>
           <ListItemIcon>
             <AccountCircleOutlinedIcon fontSize="small" />
+          </ListItemIcon>
+          <ListItemText primary={t('profile.title')} secondary={t('profile.description')} />
+        </MenuItem>
+        <MenuItem onClick={handleAccountClick}>
+          <ListItemIcon>
+            <ManageAccountsOutlinedIcon fontSize="small" />
           </ListItemIcon>
           <ListItemText primary={t('account.title')} secondary={t('account.description')} />
         </MenuItem>

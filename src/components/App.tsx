@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import PublicRoute from './layout/PublicRoute';
 import PrivateRoute from './layout/PrivateRoute';
 import Layout from './layout/AppLayout';
+import Profile from './pages/Profile';
 import Account from './pages/Account';
 import AccountInformation from './pages/Account/Information';
 import AccountManagement from './pages/Account/Management';
@@ -18,6 +19,7 @@ const App = (): JSX.Element => (
           <Route path="sign-in" element={<SignIn />} />
         </Route>
         <Route element={<PrivateRoute />}>
+          <Route path="profile" element={<Profile />} />
           <Route path="account" element={<Account />}>
             <Route path="information" element={<AccountInformation />} />
             <Route path="security" element={<AccountSecurity />} />
