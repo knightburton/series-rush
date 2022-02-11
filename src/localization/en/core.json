@@ -41,10 +41,11 @@
       "you have to verify that later on."
     ],
     "personal": "Personal Informations",
-    "emailVerification": "Email Verification",
+    "emailVerification": "Email",
     "emailVerified": "Your email address is $t(core:account.verified_{{verified}})",
     "verified_true": "verified",
     "verified_false": "not verified",
+    "emailStartVerification": "Start Verification",
     "newPassword": "New Password",
     "confirmPassword": "Confirm Password",
     "save": "Save Changes",

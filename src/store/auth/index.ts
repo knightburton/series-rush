@@ -135,12 +135,12 @@ export const deleteProfilePhoto = createAsyncThunk<void, void>('auth/deleteProfi
   }
 });
 
-const triggerEmailVerification = createAsyncThunk<void, void>('auth/triggerEmailVerification', async (_, { dispatch }) => {
+export const triggerEmailVerification = createAsyncThunk<void, void>('auth/triggerEmailVerification', async (_, { dispatch }) => {
   try {
     const { currentUser } = getAuth();
     if (!currentUser) throw new Error('alert:auth/user-not-found');
     await sendEmailVerification(currentUser);
-    dispatch(addAlert({ message: 'alert:auth/emailVerificationSent' }));
+    dispatch(addAlert({ message: 'alert:auth/emailVerificationSent', severity: 'info' }));
   } catch (error) {
     dispatch(addAlert(error as Error));
   }
