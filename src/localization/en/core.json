@@ -48,7 +48,8 @@
     "newPassword": "New Password",
     "confirmPassword": "Confirm Password",
     "save": "Save Changes",
-    "changePassword": "Change Password"
+    "changePassword": "Change Password",
+    "privacy": "Privacy"
   },
   "search": {
     "title": "Search"

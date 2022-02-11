@@ -45,7 +45,7 @@ const ChangePasswordForm = (): JSX.Element => {
   });
 
   return (
-    <Paper>
+    <Paper sx={{ mt: 2 }}>
       <Title variant="secondary">{t('core:account.changePassword')}</Title>
       <Form onSubmit={handleSubmit}>
         <FormText
